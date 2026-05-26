@@ -16,6 +16,13 @@ function dateToDateOnly(d) {
   return dt.toISOString().split('T')[0];
 }
 
+function toPrismaStatus(s) {
+  return s === 'in-testing' ? 'in_testing' : s;
+}
+function fromPrismaStatus(s) {
+  return s === 'in_testing' ? 'in-testing' : s;
+}
+
 function toAppDataPayload(db) {
   return {
     projects: db.projects,
@@ -78,7 +85,7 @@ export class DataStoreDB {
         description: t.description,
         projectId: t.projectId,
         assigneeId: t.assigneeId,
-        status: t.status,
+        status: fromPrismaStatus(t.status),
         priority: t.priority,
         weight: t.weight,
         deadline: t.deadline?.toISOString?.() ?? null,
@@ -92,7 +99,7 @@ export class DataStoreDB {
         tags: t.tags ?? null,
       })),
       statuses: statuses.map((s) => ({
-        id: s.id,
+        id: fromPrismaStatus(s.id),
         label: s.label,
         color: s.color,
         order: s.order,
@@ -186,9 +193,9 @@ export class DataStoreDB {
       // status configs
       for (const s of payload.statuses ?? []) {
         await tx.statusConfig.upsert({
-          where: { id: s.id },
+          where: { id: toPrismaStatus(s.id) },
           update: { label: s.label, color: s.color, order: s.order },
-          create: { id: s.id, label: s.label, color: s.color, order: s.order },
+          create: { id: toPrismaStatus(s.id), label: s.label, color: s.color, order: s.order },
         });
       }
 
@@ -215,7 +222,7 @@ export class DataStoreDB {
             description: t.description,
             projectId: t.projectId,
             assigneeId: t.assigneeId,
-            status: t.status,
+            status: toPrismaStatus(t.status),
             priority: t.priority,
             weight: t.weight,
             deadline: t.deadline ? new Date(t.deadline) : null,
@@ -232,7 +239,7 @@ export class DataStoreDB {
             description: t.description,
             projectId: t.projectId,
             assigneeId: t.assigneeId,
-            status: t.status,
+            status: toPrismaStatus(t.status),
             priority: t.priority,
             weight: t.weight,
             deadline: t.deadline ? new Date(t.deadline) : null,
