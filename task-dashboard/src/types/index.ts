@@ -21,6 +21,7 @@ export interface Project {
 export interface Member {
   id: string;
   name: string;
+  email: string;
   role: string;
   avatarColor: string;
   initials: string;

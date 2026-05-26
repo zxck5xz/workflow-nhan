@@ -1,13 +1,36 @@
 import type { AppData } from '../types';
+import { authService } from '../../services/authService';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
+  // Get token from auth service
+  const token = authService.getToken();
+  
+  // Prepare headers
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
+  
+  // Add authorization header if token exists
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  
+  // Merge with user-provided options
+  const mergedOptions: RequestInit = {
+    headers,
     ...options,
-  });
+  };
+
+  const res = await fetch(`${API_BASE}${path}`, mergedOptions);
   if (!res.ok) {
+    // Handle 401 Unauthorized by clearing session
+    if (res.status === 401) {
+      authService.clearSession();
+      // Reload page to redirect to login
+      window.location.href = '/';
+    }
     throw new Error(`API ${res.status}: ${res.statusText}`);
   }
   return res.json();

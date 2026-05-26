@@ -28,6 +28,13 @@ enum TaskStatus {
   done
 }
 
+enum Role {
+  ADMIN
+  MANAGER
+  TESTER
+  VIEWER
+}
+
 
 enum Priority {
   P0
@@ -53,10 +60,12 @@ model Project {
 model Member {
   id         String   @id
   name       String
+  email      String   @unique
   role       String
   avatarColor String
   initials   String
   joinedAt   DateTime
+  password   String   // hashed password
 
   tasks      Task[]
   scorecards GameScorecard[]
