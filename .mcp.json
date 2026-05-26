@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "harness-context-optimizer": {
+      "command": ".venv/Scripts/python.exe",
+      "args": [
+        "Harness-context-engineering/server.py"
+      ],
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+/* ============================================================
+   Task List Page Styles
+   ============================================================ */
+
+.tasks-page {
+  animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+/* ── Task Table Wrapper ── */
+.tasks-table-wrapper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-surface-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.tasks-table-scroll {
+  overflow-x: auto;
+}
+
+/* ── Task Row specifics ── */
+.task-row--overdue {
+  background: rgba(255, 71, 87, 0.04);
+}
+
+.task-row--overdue:hover {
+  background: rgba(255, 71, 87, 0.08) !important;
+}
+
+.task-title-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-title-text {
+  font-weight: 500;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-smooth);
+}
+
+.task-title-text:hover {
+  color: var(--color-accent);
+}
+
+.task-tags {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.task-tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-hover);
+  color: var(--color-text-muted);
+}
+
+/* ── Inline Status Select ── */
+.status-select {
+  padding: 2px 6px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  appearance: none;
+  font-family: var(--font-sans);
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.status-select:hover {
+  border-color: var(--color-surface-border-hover);
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* ── Deadline Cell ── */
+.deadline-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.deadline-text--overdue {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.deadline-text--soon {
+  color: var(--color-warning);
+}
+
+.deadline-text--ok {
+  color: var(--color-text-secondary);
+}
+
+/* ── Assignee Cell ── */
+.assignee-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.assignee-name {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── Quick Stats ── */
+.tasks-quick-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+@media (max-width: 900px) {
+  .tasks-quick-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Sort indicator ── */
+.sort-indicator {
+  font-size: 10px;
+  margin-left: 4px;
+  opacity: 0.5;
+}
+
+.sort-indicator--active {
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+/* ── Project dot ── */
+.project-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* ── Eisenhower indicator ── */
+.eisenhower-indicator {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+}
+
+.eisenhower-indicator span {
+  opacity: 0.4;
+}
+
+.eisenhower-indicator span.active {
+  opacity: 1;
+}

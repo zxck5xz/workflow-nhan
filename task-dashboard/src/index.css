@@ -1,0 +1,2 @@
+/* Redirect to use global.css for styling */
+@import './styles/global.css';

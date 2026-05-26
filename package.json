@@ -1,0 +1,12 @@
+{
+  "name": "harness-context-engineering",
+  "version": "1.0.0",
+  "description": "MCP server setup",
+  "private": true,
+  "scripts": {
+    "start": "set UPSTASH_API_KEY=273c3be7-f7a5-4f79-8152-998fca8e8f37 && npx -y @upstash/context7-mcp --transport http --port 3001"
+  },
+  "dependencies": {
+    "@upstash/context7-mcp": "latest"
+  }
+}

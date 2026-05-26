@@ -1,0 +1,5 @@
+.page-help { display: inline-block; }
+.page-help-content h4 { margin-top: 0; }
+.page-help-content h5 { margin-bottom: 0.5rem; margin-top: 1rem; }
+.page-help-content ul { margin: 0 0 1rem 1rem; }
+.page-help-content p { margin: 0 0 0.75rem 0; }
