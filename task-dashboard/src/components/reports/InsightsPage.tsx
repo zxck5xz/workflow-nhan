@@ -283,9 +283,9 @@ function InsightModal({ isOpen, insight, members, onClose, onSave }: any) {
       week: insight?.week || getStartOfWeek(new Date()).toISOString().split('T')[0],
       title,
       overallStatus,
-      highlights: highlights.split('\n').filter(s => s.trim()),
-      risks: risks.split('\n').filter(s => s.trim()),
-      actionItems: actionItems.split('\n').filter(s => s.trim()),
+      highlights: highlights.split('\n').filter((s: string) => s.trim()),
+      risks: risks.split('\n').filter((s: string) => s.trim()),
+      actionItems: actionItems.split('\n').filter((s: string) => s.trim()),
       authorId,
       createdAt: insight?.createdAt || new Date().toISOString()
     });
