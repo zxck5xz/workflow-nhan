@@ -202,6 +202,7 @@ function MemberModal({ isOpen, member, onClose, onSave }: { isOpen: boolean; mem
     onSave({
       id: member?.id || `mem-${uuid().slice(0, 8)}`,
       name: name.trim(),
+      email: member?.email || `${name.trim().toLowerCase().replace(/\s+/g, '.')}@example.com`,
       role: role.trim() || 'Tester',
       avatarColor: color,
       initials: getInitials(name.trim()),

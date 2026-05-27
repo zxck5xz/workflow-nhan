@@ -7,7 +7,7 @@ RUN npm ci
 
 COPY src ./src
 COPY prisma ./prisma
-COPY src/data ./data
+COPY src/data ./src/data
 
 # Generate Prisma client at build time so runtime has `.prisma/client/*`
 # Ensure prisma generate uses schema inside /app/prisma (not repo root)

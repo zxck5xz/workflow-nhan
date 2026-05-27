@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useApp, AppProvider } from './contexts/AppContext';
 import { useAuth } from './contexts/AuthContext';
 import { Sidebar } from './components/Sidebar';
@@ -13,6 +14,7 @@ import { RegisterForm } from './components/auth/RegisterForm';
 function AppContent() {
   const { state } = useApp();
   const { user, loading } = useAuth();
+  const [authTab, setAuthTab] = useState<'login' | 'register'>('login');
   
   // Show loading spinner while checking auth state
   if (loading) {
@@ -29,15 +31,11 @@ function AppContent() {
       <div className="app-layout auth-layout">
         <div className="auth-container">
           <div className="auth-tabs">
-            <button className="tab active" onclick="showTab('login')">Login</button>
-            <button className="tab" onclick="showTab('register')">Register</button>
+            <button className={`tab ${authTab === 'login' ? 'active' : ''}`} onClick={() => setAuthTab('login')}>Login</button>
+            <button className={`tab ${authTab === 'register' ? 'active' : ''}`} onClick={() => setAuthTab('register')}>Register</button>
           </div>
-          <div id="login-tab" className="tab-content active">
-            <LoginForm />
-          </div>
-          <div id="register-tab" className="tab-content">
-            <RegisterForm />
-          </div>
+          {authTab === 'login' && <LoginForm />}
+          {authTab === 'register' && <RegisterForm />}
         </div>
       </div>
     );

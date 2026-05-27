@@ -20,11 +20,11 @@ export const seedData: AppData = {
     { id: 'proj-3', name: 'Idle Farm Android', platform: 'Android', genre: 'Idle/Casual', status: 'active', color: '#3b82f6', createdAt: past(30) },
   ],
   members: [
-    { id: 'mem-1', name: 'Nhân Nguyễn', role: 'Lead Tester', avatarColor: '#ff6b35', initials: 'NN', joinedAt: past(120) },
-    { id: 'mem-2', name: 'Minh Trần', role: 'Game Analyst', avatarColor: '#00c48c', initials: 'MT', joinedAt: past(100) },
-    { id: 'mem-3', name: 'Linh Phạm', role: 'QA Tester', avatarColor: '#3b82f6', initials: 'LP', joinedAt: past(90) },
-    { id: 'mem-4', name: 'Hùng Lê', role: 'QA Tester', avatarColor: '#ffb830', initials: 'HL', joinedAt: past(80) },
-    { id: 'mem-5', name: 'Thảo Đỗ', role: 'Report Writer', avatarColor: '#e74c8b', initials: 'TĐ', joinedAt: past(70) },
+    { id: 'mem-1', name: 'Nhân Nguyễn', email: 'nhan@example.com', role: 'Lead Tester', avatarColor: '#ff6b35', initials: 'NN', joinedAt: past(120) },
+    { id: 'mem-2', name: 'Minh Trần', email: 'minh@example.com', role: 'Game Analyst', avatarColor: '#00c48c', initials: 'MT', joinedAt: past(100) },
+    { id: 'mem-3', name: 'Linh Phạm', email: 'linh@example.com', role: 'QA Tester', avatarColor: '#3b82f6', initials: 'LP', joinedAt: past(90) },
+    { id: 'mem-4', name: 'Hùng Lê', email: 'hung@example.com', role: 'QA Tester', avatarColor: '#ffb830', initials: 'HL', joinedAt: past(80) },
+    { id: 'mem-5', name: 'Thảo Đỗ', email: 'thao@example.com', role: 'Report Writer', avatarColor: '#e74c8b', initials: 'TĐ', joinedAt: past(70) },
   ],
   tasks: [
     // ── Active tasks ──

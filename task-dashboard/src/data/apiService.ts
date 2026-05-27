@@ -1,5 +1,5 @@
 import type { AppData } from '../types';
-import { authService } from '../../services/authService';
+import { authService } from '../services/authService';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
