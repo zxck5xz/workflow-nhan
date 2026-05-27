@@ -14,11 +14,11 @@
 - [x] Implemented `backend/src/data-store-db.js` (Prisma-backed store + snapshots via `Snapshot` table)
 - [x] Updated `backend/src/server.js` to use DB store when `DATABASE_URL` is set, otherwise fallback to JSON store
 - [x] Verified backend boots and `/api/health` and `/api/app-data` work with JSON fallback
+- [x] Full-stack deploy: Vercel (frontend) + Railway (backend) + Neon (DB)
+- [x] User authentication: JWT, register/login/me endpoints, auth middleware
+- [x] Fix deploy failures (duplicate routes, Prisma 7 compatibility, Vite build path)
 
 ## Remaining
-- [ ] Ensure snapshot endpoints fully use `DataStoreDB` when DB enabled (currently snapshot endpoints still use JSON store)
 - [ ] Run prisma generate/build verification (if needed)
-- [ ] Prisma migrate + import data
+- [ ] Prisma migrate + import data (production DB synced via `prisma db push`)
 - [ ] docker-compose verification
-- [ ] Hosting recommendations + minimal deployment steps
-
