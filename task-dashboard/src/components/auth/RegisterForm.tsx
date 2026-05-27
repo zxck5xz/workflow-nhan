@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 export const RegisterForm = () => {
   const [name, setName] = useState('');
@@ -10,7 +9,6 @@ export const RegisterForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,8 +17,6 @@ export const RegisterForm = () => {
     
     try {
       await register(name, email, password, role);
-      // Redirect to dashboard after successful registration
-      navigate('/tasks');
     } catch (err: any) {
       setError(err.message || 'Registration failed');
     } finally {

@@ -25,11 +25,8 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 
   const res = await fetch(`${API_BASE}${path}`, mergedOptions);
   if (!res.ok) {
-    // Handle 401 Unauthorized by clearing session
     if (res.status === 401) {
       authService.clearSession();
-      // Reload page to redirect to login
-      window.location.href = '/';
     }
     throw new Error(`API ${res.status}: ${res.statusText}`);
   }

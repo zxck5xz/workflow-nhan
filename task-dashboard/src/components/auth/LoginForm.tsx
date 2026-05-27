@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -8,7 +7,6 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,8 +15,6 @@ export const LoginForm = () => {
     
     try {
       await login(email, password);
-      // Redirect to dashboard after successful login
-      navigate('/tasks');
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {
