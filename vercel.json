@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd task-dashboard && npm run build",
+  "installCommand": "cd task-dashboard && npm install",
+  "outputDirectory": "task-dashboard/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
