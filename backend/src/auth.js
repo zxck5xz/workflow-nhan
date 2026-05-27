@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { PrismaClient } from './generated/client.ts';
@@ -37,6 +38,7 @@ export class AuthService {
     // Create user
     const user = await getPrisma().member.create({
       data: {
+        id: crypto.randomUUID(),
         name,
         email,
         role,
