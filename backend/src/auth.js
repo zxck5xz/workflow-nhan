@@ -1,8 +1,17 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { PrismaClient } from './generated/client.ts';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient();
+let prisma = null;
+function getPrisma() {
+  if (prisma) return prisma;
+  prisma = new PrismaClient({
+    adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+  });
+  return prisma;
+}
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const JWT_EXPIRES_IN = '24h';
 
@@ -14,7 +23,7 @@ export class AuthService {
     const { name, email, password, role = 'VIEWER' } = userData;
     
     // Check if user already exists
-    const existingUser = await prisma.member.findUnique({
+    const existingUser = await getPrisma().member.findUnique({
       where: { email }
     });
     
@@ -26,7 +35,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 10);
     
     // Create user
-    const user = await prisma.member.create({
+    const user = await getPrisma().member.create({
       data: {
         name,
         email,
@@ -51,7 +60,7 @@ export class AuthService {
    */
   static async login(email, password) {
     // Find user
-    const user = await prisma.member.findUnique({
+    const user = await getPrisma().member.findUnique({
       where: { email }
     });
     
@@ -95,7 +104,7 @@ export class AuthService {
    * Get user by ID
    */
   static async getUserById(id) {
-    const user = await prisma.member.findUnique({
+    const user = await getPrisma().member.findUnique({
       where: { id }
     });
     
