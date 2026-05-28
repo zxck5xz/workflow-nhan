@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useApp, AppProvider } from './contexts/AppContext';
 import { useAuth } from './contexts/AuthContext';
 import { Sidebar } from './components/Sidebar';
@@ -10,7 +9,6 @@ import { StaffReportPage } from './components/reports/StaffReportPage';
 import { InsightsPage } from './components/reports/InsightsPage';
 import { UserManagementPage } from './components/auth/UserManagementPage';
 import { LoginForm } from './components/auth/LoginForm';
-import { RegisterForm } from './components/auth/RegisterForm';
 
 function AppContent() {
   const { state } = useApp();
