@@ -242,12 +242,15 @@ app.post('/api/open-file', (req, res) => {
 
 // Authentication routes (excluded from middleware above)
 app.post('/api/auth/register', async (req, res) => {
+  return res.status(403).json({ error: 'Public registration is currently disabled' });
+  /*
   try {
     const { user, token } = await AuthService.register(req.body);
     res.json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  */
 });
 
 app.post('/api/auth/login', async (req, res) => {

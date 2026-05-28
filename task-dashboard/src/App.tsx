@@ -15,7 +15,6 @@ import { RegisterForm } from './components/auth/RegisterForm';
 function AppContent() {
   const { state } = useApp();
   const { user, loading } = useAuth();
-  const [authTab, setAuthTab] = useState<'login' | 'register'>('login');
   
   // Show loading spinner while checking auth state
   if (loading) {
@@ -26,17 +25,16 @@ function AppContent() {
     );
   }
   
-  // If user is not authenticated, show login/register forms
+  // If user is not authenticated, show only login form (Registration disabled)
   if (!user) {
     return (
       <div className="app-layout auth-layout">
         <div className="auth-container">
-          <div className="auth-tabs">
-            <button className={`tab ${authTab === 'login' ? 'active' : ''}`} onClick={() => setAuthTab('login')}>Login</button>
-            <button className={`tab ${authTab === 'register' ? 'active' : ''}`} onClick={() => setAuthTab('register')}>Register</button>
+          <div className="auth-header">
+            <h2>Workflow Management</h2>
+            <p>Please log in to continue</p>
           </div>
-          {authTab === 'login' && <LoginForm />}
-          {authTab === 'register' && <RegisterForm />}
+          <LoginForm />
         </div>
       </div>
     );
