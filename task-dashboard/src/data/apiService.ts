@@ -24,9 +24,15 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   };
 
   const res = await fetch(`${API_BASE}${path}`, mergedOptions);
+  
   if (!res.ok) {
     if (res.status === 401) {
       authService.clearSession();
+      // Inform the user and reload to force login page
+      console.error('Session expired, redirecting to login...');
+      alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+      window.location.reload();
+      return {} as T; // Return dummy value to satisfy type system while redirecting
     }
     throw new Error(`API ${res.status}: ${res.statusText}`);
   }
