@@ -2,7 +2,7 @@
 // It is intended to back /api/app-data and /api/snapshot endpoints.
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated"
 }
 

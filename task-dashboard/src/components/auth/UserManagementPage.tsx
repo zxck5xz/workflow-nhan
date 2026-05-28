@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { authService } from '../../services/authService';
-import { Button, Avatar, Badge, EmptyState } from '../common';
+import { Button, Avatar, EmptyState } from '../common';
 import PageHelp from '../common/PageHelp';
 import type { Member } from '../../types';
 import './UserManagementPage.css';

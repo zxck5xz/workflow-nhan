@@ -74,6 +74,7 @@ export class DataStoreDB {
       members: members.map((m) => ({
         id: m.id,
         name: m.name,
+        email: m.email,
         role: m.role,
         avatarColor: m.avatarColor,
         initials: m.initials,
@@ -174,6 +175,7 @@ export class DataStoreDB {
           where: { id: m.id },
           update: {
             name: m.name,
+            email: m.email || `${m.id}@example.com`,
             role: m.role,
             avatarColor: m.avatarColor,
             initials: m.initials,
@@ -182,10 +184,12 @@ export class DataStoreDB {
           create: {
             id: m.id,
             name: m.name,
+            email: m.email || `${m.id}@example.com`,
             role: m.role,
             avatarColor: m.avatarColor,
             initials: m.initials,
             joinedAt: m.joinedAt ? new Date(m.joinedAt) : new Date(),
+            password: 'default-sync-password', // Placeholder for synced members
           },
         });
       }

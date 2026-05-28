@@ -3,7 +3,7 @@ import { useApp } from '../../contexts/AppContext';
 import { Button, Badge, Avatar, WeightDots, EmptyState, TaskFormModal, ProjectModal } from '../common';
 import PageHelp from '../common/PageHelp';
 import { isOverdue, formatRelativeDate, getDaysUntilDeadline } from '../../utils';
-import type { Task, TaskStatus, Priority, TaskFilters, Project } from '../../types';
+import type { Task, TaskStatus, Priority, TaskFilters } from '../../types';
 import './TaskListPage.css';
 
 type SortKey = 'title' | 'deadline' | 'priority' | 'weight' | 'status';

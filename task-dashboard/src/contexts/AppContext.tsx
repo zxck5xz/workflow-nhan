@@ -144,7 +144,7 @@ const AppContext = createContext<AppContextValue | null>(null);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, {
     data: seedData,
-    activePage: 'tasks',
+    activePage: 'project-control',
     sidebarCollapsed: false,
     loading: true,
   });

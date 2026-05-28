@@ -1,16 +1,16 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { Button, Badge, Avatar, WeightDots, EmptyState, TaskFormModal, ProjectModal } from '../common';
+import { Button, Badge, Avatar, EmptyState, TaskFormModal, ProjectModal } from '../common';
 import PageHelp from '../common/PageHelp';
-import { isOverdue, formatRelativeDate, getDaysUntilDeadline } from '../../utils';
-import type { Task, Project, TaskStatus, Priority } from '../../types';
+import { isOverdue, formatRelativeDate } from '../../utils';
+import type { Task, Project } from '../../types';
 import './ProjectControlPage.css';
 
 type ViewMode = 'list' | 'board' | 'overview';
 
 export function ProjectControlPage() {
   const { state, dispatch } = useApp();
-  const { tasks, projects, members, statuses } = state.data;
+  const { tasks, projects } = state.data;
 
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -157,7 +157,7 @@ export function ProjectControlPage() {
 
 function ListView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task) => void }) {
   const { state } = useApp();
-  const { projects, members, statuses } = state.data;
+  const { members, statuses } = state.data;
 
   if (tasks.length === 0) return <EmptyState icon="📝" title="Chưa có công việc" description="Bắt đầu bằng cách tạo một công việc mới." />;
 

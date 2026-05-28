@@ -11,15 +11,19 @@ interface ButtonProps {
   type?: 'button' | 'submit';
   disabled?: boolean;
   className?: string;
+  title?: string;
+  style?: React.CSSProperties;
 }
 
-export function Button({ children, variant = 'secondary', size = 'md', onClick, type = 'button', disabled, className = '' }: ButtonProps) {
+export function Button({ children, variant = 'secondary', size = 'md', onClick, type = 'button', disabled, className = '', title, style }: ButtonProps) {
   return (
     <button
       type={type}
       className={`btn btn--${variant} ${size !== 'md' ? `btn--${size}` : ''} ${className}`}
       onClick={onClick}
       disabled={disabled}
+      title={title}
+      style={style}
     >
       {children}
     </button>
@@ -31,11 +35,12 @@ interface BadgeProps {
   children: ReactNode;
   variant?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function Badge({ children, variant = '', className = '' }: BadgeProps) {
+export function Badge({ children, variant = '', className = '', style }: BadgeProps) {
   return (
-    <span className={`badge ${variant ? `badge--${variant}` : ''} ${className}`}>
+    <span className={`badge ${variant ? `badge--${variant}` : ''} ${className}`} style={style}>
       {children}
     </span>
   );
@@ -45,7 +50,7 @@ export function Badge({ children, variant = '', className = '' }: BadgeProps) {
 interface AvatarProps {
   initials: string;
   color: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   title?: string;
 }
 

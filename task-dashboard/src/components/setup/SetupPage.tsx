@@ -4,7 +4,7 @@ import { Button, Avatar, Modal, ProjectModal } from '../common';
 import PageHelp from '../common/PageHelp';
 import { v4 as uuid } from 'uuid';
 import { getInitials } from '../../utils';
-import type { Project, Member, Platform } from '../../types';
+import type { Project, Member } from '../../types';
 import './SetupPage.css';
 
 const COLORS = ['#ff6b35', '#00c48c', '#3b82f6', '#ffb830', '#e74c8b', '#8b5cf6', '#ef4444', '#06b6d4', '#84cc16', '#f97316'];
