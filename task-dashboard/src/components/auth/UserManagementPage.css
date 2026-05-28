@@ -1,0 +1,78 @@
+.user-management-page {
+  padding: var(--space-4);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.users-container {
+  margin-top: var(--space-4);
+}
+
+.users-table-wrapper {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.self-badge {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.role-select {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  outline: none;
+  min-width: 110px;
+}
+
+.role-select:focus {
+  border-color: var(--color-accent);
+}
+
+.role-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.current-user-row {
+  background: rgba(var(--color-accent-rgb), 0.05);
+}
+
+.delete-btn:hover {
+  color: var(--color-danger) !important;
+}
+
+.loading-state, .error-state {
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.error-state {
+  color: var(--color-danger);
+}

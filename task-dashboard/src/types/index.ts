@@ -133,7 +133,7 @@ export interface CalendarEvent {
 }
 
 // Navigation
-export type PageId = 'setup' | 'tasks' | 'calendar' | 'reports' | 'staff-reports' | 'insights';
+export type PageId = 'setup' | 'project-control' | 'calendar' | 'reports' | 'staff-reports' | 'insights' | 'user-management';
 
 export interface NavItem {
   id: PageId;

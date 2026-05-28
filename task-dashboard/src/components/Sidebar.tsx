@@ -1,11 +1,13 @@
 import { useApp } from '../contexts/AppContext';
+import { useAuth } from '../contexts/AuthContext';
 import type { PageId } from '../types';
 import './Sidebar.css';
 
-const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string }[] = [
-  { id: 'tasks', label: 'Công việc', icon: '📋', section: 'Quản lý' },
+const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string; role?: string }[] = [
+  { id: 'project-control', label: 'Dự án & Task', icon: '📊', section: 'Quản lý' },
   { id: 'calendar', label: 'Lịch', icon: '📅' },
   { id: 'setup', label: 'Cấu hình', icon: '⚙️', section: 'Hệ thống' },
+  { id: 'user-management', label: 'Tài khoản', icon: '👤', role: 'ADMIN' },
   { id: 'reports', label: 'Báo cáo', icon: '📊', section: 'Phân tích' },
   { id: 'insights', label: 'Insights', icon: '💡' },
   { id: 'staff-reports', label: 'Nhân sự', icon: '👥' },
@@ -13,7 +15,10 @@ const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string }[]
 
 export function Sidebar() {
   const { state, setPage, toggleSidebar } = useApp();
+  const { user } = useAuth();
   const collapsed = state.sidebarCollapsed;
+
+  const visibleItems = NAV_ITEMS.filter(item => !item.role || item.role === user?.role);
 
   let lastSection = '';
 
@@ -25,7 +30,7 @@ export function Sidebar() {
       </div>
 
       <nav className="sidebar__nav">
-        {NAV_ITEMS.map(item => {
+        {visibleItems.map(item => {
           const showSection = item.section && item.section !== lastSection;
           if (item.section) lastSection = item.section;
 

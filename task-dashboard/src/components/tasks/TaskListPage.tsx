@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { Button, Badge, Avatar, WeightDots, EmptyState, TaskFormModal } from '../common';
+import { Button, Badge, Avatar, WeightDots, EmptyState, TaskFormModal, ProjectModal } from '../common';
 import PageHelp from '../common/PageHelp';
 import { isOverdue, formatRelativeDate, getDaysUntilDeadline } from '../../utils';
-import type { Task, TaskStatus, Priority, TaskFilters } from '../../types';
+import type { Task, TaskStatus, Priority, TaskFilters, Project } from '../../types';
 import './TaskListPage.css';
 
 type SortKey = 'title' | 'deadline' | 'priority' | 'weight' | 'status';
@@ -20,6 +20,7 @@ export function TaskListPage() {
   const [sortKey, setSortKey] = useState<SortKey>('deadline');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAddProjectModal, setShowAddProjectModal] = useState(false);
   const [editTask, setEditTask] = useState<Task | null>(null);
 
   const filteredTasks = useMemo(() => {
@@ -83,6 +84,7 @@ export function TaskListPage() {
       <div className="page-header">
         <h1>📋 Công việc</h1>
         <div className="page-header__actions">
+          <Button variant="secondary" onClick={() => setShowAddProjectModal(true)}>+ Thêm dự án</Button>
           <Button variant="primary" onClick={() => setShowAddModal(true)}>+ Thêm công việc</Button>
           <PageHelp title="Hướng dẫn sử dụng - Công việc">
             <h4>Tổng quan</h4>
@@ -259,6 +261,16 @@ export function TaskListPage() {
             setEditTask(null);
           }
         } : undefined}
+      />
+
+      <ProjectModal
+        isOpen={showAddProjectModal}
+        project={null}
+        onClose={() => setShowAddProjectModal(false)}
+        onSave={(p) => {
+          dispatch({ type: 'ADD_PROJECT', payload: p });
+          setShowAddProjectModal(false);
+        }}
       />
     </div>
   );

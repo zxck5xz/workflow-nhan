@@ -124,3 +124,4 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
 }
 
 export { TaskFormModal } from './TaskFormModal';
+export { ProjectModal } from './ProjectModal';

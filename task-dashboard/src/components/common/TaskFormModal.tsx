@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button, Modal } from './index';
 import { v4 as uuid } from 'uuid';
@@ -11,24 +11,43 @@ interface TaskFormModalProps {
   onClose: () => void;
   onSave: (t: Task) => void;
   onDelete?: () => void;
+  defaultProjectId?: string;
+  defaultDeadline?: string;
 }
 
-export function TaskFormModal({ isOpen, task, onClose, onSave, onDelete }: TaskFormModalProps) {
+export function TaskFormModal({ isOpen, task, onClose, onSave, onDelete, defaultProjectId, defaultDeadline }: TaskFormModalProps) {
   const { state } = useApp();
   const { projects, members } = state.data;
 
-  const [title, setTitle] = useState(task?.title || '');
-  const [description, setDescription] = useState(task?.description || '');
-  const [projectId, setProjectId] = useState(task?.projectId || projects[0]?.id || '');
-  const [assigneeId, setAssigneeId] = useState(task?.assigneeId || members[0]?.id || '');
-  const [priority, setPriority] = useState<Priority>(task?.priority || 'P1');
-  const [weight, setWeight] = useState(task?.weight || 3);
-  const [deadline, setDeadline] = useState(task?.deadline || getToday());
-  const [status, setStatus] = useState<TaskStatus>(task?.status || 'backlog');
-  const [tags, setTags] = useState(task?.tags.join(', ') || '');
-  const [manualEisenhower, setManualEisenhower] = useState(!task?.eisenhower?.autoClassified);
-  const [urgent, setUrgent] = useState(task?.eisenhower?.urgent || false);
-  const [important, setImportant] = useState(task?.eisenhower?.important || false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [projectId, setProjectId] = useState('');
+  const [assigneeId, setAssigneeId] = useState('');
+  const [priority, setPriority] = useState<Priority>('P1');
+  const [weight, setWeight] = useState(3);
+  const [deadline, setDeadline] = useState(getToday());
+  const [status, setStatus] = useState<TaskStatus>('backlog');
+  const [tags, setTags] = useState('');
+  const [manualEisenhower, setManualEisenhower] = useState(false);
+  const [urgent, setUrgent] = useState(false);
+  const [important, setImportant] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTitle(task?.title || '');
+      setDescription(task?.description || '');
+      setProjectId(task?.projectId || defaultProjectId || projects[0]?.id || '');
+      setAssigneeId(task?.assigneeId || members[0]?.id || '');
+      setPriority(task?.priority || 'P1');
+      setWeight(task?.weight || 3);
+      setDeadline(task?.deadline || defaultDeadline || getToday());
+      setStatus(task?.status || 'backlog');
+      setTags(task?.tags.join(', ') || '');
+      setManualEisenhower(!task?.eisenhower?.autoClassified);
+      setUrgent(task?.eisenhower?.urgent || false);
+      setImportant(task?.eisenhower?.important || false);
+    }
+  }, [isOpen, task, defaultProjectId, defaultDeadline, projects, members]);
 
   // Auto-classify when priority or deadline changes
   const autoEisenhower = classifyEisenhower(priority, deadline);

@@ -117,4 +117,41 @@ export class AuthService {
     const { password: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
+  
+  /**
+   * Get all users
+   */
+  static async getAllUsers() {
+    const users = await getPrisma().member.findMany({
+      orderBy: { joinedAt: 'desc' }
+    });
+    
+    return users.map(user => {
+      const { password: _, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+  }
+  
+  /**
+   * Update user role
+   */
+  static async updateUserRole(userId, role) {
+    const user = await getPrisma().member.update({
+      where: { id: userId },
+      data: { role }
+    });
+    
+    const { password: _, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+  
+  /**
+   * Delete user
+   */
+  static async deleteUser(userId) {
+    await getPrisma().member.delete({
+      where: { id: userId }
+    });
+    return { success: true };
+  }
 }

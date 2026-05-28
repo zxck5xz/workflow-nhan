@@ -17,8 +17,12 @@
 - [x] Full-stack deploy: Vercel (frontend) + Railway (backend) + Neon (DB)
 - [x] User authentication: JWT, register/login/me endpoints, auth middleware
 - [x] Fix deploy failures (duplicate routes, Prisma 7 compatibility, Vite build path)
+- [x] Merge Tasks & Project Dashboard into Jira-style Project Control Center
+- [x] Implement Admin-only User Management system
+- [x] Add "Add Project" quick action across pages
 
 ## Remaining
-- [ ] Run prisma generate/build verification (if needed)
-- [ ] Prisma migrate + import data (production DB synced via `prisma db push`)
-- [ ] docker-compose verification
+- [ ] Drag & drop functionality for Kanban Board
+- [ ] Build gameplay image/clip library (Workflow 3)
+- [ ] docker-compose verification for local environment
+- [ ] Automated weekly insights email/Slack notification

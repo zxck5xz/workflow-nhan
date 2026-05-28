@@ -119,5 +119,66 @@ export const authService = {
   clearSession(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  },
+
+  /**
+   * Get all users (ADMIN only)
+   */
+  async getUsers(): Promise<Member[]> {
+    const res = await fetch(`${API_BASE}/api/users`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
+      },
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || 'Failed to fetch users');
+    }
+
+    const data = await res.json();
+    return data.users;
+  },
+
+  /**
+   * Update user role (ADMIN only)
+   */
+  async updateUserRole(userId: string, role: string): Promise<Member> {
+    const res = await fetch(`${API_BASE}/api/users/${userId}/role`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
+      },
+      body: JSON.stringify({ role }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || 'Failed to update user role');
+    }
+
+    const data = await res.json();
+    return data.user;
+  },
+
+  /**
+   * Delete user (ADMIN only)
+   */
+  async deleteUser(userId: string): Promise<void> {
+    const res = await fetch(`${API_BASE}/api/users/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
+      },
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || 'Failed to delete user');
+    }
   }
-};
+  };

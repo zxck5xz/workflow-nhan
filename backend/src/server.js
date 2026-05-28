@@ -269,6 +269,34 @@ app.get('/api/auth/me', async (req, res) => {
   }
 });
 
+// User management routes (ADMIN only)
+app.get('/api/users', authorize('ADMIN'), async (req, res) => {
+  try {
+    const users = await AuthService.getAllUsers();
+    res.json({ users });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.patch('/api/users/:id/role', authorize('ADMIN'), async (req, res) => {
+  try {
+    const user = await AuthService.updateUserRole(req.params.id, req.body.role);
+    res.json({ user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+app.delete('/api/users/:id', authorize('ADMIN'), async (req, res) => {
+  try {
+    await AuthService.deleteUser(req.params.id);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Backend server is running on http://localhost:${PORT}`);
