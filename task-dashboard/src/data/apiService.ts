@@ -28,11 +28,8 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   if (!res.ok) {
     if (res.status === 401) {
       authService.clearSession();
-      // Inform the user and reload to force login page
-      console.error('Session expired, redirecting to login...');
-      alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-      window.location.reload();
-      return {} as T; // Return dummy value to satisfy type system while redirecting
+      // Throw error to be caught by UI, but do NOT alert/reload here to avoid loop
+      throw new Error('Unauthorized');
     }
     throw new Error(`API ${res.status}: ${res.statusText}`);
   }
