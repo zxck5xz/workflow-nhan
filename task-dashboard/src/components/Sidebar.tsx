@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useApp } from '../contexts/AppContext';
 import { useAuth } from '../contexts/AuthContext';
 import type { PageId } from '../types';
@@ -18,9 +19,14 @@ export function Sidebar() {
   const { user } = useAuth();
   const collapsed = state.sidebarCollapsed;
 
-  const visibleItems = NAV_ITEMS.filter(item => !item.role || item.role === user?.role);
-
-  let lastSection = '';
+  const visibleItems = useMemo(() => {
+    const seenSections = new Set<string>();
+    return NAV_ITEMS.filter(item => !item.role || item.role === user?.role).map(item => {
+      const showSection = !!item.section && !seenSections.has(item.section);
+      if (item.section) seenSections.add(item.section);
+      return { ...item, showSection };
+    });
+  }, [user?.role]);
 
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''}`}>
@@ -30,26 +36,21 @@ export function Sidebar() {
       </div>
 
       <nav className="sidebar__nav">
-        {visibleItems.map(item => {
-          const showSection = item.section && item.section !== lastSection;
-          if (item.section) lastSection = item.section;
-
-          return (
-            <div key={item.id}>
-              {showSection && (
-                <div className="sidebar__section-label">{item.section}</div>
-              )}
-              <button
-                className={`sidebar__nav-item ${state.activePage === item.id ? 'sidebar__nav-item--active' : ''}`}
-                onClick={() => setPage(item.id)}
-                title={item.label}
-              >
-                <span className="sidebar__nav-icon">{item.icon}</span>
-                <span className="sidebar__nav-label">{item.label}</span>
-              </button>
-            </div>
-          );
-        })}
+        {visibleItems.map(item => (
+          <div key={item.id}>
+            {item.showSection && item.section && (
+              <div className="sidebar__section-label">{item.section}</div>
+            )}
+            <button
+              className={`sidebar__nav-item ${state.activePage === item.id ? 'sidebar__nav-item--active' : ''}`}
+              onClick={() => setPage(item.id)}
+              title={item.label}
+            >
+              <span className="sidebar__nav-icon">{item.icon}</span>
+              <span className="sidebar__nav-label">{item.label}</span>
+            </button>
+          </div>
+        ))}
       </nav>
 
       <div className="sidebar__toggle">
@@ -60,3 +61,4 @@ export function Sidebar() {
     </aside>
   );
 }
+
