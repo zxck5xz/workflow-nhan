@@ -1,7 +1,7 @@
 {
   "deploy": {
     "preDeployCommand": [
-      "npx prisma migrate deploy"
+      "echo 'skipping migrations'"
     ]
   }
 }
