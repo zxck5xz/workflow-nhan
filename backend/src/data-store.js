@@ -51,14 +51,19 @@ export class DataStore {
   saveSnapshot(data) {
     const date = new Date().toISOString().split('T')[0];
     const snapshotFile = path.join(this.snapshotDir, `${date}.json`);
-    fs.writeFileSync(snapshotFile, JSON.stringify({ ...data, snapshotDate: date }, null, 2), 'utf-8');
+    fs.writeFileSync(
+      snapshotFile,
+      JSON.stringify({ ...data, snapshotDate: date }, null, 2),
+      'utf-8',
+    );
     return snapshotFile;
   }
 
   listSnapshots() {
-    return fs.readdirSync(this.snapshotDir)
-      .filter(file => file.endsWith('.json'))
-      .map(file => file.replace(/\.json$/, ''))
+    return fs
+      .readdirSync(this.snapshotDir)
+      .filter((file) => file.endsWith('.json'))
+      .map((file) => file.replace(/\.json$/, ''))
       .sort()
       .reverse();
   }

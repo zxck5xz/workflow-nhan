@@ -108,6 +108,10 @@ app.use(
 );
 app.use(express.json({ limit: '10mb' }));
 
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Request logging middleware
 app.use((req, res, next) => {
   logger.info({ method: req.method, url: req.url }, 'Incoming request');
@@ -116,10 +120,6 @@ app.use((req, res, next) => {
 
 // Apply authentication middleware to all routes
 app.use(authMiddleware);
-
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
 
 app.get('/api/app-data', async (req, res) => {
   const ds = await getDataStore();

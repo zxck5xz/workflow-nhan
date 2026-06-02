@@ -1,19 +1,12 @@
 import crypto from 'node:crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
+import { getDb } from './db.js';
 
-let prisma = null;
-function getPrisma() {
-  if (prisma) return prisma;
-  prisma = new PrismaClient({
-    adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
-  });
-  return prisma;
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
 }
-
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = '24h';
 
 export class AuthService {
@@ -22,75 +15,74 @@ export class AuthService {
    */
   static async register(userData) {
     const { name, email, password, role = 'VIEWER' } = userData;
-    
+
     // Check if user already exists
-    const existingUser = await getPrisma().member.findUnique({
-      where: { email }
+    const existingUser = await getDb().member.findUnique({
+      where: { email },
     });
-    
+
     if (existingUser) {
       throw new Error('User with this email already exists');
     }
-    
+
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     // Create user
-    const user = await getPrisma().member.create({
+    const user = await getDb().member.create({
       data: {
         id: crypto.randomUUID(),
         name,
         email,
         role,
         password: hashedPassword,
-        avatarColor: '#' + Math.floor(Math.random()*16777215).toString(16),
-        initials: name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2),
-        joinedAt: new Date().toISOString()
-      }
+        avatarColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
+        initials: name
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .toUpperCase()
+          .slice(0, 2),
+        joinedAt: new Date().toISOString(),
+      },
     });
-    
+
     // Generate token
     const token = this.generateToken({ id: user.id, email: user.email, role: user.role });
-    
+
     // Return user without password
     const { password: _, ...userWithoutPassword } = user;
     return { user: userWithoutPassword, token };
   }
-  
+
   /**
    * Login user
    */
   static async login(email, password) {
     // Find user
-    const user = await getPrisma().member.findUnique({
-      where: { email }
+    const user = await getDb().member.findUnique({
+      where: { email },
     });
-    
-    if (!user) {
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new Error('Invalid email or password');
     }
-    
-    // Check password
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      throw new Error('Invalid email or password');
-    }
-    
+
     // Generate token
     const token = this.generateToken({ id: user.id, email: user.email, role: user.role });
-    
+
     // Return user without password
     const { password: _, ...userWithoutPassword } = user;
     return { user: userWithoutPassword, token };
   }
-  
+
   /**
    * Generate JWT token
    */
   static generateToken(payload) {
     return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
   }
-  
+
   /**
    * Verify JWT token
    */
@@ -101,56 +93,56 @@ export class AuthService {
       throw new Error('Invalid or expired token');
     }
   }
-  
+
   /**
    * Get user by ID
    */
   static async getUserById(id) {
-    const user = await getPrisma().member.findUnique({
-      where: { id }
+    const user = await getDb().member.findUnique({
+      where: { id },
     });
-    
+
     if (!user) {
       throw new Error('User not found');
     }
-    
+
     const { password: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
-  
+
   /**
    * Get all users
    */
   static async getAllUsers() {
-    const users = await getPrisma().member.findMany({
-      orderBy: { joinedAt: 'desc' }
+    const users = await getDb().member.findMany({
+      orderBy: { joinedAt: 'desc' },
     });
-    
-    return users.map(user => {
+
+    return users.map((user) => {
       const { password: _, ...userWithoutPassword } = user;
       return userWithoutPassword;
     });
   }
-  
+
   /**
    * Update user role
    */
   static async updateUserRole(userId, role) {
-    const user = await getPrisma().member.update({
+    const user = await getDb().member.update({
       where: { id: userId },
-      data: { role }
+      data: { role },
     });
-    
+
     const { password: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
-  
+
   /**
    * Delete user
    */
   static async deleteUser(userId) {
-    await getPrisma().member.delete({
-      where: { id: userId }
+    await getDb().member.delete({
+      where: { id: userId },
     });
     return { success: true };
   }

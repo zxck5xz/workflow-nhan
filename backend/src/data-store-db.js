@@ -1,15 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-
-let prisma = null;
-
-function getPrisma() {
-  if (prisma) return prisma;
-  prisma = new PrismaClient({
-    adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
-  });
-  return prisma;
-}
+import { getDb } from './db.js';
 
 function dateToDateOnly(d) {
   const dt = d instanceof Date ? d : new Date(d);
@@ -42,24 +31,17 @@ export class DataStoreDB {
   }
 
   async loadData() {
-    const p = getPrisma();
-    const [
-      projects,
-      members,
-      tasks,
-      statuses,
-      priorities,
-      scorecards,
-      insights,
-    ] = await Promise.all([
-      p.project.findMany({ orderBy: { createdAt: 'asc' } }),
-      p.member.findMany({ orderBy: { joinedAt: 'asc' } }),
-      p.task.findMany({ orderBy: { createdAt: 'asc' } }),
-      p.statusConfig.findMany({ orderBy: { order: 'asc' } }),
-      p.priorityConfig.findMany({ orderBy: { defaultWeight: 'desc' } }),
-      p.gameScorecard.findMany({ orderBy: { week: 'asc' } }),
-      p.weeklyInsight.findMany({ orderBy: { week: 'asc' } }),
-    ]);
+    const p = getDb();
+    const [projects, members, tasks, statuses, priorities, scorecards, insights] =
+      await Promise.all([
+        p.project.findMany({ orderBy: { createdAt: 'asc' } }),
+        p.member.findMany({ orderBy: { joinedAt: 'asc' } }),
+        p.task.findMany({ orderBy: { createdAt: 'asc' } }),
+        p.statusConfig.findMany({ orderBy: { order: 'asc' } }),
+        p.priorityConfig.findMany({ orderBy: { defaultWeight: 'desc' } }),
+        p.gameScorecard.findMany({ orderBy: { week: 'asc' } }),
+        p.weeklyInsight.findMany({ orderBy: { week: 'asc' } }),
+      ]);
 
     return toAppDataPayload({
       projects: projects.map((p) => ({
@@ -143,7 +125,7 @@ export class DataStoreDB {
   async saveData(data) {
     const payload = { ...data, lastUpdated: new Date().toISOString() };
 
-    const p = getPrisma();
+    const p = getDb();
     await p.$transaction(async (tx) => {
       // projects
       for (const p of payload.projects ?? []) {
@@ -327,7 +309,7 @@ export class DataStoreDB {
   async saveSnapshot(data) {
     const snapshotDate = dateToDateOnly(new Date());
     // keep same contract: return snapshotFile-like string
-    const p = getPrisma();
+    const p = getDb();
     await p.snapshot.upsert({
       where: { snapshotDate },
       update: { payload: data },
@@ -338,7 +320,7 @@ export class DataStoreDB {
   }
 
   async listSnapshots() {
-    const p = getPrisma();
+    const p = getDb();
     const rows = await p.snapshot.findMany({
       select: { snapshotDate: true },
       orderBy: { snapshotDate: 'desc' },
@@ -348,10 +330,9 @@ export class DataStoreDB {
 
   async loadSnapshot(date) {
     const snapshotDate = dateToDateOnly(date);
-    const p = getPrisma();
+    const p = getDb();
     const snap = await p.snapshot.findUnique({ where: { snapshotDate } });
     if (!snap) return null;
     return { ...snap.payload, snapshotDate };
   }
 }
-
