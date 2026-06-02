@@ -1,7 +1,0 @@
-{
-  "deploy": {
-    "preDeployCommand": [
-      "echo 'skipping migrations'"
-    ]
-  }
-}
