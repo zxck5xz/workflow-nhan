@@ -6,7 +6,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 COPY src ./src/
 
-RUN npm ci && npx prisma generate --schema=./prisma/schema.prisma
+RUN npm install && npx prisma generate --schema=./prisma/schema.prisma
 
 EXPOSE 4000
 
