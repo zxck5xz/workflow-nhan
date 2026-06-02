@@ -2,11 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 COPY prisma ./prisma/
 COPY src ./src/
 
-RUN npm install && npx prisma generate --schema=./prisma/schema.prisma
+RUN rm -f package-lock.json && npm install && npx prisma generate --schema=./prisma/schema.prisma
 
 EXPOSE 4000
 
