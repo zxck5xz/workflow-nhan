@@ -6,7 +6,7 @@ COPY package.json ./
 COPY prisma ./prisma/
 COPY src ./src/
 
-RUN npm install --no-workspaces 2>&1 && npx prisma generate --schema=./prisma/schema.prisma
+RUN npm install --no-workspaces && npx prisma generate --schema=./prisma/schema.prisma
 
 EXPOSE 4000
 
