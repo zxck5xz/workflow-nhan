@@ -6,17 +6,17 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   // Get token from auth service
   const token = authService.getToken();
-  
+
   // Prepare headers
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
-  
+
   // Add authorization header if token exists
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
-  
+
   // Merge with user-provided options
   const mergedOptions: RequestInit = {
     headers,
@@ -24,7 +24,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   };
 
   const res = await fetch(`${API_BASE}${path}`, mergedOptions);
-  
+
   if (!res.ok) {
     if (res.status === 401) {
       authService.clearSession();
@@ -63,5 +63,12 @@ export const apiService = {
 
   async loadSnapshot(date: string): Promise<AppData> {
     return request<AppData>(`/api/snapshots/${date}`);
+  },
+
+  async searchAppInfo(packageName: string): Promise<{ found: boolean; info: any }> {
+    return request('/api/search-app-info', {
+      method: 'POST',
+      body: JSON.stringify({ packageName }),
+    });
   },
 };

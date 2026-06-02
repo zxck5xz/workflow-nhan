@@ -3,11 +3,13 @@ import cors from 'cors';
 import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { setTimeout } from 'node:timers/promises';
 import { fileURLToPath } from 'url';
 import { DataStore } from './data-store.js';
 import { DataStoreDB } from './data-store-db.js';
 import { AuthService } from './auth.js';
-
+import logger from './logger.js';
+import { z } from 'zod';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,48 +19,29 @@ const EVAL_SCRIPT = path.join(PYTHON_DIR, 'game_eval_agent.py');
 const PPTX_SCRIPT = path.join(PYTHON_DIR, 'pptx_generator.py');
 const store = new DataStore(__dirname);
 
-
 let dataStoreDB = null;
-
+let dataStoreDBPromise = null;
 
 async function getDataStoreDB() {
   if (!process.env.DATABASE_URL) return null;
   if (dataStoreDB) return dataStoreDB;
-  dataStoreDB = new DataStoreDB();
-  return dataStoreDB;
+  if (dataStoreDBPromise) return dataStoreDBPromise;
+  dataStoreDBPromise = (async () => {
+    dataStoreDB = new DataStoreDB();
+    return dataStoreDB;
+  })();
+  return dataStoreDBPromise;
 }
-
 
 async function getDataStore() {
   const dsDb = await getDataStoreDB();
   return dsDb || store;
 }
 
-
-async function syncJsonToDb() {
-  if (!process.env.DATABASE_URL) return;
-  try {
-    const dsDb = await getDataStoreDB();
-    if (!dsDb) return;
-
-    // Sync latest JSON edits from local file storage into DB.
-    const payload = store.loadData();
-    await dsDb.saveData(payload);
-    console.log(`[syncJsonToDb] synced app-data -> DB at ${new Date().toISOString()}`);
-  } catch (err) {
-    console.warn('[syncJsonToDb] failed:', err?.message ?? err);
-  }
-}
-
-
 // Authentication middleware
 const authMiddleware = async (req, res, next) => {
   // Define paths that do not require authentication
-  const publicPaths = [
-    '/api/health',
-    '/api/auth/register',
-    '/api/auth/login'
-  ];
+  const publicPaths = ['/api/health', '/api/auth/register', '/api/auth/login'];
 
   if (publicPaths.includes(req.path)) {
     return next();
@@ -85,80 +68,89 @@ const authorize = (...allowedRoles) => {
     if (!req.user) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    
-    // Get user role from database
-    // For now, we'll add role to token payload during login
-    // In a production app, you'd fetch this from database on each request
-    const userRole = req.user.role; // This will be set when we update the token payload
-    
+
+    const userRole = req.user.role;
+
     if (!allowedRoles.includes(userRole)) {
       return res.status(403).json({ error: 'Forbidden: Insufficient permissions' });
     }
-    
+
     next();
   };
 };
 
+// Validation Schemas
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+const evaluateSchema = z.object({
+  game: z.string().optional(),
+  genre: z.string().optional(),
+  info: z.string().optional(),
+  competitors: z.string().optional(),
+  criteria: z.string().optional(),
+});
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const CORS_ORIGINS = process.env.CORS_ORIGINS || 'http://localhost:5173,http://localhost:5174';
+const ALLOWED_ORIGINS = CORS_ORIGINS === '*' ? null : new Set(CORS_ORIGINS.split(','));
 
-const CORS_ORIGINS = process.env.CORS_ORIGINS || 'http://localhost:5173';
-const ALLOWED_ORIGINS = CORS_ORIGINS === '*' ? null : CORS_ORIGINS.split(',');
+app.use(
+  cors({
+    origin: ALLOWED_ORIGINS
+      ? (origin, cb) => cb(null, !origin || ALLOWED_ORIGINS.has(origin))
+      : true,
+  }),
+);
+app.use(express.json({ limit: '10mb' }));
 
-
-app.use(cors({
-  origin: ALLOWED_ORIGINS
-    ? (origin, cb) => cb(null, !origin || ALLOWED_ORIGINS.includes(origin))
-    : true,
-}));
-app.use(express.json());
-
+// Request logging middleware
+app.use((req, res, next) => {
+  logger.info({ method: req.method, url: req.url }, 'Incoming request');
+  next();
+});
 
 // Apply authentication middleware to all routes
 app.use(authMiddleware);
 
-
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
-
 
 app.get('/api/app-data', async (req, res) => {
   const ds = await getDataStore();
   res.json(await ds.loadData());
 });
 
-
-app.post('/api/app-data', async (req, res) => {
+app.post('/api/app-data', async (req, res, next) => {
   const payload = req.body;
   try {
     const ds = await getDataStore();
     const saved = await ds.saveData(payload);
     res.json({ success: true, data: saved });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 });
 
-
-app.post('/api/snapshot', async (req, res) => {
+app.post('/api/snapshot', async (req, res, next) => {
   try {
     const ds = await getDataStore();
     const snapshotFile = await ds.saveSnapshot(await ds.loadData());
     res.json({ success: true, snapshotFile });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 });
-
 
 app.get('/api/snapshots', async (req, res) => {
   const ds = await getDataStore();
   res.json({ snapshots: await ds.listSnapshots() });
 });
-
 
 app.get('/api/snapshots/:date', async (req, res) => {
   const ds = await getDataStore();
@@ -169,9 +161,13 @@ app.get('/api/snapshots/:date', async (req, res) => {
   res.json(snapshot);
 });
 
+app.post('/api/evaluate', async (req, res, next) => {
+  const validation = evaluateSchema.safeParse(req.body);
+  if (!validation.success) {
+    return res.status(400).json({ error: 'Invalid evaluation data', details: validation.error });
+  }
 
-app.post('/api/evaluate', (req, res) => {
-  const { game, genre, info, competitors, criteria } = req.body;
+  const { game, genre, info, competitors, criteria } = validation.data;
   const args = [];
   if (game) args.push('--game', game);
   if (genre) args.push('--genre', genre);
@@ -179,129 +175,197 @@ app.post('/api/evaluate', (req, res) => {
   if (competitors) args.push('--competitors', competitors);
   if (criteria) args.push('--criteria', criteria);
 
+  const cmd = `python "${EVAL_SCRIPT}" ${args.map((a) => (a.includes(' ') ? `"${a.replace(/"/g, '\\"')}"` : a)).join(' ')}`;
 
-  const cmd = `python "${EVAL_SCRIPT}" ${args.map(a => a.includes(' ') ? `"${a.replace(/"/g, '\\"')}"` : a).join(' ')}`;
-
-
-  exec(cmd, { encoding: 'utf8' }, (error, stdout, stderr) => {
-    if (error) {
-      return res.status(500).json({ error: error.message, stderr });
-    }
+  try {
+    const { stdout, stderr } = await execWithTimeout(cmd, 300000);
     const successMatch = stdout.match(/SUCCESS:(.+)/);
     if (!successMatch) {
-      return res.status(500).json({ error: 'Evaluation failed or file path not found in output', stdout, stderr });
+      return res
+        .status(500)
+        .json({ error: 'Evaluation failed or file path not found in output', stdout, stderr });
     }
     const filePath = successMatch[1].trim();
-    try {
-      const markdownContent = fs.readFileSync(filePath, 'utf-8');
-      res.json({ success: true, filePath, markdown: markdownContent, stdout });
-    } catch (readErr) {
-      res.status(500).json({ error: `Failed to read report file: ${readErr.message}`, stdout });
-    }
-  });
+    const markdownContent = fs.readFileSync(filePath, 'utf-8');
+    res.json({ success: true, filePath, markdown: markdownContent, stdout });
+  } catch (error) {
+    logger.error({ err: error, stderr: error.stderr }, 'Evaluation script error');
+    return res.status(500).json({ error: error.message, stderr: error.stderr });
+  }
 });
 
-
-app.post('/api/generate-pptx', (req, res) => {
+app.post('/api/generate-pptx', async (req, res, next) => {
   const { markdownPath } = req.body;
   const args = markdownPath ? ['--markdown', markdownPath] : [];
-  const cmd = `python "${PPTX_SCRIPT}" ${args.map(a => a.includes(' ') ? `"${a.replace(/"/g, '\\"')}"` : a).join(' ')}`;
+  const cmd = `python "${PPTX_SCRIPT}" ${args.map((a) => (a.includes(' ') ? `"${a.replace(/"/g, '\\"')}"` : a)).join(' ')}`;
 
-
-  exec(cmd, { encoding: 'utf8' }, (error, stdout, stderr) => {
-    if (error) {
-      return res.status(500).json({ error: error.message, stderr });
-    }
-
-
-    const successMatch = stdout.match(/Presentation successfully saved at:\s*(.+)/) || stdout.match(/Presentation saved at:\s*(.+)/);
+  try {
+    const { stdout } = await execWithTimeout(cmd, 300000);
+    const successMatch =
+      stdout.match(/Presentation successfully saved at:\s*(.+)/) ||
+      stdout.match(/Presentation saved at:\s*(.+)/);
     res.json({ success: true, pptxPath: successMatch ? successMatch[1].trim() : null, stdout });
-  });
+  } catch (error) {
+    logger.error({ err: error, stderr: error.stderr }, 'PPTX generation error');
+    return res.status(500).json({ error: error.message, stderr: error.stderr });
+  }
 });
 
-
-app.post('/api/open-file', (req, res) => {
+app.post('/api/open-file', async (req, res, next) => {
   const { filePath } = req.body;
   if (!filePath) {
     return res.status(400).json({ error: 'filePath is required' });
   }
 
-
   const resolvedPath = path.resolve(filePath);
   const cmd = `start "" "${resolvedPath}"`;
 
-
-  exec(cmd, (error, stdout, stderr) => {
-    if (error) {
-      return res.status(500).json({ error: error.message, stderr });
-    }
+  try {
+    const { stdout } = await execWithTimeout(cmd, 10000);
     res.json({ success: true, stdout });
-  });
+  } catch (error) {
+    logger.error({ err: error, stderr: error.stderr }, 'Failed to open file');
+    return res.status(500).json({ error: error.message, stderr: error.stderr });
+  }
 });
-
 
 // Authentication routes (excluded from middleware above)
 app.post('/api/auth/register', async (req, res) => {
   return res.status(403).json({ error: 'Public registration is currently disabled' });
-  /*
-  try {
-    const { user, token } = await AuthService.register(req.body);
-    res.json({ user, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-  */
 });
 
-app.post('/api/auth/login', async (req, res) => {
+app.post('/api/auth/login', async (req, res, next) => {
+  const validation = loginSchema.safeParse(req.body);
+  if (!validation.success) {
+    return res.status(400).json({ error: 'Invalid login credentials', details: validation.error });
+  }
+
   try {
-    const { user, token } = await AuthService.login(req.body.email, req.body.password);
+    const { email, password } = validation.data;
+    const { user, token } = await AuthService.login(email, password);
     res.json({ user, token });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 });
 
-app.get('/api/auth/me', async (req, res) => {
+app.get('/api/auth/me', async (req, res, next) => {
   try {
-    // The middleware has already verified the token and attached req.user
     const user = await AuthService.getUserById(req.user.id);
     res.json({ user });
   } catch (error) {
-    res.status(401).json({ error: 'Invalid or expired token' });
+    next(error);
   }
 });
 
 // User management routes (ADMIN only)
-app.get('/api/users', authorize('ADMIN'), async (req, res) => {
+app.get('/api/users', authorize('ADMIN'), async (req, res, next) => {
   try {
     const users = await AuthService.getAllUsers();
     res.json({ users });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 });
 
-app.patch('/api/users/:id/role', authorize('ADMIN'), async (req, res) => {
+app.patch('/api/users/:id/role', authorize('ADMIN'), async (req, res, next) => {
   try {
     const user = await AuthService.updateUserRole(req.params.id, req.body.role);
     res.json({ user });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    next(error);
   }
 });
 
-app.delete('/api/users/:id', authorize('ADMIN'), async (req, res) => {
+app.delete('/api/users/:id', authorize('ADMIN'), async (req, res, next) => {
   try {
     await AuthService.deleteUser(req.params.id);
     res.json({ success: true });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    next(error);
   }
 });
 
+function execWithTimeout(cmd, timeout = 120000) {
+  return new Promise((resolve, reject) => {
+    const child = exec(cmd, { encoding: 'utf8', timeout }, (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({ stdout, stderr });
+      }
+    });
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Backend server is running on http://localhost:${PORT}`);
+app.post('/api/search-app-info', async (req, res) => {
+  const { packageName } = req.body;
+  if (!packageName) {
+    return res.json({ found: false, info: null });
+  }
+
+  try {
+    const response = await fetch(
+      `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
+      {
+        signal: AbortSignal.timeout(8000),
+      },
+    );
+    const html = await response.text();
+
+    const extract = (regex) => {
+      const m = html.match(regex);
+      return m ? m[1].trim() : null;
+    };
+
+    const name = extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</);
+    const description = extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
+    const developer = extract(/<a[^>]*href="[^"]*dev?id=[^"]*"[^>]*>([^<]+)</);
+    const category = extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</);
+    const rating = extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
+    const installs = extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
+    const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
+    const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
+    const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
+
+    const cleanDesc = description
+      ? description
+          .replace(/<[^>]+>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .slice(0, 1000)
+      : null;
+
+    res.json({
+      found: !!name,
+      info: name
+        ? {
+            name,
+            description: cleanDesc,
+            developer,
+            category,
+            rating,
+            installs,
+            updated,
+            size,
+          }
+        : null,
+    });
+  } catch {
+    res.json({ found: false, info: null });
+  }
 });
 
+// Centralized error handling middleware
+app.use((err, req, res, next) => {
+  logger.error({ err }, 'Unhandled error');
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).json({
+    error: err.message || 'Internal Server Error',
+    stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+  });
+});
+
+app.listen(PORT, () => {
+  logger.info(`Backend server is running on http://localhost:${PORT}`);
+});
