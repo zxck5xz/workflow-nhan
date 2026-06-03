@@ -1,0 +1,3 @@
+npm run build || exit 1
+npm test --workspace=backend --if-present || exit 1
+(cd task-dashboard && npx vitest run --passWithNoTests) || exit 1

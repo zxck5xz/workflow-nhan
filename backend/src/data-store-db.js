@@ -218,6 +218,7 @@ export class DataStoreDB {
             eisenhowerImportant: t.eisenhower?.important ?? false,
             eisenhowerAutoClassified: t.eisenhower?.autoClassified ?? false,
             tags: t.tags ?? null,
+            result: t.result ?? null,
           },
           create: {
             id: t.id,
@@ -235,6 +236,7 @@ export class DataStoreDB {
             eisenhowerImportant: t.eisenhower?.important ?? false,
             eisenhowerAutoClassified: t.eisenhower?.autoClassified ?? false,
             tags: t.tags ?? null,
+            result: t.result ?? null,
           },
         });
       }

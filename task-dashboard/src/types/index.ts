@@ -48,6 +48,7 @@ export interface Task {
   completedAt?: string;
   eisenhower: EisenhowerClassification;
   tags: string[];
+  result?: string;
 }
 
 export interface GameScorecard {
