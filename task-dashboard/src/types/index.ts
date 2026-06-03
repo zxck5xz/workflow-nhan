@@ -55,11 +55,11 @@ export interface GameScorecard {
   projectId: string;
   week: string; // ISO date of the Monday of the week
   ratings: {
-    coreLoop: number;      // 1-5
-    monetization: number;  // 1-5
-    visualUx: number;      // 1-5
-    retention: number;     // 1-5
-    usp: number;           // 1-5
+    coreLoop: number; // 1-5
+    monetization: number; // 1-5
+    visualUx: number; // 1-5
+    retention: number; // 1-5
+    usp: number; // 1-5
   };
   summary: string;
   authorId: string;
@@ -133,7 +133,15 @@ export interface CalendarEvent {
 }
 
 // Navigation
-export type PageId = 'setup' | 'project-control' | 'calendar' | 'reports' | 'staff-reports' | 'insights' | 'user-management';
+export type PageId =
+  | 'setup'
+  | 'project-control'
+  | 'calendar'
+  | 'reports'
+  | 'staff-reports'
+  | 'insights'
+  | 'code-analysis'
+  | 'user-management';
 
 export interface NavItem {
   id: PageId;

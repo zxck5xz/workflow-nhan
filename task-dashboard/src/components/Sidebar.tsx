@@ -11,6 +11,7 @@ const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string; ro
   { id: 'user-management', label: 'Tài khoản', icon: '👤', role: 'ADMIN' },
   { id: 'reports', label: 'Báo cáo', icon: '📊', section: 'Phân tích' },
   { id: 'insights', label: 'Insights', icon: '💡' },
+  { id: 'code-analysis', label: 'Code Analysis', icon: '🔍' },
   { id: 'staff-reports', label: 'Nhân sự', icon: '👥' },
 ];
 
@@ -21,7 +22,7 @@ export function Sidebar() {
 
   const visibleItems = useMemo(() => {
     const seenSections = new Set<string>();
-    return NAV_ITEMS.filter(item => !item.role || item.role === user?.role).map(item => {
+    return NAV_ITEMS.filter((item) => !item.role || item.role === user?.role).map((item) => {
       const showSection = !!item.section && !seenSections.has(item.section);
       if (item.section) seenSections.add(item.section);
       return { ...item, showSection };
@@ -36,7 +37,7 @@ export function Sidebar() {
       </div>
 
       <nav className="sidebar__nav">
-        {visibleItems.map(item => (
+        {visibleItems.map((item) => (
           <div key={item.id}>
             {item.showSection && item.section && (
               <div className="sidebar__section-label">{item.section}</div>
@@ -61,4 +62,3 @@ export function Sidebar() {
     </aside>
   );
 }
-
