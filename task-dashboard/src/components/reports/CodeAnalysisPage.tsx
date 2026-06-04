@@ -258,19 +258,23 @@ export function CodeAnalysisPage() {
     const html = buildVietnameseHtml(report);
     const container = document.createElement('div');
     container.innerHTML = html;
-    container.style.position = 'fixed';
-    container.style.left = '-9999px';
+    container.style.position = 'absolute';
+    container.style.left = '0';
     container.style.top = '0';
+    container.style.width = '800px';
+    container.style.zIndex = '-1000';
+    container.style.background = '#fff';
     document.body.appendChild(container);
 
     try {
+      await new Promise((r) => setTimeout(r, 300));
       const html2pdf = (await import('html2pdf.js')).default;
       await html2pdf()
         .set({
           margin: [10, 10, 10, 10],
           filename: `Bao_cao_APK_${fileName}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, logging: false },
+          html2canvas: { scale: 2, useCORS: true, logging: false, width: 800 },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         })
         .from(container)
