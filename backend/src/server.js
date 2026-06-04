@@ -355,7 +355,6 @@ async function searchPlayStoreByName(query) {
   const response = await fetch(searchUrl, { signal: AbortSignal.timeout(10000) });
   const html = await response.text();
 
-  // Try to find the first app result's package name
   const pkgMatch = html.match(/\/store\/apps\/details\?id=([a-zA-Z0-9._-]+)/);
   if (pkgMatch) {
     const packageName = decodeURIComponent(pkgMatch[1]);
@@ -365,6 +364,41 @@ async function searchPlayStoreByName(query) {
   return { found: false, info: null, error: 'No matching product found on Google Play' };
 }
 
+async function fetchPageMetadata(url) {
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(10000),
+    redirect: 'follow',
+  });
+  const finalUrl = response.url;
+  const html = await response.text();
+
+  const extract = (regex) => {
+    const m = html.match(regex);
+    return m ? m[1].trim() : null;
+  };
+
+  const ogTitle = extract(/<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i);
+  const ogDescription = extract(/<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i);
+  const ogSiteName = extract(/<meta[^>]*property="og:site_name"[^>]*content="([^"]+)"/i);
+  const ogImage = extract(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i);
+  const pageTitle = extract(/<title[^>]*>([^<]+)<\/title>/i);
+  const metaDesc = extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i);
+
+  const cleanDesc = (ogDescription || metaDesc || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 1000);
+
+  return {
+    url: finalUrl,
+    title: ogTitle || pageTitle || null,
+    description: cleanDesc || null,
+    siteName: ogSiteName || null,
+    image: ogImage || null,
+  };
+}
+
 app.post('/api/search-product', async (req, res) => {
   const { query } = req.body;
   if (!query) {
@@ -372,24 +406,56 @@ app.post('/api/search-product', async (req, res) => {
   }
 
   try {
-    const isUrl = /^https?:\/\//.test(query.trim());
+    const trimmed = query.trim();
+    const isUrl = /^https?:\/\//.test(trimmed);
     let result;
 
     if (isUrl) {
-      // Try to extract package name from Google Play URL
-      const playMatch = query.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
+      const playMatch = trimmed.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
       if (playMatch) {
         result = await scrapePlayStore(decodeURIComponent(playMatch[1]));
+        result.sourceInfo = { url: trimmed, resolvedUrl: trimmed, type: 'google_play' };
       } else {
-        return res.json({
-          found: false,
-          info: null,
-          error: 'Unsupported URL. Please use a Google Play URL or a product name.',
-        });
+        // Fetch any URL — promo link, short link, etc.
+        const metadata = await fetchPageMetadata(trimmed);
+        if (metadata.title) {
+          const searchResult = await searchPlayStoreByName(metadata.title);
+          if (searchResult.found) {
+            result = searchResult;
+          } else {
+            result = {
+              found: true,
+              packageName: null,
+              info: {
+                name: metadata.title,
+                description: metadata.description,
+                developer: metadata.siteName,
+                category: null,
+                rating: null,
+                installs: null,
+                updated: null,
+                size: null,
+              },
+            };
+          }
+        } else {
+          result = {
+            found: false,
+            info: null,
+            error: 'Could not extract product info from this URL.',
+          };
+        }
+        result.sourceInfo = {
+          url: trimmed,
+          resolvedUrl: metadata.url,
+          title: metadata.title,
+          siteName: metadata.siteName,
+          type: 'promo_link',
+        };
       }
     } else {
-      // Search by product name
-      result = await searchPlayStoreByName(query);
+      result = await searchPlayStoreByName(trimmed);
+      result.sourceInfo = { query: trimmed, type: 'name_search' };
     }
 
     res.json(result);

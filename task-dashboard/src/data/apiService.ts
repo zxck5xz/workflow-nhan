@@ -79,6 +79,7 @@ export const apiService = {
     info: Record<string, unknown> | null;
     packageName?: string;
     error?: string;
+    sourceInfo?: Record<string, unknown>;
   }> {
     return request('/api/search-product', {
       method: 'POST',

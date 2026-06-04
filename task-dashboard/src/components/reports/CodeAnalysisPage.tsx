@@ -170,7 +170,7 @@ export function CodeAnalysisPage() {
 
   const handleProductSearch = async () => {
     if (!productQuery.trim()) {
-      setError('Vui lòng nhập tên sản phẩm hoặc link Google Play.');
+      setError('Vui lòng nhập tên sản phẩm, link Google Play hoặc link quảng cáo.');
       return;
     }
 
@@ -202,12 +202,30 @@ export function CodeAnalysisPage() {
           description: ri.description,
         };
         let md = buildStandardReportMarkdown(info, 'product');
-        const sourceLabel = /^https?:\/\//.test(productQuery.trim())
-          ? 'Google Play Store'
-          : 'Google Play Search';
+        const src = res.sourceInfo as Record<string, unknown> | undefined;
+        const sourceType = src?.type as string | undefined;
+
+        let sourceLabel: string;
+        if (sourceType === 'google_play') {
+          sourceLabel = 'Google Play Store (direct link)';
+        } else if (sourceType === 'promo_link') {
+          sourceLabel = 'Promotional link (resolved & matched)';
+        } else {
+          sourceLabel = 'Google Play Search (by name)';
+        }
+
         md += `\n\n---\n\n## 🔍 Thông tin tra cứu\n\n`;
         md += `- **Nguồn:** ${sourceLabel}\n`;
         md += `- **Truy vấn:** ${productQuery}\n`;
+        if (src?.resolvedUrl && String(src.resolvedUrl) !== productQuery.trim()) {
+          md += `- **URL thực tế:** ${src.resolvedUrl}\n`;
+        }
+        if (src?.title && String(src.title) !== String(ri.name || '')) {
+          md += `- **Tiêu đề trang:** ${src.title}\n`;
+        }
+        if (src?.siteName) {
+          md += `- **Trang nguồn:** ${src.siteName}\n`;
+        }
         md += `- **Phân tích thêm:** Tải APK của sản phẩm này để phân tích kỹ thuật đầy đủ (permissions, activities, API endpoints, security scan).\n`;
 
         setReport(md);
@@ -337,15 +355,16 @@ export function CodeAnalysisPage() {
         <div className="analysis-controls">
           <div className="control-group">
             <p>
-              Tra cứu thông tin sản phẩm bằng tên hoặc link Google Play. Ví dụ:{' '}
-              <em>"Liên Quân Mobile"</em> hoặc{' '}
-              <em>https://play.google.com/store/apps/details?id=com.example</em>.
+              Tra cứu thông tin sản phẩm bằng tên, link Google Play hoặc link quảng cáo. Ví dụ:{' '}
+              <em>"Liên Quân Mobile"</em>,{' '}
+              <em>https://play.google.com/store/apps/details?id=com.example</em> hoặc{' '}
+              <em>https://some.promo.link/game</em>.
             </p>
             <div className="link-search-zone">
               <input
                 type="text"
                 className="url-input"
-                placeholder="Nhập tên sản phẩm hoặc link Google Play..."
+                placeholder="Nhập tên sản phẩm, link Google Play hoặc link quảng cáo..."
                 value={productQuery}
                 onChange={(e) => setProductQuery(e.target.value)}
                 disabled={loading}
@@ -391,7 +410,7 @@ export function CodeAnalysisPage() {
             <p>
               {mode === 'apk'
                 ? 'Chọn file APK và nhấn "Phân tích APK (Local)" để bắt đầu.'
-                : 'Nhập tên sản phẩm hoặc link Google Play, nhấn "Tra cứu sản phẩm" để xem thông tin.'}
+                : 'Nhập tên sản phẩm, link Google Play hoặc link quảng cáo, nhấn "Tra cứu sản phẩm" để xem thông tin.'}
             </p>
           </div>
         )}
