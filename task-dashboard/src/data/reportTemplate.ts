@@ -211,10 +211,10 @@ export const STANDARD_SECTIONS: ReportSection[] = [
 
 export function buildStandardReportMarkdown(
   info: Record<string, unknown>,
-  source: 'apk' | 'link',
+  source: 'apk' | 'product',
 ): string {
   let md = `# Báo cáo đánh giá: ${info.name || 'Unknown'}\n`;
-  md += `*Nguồn: ${source === 'apk' ? 'APK Analysis' : 'Product Link Search'} — ${new Date().toLocaleString()}*\n\n`;
+  md += `*Nguồn: ${source === 'apk' ? 'APK Analysis' : 'Product Search'} — ${new Date().toLocaleString()}*\n\n`;
 
   md += `---\n\n`;
   md += `## 1. Tổng quan sản phẩm\n\n`;
@@ -305,4 +305,154 @@ export function buildStandardReportMarkdown(
 export function extractPlayStorePackageName(url: string): string | null {
   const match = url.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
   return match ? decodeURIComponent(match[1]) : null;
+}
+
+export function buildVietnameseHtml(md: string): string {
+  const lines = md.split('\n');
+  let title = 'Báo Cáo Phân Tích';
+  let date = new Date().toLocaleDateString('vi-VN');
+
+  for (const line of lines) {
+    if (line.startsWith('# Báo cáo đánh giá:')) {
+      title = 'Báo Cáo Đánh Giá: ' + line.replace('# Báo cáo đánh giá:', '').trim();
+    }
+    if (line.startsWith('*Nguồn:')) {
+      date = line
+        .replace(/\*Nguồn:.*?—\s*/, '')
+        .replace(/\*/g, '')
+        .trim();
+    }
+  }
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; padding: 30px; line-height: 1.7; }
+  h1 { font-size: 22px; color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 8px; }
+  h2 { font-size: 18px; color: #4338ca; margin-top: 24px; }
+  h3 { font-size: 15px; color: #1e293b; margin-top: 18px; }
+  hr { border: none; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+  p { margin: 6px 0; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+  td { border: 1px solid #e2e8f0; padding: 8px 12px; vertical-align: top; }
+  tr:nth-child(even) { background: #f8fafc; }
+  li { font-size: 13px; margin: 3px 0; }
+  pre, code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-family: 'Courier New', monospace; white-space: pre-wrap; word-break: break-all; }
+  .meta { color: #64748b; font-size: 12px; margin-bottom: 20px; }
+  .footer { margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center; }
+  .code-block { background: #1e293b; color: #e2e8f0; padding: 12px; border-radius: 6px; font-size: 11px; margin: 10px 0; white-space: pre-wrap; word-break: break-all; }
+  .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 10px 14px; margin: 10px 0; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>${title}</h1>
+  <p class="meta">Ngày tạo: ${date}</p>
+
+  ${(function () {
+    let html = '';
+    let inCode = false;
+    let codeContent = '';
+    let inTable = false;
+    let tableHeaders: string[] = [];
+    let tableRows: string[] = [];
+
+    const flushTable = () => {
+      if (tableHeaders.length && tableRows.length) {
+        html +=
+          '<table><tr>' +
+          tableHeaders.map((h) => '<td><strong>' + h + '</strong></td>').join('') +
+          '</tr>' +
+          tableRows.join('') +
+          '</table>';
+      }
+      tableHeaders = [];
+      tableRows = [];
+      inTable = false;
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (line.startsWith('```')) {
+        if (inCode) {
+          html += '<div class="code-block">' + codeContent + '</div>';
+          codeContent = '';
+          inCode = false;
+        } else {
+          inCode = true;
+        }
+        continue;
+      }
+      if (inCode) {
+        codeContent += line + '\n';
+        continue;
+      }
+      if (line.startsWith('# ')) continue;
+      if (line.startsWith('*Nguồn:')) continue;
+      if (line.startsWith('---')) {
+        flushTable();
+        html += '<hr/>';
+        continue;
+      }
+      if (line.trim() === '') {
+        flushTable();
+        continue;
+      }
+
+      if (line.startsWith('| ') && line.endsWith('|')) {
+        const cells = line
+          .split('|')
+          .filter(Boolean)
+          .map((c) => c.trim().replace(/\*\*/g, '').replace(/`/g, ''));
+        if (i + 1 < lines.length && lines[i + 1].includes('---')) {
+          tableHeaders = cells;
+          inTable = true;
+          i++;
+          continue;
+        }
+        if (inTable) {
+          tableRows.push('<tr>' + cells.map((c) => '<td>' + c + '</td>').join('') + '</tr>');
+        }
+        continue;
+      }
+
+      flushTable();
+
+      if (line.startsWith('## ')) {
+        html += '<h2>' + line.replace('## ', '') + '</h2>';
+        continue;
+      }
+      if (line.startsWith('### ')) {
+        html += '<h3>' + line.replace('### ', '') + '</h3>';
+        continue;
+      }
+      if (line.startsWith('- ')) {
+        html += '<li>' + line.replace('- ', '') + '</li>';
+        continue;
+      }
+      const processed = line
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`(.*?)`/g, '<code>$1</code>');
+      if (
+        processed.startsWith('⚠️') ||
+        processed.startsWith('🌐') ||
+        processed.startsWith('❌') ||
+        processed.startsWith('✅')
+      ) {
+        html += '<div class="warning">' + processed + '</div>';
+      } else {
+        html += '<p>' + processed + '</p>';
+      }
+    }
+
+    flushTable();
+    return html;
+  })()}
+
+  <div class="footer">
+    <p>Báo cáo được tạo tự động bởi ClientSideApkParser (JSZip) — Dữ liệu không rời khỏi trình duyệt của bạn.</p>
+  </div>
+</body>
+</html>`;
 }

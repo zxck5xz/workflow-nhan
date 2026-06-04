@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react';
 import { ClientSideApkParser } from '../../utils/apkParser';
 import { apiService } from '../../data/apiService';
-import { buildStandardReportMarkdown } from '../../data/reportTemplate';
+import { buildStandardReportMarkdown, buildVietnameseHtml } from '../../data/reportTemplate';
 import './CodeAnalysisPage.css';
 
 export function CodeAnalysisPage() {
-  const [mode, setMode] = useState<'apk' | 'link'>('apk');
+  const [mode, setMode] = useState<'apk' | 'product'>('apk');
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -14,8 +14,8 @@ export function CodeAnalysisPage() {
   const [logs, setLogs] = useState<string[]>([]);
   const logsRef = useRef<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [productUrl, setProductUrl] = useState('');
-  const [linkResult, setLinkResult] = useState<{
+  const [productQuery, setProductQuery] = useState('');
+  const [productResult, setProductResult] = useState<{
     found: boolean;
     info: Record<string, unknown>;
     packageName?: string;
@@ -168,27 +168,27 @@ export function CodeAnalysisPage() {
     }
   };
 
-  const handleLinkSearch = async () => {
-    if (!productUrl.trim()) {
-      setError('Vui lòng nhập link sản phẩm (Google Play URL).');
+  const handleProductSearch = async () => {
+    if (!productQuery.trim()) {
+      setError('Vui lòng nhập tên sản phẩm hoặc link Google Play.');
       return;
     }
 
     setLoading(true);
     setError(null);
     setReport(null);
-    setLinkResult(null);
+    setProductResult(null);
     logsRef.current = [];
     setLogs([]);
 
-    addLog(`[Tra cứu] Đang xử lý URL: ${productUrl}`);
+    addLog(`[Tra cứu] Đang xử lý truy vấn: ${productQuery}`);
 
     try {
-      const res = await apiService.searchByUrl(productUrl);
+      const res = await apiService.searchProduct(productQuery);
       if (res.found && res.info) {
         const ri = res.info;
         addLog(`[Tra cứu] Tìm thấy: ${String(ri.name || '')} (${res.packageName || 'N/A'})`);
-        setLinkResult({ found: true, info: ri, packageName: res.packageName });
+        setProductResult({ found: true, info: ri, packageName: res.packageName });
 
         const info: Record<string, unknown> = {
           name: ri.name,
@@ -201,19 +201,21 @@ export function CodeAnalysisPage() {
           size: ri.size,
           description: ri.description,
         };
-        let md = buildStandardReportMarkdown(info, 'link');
-
+        let md = buildStandardReportMarkdown(info, 'product');
+        const sourceLabel = /^https?:\/\//.test(productQuery.trim())
+          ? 'Google Play Store'
+          : 'Google Play Search';
         md += `\n\n---\n\n## 🔍 Thông tin tra cứu\n\n`;
-        md += `- **Nguồn:** Google Play Store\n`;
-        md += `- **Link:** ${productUrl}\n`;
+        md += `- **Nguồn:** ${sourceLabel}\n`;
+        md += `- **Truy vấn:** ${productQuery}\n`;
         md += `- **Phân tích thêm:** Tải APK của sản phẩm này để phân tích kỹ thuật đầy đủ (permissions, activities, API endpoints, security scan).\n`;
 
         setReport(md);
       } else {
-        addLog(`[Tra cứu] Không tìm thấy thông tin từ URL này`);
+        addLog(`[Tra cứu] Không tìm thấy thông tin`);
         setError(
           res.error ||
-            'Không tìm thấy thông tin sản phẩm từ URL này. Vui lòng kiểm tra lại link Google Play.',
+            'Không tìm thấy thông tin sản phẩm. Vui lòng thử với tên sản phẩm khác hoặc link Google Play.',
         );
       }
     } catch (err: unknown) {
@@ -228,12 +230,12 @@ export function CodeAnalysisPage() {
   const downloadReport = async () => {
     if (!report) return;
 
-    const linkName = linkResult?.info?.name;
+    const productName = productResult?.info?.name;
     const fileName =
       mode === 'apk'
         ? selectedFile?.name.replace('.apk', '') || 'unknown'
-        : typeof linkName === 'string'
-          ? linkName.replace(/\s+/g, '_')
+        : typeof productName === 'string'
+          ? productName.replace(/\s+/g, '_')
           : 'product_info';
     const html = buildVietnameseHtml(report);
     const container = document.createElement('div');
@@ -260,161 +262,6 @@ export function CodeAnalysisPage() {
     }
   };
 
-  function buildVietnameseHtml(md: string): string {
-    const lines = md.split('\n');
-    let title = 'Báo Cáo Phân Tích APK';
-    let date = new Date().toLocaleDateString('vi-VN');
-
-    for (const line of lines) {
-      if (line.startsWith('# APK Analysis Report:')) {
-        title = 'Báo Cáo Phân Tích: ' + line.replace('# APK Analysis Report:', '').trim();
-      }
-      if (line.startsWith('*Generated')) {
-        date = line
-          .replace(/\*Generated in browser on: /, '')
-          .replace(/\*/g, '')
-          .trim();
-      }
-    }
-
-    const styledTitle = title.replace(
-      'Báo Cáo Phân Tích: APK Analysis Report:',
-      'Báo Cáo Phân Tích:',
-    );
-
-    return `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<style>
-  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; padding: 30px; line-height: 1.7; }
-  h1 { font-size: 22px; color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 8px; }
-  h2 { font-size: 18px; color: #4338ca; margin-top: 24px; }
-  h3 { font-size: 15px; color: #1e293b; margin-top: 18px; }
-  hr { border: none; border-top: 1px solid #e2e8f0; margin: 20px 0; }
-  p { margin: 6px 0; font-size: 13px; }
-  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
-  td { border: 1px solid #e2e8f0; padding: 8px 12px; vertical-align: top; }
-  tr:nth-child(even) { background: #f8fafc; }
-  li { font-size: 13px; margin: 3px 0; }
-  pre, code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-family: 'Courier New', monospace; white-space: pre-wrap; word-break: break-all; }
-  .meta { color: #64748b; font-size: 12px; margin-bottom: 20px; }
-  .footer { margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center; }
-  .code-block { background: #1e293b; color: #e2e8f0; padding: 12px; border-radius: 6px; font-size: 11px; margin: 10px 0; white-space: pre-wrap; word-break: break-all; }
-  .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 10px 14px; margin: 10px 0; border-radius: 4px; font-size: 12px; }
-</style>
-</head>
-<body>
-  <h1>${styledTitle}</h1>
-  <p class="meta">Ngày tạo: ${date}</p>
-
-  ${(function () {
-    let html = '';
-    let inCode = false;
-    let codeContent = '';
-    let inTable = false;
-    let tableHeaders: string[] = [];
-    let tableRows: string[] = [];
-
-    const flushTable = () => {
-      if (tableHeaders.length && tableRows.length) {
-        html +=
-          '<table><tr>' +
-          tableHeaders.map((h) => '<td><strong>' + h + '</strong></td>').join('') +
-          '</tr>' +
-          tableRows.join('') +
-          '</table>';
-      }
-      tableHeaders = [];
-      tableRows = [];
-      inTable = false;
-    };
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      if (line.startsWith('```')) {
-        if (inCode) {
-          html += '<div class="code-block">' + codeContent + '</div>';
-          codeContent = '';
-          inCode = false;
-        } else {
-          inCode = true;
-        }
-        continue;
-      }
-      if (inCode) {
-        codeContent += line + '\n';
-        continue;
-      }
-      if (line.startsWith('# ')) continue;
-      if (line.startsWith('*Generated')) continue;
-      if (line.startsWith('---')) {
-        flushTable();
-        html += '<hr/>';
-        continue;
-      }
-      if (line.trim() === '') {
-        flushTable();
-        continue;
-      }
-
-      if (line.startsWith('| ') && line.endsWith('|')) {
-        const cells = line
-          .split('|')
-          .filter(Boolean)
-          .map((c) => c.trim().replace(/\*\*/g, '').replace(/`/g, ''));
-        if (i + 1 < lines.length && lines[i + 1].includes('---')) {
-          tableHeaders = cells;
-          inTable = true;
-          i++;
-          continue;
-        }
-        if (inTable) {
-          tableRows.push('<tr>' + cells.map((c) => '<td>' + c + '</td>').join('') + '</tr>');
-        }
-        continue;
-      }
-
-      flushTable();
-
-      if (line.startsWith('## ')) {
-        html += '<h2>' + line.replace('## ', '') + '</h2>';
-        continue;
-      }
-      if (line.startsWith('### ')) {
-        html += '<h3>' + line.replace('### ', '') + '</h3>';
-        continue;
-      }
-      if (line.startsWith('- ')) {
-        html += '<li>' + line.replace('- ', '') + '</li>';
-        continue;
-      }
-      const processed = line
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`(.*?)`/g, '<code>$1</code>');
-      if (
-        processed.startsWith('⚠️') ||
-        processed.startsWith('🌐') ||
-        processed.startsWith('❌') ||
-        processed.startsWith('✅')
-      ) {
-        html += '<div class="warning">' + processed + '</div>';
-      } else {
-        html += '<p>' + processed + '</p>';
-      }
-    }
-
-    flushTable();
-    return html;
-  })()}
-
-  <div class="footer">
-    <p>Báo cáo được tạo tự động bởi ClientSideApkParser (JSZip) — Dữ liệu không rời khỏi trình duyệt của bạn.</p>
-  </div>
-</body>
-</html>`;
-  }
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
@@ -438,21 +285,21 @@ export function CodeAnalysisPage() {
             setMode('apk');
             setError(null);
             setReport(null);
-            setLinkResult(null);
+            setProductResult(null);
           }}
         >
           📱 APK Analysis
         </button>
         <button
-          className={`mode-tab ${mode === 'link' ? 'active' : ''}`}
+          className={`mode-tab ${mode === 'product' ? 'active' : ''}`}
           onClick={() => {
-            setMode('link');
+            setMode('product');
             setError(null);
             setReport(null);
-            setLinkResult(null);
+            setProductResult(null);
           }}
         >
-          🔗 Product Link Search
+          🔍 Product Search
         </button>
       </div>
 
@@ -486,28 +333,29 @@ export function CodeAnalysisPage() {
         </div>
       )}
 
-      {mode === 'link' && (
+      {mode === 'product' && (
         <div className="analysis-controls">
           <div className="control-group">
             <p>
-              Tra cứu thông tin sản phẩm từ link Google Play. Nhập URL ứng dụng để lấy thông tin
-              tổng quan (tên, nhà phát triển, thể loại, đánh giá, v.v.).
+              Tra cứu thông tin sản phẩm bằng tên hoặc link Google Play. Ví dụ:{' '}
+              <em>"Liên Quân Mobile"</em> hoặc{' '}
+              <em>https://play.google.com/store/apps/details?id=com.example</em>.
             </p>
             <div className="link-search-zone">
               <input
-                type="url"
+                type="text"
                 className="url-input"
-                placeholder="https://play.google.com/store/apps/details?id=com.example.app"
-                value={productUrl}
-                onChange={(e) => setProductUrl(e.target.value)}
+                placeholder="Nhập tên sản phẩm hoặc link Google Play..."
+                value={productQuery}
+                onChange={(e) => setProductQuery(e.target.value)}
                 disabled={loading}
               />
               <button
                 className={`analyze-button ${loading ? 'loading' : ''}`}
-                onClick={handleLinkSearch}
-                disabled={loading || !productUrl.trim()}
+                onClick={handleProductSearch}
+                disabled={loading || !productQuery.trim()}
               >
-                {loading ? 'Đang tra cứu...' : 'Tra cứu thông tin'}
+                {loading ? 'Đang tra cứu...' : 'Tra cứu sản phẩm'}
               </button>
             </div>
           </div>
@@ -538,12 +386,12 @@ export function CodeAnalysisPage() {
       <div className="analysis-content">
         {!report && !loading && (
           <div className="empty-state">
-            <div className="empty-icon">{mode === 'apk' ? '🛡️' : '🔗'}</div>
+            <div className="empty-icon">{mode === 'apk' ? '🛡️' : '🔍'}</div>
             <h3>{mode === 'apk' ? 'Sẵn sàng phân tích' : 'Tra cứu sản phẩm'}</h3>
             <p>
               {mode === 'apk'
                 ? 'Chọn file APK và nhấn "Phân tích APK (Local)" để bắt đầu.'
-                : 'Nhập link Google Play và nhấn "Tra cứu thông tin" để xem thông tin sản phẩm.'}
+                : 'Nhập tên sản phẩm hoặc link Google Play, nhấn "Tra cứu sản phẩm" để xem thông tin.'}
             </p>
           </div>
         )}
@@ -555,7 +403,7 @@ export function CodeAnalysisPage() {
                 <h2>{mode === 'apk' ? 'Báo cáo APK Mobile (Local)' : 'Thông tin sản phẩm'}</h2>
                 <div className="report-actions">
                   <span className="badge">
-                    {mode === 'apk' ? 'Browser Analyzed' : 'Play Store'}
+                    {mode === 'apk' ? 'Browser Analyzed' : 'Product Info'}
                   </span>
                   <button className="download-btn" onClick={downloadReport}>
                     📥 Download Report

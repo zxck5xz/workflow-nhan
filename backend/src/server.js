@@ -299,83 +299,100 @@ function execWithTimeout(cmd, timeout = 120000) {
   });
 }
 
-app.post('/api/search-by-url', async (req, res) => {
-  const { url } = req.body;
-  if (!url) {
-    return res.json({ found: false, info: null });
+async function scrapePlayStore(packageName) {
+  const response = await fetch(
+    `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
+    { signal: AbortSignal.timeout(8000) },
+  );
+  const html = await response.text();
+
+  const extract = (regex) => {
+    const m = html.match(regex);
+    return m ? m[1].trim() : null;
+  };
+
+  const name =
+    extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
+    extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
+  const description =
+    extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
+    extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
+  const developer =
+    extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
+    extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
+  const category =
+    extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
+    extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
+  const rating =
+    extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
+    extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
+  const installs =
+    extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
+    extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
+  const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
+  const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
+  const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
+
+  const cleanDesc = description
+    ? description
+        .replace(/<[^>]+>/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 1000)
+    : null;
+
+  return {
+    found: !!name,
+    packageName,
+    info: name
+      ? { name, description: cleanDesc, developer, category, rating, installs, updated, size }
+      : null,
+  };
+}
+
+async function searchPlayStoreByName(query) {
+  const searchUrl = `https://play.google.com/store/search?q=${encodeURIComponent(query)}&c=apps&hl=en`;
+  const response = await fetch(searchUrl, { signal: AbortSignal.timeout(10000) });
+  const html = await response.text();
+
+  // Try to find the first app result's package name
+  const pkgMatch = html.match(/\/store\/apps\/details\?id=([a-zA-Z0-9._-]+)/);
+  if (pkgMatch) {
+    const packageName = decodeURIComponent(pkgMatch[1]);
+    return scrapePlayStore(packageName);
+  }
+
+  return { found: false, info: null, error: 'No matching product found on Google Play' };
+}
+
+app.post('/api/search-product', async (req, res) => {
+  const { query } = req.body;
+  if (!query) {
+    return res.json({ found: false, info: null, error: 'Missing search query' });
   }
 
   try {
-    let packageName = null;
+    const isUrl = /^https?:\/\//.test(query.trim());
+    let result;
 
-    // Extract package name from Google Play URL
-    const playMatch = url.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
-    if (playMatch) {
-      packageName = decodeURIComponent(playMatch[1]);
+    if (isUrl) {
+      // Try to extract package name from Google Play URL
+      const playMatch = query.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
+      if (playMatch) {
+        result = await scrapePlayStore(decodeURIComponent(playMatch[1]));
+      } else {
+        return res.json({
+          found: false,
+          info: null,
+          error: 'Unsupported URL. Please use a Google Play URL or a product name.',
+        });
+      }
+    } else {
+      // Search by product name
+      result = await searchPlayStoreByName(query);
     }
 
-    if (!packageName) {
-      return res.json({ found: false, info: null, error: 'Unsupported URL format' });
-    }
-
-    // Forward to the existing search logic
-    const response = await fetch(
-      `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
-      { signal: AbortSignal.timeout(8000) },
-    );
-    const html = await response.text();
-
-    const extract = (regex) => {
-      const m = html.match(regex);
-      return m ? m[1].trim() : null;
-    };
-
-    const name =
-      extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
-      extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
-    const description =
-      extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
-      extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
-    const developer =
-      extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
-      extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
-    const category =
-      extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
-      extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
-    const rating =
-      extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
-      extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
-    const installs =
-      extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
-      extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
-    const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
-    const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
-    const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
-
-    const cleanDesc = description
-      ? description
-          .replace(/<[^>]+>/g, '')
-          .replace(/\s+/g, ' ')
-          .trim()
-          .slice(0, 1000)
-      : null;
-
-    res.json({
-      found: !!name,
-      packageName,
-      info: name
-        ? {
-            name,
-            description: cleanDesc,
-            developer,
-            category,
-            rating,
-            installs,
-            updated,
-            size,
-          }
-        : null,
-    });
+    res.json(result);
   } catch {
     res.json({ found: false, info: null, error: 'Failed to fetch product info' });
   }

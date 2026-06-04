@@ -74,17 +74,15 @@ export const apiService = {
     });
   },
 
-  async searchByUrl(
-    url: string,
-  ): Promise<{
+  async searchProduct(query: string): Promise<{
     found: boolean;
     info: Record<string, unknown> | null;
     packageName?: string;
     error?: string;
   }> {
-    return request('/api/search-by-url', {
+    return request('/api/search-product', {
       method: 'POST',
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ query }),
     });
   },
 };
