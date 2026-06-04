@@ -292,9 +292,9 @@ export function buildStandardReportMarkdown(
   md += `| **Xếp hạng** | Đang chờ đánh giá |\n`;
   md += `| **Đề xuất** | Đang chờ đánh giá |\n`;
 
-  if (info.description) {
-    const desc =
-      info.description.length > 400 ? info.description.slice(0, 400) + '...' : info.description;
+  const rawDesc = info.description;
+  if (typeof rawDesc === 'string' && rawDesc) {
+    const desc = rawDesc.length > 400 ? rawDesc.slice(0, 400) + '...' : rawDesc;
     md += `\n---\n\n`;
     md += `## Mô tả sản phẩm\n\n${desc}\n`;
   }

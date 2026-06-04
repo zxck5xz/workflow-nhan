@@ -59,9 +59,9 @@ export function CodeAnalysisPage() {
       let appInfo: Record<string, unknown> | null = null;
       try {
         const searchRes = await apiService.searchAppInfo(result.packageName);
-        if (searchRes.found) {
+        if (searchRes.found && searchRes.info) {
           appInfo = searchRes.info;
-          addLog(`[Tra cứu] Tìm thấy: ${appInfo.name}`);
+          addLog(`[Tra cứu] Tìm thấy: ${String(appInfo.name || '')}`);
         } else {
           addLog(`[Tra cứu] Không tìm thấy thông tin trên Google Play`);
         }
@@ -186,19 +186,20 @@ export function CodeAnalysisPage() {
     try {
       const res = await apiService.searchByUrl(productUrl);
       if (res.found && res.info) {
-        addLog(`[Tra cứu] Tìm thấy: ${res.info.name} (${res.packageName || 'N/A'})`);
-        setLinkResult({ found: true, info: res.info, packageName: res.packageName });
+        const ri = res.info;
+        addLog(`[Tra cứu] Tìm thấy: ${String(ri.name || '')} (${res.packageName || 'N/A'})`);
+        setLinkResult({ found: true, info: ri, packageName: res.packageName });
 
         const info: Record<string, unknown> = {
-          name: res.info.name,
+          name: ri.name,
           packageName: res.packageName || 'N/A',
-          developer: res.info.developer || 'N/A',
-          category: res.info.category || 'N/A',
-          rating: res.info.rating || 'N/A',
-          installs: res.info.installs || 'N/A',
-          updated: res.info.updated || 'N/A',
-          size: res.info.size || 'N/A',
-          description: res.info.description || '',
+          developer: ri.developer,
+          category: ri.category,
+          rating: ri.rating,
+          installs: ri.installs,
+          updated: ri.updated,
+          size: ri.size,
+          description: ri.description,
         };
         let md = buildStandardReportMarkdown(info, 'link');
 
@@ -227,10 +228,13 @@ export function CodeAnalysisPage() {
   const downloadReport = async () => {
     if (!report) return;
 
+    const linkName = linkResult?.info?.name;
     const fileName =
       mode === 'apk'
         ? selectedFile?.name.replace('.apk', '') || 'unknown'
-        : linkResult?.info?.name?.replace(/\s+/g, '_') || 'product_info';
+        : typeof linkName === 'string'
+          ? linkName.replace(/\s+/g, '_')
+          : 'product_info';
     const html = buildVietnameseHtml(report);
     const container = document.createElement('div');
     container.innerHTML = html;
