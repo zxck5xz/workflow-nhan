@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { exec } from 'child_process';
@@ -298,6 +299,88 @@ function execWithTimeout(cmd, timeout = 120000) {
   });
 }
 
+app.post('/api/search-by-url', async (req, res) => {
+  const { url } = req.body;
+  if (!url) {
+    return res.json({ found: false, info: null });
+  }
+
+  try {
+    let packageName = null;
+
+    // Extract package name from Google Play URL
+    const playMatch = url.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
+    if (playMatch) {
+      packageName = decodeURIComponent(playMatch[1]);
+    }
+
+    if (!packageName) {
+      return res.json({ found: false, info: null, error: 'Unsupported URL format' });
+    }
+
+    // Forward to the existing search logic
+    const response = await fetch(
+      `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
+      { signal: AbortSignal.timeout(8000) },
+    );
+    const html = await response.text();
+
+    const extract = (regex) => {
+      const m = html.match(regex);
+      return m ? m[1].trim() : null;
+    };
+
+    const name =
+      extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
+      extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
+    const description =
+      extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
+      extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
+    const developer =
+      extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
+      extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
+    const category =
+      extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
+      extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
+    const rating =
+      extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
+      extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
+    const installs =
+      extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
+      extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
+    const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
+    const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
+    const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
+
+    const cleanDesc = description
+      ? description
+          .replace(/<[^>]+>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .slice(0, 1000)
+      : null;
+
+    res.json({
+      found: !!name,
+      packageName,
+      info: name
+        ? {
+            name,
+            description: cleanDesc,
+            developer,
+            category,
+            rating,
+            installs,
+            updated,
+            size,
+          }
+        : null,
+    });
+  } catch {
+    res.json({ found: false, info: null, error: 'Failed to fetch product info' });
+  }
+});
+
 app.post('/api/search-app-info', async (req, res) => {
   const { packageName } = req.body;
   if (!packageName) {
@@ -318,12 +401,25 @@ app.post('/api/search-app-info', async (req, res) => {
       return m ? m[1].trim() : null;
     };
 
-    const name = extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</);
-    const description = extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
-    const developer = extract(/<a[^>]*href="[^"]*dev?id=[^"]*"[^>]*>([^<]+)</);
-    const category = extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</);
-    const rating = extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
-    const installs = extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
+    const name =
+      extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
+      extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
+    const description =
+      extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
+      extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
+    const developer =
+      extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
+      extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
+    const category =
+      extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
+      extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
+    const rating =
+      extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
+      extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
+    const installs =
+      extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
+      extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
+
     const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
     const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
     const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;

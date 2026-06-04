@@ -65,10 +65,26 @@ export const apiService = {
     return request<AppData>(`/api/snapshots/${date}`);
   },
 
-  async searchAppInfo(packageName: string): Promise<{ found: boolean; info: any }> {
+  async searchAppInfo(
+    packageName: string,
+  ): Promise<{ found: boolean; info: Record<string, unknown> | null }> {
     return request('/api/search-app-info', {
       method: 'POST',
       body: JSON.stringify({ packageName }),
+    });
+  },
+
+  async searchByUrl(
+    url: string,
+  ): Promise<{
+    found: boolean;
+    info: Record<string, unknown> | null;
+    packageName?: string;
+    error?: string;
+  }> {
+    return request('/api/search-by-url', {
+      method: 'POST',
+      body: JSON.stringify({ url }),
     });
   },
 };

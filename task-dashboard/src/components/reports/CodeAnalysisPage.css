@@ -72,6 +72,32 @@
   align-items: center;
 }
 
+.link-search-zone {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.url-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 0;
+}
+
+.url-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.url-input::placeholder {
+  color: #94a3b8;
+}
+
 .select-file-btn {
   padding: 0.75rem 1.25rem;
   background: white;

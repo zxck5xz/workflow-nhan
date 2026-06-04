@@ -1,9 +1,11 @@
 import { useState, useRef } from 'react';
 import { ClientSideApkParser } from '../../utils/apkParser';
 import { apiService } from '../../data/apiService';
+import { buildStandardReportMarkdown } from '../../data/reportTemplate';
 import './CodeAnalysisPage.css';
 
 export function CodeAnalysisPage() {
+  const [mode, setMode] = useState<'apk' | 'link'>('apk');
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -12,6 +14,12 @@ export function CodeAnalysisPage() {
   const [logs, setLogs] = useState<string[]>([]);
   const logsRef = useRef<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [productUrl, setProductUrl] = useState('');
+  const [linkResult, setLinkResult] = useState<{
+    found: boolean;
+    info: Record<string, unknown>;
+    packageName?: string;
+  } | null>(null);
 
   const addLog = (msg: string) => {
     logsRef.current = [...logsRef.current, msg];
@@ -41,25 +49,48 @@ export function CodeAnalysisPage() {
         addLog(step);
       });
 
-      // Format the result as Markdown report
-      let md = `# APK Analysis Report: ${result.packageName}\n`;
-      md += `*Generated in browser on: ${new Date().toLocaleString()}*\n\n`;
+      addLog(`[Báo cáo] Đang tạo báo cáo chuẩn hóa...`);
 
-      md += `Based on information from the APK manifest and technical analysis of the application bytecode, below is the technical analysis for **${result.packageName}** (v${result.versionName}):\n\n`;
+      addLog(
+        `[Hoàn tất] Tìm thấy ${result.permissions.length} permissions, ${result.activities.length} activities, ${result.apiEndpoints.length} API endpoints, ${result.suspiciousKeys.length} keys`,
+      );
 
-      md += `## 📋 Product Overview\n`;
-      md += `| Aspect | Information |\n`;
-      md += `|---|---|\n`;
-      md += `| **Package Name** | \`${result.packageName}\` |\n`;
-      md += `| **Version** | \`${result.versionName}\` |\n`;
-      md += `| **Analysis Mode** | Client-side (Browser) |\n`;
-      md += `| **Total Activities** | ${result.activities.length} |\n`;
-      md += `| **Declared Permissions** | ${result.permissions.length} |\n\n`;
+      addLog(`[Tra cứu] Đang tìm thông tin về package ${result.packageName}...`);
+      let appInfo: Record<string, unknown> | null = null;
+      try {
+        const searchRes = await apiService.searchAppInfo(result.packageName);
+        if (searchRes.found) {
+          appInfo = searchRes.info;
+          addLog(`[Tra cứu] Tìm thấy: ${appInfo.name}`);
+        } else {
+          addLog(`[Tra cứu] Không tìm thấy thông tin trên Google Play`);
+        }
+      } catch {
+        addLog(`[Tra cứu] Lỗi khi tra cứu thông tin`);
+      }
 
-      md += `---\n\n`;
-      md += `## 🏗️ Technical Architecture Analysis\n\n`;
-      md += `### 1. App Entry Points (Activities)\n\n`;
-      md += `The APK declares **${result.activities.length}** activity components. Below are the key entry points extracted from \`AndroidManifest.xml\`:\n\n`;
+      const info: Record<string, unknown> = {
+        name: appInfo?.name || result.packageName,
+        packageName: result.packageName,
+        developer: appInfo?.developer || 'N/A',
+        category: appInfo?.category || 'N/A',
+        rating: appInfo?.rating || 'N/A',
+        installs: appInfo?.installs || 'N/A',
+        updated: appInfo?.updated || 'N/A',
+        size: appInfo?.size || `${(selectedFile.size / 1024 / 1024).toFixed(2)} MB`,
+        description: appInfo?.description || '',
+        activities: result.activities.length,
+        permissions: result.permissions.length,
+        apiEndpoints: result.apiEndpoints.length,
+        suspiciousKeys: result.suspiciousKeys.length,
+      };
+      let md = buildStandardReportMarkdown(info, 'apk');
+
+      md += `\n\n---\n\n## Phân tích kỹ thuật từ APK\n\n`;
+      md += `*Dựa trên phân tích file APK (v${result.versionName}) — xử lý trên trình duyệt.*\n\n`;
+
+      md += `### Entry Points (Activities)\n\n`;
+      md += `APK khai báo **${result.activities.length}** activity components:\n\n`;
       if (result.activities.length > 0) {
         const displayed = result.activities.slice(0, 15);
         md += '```\n';
@@ -76,8 +107,8 @@ export function CodeAnalysisPage() {
         md += `- No activities identified.\n\n`;
       }
 
-      md += `### 2. Permission Model\n\n`;
-      md += `The application requests **${result.permissions.length}** Android permissions. This reveals the app's integration with system resources and data access patterns:\n\n`;
+      md += `### Permission Model\n\n`;
+      md += `Ứng dụng yêu cầu **${result.permissions.length}** Android permissions:\n\n`;
       if (result.permissions.length > 0) {
         md += '```\n';
         const dangerous = result.permissions.filter((p) =>
@@ -97,149 +128,97 @@ export function CodeAnalysisPage() {
             '\n\n';
         }
         if (networking.length > 0) {
-          md += `🌐 **Networking permissions (${networking.length}):** Network access detected — expected for a connected application.\n\n`;
+          md += `🌐 **Networking permissions (${networking.length}):** Network access detected.\n\n`;
         }
       } else {
         md += `- No permissions declared.\n\n`;
       }
 
-      md += `---\n\n`;
-      md += `## 🔌 Network & API Surface\n\n`;
+      md += `### Network & API Surface\n\n`;
       if (result.apiEndpoints.length > 0) {
-        md += `The DEX bytecode scan revealed **${result.apiEndpoints.length}** potential API endpoints and network URLs:\n\n`;
+        md += `DEX bytecode scan phát hiện **${result.apiEndpoints.length}** API endpoints:\n\n`;
         md += '```\n';
         result.apiEndpoints.slice(0, 20).forEach((ep) => (md += `${ep}\n`));
         if (result.apiEndpoints.length > 20)
           md += `... and ${result.apiEndpoints.length - 20} more.\n`;
         md += '```\n\n';
       } else {
-        md += `- No API endpoints were extracted from the DEX bytecode.\n\n`;
+        md += `- No API endpoints extracted.\n\n`;
       }
 
-      md += `---\n\n`;
-      md += `## 🔒 Security Analysis\n\n`;
+      md += `### Security Analysis\n\n`;
       if (result.suspiciousKeys.length > 0) {
-        md += `### Potential Keys / Secrets\n\n`;
-        md += `The bytecode scan discovered **${result.suspiciousKeys.length}** potential secrets or API keys:\n\n`;
+        md += `Phát hiện **${result.suspiciousKeys.length}** potential secrets/API keys:\n\n`;
         md += '```\n';
         result.suspiciousKeys.slice(0, 20).forEach((k) => (md += `${k}\n`));
         if (result.suspiciousKeys.length > 20)
           md += `... and ${result.suspiciousKeys.length - 20} more.\n`;
         md += '```\n\n';
-        md += `⚠️ **Recommendation:** Review these strings to ensure no credentials are hardcoded in the application binary.\n\n`;
       } else {
-        md += `- No suspicious keys or secrets found in the scanned bytecode.\n\n`;
-      }
-
-      md += `### Security Best Practices\n\n`;
-      md += `| Practice | Status | Notes |\n`;
-      md += `|---|---|---|\n`;
-      md += `| Hardcoded Secrets | ${result.suspiciousKeys.length > 0 ? '❌ Potential issues found' : '✅ No secrets detected'} | ${result.suspiciousKeys.length > 0 ? `${result.suspiciousKeys.length} potential keys found — review recommended` : 'Bytecode scan did not detect hardcoded secrets'} |\n`;
-      md += `| Network Security | ✅ TLS/HTTPS expected | Standard for modern Android apps |\n`;
-      md += `| Permission Model | ${result.permissions.length > 5 ? '⚠️ ' + result.permissions.length + ' declared' : '✅ Minimal permissions'} | ${result.permissions.length} permission(s) declared in manifest |\n\n`;
-
-      md += `*Analysis completed locally using ClientSideApkParser (JSZip) — no data left your browser.*`;
-
-      addLog(
-        `[Hoàn tất] Tìm thấy ${result.permissions.length} permissions, ${result.activities.length} activities, ${result.apiEndpoints.length} API endpoints, ${result.suspiciousKeys.length} keys`,
-      );
-
-      addLog(`[Tra cứu] Đang tìm thông tin về package ${result.packageName}...`);
-      let appInfo: any = null;
-      try {
-        const searchRes = await apiService.searchAppInfo(result.packageName);
-        if (searchRes.found) {
-          appInfo = searchRes.info;
-          addLog(`[Tra cứu] Tìm thấy: ${appInfo.name}`);
-        } else {
-          addLog(`[Tra cứu] Không tìm thấy thông tin trên Google Play`);
-        }
-      } catch {
-        addLog(`[Tra cứu] Lỗi khi tra cứu thông tin`);
-      }
-
-      // --- Build supplementary sections from web data ---
-      if (appInfo) {
-        const desc = appInfo.description || '';
-        const shortDesc = desc.length > 200 ? desc.slice(0, 200) + '...' : desc;
-
-        md += `\n\n---\n\n`;
-        md += `## 📋 Product Overview\n\n`;
-        md += `| Aspect | Information |\n`;
-        md += `|---|---|\n`;
-        md += `| **App Name** | ${appInfo.name} |\n`;
-        md += `| **Package** | \`${result.packageName}\` |\n`;
-        md += `| **Developer** | ${appInfo.developer || 'N/A'} |\n`;
-        md += `| **Category** | ${appInfo.category || 'N/A'} |\n`;
-        md += `| **Rating** | ${appInfo.rating || 'N/A'} |\n`;
-        md += `| **Installs** | ${appInfo.installs || 'N/A'} |\n`;
-        md += `| **Updated** | ${appInfo.updated || 'N/A'} |\n`;
-        md += `| **Size** | ${appInfo.size || 'N/A'} |\n\n`;
-
-        if (shortDesc) {
-          md += `**Description:** ${shortDesc}\n\n`;
-        }
-
-        md += `---\n\n`;
-        md += `## 🔒 Security & Technical Analysis\n\n`;
-        md += `### 1. Authentication & SSO\n\n`;
-        md += `| Aspect | Analysis |\n`;
-        md += `|---|---|\n`;
-        md += `| **Single Sign-On** | One account accesses all games |\n`;
-        md += `| **Session Management** | Token-based authentication (JWT or OAuth) |\n`;
-        md += `| **Security** | HTTPS encryption, prevents injection/intercept |\n\n`;
-
-        md += `### 2. Performance Optimization\n\n`;
-        md += `| Aspect | Proposed Technology |\n`;
-        md += `|---|---|\n`;
-        md += `| **Download Speed** | CDN + parallel downloads + resume support |\n`;
-        md += `| **Disk Usage** | Delta patching (only downloads changed parts) |\n`;
-        md += `| **Startup Time** | Lazy loading, background initialization |\n`;
-        md += `| **Memory Usage** | Process isolation for each game |\n\n`;
-
-        md += `### 3. Platform Compatibility\n\n`;
-        md += `| Requirement | Details |\n`;
-        md += `|---|---|\n`;
-        md += `| **OS** | Windows 10/11 (64-bit) – PC/Laptop |\n`;
-        md += `| **Disk Drive** | Supports installation outside of drive C: |\n`;
-        md += `| **Encoding** | Warning: Do not name folders with Vietnamese characters/special characters |\n\n`;
-
-        md += `---\n\n`;
-        md += `## 📈 Product Design Evaluation\n\n`;
-        md += `### ✅ Strengths\n\n`;
-        md += `| Advantage | Description |\n`;
-        md += `|---|---|\n`;
-        md += `| **Centralized platform** | Resolves fragmentation – no need to install multiple launchers |\n`;
-        md += `| **Auto-update** | No more interruptions due to manual updates |\n`;
-        md += `| **SSO convenience** | Only one login required |\n`;
-        md += `| **Community integration** | News and social links directly in the launcher |\n`;
-        md += `| **Iterative improvement** | Gathering feedback for continuous development |\n\n`;
-
-        md += `### ⚠️ Points to Note\n\n`;
-        md += `| Challenge | Proposed Solution |\n`;
-        md += `|---|---|\n`;
-        md += `| **Single point of failure** | If the launcher fails, it affects all games |\n`;
-        md += `| **Update reliability** | Broken patches can impact many games |\n`;
-        md += `| **UI performance** | WPF/Electron may be heavy |\n`;
-        md += `| **Scalability** | Adding new games requires expansion |\n\n`;
-
-        md += `---\n\n`;
-        md += `## 🚀 Development Roadmap (according to official information)\n\n`;
-        md += `- **2025:** Expand to more PC games\n`;
-        md += `- **Future:** Enhanced community integration, library customization\n`;
-        md += `- **Prospects:** Establishing a "new standard of experience" for VNG PC games\n\n`;
-
-        md += `---\n\n`;
-        md += `## 📌 Conclusion\n\n`;
-        md += `Based on the analysis of **${appInfo.name}** (${result.packageName}), this application follows modern mobile development practices. `;
-        md += `The permission model and bytecode scan provide insights into its network surface and security posture. `;
-        md += `For a comprehensive product evaluation, additional context from the developer's official channels is recommended.\n\n`;
+        md += `- No suspicious keys or secrets found.\n\n`;
       }
 
       setReport(md);
-    } catch (err: any) {
-      addLog(`[Lỗi] ${err.message}`);
-      setError(`Client-side analysis error: ${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      addLog(`[Lỗi] ${msg}`);
+      setError(`Client-side analysis error: ${msg}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLinkSearch = async () => {
+    if (!productUrl.trim()) {
+      setError('Vui lòng nhập link sản phẩm (Google Play URL).');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setReport(null);
+    setLinkResult(null);
+    logsRef.current = [];
+    setLogs([]);
+
+    addLog(`[Tra cứu] Đang xử lý URL: ${productUrl}`);
+
+    try {
+      const res = await apiService.searchByUrl(productUrl);
+      if (res.found && res.info) {
+        addLog(`[Tra cứu] Tìm thấy: ${res.info.name} (${res.packageName || 'N/A'})`);
+        setLinkResult({ found: true, info: res.info, packageName: res.packageName });
+
+        const info: Record<string, unknown> = {
+          name: res.info.name,
+          packageName: res.packageName || 'N/A',
+          developer: res.info.developer || 'N/A',
+          category: res.info.category || 'N/A',
+          rating: res.info.rating || 'N/A',
+          installs: res.info.installs || 'N/A',
+          updated: res.info.updated || 'N/A',
+          size: res.info.size || 'N/A',
+          description: res.info.description || '',
+        };
+        let md = buildStandardReportMarkdown(info, 'link');
+
+        md += `\n\n---\n\n## 🔍 Thông tin tra cứu\n\n`;
+        md += `- **Nguồn:** Google Play Store\n`;
+        md += `- **Link:** ${productUrl}\n`;
+        md += `- **Phân tích thêm:** Tải APK của sản phẩm này để phân tích kỹ thuật đầy đủ (permissions, activities, API endpoints, security scan).\n`;
+
+        setReport(md);
+      } else {
+        addLog(`[Tra cứu] Không tìm thấy thông tin từ URL này`);
+        setError(
+          res.error ||
+            'Không tìm thấy thông tin sản phẩm từ URL này. Vui lòng kiểm tra lại link Google Play.',
+        );
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      addLog(`[Lỗi] ${msg}`);
+      setError(`Lỗi tra cứu: ${msg}`);
     } finally {
       setLoading(false);
     }
@@ -248,7 +227,10 @@ export function CodeAnalysisPage() {
   const downloadReport = async () => {
     if (!report) return;
 
-    const fileName = selectedFile?.name.replace('.apk', '') || 'unknown';
+    const fileName =
+      mode === 'apk'
+        ? selectedFile?.name.replace('.apk', '') || 'unknown'
+        : linkResult?.info?.name?.replace(/\s+/g, '_') || 'product_info';
     const html = buildVietnameseHtml(report);
     const container = document.createElement('div');
     container.innerHTML = html;
@@ -445,33 +427,88 @@ export function CodeAnalysisPage() {
         </div>
       </header>
 
-      <div className="analysis-controls">
-        <div className="control-group">
-          <p>
-            Tải lên APK để phân tích <strong>ngay trong trình duyệt</strong>. File của bạn không
-            được gửi lên server.
-          </p>
-          <div className="upload-zone">
-            <input
-              type="file"
-              accept=".apk"
-              onChange={handleFileChange}
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-            />
-            <button className="select-file-btn" onClick={() => fileInputRef.current?.click()}>
-              {selectedFile ? `📁 ${selectedFile.name}` : 'Chọn file APK...'}
-            </button>
-            <button
-              className={`analyze-button ${loading ? 'loading' : ''}`}
-              onClick={runApkAnalysis}
-              disabled={loading || !selectedFile}
-            >
-              {loading ? 'Đang xử lý...' : 'Phân tích APK (Local)'}
-            </button>
+      <div className="mode-selector">
+        <button
+          className={`mode-tab ${mode === 'apk' ? 'active' : ''}`}
+          onClick={() => {
+            setMode('apk');
+            setError(null);
+            setReport(null);
+            setLinkResult(null);
+          }}
+        >
+          📱 APK Analysis
+        </button>
+        <button
+          className={`mode-tab ${mode === 'link' ? 'active' : ''}`}
+          onClick={() => {
+            setMode('link');
+            setError(null);
+            setReport(null);
+            setLinkResult(null);
+          }}
+        >
+          🔗 Product Link Search
+        </button>
+      </div>
+
+      {mode === 'apk' && (
+        <div className="analysis-controls">
+          <div className="control-group">
+            <p>
+              Tải lên APK để phân tích <strong>ngay trong trình duyệt</strong>. File của bạn không
+              được gửi lên server.
+            </p>
+            <div className="upload-zone">
+              <input
+                type="file"
+                accept=".apk"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+              />
+              <button className="select-file-btn" onClick={() => fileInputRef.current?.click()}>
+                {selectedFile ? `📁 ${selectedFile.name}` : 'Chọn file APK...'}
+              </button>
+              <button
+                className={`analyze-button ${loading ? 'loading' : ''}`}
+                onClick={runApkAnalysis}
+                disabled={loading || !selectedFile}
+              >
+                {loading ? 'Đang xử lý...' : 'Phân tích APK (Local)'}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {mode === 'link' && (
+        <div className="analysis-controls">
+          <div className="control-group">
+            <p>
+              Tra cứu thông tin sản phẩm từ link Google Play. Nhập URL ứng dụng để lấy thông tin
+              tổng quan (tên, nhà phát triển, thể loại, đánh giá, v.v.).
+            </p>
+            <div className="link-search-zone">
+              <input
+                type="url"
+                className="url-input"
+                placeholder="https://play.google.com/store/apps/details?id=com.example.app"
+                value={productUrl}
+                onChange={(e) => setProductUrl(e.target.value)}
+                disabled={loading}
+              />
+              <button
+                className={`analyze-button ${loading ? 'loading' : ''}`}
+                onClick={handleLinkSearch}
+                disabled={loading || !productUrl.trim()}
+              >
+                {loading ? 'Đang tra cứu...' : 'Tra cứu thông tin'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {loading && progress && (
         <div className="progress-bar-container">
@@ -497,9 +534,13 @@ export function CodeAnalysisPage() {
       <div className="analysis-content">
         {!report && !loading && (
           <div className="empty-state">
-            <div className="empty-icon">🛡️</div>
-            <h3>Sẵn sàng phân tích</h3>
-            <p>Chọn file APK và nhấn "Phân tích APK (Local)" để bắt đầu.</p>
+            <div className="empty-icon">{mode === 'apk' ? '🛡️' : '🔗'}</div>
+            <h3>{mode === 'apk' ? 'Sẵn sàng phân tích' : 'Tra cứu sản phẩm'}</h3>
+            <p>
+              {mode === 'apk'
+                ? 'Chọn file APK và nhấn "Phân tích APK (Local)" để bắt đầu.'
+                : 'Nhập link Google Play và nhấn "Tra cứu thông tin" để xem thông tin sản phẩm.'}
+            </p>
           </div>
         )}
 
@@ -507,9 +548,11 @@ export function CodeAnalysisPage() {
           <div className="report-container">
             <div className="report-card">
               <div className="report-header">
-                <h2>Báo cáo APK Mobile (Local)</h2>
+                <h2>{mode === 'apk' ? 'Báo cáo APK Mobile (Local)' : 'Thông tin sản phẩm'}</h2>
                 <div className="report-actions">
-                  <span className="badge">Browser Analyzed</span>
+                  <span className="badge">
+                    {mode === 'apk' ? 'Browser Analyzed' : 'Play Store'}
+                  </span>
                   <button className="download-btn" onClick={downloadReport}>
                     📥 Download Report
                   </button>
@@ -520,7 +563,7 @@ export function CodeAnalysisPage() {
 
             {logs.length > 0 && (
               <div className="terminal-output">
-                <h3>Analysis Log</h3>
+                <h3>{mode === 'apk' ? 'Analysis Log' : 'Search Log'}</h3>
                 <pre>{logs.join('\n')}</pre>
               </div>
             )}
