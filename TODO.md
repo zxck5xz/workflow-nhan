@@ -1,28 +1,34 @@
-# TODO - Workflow 1: Task Dashboard Backend DB + Deploy
+# TODO
 
-## Plan
-1. (Code) Implement `DataStoreDB` using Prisma to replace file-JSON DataStore while keeping API routes unchanged.
-2. (Code) Update `backend/src/server.js` to use `DataStoreDB` when `DATABASE_URL` is set; otherwise fallback to file JSON.
-3. (Code) Ensure snapshot endpoints map to `Snapshot` table.
-4. (Code/Schema) Generate Prisma client already exists; ensure build passes.
-5. (Migrate) Run Prisma migrate for the schema.
-6. (Migrate) Run `backend/prisma/migrate-import.ts` to import current `backend/data/app-data.json` + snapshots.
-7. (Ops) Verify `docker-compose.yml` works for local: bring up Postgres + backend.
-8. (Ops) Provide free-tier hosting recommendations (frontend+backend+DB) and minimal deployment steps.
+## ✅ Done (2026-06-02)
 
-## Progress
-- [x] Implemented `backend/src/data-store-db.js` (Prisma-backed store + snapshots via `Snapshot` table)
-- [x] Updated `backend/src/server.js` to use DB store when `DATABASE_URL` is set, otherwise fallback to JSON store
-- [x] Verified backend boots and `/api/health` and `/api/app-data` work with JSON fallback
-- [x] Full-stack deploy: Vercel (frontend) + Railway (backend) + Neon (DB)
-- [x] User authentication: JWT, register/login/me endpoints, auth middleware
-- [x] Fix deploy failures (duplicate routes, Prisma 7 compatibility, Vite build path)
-- [x] Merge Tasks & Project Dashboard into Jira-style Project Control Center
-- [x] Implement Admin-only User Management system
-- [x] Add "Add Project" quick action across pages
+- [x] Add real-time progress bar + live log cho APK analysis
+- [x] Thêm Google Play search endpoint (`POST /api/search-app-info`)
+- [x] Enrich report với Google Play data (app name, developer, category, rating, installs)
+- [x] Thêm supplementary sections (Security, Product Design, Roadmap, Conclusion) chỉ khi có web app info
+- [x] PDF download button với HTML → PDF (html2pdf.js), tiếng Việt
+- [x] Xoá "Phân tích Codebase" feature khỏi UI, API, backend route, docs
+- [x] Fix TypeScript errors trong `AppContext.tsx`
+- [x] Fix auth middleware order: `/api/health` trước `app.use(authMiddleware)`
+- [x] Fix backend Docker build (zod dep, npm --no-workspaces, lockfile)
+- [x] Clear preDeployCommand (migrations already applied, env not injected in Docker build)
+- [x] Deploy backend lên Railway thành công (SUCCESS)
+- [x] Backend health check hoạt động: `/api/health` → 200
+- [x] Auth middleware hoạt động: unauthenticated → 401
 
-## Remaining
-- [ ] Drag & drop functionality for Kanban Board
-- [ ] Build gameplay image/clip library (Workflow 3)
-- [ ] docker-compose verification for local environment
-- [ ] Automated weekly insights email/Slack notification
+## ✅ Done (2026-06-04)
+
+- [x] Product Link Search mode → Product Search (accept tên hoặc URL)
+- [x] Backend `/api/search-product` mới — nhận query (tên, Google Play URL, hoặc promo link)
+- [x] Promo link support — follow redirects, extract OG metadata, match trên Google Play
+- [x] Standardized 10-section report template từ Excel mẫu
+- [x] Fix blank PDF — replace html2pdf.js with direct html2canvas + jsPDF
+- [x] Fix pre-existing import path bug (`services/` → `utils/`) + TS 6.0 implicit any
+
+## In Progress
+
+## Backlog
+
+- [ ] Kiểm tra frontend (task-dashboard) hoạt động với backend mới
+- [ ] Test APK analysis flow end-to-end
+- [ ] Test PDF download trên Vercel deploy
