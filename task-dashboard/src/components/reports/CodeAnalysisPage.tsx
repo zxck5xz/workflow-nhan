@@ -256,31 +256,52 @@ export function CodeAnalysisPage() {
           ? productName.replace(/\s+/g, '_')
           : 'product_info';
     const html = buildVietnameseHtml(report);
+
     const container = document.createElement('div');
     container.innerHTML = html;
-    container.style.position = 'absolute';
+    container.style.width = '800px';
+    container.style.background = '#fff';
+    container.style.padding = '0';
+    container.style.margin = '0';
+    container.style.position = 'fixed';
     container.style.left = '0';
     container.style.top = '0';
-    container.style.width = '800px';
     container.style.zIndex = '-1000';
-    container.style.background = '#fff';
     document.body.appendChild(container);
 
     try {
-      await new Promise((r) => setTimeout(r, 300));
-      const html2pdf = (await import('html2pdf.js')).default;
-      await html2pdf()
-        .set({
-          margin: [10, 10, 10, 10],
-          filename: `Bao_cao_APK_${fileName}.pdf`,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, logging: false, width: 800 },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        })
-        .from(container)
-        .save();
+      await new Promise((r) => setTimeout(r, 500));
+
+      const html2canvasMod = await import('html2canvas');
+      const canvas = await html2canvasMod.default(container, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        width: 800,
+        backgroundColor: '#ffffff',
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.98);
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 10;
+      const imgWidth = pageWidth - margin * 2;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const usablePage = pageHeight - margin * 2;
+      const totalPages = Math.ceil(imgHeight / usablePage);
+
+      for (let i = 0; i < totalPages; i++) {
+        if (i > 0) doc.addPage();
+        doc.addImage(imgData, 'JPEG', margin, margin - i * usablePage, imgWidth, imgHeight);
+      }
+
+      doc.save(`Bao_cao_APK_${fileName}.pdf`);
     } finally {
-      document.body.removeChild(container);
+      if (container.parentNode) {
+        document.body.removeChild(container);
+      }
     }
   };
 
