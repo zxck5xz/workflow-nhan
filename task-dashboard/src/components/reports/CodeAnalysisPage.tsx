@@ -15,12 +15,20 @@ export function CodeAnalysisPage() {
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [progress, setProgress] = useState<string>('');
+  const [logs, setLogs] = useState<string[]>([]);
   const logsRef = useRef<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [productQuery, setProductQuery] = useState('');
+  const [productResult, setProductResult] = useState<{
+    found: boolean;
+    info: any;
+    packageName?: string;
+  } | null>(null);
 
   const addLog = (msg: string) => {
     logsRef.current = [...logsRef.current, msg];
+    setLogs([...logsRef.current]);
   };
 
   const fetchHistory = async () => {
@@ -304,6 +312,21 @@ export function CodeAnalysisPage() {
 
         {error && <div className="error-banner"><strong>Lỗi:</strong> {error}</div>}
 
+        {loading && progress && (
+          <div className="progress-bar-container" style={{ margin: '1rem 0' }}>
+            <div className="progress-bar" style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
+              <div className="progress-bar-fill" style={{ height: '100%', background: '#4f46e5', width: '60%' }}></div>
+            </div>
+            <p className="progress-text" style={{ fontSize: '0.85rem', color: '#4f46e5', marginTop: '0.5rem' }}>{progress}</p>
+          </div>
+        )}
+
+        {loading && logs.length > 0 && (
+          <div className="live-log" style={{ background: '#1e293b', color: '#a5f3fc', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1.5rem', maxHeight: '120px', overflowY: 'auto', fontFamily: 'monospace', fontSize: '0.8rem' }}>
+            <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{logs.join('\n')}</pre>
+          </div>
+        )}
+
         <div className="analysis-content">
           {report && (
             <div className="report-container">
@@ -311,6 +334,9 @@ export function CodeAnalysisPage() {
                 <div className="report-header">
                   <h2>{mode === 'apk' ? 'Báo cáo APK Mobile' : 'Thông tin sản phẩm'}</h2>
                   <div className="report-actions">
+                    <span className="badge">
+                      {mode === 'apk' ? 'APK Analyzed' : productResult?.info?.name || 'Product Info'}
+                    </span>
                     {mode === 'apk' && !apkInterpretation && (
                       <button className={`ai-interpret-btn ${isInterpreting ? 'loading' : ''}`} onClick={handleInterpretApk} disabled={isInterpreting}>
                         🤖 {isInterpreting ? 'AI is Thinking...' : 'Ask AI to Interpret'}
