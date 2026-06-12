@@ -358,68 +358,105 @@ function execWithTimeout(cmd, timeout = 120000) {
 }
 
 async function scrapePlayStore(packageName) {
-  const response = await fetch(
-    `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
-    { signal: AbortSignal.timeout(8000) },
-  );
-  const html = await response.text();
+  try {
+    const response = await fetch(
+      `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
+      {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        },
+        signal: AbortSignal.timeout(10000),
+      },
+    );
 
-  const extract = (regex) => {
-    const m = html.match(regex);
-    return m ? m[1].trim() : null;
-  };
+    if (!response.ok) {
+      return { found: false, info: null, error: `Google Play returned status ${response.status}` };
+    }
 
-  const name =
-    extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
-    extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
-  const description =
-    extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
-    extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
-  const developer =
-    extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
-    extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
-  const category =
-    extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
-    extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
-  const rating =
-    extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
-    extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
-  const installs =
-    extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
-    extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
-  const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
-  const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
-  const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
+    const html = await response.text();
 
-  const cleanDesc = description
-    ? description
-        .replace(/<[^>]+>/g, '')
-        .replace(/\s+/g, ' ')
-        .trim()
-        .slice(0, 1000)
-    : null;
+    const extract = (regex) => {
+      const m = html.match(regex);
+      return m && m[1] ? m[1].trim() : null;
+    };
 
-  return {
-    found: !!name,
-    packageName,
-    info: name
-      ? { name, description: cleanDesc, developer, category, rating, installs, updated, size }
-      : null,
-  };
+    const name =
+      extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
+      extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
+
+    if (!name) {
+      return { found: false, info: null, error: 'Product name not found on page' };
+    }
+
+    const description =
+      extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
+      extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
+    const developer =
+      extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
+      extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
+    const category =
+      extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
+      extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
+    const rating =
+      extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
+      extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
+    const installs =
+      extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
+      extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
+    const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
+
+    // More robust size extraction
+    const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</);
+    const size = sizeMatch ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
+
+    const cleanDesc = description
+      ? description
+          .replace(/<[^>]+>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .slice(0, 1000)
+      : null;
+
+    return {
+      found: true,
+      packageName,
+      info: { name, description: cleanDesc, developer, category, rating, installs, updated, size },
+    };
+  } catch (error) {
+    logger.error({ err: error, packageName }, 'scrapePlayStore error');
+    return { found: false, info: null, error: error.message };
+  }
 }
 
 async function searchPlayStoreByName(query) {
-  const searchUrl = `https://play.google.com/store/search?q=${encodeURIComponent(query)}&c=apps&hl=en`;
-  const response = await fetch(searchUrl, { signal: AbortSignal.timeout(10000) });
-  const html = await response.text();
+  try {
+    const searchUrl = `https://play.google.com/store/search?q=${encodeURIComponent(query)}&c=apps&hl=en`;
+    const response = await fetch(searchUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+      },
+      signal: AbortSignal.timeout(12000),
+    });
 
-  const pkgMatch = html.match(/\/store\/apps\/details\?id=([a-zA-Z0-9._-]+)/);
-  if (pkgMatch) {
-    const packageName = decodeURIComponent(pkgMatch[1]);
-    return scrapePlayStore(packageName);
+    if (!response.ok) {
+      return { found: false, info: null, error: `Search failed with status ${response.status}` };
+    }
+
+    const html = await response.text();
+    const pkgMatch = html.match(/\/store\/apps\/details\?id=([a-zA-Z0-9._-]+)/);
+
+    if (pkgMatch) {
+      const packageName = decodeURIComponent(pkgMatch[1]);
+      return scrapePlayStore(packageName);
+    }
+
+    return { found: false, info: null, error: 'No matching product found on Google Play' };
+  } catch (error) {
+    logger.error({ err: error, query }, 'searchPlayStoreByName error');
+    return { found: false, info: null, error: error.message };
   }
-
-  return { found: false, info: null, error: 'No matching product found on Google Play' };
 }
 
 async function fetchPageMetadata(url) {
@@ -466,7 +503,7 @@ app.post('/api/search-product', async (req, res) => {
   try {
     const trimmed = query.trim();
     const isUrl = /^https?:\/\//.test(trimmed);
-    let result;
+    let result = { found: false, info: null };
 
     if (isUrl) {
       const playMatch = trimmed.match(/play\.google\.com\/store\/apps\/details\?id=([^&]+)/);
@@ -513,12 +550,21 @@ app.post('/api/search-product', async (req, res) => {
       }
     } else {
       result = await searchPlayStoreByName(trimmed);
-      result.sourceInfo = { query: trimmed, type: 'name_search' };
+      if (result) {
+        result.sourceInfo = { query: trimmed, type: 'name_search' };
+      } else {
+        result = { found: false, info: null, error: 'Search returned no result' };
+      }
     }
 
     res.json(result);
-  } catch {
-    res.json({ found: false, info: null, error: 'Failed to fetch product info' });
+  } catch (error) {
+    logger.error({ err: error, query }, 'Product search route error');
+    res.json({
+      found: false,
+      info: null,
+      error: `Search error: ${error.message || 'Unknown error'}`,
+    });
   }
 });
 
