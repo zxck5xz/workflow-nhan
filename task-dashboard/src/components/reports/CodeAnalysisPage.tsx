@@ -15,20 +15,12 @@ export function CodeAnalysisPage() {
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [progress, setProgress] = useState<string>('');
-  const [logs, setLogs] = useState<string[]>([]);
   const logsRef = useRef<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [productQuery, setProductQuery] = useState('');
-  const [productResult, setProductResult] = useState<{
-    found: boolean;
-    info: Record<string, unknown>;
-    packageName?: string;
-  } | null>(null);
 
   const addLog = (msg: string) => {
     logsRef.current = [...logsRef.current, msg];
-    setLogs([...logsRef.current]);
   };
 
   const fetchHistory = async () => {
