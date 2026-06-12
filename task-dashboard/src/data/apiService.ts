@@ -86,4 +86,23 @@ export const apiService = {
       body: JSON.stringify({ query }),
     });
   },
+
+  async interpretApk(apkData: any): Promise<any> {
+    return request('/api/interpret-apk', {
+      method: 'POST',
+      body: JSON.stringify(apkData),
+    });
+  },
+
+  async listResearchReports(): Promise<any[]> {
+    const res = await request<{ reports: any[] }>('/api/research-reports');
+    return res.reports;
+  },
+
+  async saveResearchReport(report: any): Promise<any> {
+    return request('/api/research-reports', {
+      method: 'POST',
+      body: JSON.stringify(report),
+    });
+  },
 };

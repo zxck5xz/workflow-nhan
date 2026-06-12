@@ -4,7 +4,6 @@ import cors from 'cors';
 import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { setTimeout } from 'node:timers/promises';
 import { fileURLToPath } from 'url';
 import { DataStore } from './data-store.js';
 import { DataStoreDB } from './data-store-db.js';
@@ -18,6 +17,7 @@ const ROOT_DIR = path.resolve(__dirname, '..', '..');
 const PYTHON_DIR = path.join(ROOT_DIR, 'ai-agents');
 const EVAL_SCRIPT = path.join(PYTHON_DIR, 'game_eval_agent.py');
 const PPTX_SCRIPT = path.join(PYTHON_DIR, 'pptx_generator.py');
+const APK_INTERPRET_SCRIPT = path.join(PYTHON_DIR, 'apk_interpreter.py');
 const store = new DataStore(__dirname);
 
 let dataStoreDB = null;
@@ -227,6 +227,64 @@ app.post('/api/open-file', async (req, res, next) => {
   } catch (error) {
     logger.error({ err: error, stderr: error.stderr }, 'Failed to open file');
     return res.status(500).json({ error: error.message, stderr: error.stderr });
+  }
+});
+
+app.post('/api/interpret-apk', async (req, res, next) => {
+  const apkData = req.body;
+  const tempFile = path.join(__dirname, `temp_apk_${Date.now()}.json`);
+  
+  try {
+    fs.writeFileSync(tempFile, JSON.stringify(apkData));
+    const cmd = `python "${APK_INTERPRET_SCRIPT}" < "${tempFile}"`;
+    
+    const { stdout, stderr } = await execWithTimeout(cmd, 30000);
+    fs.unlinkSync(tempFile); // Clean up
+    
+    try {
+      const interpretation = JSON.parse(stdout);
+      res.json(interpretation);
+    } catch (parseError) {
+      logger.error({ err: parseError, stdout, stderr }, 'Failed to parse APK interpretation output');
+      res.status(500).json({ error: 'Failed to parse interpretation results', stdout, stderr });
+    }
+  } catch (error) {
+    if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
+    logger.error({ err: error, stderr: error.stderr }, 'APK interpretation error');
+    res.status(500).json({ error: error.message, stderr: error.stderr });
+  }
+});
+
+app.get('/api/research-reports', async (req, res, next) => {
+  try {
+    const ds = await getDataStore();
+    const reports = await ds.listResearchReports();
+    res.json({ reports });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post('/api/research-reports', async (req, res, next) => {
+  try {
+    const ds = await getDataStore();
+    const report = await ds.saveResearchReport(req.body);
+    res.json({ success: true, report });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get('/api/research-reports/:id', async (req, res, next) => {
+  try {
+    const ds = await getDataStore();
+    const report = await ds.loadResearchReport(req.params.id);
+    if (!report) {
+      return res.status(404).json({ error: 'Research report not found' });
+    }
+    res.json(report);
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -471,65 +529,8 @@ app.post('/api/search-app-info', async (req, res) => {
   }
 
   try {
-    const response = await fetch(
-      `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}&hl=en`,
-      {
-        signal: AbortSignal.timeout(8000),
-      },
-    );
-    const html = await response.text();
-
-    const extract = (regex) => {
-      const m = html.match(regex);
-      return m ? m[1].trim() : null;
-    };
-
-    const name =
-      extract(/<h1[^>]*itemprop="name"[^>]*>([^<]+)</) ||
-      extract(/<title[^>]*>([^<]+) - Apps on Google Play<\/title>/);
-    const description =
-      extract(/<meta[^>]*name="description"[^>]*content="([^"]+)"/) ||
-      extract(/<div[^>]*itemprop="description"[^>]*>([\s\S]*?)<\/div>/);
-    const developer =
-      extract(/<a[^>]*href="[^"]*developer\?id=[^"]*"[^>]*>([^<]+)</) ||
-      extract(/<a[^>]*href="[^"]*dev\?id=[^"]*"[^>]*>([^<]+)</);
-    const category =
-      extract(/<a[^>]*itemprop="genre"[^>]*>([^<]+)</) ||
-      extract(/<a[^>]*href="[^"]*\/store\/apps\/category\/[^"]*"[^>]*>([^<]+)<\/a>/);
-    const rating =
-      extract(/<div[^>]*aria-label="Rated ([\d.]+) stars out of five"/) ||
-      extract(/<div[^>]*class="[^"]*TT9eCd[^"]*"[^>]*>([\d.]+)</);
-    const installs =
-      extract(/<div[^>]*aria-label="([^"]+ installs)"/) ||
-      extract(/<div[^>]*class="[^"]*ClY7We[^"]*"[^>]*>([^<]+)</);
-
-    const updated = extract(/<div[^>]*class="[^"]*xg1jie[^"]*"[^>]*>([^<]+)</);
-    const sizeMatch = html.match(/<div[^>]*class="[^"]*AdyxMd[^"]*"[^>]*>([^<]+)</g);
-    const size = sizeMatch && sizeMatch[1] ? sizeMatch[1].replace(/<[^>]+>/g, '').trim() : null;
-
-    const cleanDesc = description
-      ? description
-          .replace(/<[^>]+>/g, '')
-          .replace(/\s+/g, ' ')
-          .trim()
-          .slice(0, 1000)
-      : null;
-
-    res.json({
-      found: !!name,
-      info: name
-        ? {
-            name,
-            description: cleanDesc,
-            developer,
-            category,
-            rating,
-            installs,
-            updated,
-            size,
-          }
-        : null,
-    });
+    const result = await scrapePlayStore(packageName);
+    res.json(result);
   } catch {
     res.json({ found: false, info: null });
   }

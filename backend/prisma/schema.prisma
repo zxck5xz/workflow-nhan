@@ -182,3 +182,23 @@ model Snapshot {
   @@unique([snapshotDate])
 }
 
+// ===== Research Reports =====
+
+model ResearchReport {
+  id             String   @id @default(cuid())
+  type           String   // 'apk', 'product', 'codebase'
+  title          String
+  packageName    String?
+  
+  technicalData  Json?    // Raw metadata from analysis
+  interpretation Json?    // AI-generated narrative
+  markdownReport String?  // Full markdown report text
+  
+  authorId       String?
+  createdAt      DateTime @default(now())
+
+  @@index([type])
+  @@index([packageName])
+  @@index([createdAt])
+}
+

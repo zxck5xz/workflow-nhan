@@ -127,182 +127,154 @@ export class DataStoreDB {
 
     const p = getDb();
     await p.$transaction(async (tx) => {
-      // projects
-      for (const p of payload.projects ?? []) {
-        await tx.project.upsert({
-          where: { id: p.id },
-          update: {
-            name: p.name,
-            platform: p.platform,
-            genre: p.genre,
-            status: p.status,
-            color: p.color,
-            createdAt: p.createdAt ? new Date(p.createdAt) : new Date(),
-          },
-          create: {
-            id: p.id,
-            name: p.name,
-            platform: p.platform,
-            genre: p.genre,
-            status: p.status,
-            color: p.color,
-            createdAt: p.createdAt ? new Date(p.createdAt) : new Date(),
-          },
-        });
-      }
+      const upsertBatch = async (model, items, idTransformer, buildData) => {
+        for (const item of items ?? []) {
+          const id = idTransformer(item);
+          const { update, create } = buildData(item, id);
+          await model.upsert({ where: { id }, update, create });
+        }
+      };
 
-      // members
-      for (const m of payload.members ?? []) {
-        await tx.member.upsert({
-          where: { id: m.id },
-          update: {
-            name: m.name,
-            email: m.email || `${m.id}@example.com`,
-            role: m.role,
-            avatarColor: m.avatarColor,
-            initials: m.initials,
-            joinedAt: m.joinedAt ? new Date(m.joinedAt) : new Date(),
-          },
-          create: {
-            id: m.id,
-            name: m.name,
-            email: m.email || `${m.id}@example.com`,
-            role: m.role,
-            avatarColor: m.avatarColor,
-            initials: m.initials,
-            joinedAt: m.joinedAt ? new Date(m.joinedAt) : new Date(),
-            password: 'default-sync-password', // Placeholder for synced members
-          },
-        });
-      }
+      await upsertBatch(tx.project, payload.projects, (p) => p.id, (p) => ({
+        update: {
+          name: p.name,
+          platform: p.platform,
+          genre: p.genre,
+          status: p.status,
+          color: p.color,
+          createdAt: p.createdAt ? new Date(p.createdAt) : new Date(),
+        },
+        create: {
+          id: p.id,
+          name: p.name,
+          platform: p.platform,
+          genre: p.genre,
+          status: p.status,
+          color: p.color,
+          createdAt: p.createdAt ? new Date(p.createdAt) : new Date(),
+        },
+      }));
 
-      // status configs
-      for (const s of payload.statuses ?? []) {
-        await tx.statusConfig.upsert({
-          where: { id: toPrismaStatus(s.id) },
-          update: { label: s.label, color: s.color, order: s.order },
-          create: { id: toPrismaStatus(s.id), label: s.label, color: s.color, order: s.order },
-        });
-      }
+      await upsertBatch(tx.member, payload.members, (m) => m.id, (m, id) => ({
+        update: {
+          name: m.name,
+          email: m.email || `${id}@example.com`,
+          role: m.role,
+          avatarColor: m.avatarColor,
+          initials: m.initials,
+          joinedAt: m.joinedAt ? new Date(m.joinedAt) : new Date(),
+        },
+        create: {
+          id,
+          name: m.name,
+          email: m.email || `${id}@example.com`,
+          role: m.role,
+          avatarColor: m.avatarColor,
+          initials: m.initials,
+          joinedAt: m.joinedAt ? new Date(m.joinedAt) : new Date(),
+          password: 'default-sync-password',
+        },
+      }));
 
-      // priority configs
-      for (const pr of payload.priorities ?? []) {
-        await tx.priorityConfig.upsert({
-          where: { id: pr.id },
-          update: { label: pr.label, color: pr.color, defaultWeight: pr.defaultWeight },
-          create: {
-            id: pr.id,
-            label: pr.label,
-            color: pr.color,
-            defaultWeight: pr.defaultWeight,
-          },
-        });
-      }
+      await upsertBatch(tx.statusConfig, payload.statuses, (s) => toPrismaStatus(s.id), (s, id) => ({
+        update: { label: s.label, color: s.color, order: s.order },
+        create: { id, label: s.label, color: s.color, order: s.order },
+      }));
 
-      // tasks
-      for (const t of payload.tasks ?? []) {
-        await tx.task.upsert({
-          where: { id: t.id },
-          update: {
-            title: t.title,
-            description: t.description,
-            projectId: t.projectId,
-            assigneeId: t.assigneeId,
-            status: toPrismaStatus(t.status),
-            priority: t.priority,
-            weight: t.weight,
-            deadline: t.deadline ? new Date(t.deadline) : null,
-            createdAt: t.createdAt ? new Date(t.createdAt) : new Date(),
-            completedAt: t.completedAt ? new Date(t.completedAt) : null,
-            eisenhowerUrgent: t.eisenhower?.urgent ?? false,
-            eisenhowerImportant: t.eisenhower?.important ?? false,
-            eisenhowerAutoClassified: t.eisenhower?.autoClassified ?? false,
-            tags: t.tags ?? null,
-            result: t.result ?? null,
-          },
-          create: {
-            id: t.id,
-            title: t.title,
-            description: t.description,
-            projectId: t.projectId,
-            assigneeId: t.assigneeId,
-            status: toPrismaStatus(t.status),
-            priority: t.priority,
-            weight: t.weight,
-            deadline: t.deadline ? new Date(t.deadline) : null,
-            createdAt: t.createdAt ? new Date(t.createdAt) : new Date(),
-            completedAt: t.completedAt ? new Date(t.completedAt) : null,
-            eisenhowerUrgent: t.eisenhower?.urgent ?? false,
-            eisenhowerImportant: t.eisenhower?.important ?? false,
-            eisenhowerAutoClassified: t.eisenhower?.autoClassified ?? false,
-            tags: t.tags ?? null,
-            result: t.result ?? null,
-          },
-        });
-      }
+      await upsertBatch(tx.priorityConfig, payload.priorities, (pr) => pr.id, (pr, id) => ({
+        update: { label: pr.label, color: pr.color, defaultWeight: pr.defaultWeight },
+        create: { id, label: pr.label, color: pr.color, defaultWeight: pr.defaultWeight },
+      }));
 
-      // scorecards
-      for (const sc of payload.scorecards ?? []) {
-        await tx.gameScorecard.upsert({
-          where: { id: sc.id },
-          update: {
-            projectId: sc.projectId,
-            week: sc.week ? new Date(sc.week) : new Date(),
-            ratingsCoreLoop: sc.ratings?.coreLoop ?? 0,
-            ratingsMonetization: sc.ratings?.monetization ?? 0,
-            ratingsVisualUx: sc.ratings?.visualUx ?? 0,
-            ratingsRetention: sc.ratings?.retention ?? 0,
-            ratingsUsp: sc.ratings?.usp ?? 0,
-            summary: sc.summary,
-            authorId: sc.authorId,
-            createdAt: sc.createdAt ? new Date(sc.createdAt) : new Date(),
-          },
-          create: {
-            id: sc.id,
-            projectId: sc.projectId,
-            week: sc.week ? new Date(sc.week) : new Date(),
-            ratingsCoreLoop: sc.ratings?.coreLoop ?? 0,
-            ratingsMonetization: sc.ratings?.monetization ?? 0,
-            ratingsVisualUx: sc.ratings?.visualUx ?? 0,
-            ratingsRetention: sc.ratings?.retention ?? 0,
-            ratingsUsp: sc.ratings?.usp ?? 0,
-            summary: sc.summary,
-            authorId: sc.authorId,
-            createdAt: sc.createdAt ? new Date(sc.createdAt) : new Date(),
-          },
-        });
-      }
+      await upsertBatch(tx.task, payload.tasks, (t) => t.id, (t, id) => ({
+        update: {
+          title: t.title,
+          description: t.description,
+          projectId: t.projectId,
+          assigneeId: t.assigneeId,
+          status: toPrismaStatus(t.status),
+          priority: t.priority,
+          weight: t.weight,
+          deadline: t.deadline ? new Date(t.deadline) : null,
+          createdAt: t.createdAt ? new Date(t.createdAt) : new Date(),
+          completedAt: t.completedAt ? new Date(t.completedAt) : null,
+          eisenhowerUrgent: t.eisenhower?.urgent ?? false,
+          eisenhowerImportant: t.eisenhower?.important ?? false,
+          eisenhowerAutoClassified: t.eisenhower?.autoClassified ?? false,
+          tags: t.tags ?? null,
+          result: t.result ?? null,
+        },
+        create: {
+          id,
+          title: t.title,
+          description: t.description,
+          projectId: t.projectId,
+          assigneeId: t.assigneeId,
+          status: toPrismaStatus(t.status),
+          priority: t.priority,
+          weight: t.weight,
+          deadline: t.deadline ? new Date(t.deadline) : null,
+          createdAt: t.createdAt ? new Date(t.createdAt) : new Date(),
+          completedAt: t.completedAt ? new Date(t.completedAt) : null,
+          eisenhowerUrgent: t.eisenhower?.urgent ?? false,
+          eisenhowerImportant: t.eisenhower?.important ?? false,
+          eisenhowerAutoClassified: t.eisenhower?.autoClassified ?? false,
+          tags: t.tags ?? null,
+          result: t.result ?? null,
+        },
+      }));
 
-      // insights
-      for (const ins of payload.insights ?? []) {
-        await tx.weeklyInsight.upsert({
-          where: { id: ins.id },
-          update: {
-            week: ins.week ? new Date(ins.week) : new Date(),
-            title: ins.title,
-            overallStatus: ins.overallStatus,
-            highlights: ins.highlights ?? null,
-            risks: ins.risks ?? null,
-            actionItems: ins.actionItems ?? null,
-            authorId: ins.authorId,
-            createdAt: ins.createdAt ? new Date(ins.createdAt) : new Date(),
-          },
-          create: {
-            id: ins.id,
-            week: ins.week ? new Date(ins.week) : new Date(),
-            title: ins.title,
-            overallStatus: ins.overallStatus,
-            highlights: ins.highlights ?? null,
-            risks: ins.risks ?? null,
-            actionItems: ins.actionItems ?? null,
-            authorId: ins.authorId,
-            createdAt: ins.createdAt ? new Date(ins.createdAt) : new Date(),
-          },
-        });
-      }
+      await upsertBatch(tx.gameScorecard, payload.scorecards, (sc) => sc.id, (sc, id) => ({
+        update: {
+          projectId: sc.projectId,
+          week: sc.week ? new Date(sc.week) : new Date(),
+          ratingsCoreLoop: sc.ratings?.coreLoop ?? 0,
+          ratingsMonetization: sc.ratings?.monetization ?? 0,
+          ratingsVisualUx: sc.ratings?.visualUx ?? 0,
+          ratingsRetention: sc.ratings?.retention ?? 0,
+          ratingsUsp: sc.ratings?.usp ?? 0,
+          summary: sc.summary,
+          authorId: sc.authorId,
+          createdAt: sc.createdAt ? new Date(sc.createdAt) : new Date(),
+        },
+        create: {
+          id,
+          projectId: sc.projectId,
+          week: sc.week ? new Date(sc.week) : new Date(),
+          ratingsCoreLoop: sc.ratings?.coreLoop ?? 0,
+          ratingsMonetization: sc.ratings?.monetization ?? 0,
+          ratingsVisualUx: sc.ratings?.visualUx ?? 0,
+          ratingsRetention: sc.ratings?.retention ?? 0,
+          ratingsUsp: sc.ratings?.usp ?? 0,
+          summary: sc.summary,
+          authorId: sc.authorId,
+          createdAt: sc.createdAt ? new Date(sc.createdAt) : new Date(),
+        },
+      }));
 
-      // NOTE: we intentionally do not delete missing rows for now,
-      // to avoid accidental destructive updates from partial payloads.
+      await upsertBatch(tx.weeklyInsight, payload.insights, (ins) => ins.id, (ins, id) => ({
+        update: {
+          week: ins.week ? new Date(ins.week) : new Date(),
+          title: ins.title,
+          overallStatus: ins.overallStatus,
+          highlights: ins.highlights ?? null,
+          risks: ins.risks ?? null,
+          actionItems: ins.actionItems ?? null,
+          authorId: ins.authorId,
+          createdAt: ins.createdAt ? new Date(ins.createdAt) : new Date(),
+        },
+        create: {
+          id,
+          week: ins.week ? new Date(ins.week) : new Date(),
+          title: ins.title,
+          overallStatus: ins.overallStatus,
+          highlights: ins.highlights ?? null,
+          risks: ins.risks ?? null,
+          actionItems: ins.actionItems ?? null,
+          authorId: ins.authorId,
+          createdAt: ins.createdAt ? new Date(ins.createdAt) : new Date(),
+        },
+      }));
     });
 
     return payload;
@@ -336,5 +308,35 @@ export class DataStoreDB {
     const snap = await p.snapshot.findUnique({ where: { snapshotDate } });
     if (!snap) return null;
     return { ...snap.payload, snapshotDate };
+  }
+
+  async saveResearchReport(report) {
+    const p = getDb();
+    const { id, type, title, packageName, technicalData, interpretation, markdownReport, authorId, createdAt } = report;
+    
+    // If id is provided, we try to update, otherwise create
+    if (id) {
+      return await p.researchReport.upsert({
+        where: { id },
+        update: { type, title, packageName, technicalData, interpretation, markdownReport, authorId },
+        create: { id, type, title, packageName, technicalData, interpretation, markdownReport, authorId, createdAt: createdAt ? new Date(createdAt) : new Date() }
+      });
+    } else {
+      return await p.researchReport.create({
+        data: { type, title, packageName, technicalData, interpretation, markdownReport, authorId }
+      });
+    }
+  }
+
+  async listResearchReports() {
+    const p = getDb();
+    return await p.researchReport.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+  }
+
+  async loadResearchReport(id) {
+    const p = getDb();
+    return await p.researchReport.findUnique({ where: { id } });
   }
 }

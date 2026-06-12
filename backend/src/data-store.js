@@ -74,4 +74,31 @@ export class DataStore {
     const raw = fs.readFileSync(snapshotFile, 'utf-8');
     return JSON.parse(raw);
   }
+
+  saveResearchReport(report) {
+    const id = report.id || `res-${Date.now()}`;
+    const reportFile = path.join(this.researchDir, `${id}.json`);
+    const payload = { ...report, id, createdAt: report.createdAt || new Date().toISOString() };
+    fs.writeFileSync(reportFile, JSON.stringify(payload, null, 2), 'utf-8');
+    return payload;
+  }
+
+  listResearchReports() {
+    if (!fs.existsSync(this.researchDir)) return [];
+    return fs
+      .readdirSync(this.researchDir)
+      .filter((file) => file.endsWith('.json'))
+      .map((file) => {
+        const raw = fs.readFileSync(path.join(this.researchDir, file), 'utf-8');
+        return JSON.parse(raw);
+      })
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
+
+  loadResearchReport(id) {
+    const reportFile = path.join(this.researchDir, `${id}.json`);
+    if (!fs.existsSync(reportFile)) return null;
+    const raw = fs.readFileSync(reportFile, 'utf-8');
+    return JSON.parse(raw);
+  }
 }
