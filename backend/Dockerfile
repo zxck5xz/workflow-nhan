@@ -4,9 +4,9 @@ RUN apk add --no-cache python3
 
 WORKDIR /app
 
-COPY package.json ./
-COPY prisma ./prisma/
-COPY src ./src/
+COPY backend/package.json ./
+COPY backend/prisma ./prisma/
+COPY backend/src ./src/
 COPY ai-agents /ai-agents/
 
 RUN npm install --no-workspaces && npx prisma generate --schema=./prisma/schema.prisma
