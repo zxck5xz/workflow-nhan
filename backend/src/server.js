@@ -18,7 +18,6 @@ const PYTHON_DIR = path.join(ROOT_DIR, 'ai-agents');
 const EVAL_SCRIPT = path.join(PYTHON_DIR, 'game_eval_agent.py');
 const PPTX_SCRIPT = path.join(PYTHON_DIR, 'pptx_generator.py');
 const APK_INTERPRET_SCRIPT = path.join(PYTHON_DIR, 'apk_interpreter.py');
-const SENTIMENT_SCRIPT = path.join(PYTHON_DIR, 'sentiment_agent.py');
 const store = new DataStore(__dirname);
 
 let dataStoreDB = null;
@@ -234,19 +233,22 @@ app.post('/api/open-file', async (req, res, next) => {
 app.post('/api/interpret-apk', async (req, res, next) => {
   const apkData = req.body;
   const tempFile = path.join(__dirname, `temp_apk_${Date.now()}.json`);
-  
+
   try {
     fs.writeFileSync(tempFile, JSON.stringify(apkData));
     const cmd = `python "${APK_INTERPRET_SCRIPT}" < "${tempFile}"`;
-    
+
     const { stdout, stderr } = await execWithTimeout(cmd, 30000);
     fs.unlinkSync(tempFile); // Clean up
-    
+
     try {
       const interpretation = JSON.parse(stdout);
       res.json(interpretation);
     } catch (parseError) {
-      logger.error({ err: parseError, stdout, stderr }, 'Failed to parse APK interpretation output');
+      logger.error(
+        { err: parseError, stdout, stderr },
+        'Failed to parse APK interpretation output',
+      );
       res.status(500).json({ error: 'Failed to parse interpretation results', stdout, stderr });
     }
   } catch (error) {
@@ -256,6 +258,219 @@ app.post('/api/interpret-apk', async (req, res, next) => {
   }
 });
 
+// --- Sentiment Analysis (Node.js native, no Python dependency) ---
+
+const SENTIMENT_POSITIVE = new Set([
+  'good',
+  'great',
+  'excellent',
+  'amazing',
+  'awesome',
+  'love',
+  'best',
+  'fantastic',
+  'wonderful',
+  'superb',
+  'outstanding',
+  'beautiful',
+  'innovative',
+  'smooth',
+  'fast',
+  'reliable',
+  'useful',
+  'helpful',
+  'intuitive',
+  'polished',
+  'impressive',
+  'recommend',
+  'must-have',
+  'fun',
+  'addictive',
+  'engaging',
+  'brilliant',
+  'perfect',
+  'tuyệt vời',
+  'tốt',
+  'xuất sắc',
+  'hay',
+  'đỉnh',
+  'thích',
+  'yêu thích',
+  'tuyệt',
+  'siêu',
+  'pro',
+  'đẹp',
+  'ổn định',
+  'nhanh',
+  'mượt',
+  'tuyệt vời',
+  'xuất sắc',
+]);
+
+const SENTIMENT_NEGATIVE = new Set([
+  'bad',
+  'terrible',
+  'awful',
+  'horrible',
+  'worst',
+  'hate',
+  'ugly',
+  'boring',
+  'slow',
+  'buggy',
+  'broken',
+  'useless',
+  'trash',
+  'garbage',
+  'frustrating',
+  'disappointing',
+  'poor',
+  'mediocre',
+  'crashes',
+  'lag',
+  'spam',
+  'scam',
+  'overpriced',
+  'bloatware',
+  'annoying',
+  'uninstalled',
+  'trash',
+  'sucks',
+  'hated',
+  'tệ',
+  'dở',
+  'chán',
+  'tồi',
+  'kém',
+  'xấu',
+  'chậm',
+  'lỗi',
+  'lag',
+  'rác',
+  'vô dụng',
+  'thất vọng',
+  'phí tiền',
+  'lừa đảo',
+  'spam',
+  'tệ hại',
+  'tồi tệ',
+]);
+
+function analyzeSentimentText(text) {
+  if (!text) return { score: 0, label: 'neutral' };
+  const cleaned = text
+    .toLowerCase()
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/[^a-z0-9\sàáâãèéêìíòóôõùúăđĩũơưạảấầẩẫậắằẳẵặẹẻẽềềểễệốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const words = cleaned.split(/\s+/);
+  let score = 0;
+  let count = 0;
+  for (const w of words) {
+    if (SENTIMENT_POSITIVE.has(w)) {
+      score += 0.25;
+      count++;
+    } else if (SENTIMENT_NEGATIVE.has(w)) {
+      score -= 0.25;
+      count++;
+    }
+  }
+  const avg = count > 0 ? Math.max(-1, Math.min(1, score / count)) : 0;
+  return {
+    score: Math.round(avg * 10000) / 10000,
+    label: avg > 0.15 ? 'positive' : avg < -0.15 ? 'negative' : 'neutral',
+  };
+}
+
+async function searchRedditSentiment(query, limit = 25) {
+  const encoded = encodeURIComponent(query);
+  const urls = [
+    `https://old.reddit.com/search.json?q=${encoded}&limit=${limit}&sort=relevance&t=year&restrict_sr=on`,
+    `https://www.reddit.com/search.json?q=${encoded}&limit=${limit}&sort=relevance&t=year`,
+  ];
+  const agents = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'python:sentiment-analysis:v1.0 (by /u/sentiment_bot)',
+  ];
+
+  for (const url of urls) {
+    for (const ua of agents) {
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            'User-Agent': ua,
+            Accept: 'application/json',
+            'Accept-Language': 'en-US,en;q=0.9',
+          },
+          signal: AbortSignal.timeout(10000),
+        });
+        if (!resp.ok) continue;
+        const data = await resp.json();
+        const children = data?.data?.children || [];
+        if (children.length === 0) continue;
+        return children.map((p) => {
+          const d = p.data || {};
+          const combined = `${d.title || ''} ${d.selftext || ''}`;
+          const { score, label } = analyzeSentimentText(combined);
+          return {
+            subreddit: d.subreddit || '',
+            title: (d.title || '').slice(0, 200),
+            url: `https://www.reddit.com${d.permalink || ''}`,
+            score: d.score || 0,
+            ups: d.ups || 0,
+            downs: d.downs || 0,
+            numComments: d.num_comments || 0,
+            sentiment: score,
+            sentimentLabel: label,
+            date: d.created_utc ? new Date(d.created_utc * 1000).toISOString() : null,
+          };
+        });
+      } catch {
+        /* try next */
+      }
+    }
+  }
+  return [];
+}
+
+async function searchNitterSentiment(query, limit = 10) {
+  const instances = [
+    'https://nitter.net',
+    'https://nitter.lacontrevoie.fr',
+    'https://nitter.1d4.us',
+  ];
+  const encoded = encodeURIComponent(query);
+  for (const instance of instances) {
+    try {
+      const resp = await fetch(`${instance}/search?q=${encoded}&f=tweets`, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!resp.ok) continue;
+      const html = await resp.text();
+      const tweetRegex = /<div class="tweet-content[^"]*"[^>]*>(.*?)<\/div>/gs;
+      const tweets = [];
+      let match;
+      while ((match = tweetRegex.exec(html)) !== null && tweets.length < limit) {
+        const text = match[1].replace(/<[^>]+>/g, '').trim();
+        if (!text) continue;
+        const { score, label } = analyzeSentimentText(text);
+        tweets.push({
+          tweet: text.slice(0, 280),
+          url: instance,
+          sentiment: score,
+          sentimentLabel: label,
+        });
+      }
+      if (tweets.length > 0) return tweets;
+    } catch {
+      /* try next */
+    }
+  }
+  return [];
+}
+
 app.post('/api/research/sentiment', async (req, res, next) => {
   const { query, reportId } = req.body;
   if (!query) {
@@ -263,36 +478,58 @@ app.post('/api/research/sentiment', async (req, res, next) => {
   }
 
   try {
-    const escapedQuery = query.replace(/"/g, '\\"');
-    const cmd = `python "${SENTIMENT_SCRIPT}" --query "${escapedQuery}" --limit 25`;
+    const [redditMentions, twitterMentions] = await Promise.all([
+      searchRedditSentiment(query, 25),
+      searchNitterSentiment(query, 10).catch(() => []),
+    ]);
 
-    const { stdout, stderr } = await execWithTimeout(cmd, 60000);
+    const allMentions = [...redditMentions, ...twitterMentions];
+    const avgScore =
+      allMentions.length > 0
+        ? Math.round(
+            (allMentions.reduce((s, m) => s + m.sentiment, 0) / allMentions.length) * 10000,
+          ) / 10000
+        : 0;
+    const pos = allMentions.filter((m) => m.sentiment > 0.15).length;
+    const neg = allMentions.filter((m) => m.sentiment < -0.15).length;
+    const neu = allMentions.length - pos - neg;
+    const overall = avgScore > 0.15 ? 'positive' : avgScore < -0.15 ? 'negative' : 'neutral';
 
-    let sentimentResult;
-    try {
-      sentimentResult = JSON.parse(stdout);
-    } catch {
-      return res.status(500).json({ error: 'Failed to parse sentiment analysis result', stdout, stderr });
-    }
+    const sentimentResult = {
+      query,
+      sentimentScore: avgScore,
+      sentimentSummary: `Overall sentiment: ${overall} (score: ${avgScore}). Found ${pos} positive, ${neg} negative, ${neu} neutral mentions across ${redditMentions.length} Reddit posts and ${twitterMentions.length} tweets.`,
+      overallLabel: overall,
+      positiveCount: pos,
+      negativeCount: neg,
+      neutralCount: neu,
+      totalMentions: allMentions.length,
+      redditMentions,
+      twitterMentions,
+    };
 
     if (reportId) {
-      const ds = await getDataStore();
-      const existing = await ds.loadResearchReport(reportId);
-      if (existing) {
-        await ds.saveResearchReport({
-          ...existing,
-          sentimentScore: sentimentResult.sentimentScore,
-          sentimentSummary: sentimentResult.sentimentSummary,
-          redditMentions: sentimentResult.redditMentions,
-          twitterMentions: sentimentResult.twitterMentions,
-        });
+      try {
+        const ds = await getDataStore();
+        const existing = await ds.loadResearchReport(reportId);
+        if (existing) {
+          await ds.saveResearchReport({
+            ...existing,
+            sentimentScore: sentimentResult.sentimentScore,
+            sentimentSummary: sentimentResult.sentimentSummary,
+            redditMentions: sentimentResult.redditMentions,
+            twitterMentions: sentimentResult.twitterMentions,
+          });
+        }
+      } catch {
+        /* report update is best-effort */
       }
     }
 
     res.json(sentimentResult);
   } catch (error) {
-    logger.error({ err: error, stderr: error.stderr }, 'Sentiment analysis error');
-    return res.status(500).json({ error: error.message, stderr: error.stderr });
+    logger.error({ err: error }, 'Sentiment analysis error');
+    return res.status(500).json({ error: error.message });
   }
 });
 
