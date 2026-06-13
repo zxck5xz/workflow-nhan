@@ -269,3 +269,144 @@
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
 }
+
+/* Download & Sentiment Buttons */
+.download-btn {
+  padding: 0.4rem 1rem;
+  background: #059669;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.download-btn:hover {
+  background: #047857;
+}
+
+.sentiment-btn {
+  padding: 0.4rem 1rem;
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.sentiment-btn:hover {
+  opacity: 0.9;
+}
+.sentiment-btn.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Sentiment Box */
+.sentiment-box {
+  margin: 1.5rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 0.75rem;
+  border-left: 4px solid #0284c7;
+}
+
+.sentiment-box h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: #0369a1;
+}
+
+.sentiment-overall {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sentiment-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+}
+.sentiment-badge.positive { background: #059669; }
+.sentiment-badge.negative { background: #dc2626; }
+.sentiment-badge.neutral  { background: #d97706; }
+
+.sentiment-score {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.sentiment-counts {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.sentiment-summary {
+  font-size: 0.85rem;
+  color: #475569;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.5;
+}
+
+.sentiment-platform {
+  margin-top: 1.25rem;
+}
+
+.sentiment-platform h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.sentiment-mentions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mention-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  background: white;
+  border-radius: 0.4rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.8rem;
+}
+
+.mention-sub {
+  font-weight: 700;
+  color: #dc2626;
+  font-size: 0.75rem;
+  min-width: 4rem;
+}
+
+.mention-sent {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.mention-title {
+  flex: 1;
+  color: #1e293b;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mention-score {
+  color: #64748b;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}

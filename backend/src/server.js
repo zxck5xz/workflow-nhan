@@ -18,6 +18,7 @@ const PYTHON_DIR = path.join(ROOT_DIR, 'ai-agents');
 const EVAL_SCRIPT = path.join(PYTHON_DIR, 'game_eval_agent.py');
 const PPTX_SCRIPT = path.join(PYTHON_DIR, 'pptx_generator.py');
 const APK_INTERPRET_SCRIPT = path.join(PYTHON_DIR, 'apk_interpreter.py');
+const SENTIMENT_SCRIPT = path.join(PYTHON_DIR, 'sentiment_agent.py');
 const store = new DataStore(__dirname);
 
 let dataStoreDB = null;
@@ -252,6 +253,46 @@ app.post('/api/interpret-apk', async (req, res, next) => {
     if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
     logger.error({ err: error, stderr: error.stderr }, 'APK interpretation error');
     res.status(500).json({ error: error.message, stderr: error.stderr });
+  }
+});
+
+app.post('/api/research/sentiment', async (req, res, next) => {
+  const { query, reportId } = req.body;
+  if (!query) {
+    return res.status(400).json({ error: 'Missing query parameter' });
+  }
+
+  try {
+    const escapedQuery = query.replace(/"/g, '\\"');
+    const cmd = `python "${SENTIMENT_SCRIPT}" --query "${escapedQuery}" --limit 25`;
+
+    const { stdout, stderr } = await execWithTimeout(cmd, 60000);
+
+    let sentimentResult;
+    try {
+      sentimentResult = JSON.parse(stdout);
+    } catch {
+      return res.status(500).json({ error: 'Failed to parse sentiment analysis result', stdout, stderr });
+    }
+
+    if (reportId) {
+      const ds = await getDataStore();
+      const existing = await ds.loadResearchReport(reportId);
+      if (existing) {
+        await ds.saveResearchReport({
+          ...existing,
+          sentimentScore: sentimentResult.sentimentScore,
+          sentimentSummary: sentimentResult.sentimentSummary,
+          redditMentions: sentimentResult.redditMentions,
+          twitterMentions: sentimentResult.twitterMentions,
+        });
+      }
+    }
+
+    res.json(sentimentResult);
+  } catch (error) {
+    logger.error({ err: error, stderr: error.stderr }, 'Sentiment analysis error');
+    return res.status(500).json({ error: error.message, stderr: error.stderr });
   }
 });
 

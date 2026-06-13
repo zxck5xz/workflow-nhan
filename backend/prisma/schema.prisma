@@ -194,6 +194,12 @@ model ResearchReport {
   interpretation Json?    // AI-generated narrative
   markdownReport String?  // Full markdown report text
   
+  // Sentiment analysis fields
+  sentimentScore    Float?  // Overall sentiment -1.0 to 1.0
+  sentimentSummary  String? // Text summary of findings
+  redditMentions    Json?   // [{ subreddit, title, url, score, sentiment, date }]
+  twitterMentions   Json?   // [{ tweet, url, likes, sentiment, date }]
+  
   authorId       String?
   createdAt      DateTime @default(now())
 

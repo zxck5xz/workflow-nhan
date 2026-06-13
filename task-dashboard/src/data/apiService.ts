@@ -105,4 +105,33 @@ export const apiService = {
       body: JSON.stringify(report),
     });
   },
+
+  async analyzeSentiment(query: string, reportId?: string): Promise<{
+    sentimentScore: number;
+    sentimentSummary: string;
+    overallLabel: string;
+    positiveCount: number;
+    negativeCount: number;
+    neutralCount: number;
+    totalMentions: number;
+    redditMentions: Array<{
+      subreddit: string;
+      title: string;
+      url: string;
+      score: number;
+      sentiment: number;
+      sentimentLabel: string;
+      date: string;
+    }>;
+    twitterMentions: Array<{
+      tweet: string;
+      sentiment: number;
+      sentimentLabel: string;
+    }>;
+  }> {
+    return request('/api/research/sentiment', {
+      method: 'POST',
+      body: JSON.stringify({ query, reportId }),
+    });
+  },
 };

@@ -209,9 +209,68 @@ export const STANDARD_SECTIONS: ReportSection[] = [
   },
 ];
 
+export interface SentimentDataType {
+  sentimentScore?: number;
+  sentimentSummary?: string;
+  overallLabel?: string;
+  positiveCount?: number;
+  negativeCount?: number;
+  neutralCount?: number;
+  totalMentions?: number;
+  redditMentions?: Array<{ subreddit: string; title: string; url: string; score: number; sentiment: number }>;
+  twitterMentions?: Array<{ tweet: string; sentiment: number }>;
+}
+
+export function buildSentimentSection(sentimentData?: SentimentDataType): string {
+  if (!sentimentData || sentimentData.totalMentions === undefined) {
+    return `\n\n---\n\n## 8. Social Sentiment (Reddit & Twitter)\n\n*Chưa có dữ liệu. Sử dụng nút "Analyze Sentiment" để thu thập.*\n`;
+  }
+
+  const { sentimentScore, sentimentSummary, positiveCount, negativeCount, neutralCount, totalMentions, redditMentions, twitterMentions } = sentimentData;
+  const score = (typeof sentimentScore === 'number' ? sentimentScore : 0);
+  const pos = positiveCount ?? 0;
+  const neg = negativeCount ?? 0;
+  const neu = neutralCount ?? 0;
+  const total = totalMentions ?? 0;
+
+  const sentimentEmoji = score > 0.15 ? '🟢 Positive' : score < -0.15 ? '🔴 Negative' : '🟡 Neutral';
+
+  let md = `\n\n---\n\n## 8. Social Sentiment (Reddit & Twitter)\n\n`;
+  md += `**Overall Score:** ${score.toFixed(3)} — ${sentimentEmoji}\n\n`;
+  md += `| Metric | Value |\n|---|---|\n`;
+  md += `| **Total mentions** | ${total} |\n`;
+  md += `| **Positive** | ${pos} |\n`;
+  md += `| **Negative** | ${neg} |\n`;
+  md += `| **Neutral** | ${neu} |\n\n`;
+  md += `${sentimentSummary || ''}\n\n`;
+
+  if (redditMentions && redditMentions.length > 0) {
+    md += `### 🔴 Reddit Mentions (${redditMentions.length})\n\n`;
+    md += `| Subreddit | Title | Score | Sentiment |\n|---|---|---|---|\n`;
+    const displayed = redditMentions.slice(0, 10);
+    for (const m of displayed) {
+      const sentLabel = (m.sentiment ?? 0) > 0.15 ? '✅' : (m.sentiment ?? 0) < -0.15 ? '❌' : '➖';
+      md += `| r/${m.subreddit} | ${(m.title || '').slice(0, 80)} | ${m.score ?? 0} | ${sentLabel} |\n`;
+    }
+    md += `\n`;
+  }
+
+  if (twitterMentions && twitterMentions.length > 0) {
+    md += `### 🐦 Twitter Mentions (${twitterMentions.length})\n\n`;
+    for (const t of twitterMentions) {
+      const sentLabel = (t.sentiment ?? 0) > 0.15 ? '✅' : (t.sentiment ?? 0) < -0.15 ? '❌' : '➖';
+      md += `- ${sentLabel} ${(t.tweet || '').slice(0, 120)}\n`;
+    }
+    md += `\n`;
+  }
+
+  return md;
+}
+
 export function buildStandardReportMarkdown(
   info: Record<string, unknown>,
   source: 'apk' | 'product',
+  sentimentData?: SentimentDataType,
 ): string {
   let md = `# Báo cáo đánh giá: ${info.name || 'Unknown'}\n`;
   md += `*Nguồn: ${source === 'apk' ? 'APK Analysis' : 'Product Search'} — ${new Date().toLocaleString()}*\n\n`;
@@ -291,6 +350,8 @@ export function buildStandardReportMarkdown(
   md += `| **Tổng quan** | Đang chờ đánh giá |\n`;
   md += `| **Xếp hạng** | Đang chờ đánh giá |\n`;
   md += `| **Đề xuất** | Đang chờ đánh giá |\n`;
+
+  md += buildSentimentSection(sentimentData);
 
   const rawDesc = info.description;
   if (typeof rawDesc === 'string' && rawDesc) {

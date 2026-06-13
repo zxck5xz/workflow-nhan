@@ -312,18 +312,17 @@ export class DataStoreDB {
 
   async saveResearchReport(report) {
     const p = getDb();
-    const { id, type, title, packageName, technicalData, interpretation, markdownReport, authorId, createdAt } = report;
+    const { id, type, title, packageName, technicalData, interpretation, markdownReport, sentimentScore, sentimentSummary, redditMentions, twitterMentions, authorId, createdAt } = report;
     
-    // If id is provided, we try to update, otherwise create
     if (id) {
       return await p.researchReport.upsert({
         where: { id },
-        update: { type, title, packageName, technicalData, interpretation, markdownReport, authorId },
-        create: { id, type, title, packageName, technicalData, interpretation, markdownReport, authorId, createdAt: createdAt ? new Date(createdAt) : new Date() }
+        update: { type, title, packageName, technicalData, interpretation, markdownReport, sentimentScore, sentimentSummary, redditMentions, twitterMentions, authorId },
+        create: { id, type, title, packageName, technicalData, interpretation, markdownReport, sentimentScore, sentimentSummary, redditMentions, twitterMentions, authorId, createdAt: createdAt ? new Date(createdAt) : new Date() }
       });
     } else {
       return await p.researchReport.create({
-        data: { type, title, packageName, technicalData, interpretation, markdownReport, authorId }
+        data: { type, title, packageName, technicalData, interpretation, markdownReport, sentimentScore, sentimentSummary, redditMentions, twitterMentions, authorId }
       });
     }
   }

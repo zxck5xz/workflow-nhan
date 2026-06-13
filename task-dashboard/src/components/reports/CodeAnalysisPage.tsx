@@ -26,6 +26,10 @@ export function CodeAnalysisPage() {
     packageName?: string;
   } | null>(null);
 
+  const [analyzingSentiment, setAnalyzingSentiment] = useState(false);
+  const [sentimentData, setSentimentData] = useState<any>(null);
+  const [currentReportId, setCurrentReportId] = useState<string | null>(null);
+
   const addLog = (msg: string) => {
     logsRef.current = [...logsRef.current, msg];
     setLogs([...logsRef.current]);
@@ -78,11 +82,32 @@ export function CodeAnalysisPage() {
   const loadReportFromHistory = (item: any) => {
     setMode(item.type);
     setReport(item.markdownReport || null);
+    setCurrentReportId(item.id || null);
     if (item.type === 'apk') {
       setApkTechnicalData(item.technicalData);
       setApkInterpretation(item.interpretation);
     } else if (item.type === 'product') {
       setProductResult({ found: true, info: item.technicalData });
+      const hasSentiment = item.sentimentScore !== null && item.sentimentScore !== undefined;
+      if (hasSentiment) {
+        const reddits = Array.isArray(item.redditMentions) ? item.redditMentions : [];
+        const tweets = Array.isArray(item.twitterMentions) ? item.twitterMentions : [];
+        const posCount = reddits.filter((m: any) => (m.sentiment ?? 0) > 0.15).length + tweets.filter((t: any) => (t.sentiment ?? 0) > 0.15).length;
+        const negCount = reddits.filter((m: any) => (m.sentiment ?? 0) < -0.15).length + tweets.filter((t: any) => (t.sentiment ?? 0) < -0.15).length;
+        const neuCount = reddits.length + tweets.length - posCount - negCount;
+        setSentimentData({
+          sentimentScore: item.sentimentScore,
+          sentimentSummary: item.sentimentSummary || '',
+          positiveCount: posCount,
+          negativeCount: negCount,
+          neutralCount: neuCount,
+          totalMentions: reddits.length + tweets.length,
+          redditMentions: reddits,
+          twitterMentions: tweets,
+        });
+      } else {
+        setSentimentData(null);
+      }
     }
     setError(null);
   };
@@ -177,20 +202,25 @@ export function CodeAnalysisPage() {
     setError(null);
     setReport(null);
     setProductResult(null);
+    setSentimentData(null);
+    setCurrentReportId(null);
     try {
       const res = await apiService.searchProduct(productQuery);
       if (res.found && res.info) {
         setProductResult({ found: true, info: res.info, packageName: res.packageName });
         let md = buildStandardReportMarkdown(res.info, 'product');
         setReport(md);
-        
-        await apiService.saveResearchReport({
+
+        const saved = await apiService.saveResearchReport({
           type: 'product',
           title: `Product: ${String(res.info.name || productQuery)}`,
           packageName: res.packageName,
           technicalData: res.info,
           markdownReport: md,
         });
+        if (saved?.report?.id) {
+          setCurrentReportId(saved.report.id);
+        }
         fetchHistory();
       } else {
         setError('Product not found.');
@@ -199,6 +229,41 @@ export function CodeAnalysisPage() {
       setError(`Search error: ${err.message}`);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSentimentAnalysis = async () => {
+    const info = productResult?.info;
+    const pkgName = productResult?.packageName;
+    if (!info && !pkgName) return;
+    setAnalyzingSentiment(true);
+    setError(null);
+    try {
+      const query = String(info?.name || pkgName || '');
+      const result = await apiService.analyzeSentiment(query, currentReportId || undefined);
+      setSentimentData(result);
+
+      const safeInfo = info || {};
+      const md = buildStandardReportMarkdown(safeInfo, 'product', result);
+      setReport(md);
+
+      await apiService.saveResearchReport({
+        id: currentReportId,
+        type: 'product',
+        title: `Product: ${String(safeInfo.name || query)}`,
+        packageName: pkgName,
+        technicalData: safeInfo,
+        markdownReport: md,
+        sentimentScore: result.sentimentScore,
+        sentimentSummary: result.sentimentSummary,
+        redditMentions: result.redditMentions,
+        twitterMentions: result.twitterMentions,
+      });
+      fetchHistory();
+    } catch (err: any) {
+      setError(`Sentiment analysis error: ${err.message}`);
+    } finally {
+      setAnalyzingSentiment(false);
     }
   };
 
@@ -342,6 +407,11 @@ export function CodeAnalysisPage() {
                         🤖 {isInterpreting ? 'AI is Thinking...' : 'Ask AI to Interpret'}
                       </button>
                     )}
+                    {mode === 'product' && (
+                      <button className={`sentiment-btn ${analyzingSentiment ? 'loading' : ''}`} onClick={handleSentimentAnalysis} disabled={analyzingSentiment || !productResult}>
+                        🌐 {analyzingSentiment ? 'Analyzing...' : 'Sentiment (Reddit/Twitter)'}
+                      </button>
+                    )}
                     <button className="download-btn" onClick={downloadReport}>📥 Download Report</button>
                   </div>
                 </div>
@@ -360,6 +430,57 @@ export function CodeAnalysisPage() {
                     </div>
                   </div>
                 )}
+
+                {sentimentData && (
+                  <div className="sentiment-box">
+                    <h4>🌐 Social Sentiment Analysis</h4>
+                    <div className="sentiment-overall">
+                      <span className={`sentiment-badge ${(sentimentData.sentimentScore ?? 0) > 0.15 ? 'positive' : (sentimentData.sentimentScore ?? 0) < -0.15 ? 'negative' : 'neutral'}`}>
+                        {(sentimentData.sentimentScore ?? 0) > 0.15 ? '🟢 Positive' : (sentimentData.sentimentScore ?? 0) < -0.15 ? '🔴 Negative' : '🟡 Neutral'}
+                      </span>
+                      <span className="sentiment-score">Score: {(sentimentData.sentimentScore ?? 0).toFixed(3)}</span>
+                      <span className="sentiment-counts">
+                        {sentimentData.positiveCount ?? 0} positive / {sentimentData.negativeCount ?? 0} negative / {sentimentData.neutralCount ?? 0} neutral
+                      </span>
+                    </div>
+                    <p className="sentiment-summary">{sentimentData.sentimentSummary || ''}</p>
+
+                    {sentimentData.redditMentions && sentimentData.redditMentions.length > 0 && (
+                      <div className="sentiment-platform">
+                        <h5>🔴 Reddit Mentions ({sentimentData.redditMentions.length})</h5>
+                        <div className="sentiment-mentions">
+                          {sentimentData.redditMentions.slice(0, 8).map((m: any, i: number) => (
+                            <div key={i} className="mention-item">
+                              <span className="mention-sub">r/{m.subreddit}</span>
+                              <span className={`mention-sent ${(m.sentiment ?? 0) > 0.15 ? 'pos' : (m.sentiment ?? 0) < -0.15 ? 'neg' : 'neu'}`}>
+                                {(m.sentiment ?? 0) > 0.15 ? '✅' : (m.sentiment ?? 0) < -0.15 ? '❌' : '➖'}
+                              </span>
+                              <span className="mention-title">{(m.title || '').slice(0, 100)}</span>
+                              <span className="mention-score">⬆ {m.score ?? 0}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {sentimentData.twitterMentions && sentimentData.twitterMentions.length > 0 && (
+                      <div className="sentiment-platform">
+                        <h5>🐦 Twitter Mentions ({sentimentData.twitterMentions.length})</h5>
+                        <div className="sentiment-mentions">
+                          {sentimentData.twitterMentions.slice(0, 5).map((t: any, i: number) => (
+                            <div key={i} className="mention-item">
+                              <span className={`mention-sent ${(t.sentiment ?? 0) > 0.15 ? 'pos' : (t.sentiment ?? 0) < -0.15 ? 'neg' : 'neu'}`}>
+                                {(t.sentiment ?? 0) > 0.15 ? '✅' : (t.sentiment ?? 0) < -0.15 ? '❌' : '➖'}
+                              </span>
+                              <span className="mention-title">{(t.tweet || '').slice(0, 120)}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <pre className="report-body">{report}</pre>
               </div>
             </div>

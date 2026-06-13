@@ -25,10 +25,33 @@
 - [x] Fix blank PDF — replace html2pdf.js with direct html2canvas + jsPDF
 - [x] Fix pre-existing import path bug (`services/` → `utils/`) + TS 6.0 implicit any
 
+## ✅ Done (2026-06-12)
+
+- [x] **Unified AI Research Suite**: Upgraded the research feature into a cohesive intelligence hub.
+- [x] **AI APK Explainer**: Implemented `apk_interpreter.py` and backend bridge for technical narrative generation.
+- [x] **Research History**: Implemented persistent storage for reports using Prisma (DB) and Local JSON fallback.
+- [x] **Modern UI**: Redesigned `CodeAnalysisPage` with a dual-pane layout (History Sidebar + Workspace).
+- [x] **Fix Product Search**: Resolved "API 500" error with robust Play Store scraping and User-Agent injection.
+- [x] **Fix Vercel Deploy**: Restored missing states (`progress`, `logs`, `productResult`) to resolve TS build errors.
+- [x] **Codebase Cleanup**: Removed "Project Pulse" (Codebase Analysis) feature per request to focus on external research.
+- [x] Kiểm tra frontend (task-dashboard) hoạt động với backend mới
+- [x] Test APK analysis flow end-to-end
+
+## ✅ Done (2026-06-13)
+
+- [x] **Integration: Agent-Reach Social Sentiment for Product Research**
+  - [x] Created `ai-agents/sentiment_agent.py` — Reddit scraper + keyword sentiment analysis
+  - [x] Added `POST /api/research/sentiment` backend endpoint (calls Python agent)
+  - [x] Updated Prisma schema: `sentimentScore`, `sentimentSummary`, `redditMentions`, `twitterMentions` fields
+  - [x] Updated DataStoreDB to persist sentiment data
+  - [x] Added "Sentiment (Reddit/Twitter)" button in Product Search mode
+  - [x] Sentiment UI display (score badge, Reddit mentions list, Twitter mentions)
+  - [x] Sentiment section in standard markdown report + PDF
+  - [x] TypeScript clean, Vite build successful
+
 ## In Progress
 
 ## Backlog
 
-- [ ] Kiểm tra frontend (task-dashboard) hoạt động với backend mới
-- [ ] Test APK analysis flow end-to-end
 - [ ] Test PDF download trên Vercel deploy
+- [ ] Implement "Versus Mode" để so sánh 2 report nghiên cứu trong lịch sử.
