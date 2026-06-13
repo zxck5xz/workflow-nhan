@@ -2,9 +2,9 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY backend/package.json ./
-COPY backend/prisma ./prisma/
-COPY backend/src ./src/
+COPY package.json ./
+COPY prisma ./prisma/
+COPY src ./src/
 
 RUN npm install --no-workspaces && npx prisma generate --schema=./prisma/schema.prisma
 
