@@ -149,3 +149,24 @@ export interface NavItem {
   label: string;
   icon: string;
 }
+
+// Research types
+export interface ResearchReport {
+  id: string;
+  type: 'apk' | 'product' | 'codebase';
+  title: string;
+  packageName?: string;
+  technicalData?: Record<string, unknown>;
+  interpretation?: {
+    summary: string;
+    security_audit: string[];
+    product_logic: string[];
+  };
+  markdownReport?: string;
+  sentimentScore?: number;
+  sentimentSummary?: string;
+  redditMentions?: Array<Record<string, unknown>>;
+  twitterMentions?: Array<Record<string, unknown>>;
+  authorId?: string;
+  createdAt: string;
+}
