@@ -171,7 +171,7 @@ export function CodeAnalysisPage() {
         addLog(step);
       });
 
-      setApkTechnicalData(result);
+      setApkTechnicalData(result as unknown as Record<string, unknown>);
       addLog(`[Báo cáo] Đang tạo báo cáo chuẩn hóa...`);
 
       let appInfo: Record<string, unknown> | null = null;
@@ -289,7 +289,7 @@ export function CodeAnalysisPage() {
       setReport(md);
 
       await apiService.saveResearchReport({
-        id: currentReportId,
+        id: currentReportId ?? undefined,
         type: 'product',
         title: `Product: ${String(safeInfo.name || query)}`,
         packageName: pkgName,
