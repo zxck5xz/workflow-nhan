@@ -1,12 +1,27 @@
 {
-  "name": "harness-context-engineering",
-  "version": "1.0.0",
-  "description": "MCP server setup",
+  "name": "workflow-nhan-root",
   "private": true,
+  "workspaces": [
+    "backend",
+    "task-dashboard",
+    "mobile-app"
+  ],
   "scripts": {
-    "start": "set UPSTASH_API_KEY=273c3be7-f7a5-4f79-8152-998fca8e8f37 && npx -y @upstash/context7-mcp --transport http --port 3001"
+    "dev:backend": "npm run start --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=task-dashboard",
+    "dev:mobile": "npm run start --workspace=mobile-app",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "prepare": "husky"
   },
-  "dependencies": {
-    "@upstash/context7-mcp": "latest"
+  "overrides": {
+    "@types/react": "18.3.12"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2"
   }
 }

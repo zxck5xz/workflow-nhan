@@ -1,0 +1,13 @@
+{
+  "projectRoot": "C:\\Users\\Admin\\Desktop\\agent AI\\workflow-nhan",
+  "batchFiles": [
+    {"path": ".understand-anything/intermediate/batches.json", "language": "json", "sizeLines": 2193, "fileCategory": "config"},
+    {"path": ".understand-anything/intermediate/domain-context.json", "language": "json", "sizeLines": 1050, "fileCategory": "config"},
+    {"path": ".understand-anything/intermediate/scan-result.json", "language": "json", "sizeLines": 1178, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    ".understand-anything/intermediate/batches.json": [],
+    ".understand-anything/intermediate/domain-context.json": [],
+    ".understand-anything/intermediate/scan-result.json": []
+  }
+}

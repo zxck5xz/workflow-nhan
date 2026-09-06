@@ -1,0 +1,21 @@
+{
+  "projectRoot": "C:/Users/Admin/Desktop/agent AI/workflow-nhan",
+  "batchFiles": [
+    {"path": "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md", "language": "markdown", "sizeLines": 98, "fileCategory": "docs"},
+    {"path": "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md", "language": "markdown", "sizeLines": 85, "fileCategory": "docs"},
+    {"path": "Đánh giá của AI/Evaluation_Game_20260519.md", "language": "markdown", "sizeLines": 59, "fileCategory": "docs"},
+    {"path": "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md", "language": "markdown", "sizeLines": 106, "fileCategory": "docs"},
+    {"path": "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md", "language": "markdown", "sizeLines": 79, "fileCategory": "docs"},
+    {"path": "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md", "language": "markdown", "sizeLines": 137, "fileCategory": "docs"},
+    {"path": "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md", "language": "markdown", "sizeLines": 255, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md": [],
+    "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md": [],
+    "Đánh giá của AI/Evaluation_Game_20260519.md": [],
+    "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md": [],
+    "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md": [],
+    "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md": [],
+    "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md": []
+  }
+}

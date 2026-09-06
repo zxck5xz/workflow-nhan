@@ -12,7 +12,7 @@ export const LoginForm = () => {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    
+
     try {
       await login(email, password);
     } catch (err: any) {
@@ -38,7 +38,7 @@ export const LoginForm = () => {
             disabled={loading}
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
@@ -50,7 +50,7 @@ export const LoginForm = () => {
             disabled={loading}
           />
         </div>
-        
+
         <button type="submit" disabled={loading} className="btn btn-primary">
           {loading ? 'Logging in...' : 'Login'}
         </button>

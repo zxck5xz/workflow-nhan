@@ -115,7 +115,7 @@ export const dataService = {
       }
     }
     const raw = localStorage.getItem(`task-dashboard-snapshot-${date}`);
-    return raw ? JSON.parse(raw) as AppData : null;
+    return raw ? (JSON.parse(raw) as AppData) : null;
   },
 
   // ── CRUD helpers ──
@@ -124,14 +124,14 @@ export const dataService = {
   },
 
   updateProject(data: AppData, project: Project): AppData {
-    return { ...data, projects: data.projects.map(p => p.id === project.id ? project : p) };
+    return { ...data, projects: data.projects.map((p) => (p.id === project.id ? project : p)) };
   },
 
   deleteProject(data: AppData, projectId: string): AppData {
     return {
       ...data,
-      projects: data.projects.filter(p => p.id !== projectId),
-      tasks: data.tasks.filter(t => t.projectId !== projectId),
+      projects: data.projects.filter((p) => p.id !== projectId),
+      tasks: data.tasks.filter((t) => t.projectId !== projectId),
     };
   },
 
@@ -140,11 +140,11 @@ export const dataService = {
   },
 
   updateMember(data: AppData, member: Member): AppData {
-    return { ...data, members: data.members.map(m => m.id === member.id ? member : m) };
+    return { ...data, members: data.members.map((m) => (m.id === member.id ? member : m)) };
   },
 
   deleteMember(data: AppData, memberId: string): AppData {
-    return { ...data, members: data.members.filter(m => m.id !== memberId) };
+    return { ...data, members: data.members.filter((m) => m.id !== memberId) };
   },
 
   addTask(data: AppData, task: Task): AppData {
@@ -152,11 +152,11 @@ export const dataService = {
   },
 
   updateTask(data: AppData, task: Task): AppData {
-    return { ...data, tasks: data.tasks.map(t => t.id === task.id ? task : t) };
+    return { ...data, tasks: data.tasks.map((t) => (t.id === task.id ? task : t)) };
   },
 
   deleteTask(data: AppData, taskId: string): AppData {
-    return { ...data, tasks: data.tasks.filter(t => t.id !== taskId) };
+    return { ...data, tasks: data.tasks.filter((t) => t.id !== taskId) };
   },
 
   // ── Scorecard CRUD ──
@@ -164,10 +164,10 @@ export const dataService = {
     return { ...data, scorecards: [...data.scorecards, sc] };
   },
   updateScorecard(data: AppData, sc: GameScorecard): AppData {
-    return { ...data, scorecards: data.scorecards.map(s => s.id === sc.id ? sc : s) };
+    return { ...data, scorecards: data.scorecards.map((s) => (s.id === sc.id ? sc : s)) };
   },
   deleteScorecard(data: AppData, id: string): AppData {
-    return { ...data, scorecards: data.scorecards.filter(s => s.id !== id) };
+    return { ...data, scorecards: data.scorecards.filter((s) => s.id !== id) };
   },
 
   // ── Insight CRUD ──
@@ -175,9 +175,9 @@ export const dataService = {
     return { ...data, insights: [...data.insights, insight] };
   },
   updateInsight(data: AppData, insight: WeeklyInsight): AppData {
-    return { ...data, insights: data.insights.map(i => i.id === insight.id ? insight : i) };
+    return { ...data, insights: data.insights.map((i) => (i.id === insight.id ? insight : i)) };
   },
   deleteInsight(data: AppData, id: string): AppData {
-    return { ...data, insights: data.insights.filter(i => i.id !== id) };
+    return { ...data, insights: data.insights.filter((i) => i.id !== id) };
   },
 };

@@ -1,0 +1,308 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 174,
+    "filesWithImports": 30,
+    "totalEdges": 94
+  },
+  "importMap": {
+    ".gemini/settings.json": [],
+    ".github/workflows/ci.yml": [],
+    ".husky/pre-commit": [],
+    ".husky/pre-push": [],
+    ".lintstagedrc.json": [],
+    ".mcp.json": [],
+    ".prettierignore": [],
+    ".understand-anything/.understandignore": [],
+    ".understand-anything/intermediate/batches.json": [],
+    ".understand-anything/intermediate/domain-context.json": [],
+    ".understand-anything/intermediate/scan-result.json": [],
+    ".understand-anything/tmp/ua-file-analyzer-input-1.json": [],
+    ".understand-anything/tmp/ua-import-map-input.json": [],
+    ".understand-anything/tmp/ua-import-map-output.json": [],
+    ".understand-anything/tmp/ua-scan-files.json": [],
+    "ai-agents/code_re_agent.py": [],
+    "ai-agents/game_eval_agent.py": [],
+    "ai-agents/GameEvalAgent_SOP.md": [],
+    "ai-agents/pptx_generator.py": [],
+    "ANDROID_RE_WORKFLOW.md": [],
+    "backend/.dockerignore": [],
+    "backend/CODE_RE_ANALYSIS.md": [],
+    "backend/Dockerfile": [],
+    "backend/package.json": [],
+    "backend/prisma.config.ts": [],
+    "backend/prisma/docker-compose.yml": [],
+    "backend/prisma/migrate-import.ts": [],
+    "backend/prisma/migrations/20260526045525_init/migration.sql": [],
+    "backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql": [],
+    "backend/prisma/migrations/20260603011026_init/migration.sql": [],
+    "backend/prisma/migrations/migration_lock.toml": [],
+    "backend/prisma/schema.prisma": [],
+    "backend/prisma/seed.ts": [],
+    "backend/README.md": [],
+    "backend/seed-users.ts": [],
+    "backend/src/__tests__/auth.test.js": [],
+    "backend/src/auth.js": [
+      "backend/src/db.js"
+    ],
+    "backend/src/data-store-db.js": [
+      "backend/src/db.js"
+    ],
+    "backend/src/data-store.js": [],
+    "backend/src/db.js": [],
+    "backend/src/logger.js": [],
+    "backend/src/server.js": [
+      "backend/src/auth.js",
+      "backend/src/data-store-db.js",
+      "backend/src/data-store.js",
+      "backend/src/logger.js"
+    ],
+    "CODE_RE_ANALYSIS.md": [],
+    "COPY_PASTE_GUIDE.md": [],
+    "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md": [],
+    "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md": [],
+    "Đánh giá của AI/Evaluation_Game_20260519.md": [],
+    "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md": [],
+    "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md": [],
+    "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md": [],
+    "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md": [],
+    "docker-compose.yml": [],
+    "load_excel_demo.py": [],
+    "mcp_server/__init__.py": [],
+    "mcp_server/handlers.py": [],
+    "mcp_server/main.py": [
+      "mcp_server/handlers.py"
+    ],
+    "mcp_server/README.md": [],
+    "mcp_server/requirements.txt": [],
+    "package.json": [],
+    "preparing_workflows.md": [],
+    "reports/Evaluation_Puzzle Quest Mobile_20260515.md": [],
+    "ruff.toml": [],
+    "SOP.md": [],
+    "task-dashboard/Dockerfile": [],
+    "task-dashboard/eslint.config.js": [],
+    "task-dashboard/index.html": [],
+    "task-dashboard/lighthouse-report.json": [],
+    "task-dashboard/package.json": [],
+    "task-dashboard/README.md": [],
+    "task-dashboard/src/App.css": [],
+    "task-dashboard/src/App.tsx": [
+      "task-dashboard/src/components/auth/LoginForm.tsx",
+      "task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "task-dashboard/src/components/Sidebar.tsx",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/contexts/AuthContext.tsx"
+    ],
+    "task-dashboard/src/components/auth/LoginForm.tsx": [
+      "task-dashboard/src/contexts/AuthContext.tsx"
+    ],
+    "task-dashboard/src/components/auth/RegisterForm.tsx": [
+      "task-dashboard/src/contexts/AuthContext.tsx"
+    ],
+    "task-dashboard/src/components/auth/UserManagementPage.css": [],
+    "task-dashboard/src/components/auth/UserManagementPage.tsx": [
+      "task-dashboard/src/components/auth/UserManagementPage.css",
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/contexts/AuthContext.tsx",
+      "task-dashboard/src/services/authService.ts",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/components/calendar/CalendarPage.css": [],
+    "task-dashboard/src/components/calendar/CalendarPage.tsx": [
+      "task-dashboard/src/components/calendar/CalendarPage.css",
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/common/Common.css": [],
+    "task-dashboard/src/components/common/ErrorBoundary.tsx": [],
+    "task-dashboard/src/components/common/index.tsx": [
+      "task-dashboard/src/components/common/Common.css"
+    ],
+    "task-dashboard/src/components/common/PageHelp.css": [],
+    "task-dashboard/src/components/common/PageHelp.tsx": [
+      "task-dashboard/src/components/common/PageHelp.css"
+    ],
+    "task-dashboard/src/components/common/ProjectModal.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/components/common/TaskDetailsModal.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/components/common/TaskFormModal.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/reports/CodeAnalysisPage.css": [],
+    "task-dashboard/src/components/reports/CodeAnalysisPage.tsx": [
+      "task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "task-dashboard/src/data/apiService.ts",
+      "task-dashboard/src/utils/apkParser.ts"
+    ],
+    "task-dashboard/src/components/reports/InsightsPage.css": [],
+    "task-dashboard/src/components/reports/InsightsPage.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/reports/InsightsPage.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/reports/StaffReportPage.css": [],
+    "task-dashboard/src/components/reports/StaffReportPage.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/components/reports/StaffReportPage.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/reports/WorkReportPage.css": [],
+    "task-dashboard/src/components/reports/WorkReportPage.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/components/reports/WorkReportPage.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/setup/SetupPage.css": [],
+    "task-dashboard/src/components/setup/SetupPage.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/components/setup/SetupPage.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/Sidebar.css": [],
+    "task-dashboard/src/components/Sidebar.tsx": [
+      "task-dashboard/src/components/Sidebar.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/contexts/AuthContext.tsx",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/components/tasks/ProjectControlPage.css": [],
+    "task-dashboard/src/components/tasks/ProjectControlPage.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/components/tasks/TaskListPage.css": [],
+    "task-dashboard/src/components/tasks/TaskListPage.tsx": [
+      "task-dashboard/src/components/common/index.tsx",
+      "task-dashboard/src/components/common/PageHelp.tsx",
+      "task-dashboard/src/components/tasks/TaskListPage.css",
+      "task-dashboard/src/contexts/AppContext.tsx",
+      "task-dashboard/src/types/index.ts",
+      "task-dashboard/src/utils/index.ts"
+    ],
+    "task-dashboard/src/contexts/AppContext.tsx": [
+      "task-dashboard/src/data/dataService.ts",
+      "task-dashboard/src/data/seedData.ts",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/contexts/AuthContext.tsx": [
+      "task-dashboard/src/services/authService.ts",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/data/apiService.ts": [
+      "task-dashboard/src/services/authService.ts",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/data/dataService.ts": [
+      "task-dashboard/src/data/apiService.ts",
+      "task-dashboard/src/data/seedData.ts",
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/data/seedData.ts": [
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/index.css": [],
+    "task-dashboard/src/main.tsx": [
+      "task-dashboard/src/App.tsx",
+      "task-dashboard/src/contexts/AuthContext.tsx",
+      "task-dashboard/src/index.css"
+    ],
+    "task-dashboard/src/services/authService.ts": [
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/src/styles/global.css": [],
+    "task-dashboard/src/styles/tokens.css": [],
+    "task-dashboard/src/types/index.ts": [],
+    "task-dashboard/src/utils/apkParser.ts": [],
+    "task-dashboard/src/utils/index.ts": [
+      "task-dashboard/src/types/index.ts"
+    ],
+    "task-dashboard/tsconfig.app.json": [],
+    "task-dashboard/tsconfig.json": [],
+    "task-dashboard/tsconfig.node.json": [],
+    "task-dashboard/vercel.json": [],
+    "task-dashboard/vite.config.ts": [],
+    "test_candy.apk": [],
+    "test_real.apk": [],
+    "test.apk": [],
+    "TODO.md": [],
+    "understand-chat/SKILL.md": [],
+    "understand-dashboard/SKILL.md": [],
+    "understand/build-fingerprints.mjs": [],
+    "understand/compute-batches.mjs": [],
+    "understand/extract-import-map.mjs": [],
+    "understand/extract-structure.mjs": [],
+    "understand/frameworks/django.md": [],
+    "understand/frameworks/express.md": [],
+    "understand/frameworks/fastapi.md": [],
+    "understand/frameworks/flask.md": [],
+    "understand/frameworks/gin.md": [],
+    "understand/frameworks/nextjs.md": [],
+    "understand/frameworks/rails.md": [],
+    "understand/frameworks/react.md": [],
+    "understand/frameworks/spring.md": [],
+    "understand/frameworks/vue.md": [],
+    "understand/languages/cpp.md": [],
+    "understand/languages/csharp.md": [],
+    "understand/languages/css.md": [],
+    "understand/languages/dockerfile.md": [],
+    "understand/languages/go.md": [],
+    "understand/languages/graphql.md": [],
+    "understand/languages/html.md": [],
+    "understand/languages/java.md": [],
+    "understand/languages/javascript.md": [],
+    "understand/languages/json.md": [],
+    "understand/languages/kotlin.md": [],
+    "understand/languages/markdown.md": [],
+    "understand/languages/php.md": [],
+    "understand/languages/protobuf.md": [],
+    "understand/languages/python.md": [],
+    "understand/languages/ruby.md": [],
+    "understand/languages/rust.md": [],
+    "understand/languages/shell.md": [],
+    "understand/languages/sql.md": [],
+    "understand/languages/swift.md": [],
+    "understand/languages/terraform.md": [],
+    "understand/languages/typescript.md": [],
+    "understand/languages/yaml.md": [],
+    "understand/locales/en.md": [],
+    "understand/locales/ja.md": [],
+    "understand/locales/ko.md": [],
+    "understand/locales/ru.md": [],
+    "understand/locales/zh-TW.md": [],
+    "understand/locales/zh.md": [],
+    "understand/merge-batch-graphs.py": [],
+    "understand/merge-subdomain-graphs.py": [],
+    "understand/scan-project.mjs": [],
+    "understand/SKILL.md": [],
+    "vercel.json": [],
+    "website_features.md": []
+  }
+}

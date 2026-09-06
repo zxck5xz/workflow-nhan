@@ -1,0 +1,855 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 13,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".lintstagedrc.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "sections": [
+        {
+          "heading": "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "task-dashboard/**/*.{ts,tsx}",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "*.py",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".mcp.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "mcpServers",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "ANDROID_RE_WORKFLOW.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "Practical Workflow: Android Reverse Engineering & Analysis",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Decompile with JADX → View Java Code",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "2. Read `AndroidManifest.xml` → Understand Main Architecture",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "3. Find `MainActivity` → Entry Point",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "4. Search API Keys/Domains → Understand Backend Flow",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "5. Monitor Intent/Activity → Draw User Flow Diagram",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "6. Analyze Database/Network Code → Understand Data Flow",
+          "level": 2,
+          "line": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "CODE_RE_ANALYSIS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 83,
+      "nonEmptyLines": 77,
+      "sections": [
+        {
+          "heading": "Codebase Analysis Report: Project Engineering Reverse Engineering",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Executive Summary",
+          "level": 2,
+          "line": 4
+        },
+        {
+          "heading": "1. Manifest & Architecture Analysis (Project Mapping)",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "2. Main Entry Points (Activity/Entry Point Equivalence)",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "3. API & Communication Flow (Intent/Network Flow)",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "4. Data Flow & Storage (Database/Local Storage)",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "5. Security & Permissions (Sensitive Data Mapping)",
+          "level": 2,
+          "line": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "COPY_PASTE_GUIDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 226,
+      "nonEmptyLines": 171,
+      "sections": [
+        {
+          "heading": "Hướng dẫn Copy-Paste Framework để Tạo Workflow Mới",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Scope",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Procedure",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "1. Understanding the Framework Structure",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "1.1 Core Architecture",
+          "level": 4,
+          "line": 23
+        },
+        {
+          "heading": "1.2 Key Directories to Replicate",
+          "level": 4,
+          "line": 32
+        },
+        {
+          "heading": "2. Copy-Paste Process",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "2.1 For a New Workflow (e.g., \"Customer Support Workflow\")",
+          "level": 4,
+          "line": 60
+        },
+        {
+          "heading": "3. Workflow-Specific Customizations",
+          "level": 3,
+          "line": 153
+        },
+        {
+          "heading": "3.1 UI/UX Customizations",
+          "level": 4,
+          "line": 155
+        },
+        {
+          "heading": "3.2 Data Flow Customizations",
+          "level": 4,
+          "line": 161
+        },
+        {
+          "heading": "3.3 AI Integration (if applicable)",
+          "level": 4,
+          "line": 167
+        },
+        {
+          "heading": "4. Testing the New Workflow",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "5. Deployment Considerations",
+          "level": 3,
+          "line": 183
+        },
+        {
+          "heading": "Troubleshooting",
+          "level": 2,
+          "line": 196
+        },
+        {
+          "heading": "Common Issues",
+          "level": 3,
+          "line": 198
+        },
+        {
+          "heading": "Debugging Tips",
+          "level": 3,
+          "line": 206
+        },
+        {
+          "heading": "References",
+          "level": 2,
+          "line": 214
+        },
+        {
+          "heading": "Revision History",
+          "level": 2,
+          "line": 222
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 21
+      }
+    },
+    {
+      "path": "SOP.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 195,
+      "nonEmptyLines": 131,
+      "sections": [
+        {
+          "heading": "Standard Operating Procedure (SOP) - Workflow Management System",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Purpose",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Scope",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Procedure",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "1. Local Development Setup",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "2. Deployment to Production",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "2.1 Backend Deployment (Railway)",
+          "level": 4,
+          "line": 76
+        },
+        {
+          "heading": "2.2 Frontend Deployment (Vercel)",
+          "level": 4,
+          "line": 88
+        },
+        {
+          "heading": "2.3 Database Setup (Neon)",
+          "level": 4,
+          "line": 97
+        },
+        {
+          "heading": "3. System Maintenance",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "3.1 Database Migrations",
+          "level": 4,
+          "line": 111
+        },
+        {
+          "heading": "3.2 Data Backup",
+          "level": 4,
+          "line": 126
+        },
+        {
+          "heading": "3.4 APK Analysis (Reverse Engineering Logic)",
+          "level": 4,
+          "line": 131
+        },
+        {
+          "heading": "4. Troubleshooting",
+          "level": 3,
+          "line": 139
+        },
+        {
+          "heading": "4.1 Common Issues",
+          "level": 4,
+          "line": 141
+        },
+        {
+          "heading": "4.2 Logs",
+          "level": 4,
+          "line": 161
+        },
+        {
+          "heading": "5. Security Considerations",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "References",
+          "level": 2,
+          "line": 184
+        },
+        {
+          "heading": "Revision History",
+          "level": 2,
+          "line": 191
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 20
+      }
+    },
+    {
+      "path": "TODO.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 22,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "TODO",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "✅ Done (2026-06-02)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "In Progress",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Backlog",
+          "level": 2,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 39,
+      "nonEmptyLines": 36,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "workspaces",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "preparing_workflows.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 221,
+      "nonEmptyLines": 183,
+      "sections": [
+        {
+          "heading": "Tài liệu Chuẩn bị Workflow Chủ đạo",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "📋 Trạng thái hiện tại",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "🏗️ Giai đoạn 1: Thu thập bối cảnh",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "⚙️ Giai đoạn 2: Thiết kế kiến trúc hệ thống",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "✍️ Giai đoạn 3: Chi tiết hóa 3 workflow mục tiêu",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Workflow 1: Quản lý (cá nhân & team)",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "🚧 Task Management Dashboard (Đang xây dựng)",
+          "level": 4,
+          "line": 59
+        },
+        {
+          "heading": "Workflow 2: Test, Đánh giá & Phân tích",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "Workflow 3: Portfolio & Presentation",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "🗄️ Backend & Database Migration",
+          "level": 2,
+          "line": 106
+        },
+        {
+          "heading": "🔄 Giai đoạn 4: Đóng gói & Tái sử dụng",
+          "level": 2,
+          "line": 141
+        },
+        {
+          "heading": "🚀 Hướng dẫn tiếp tục",
+          "level": 2,
+          "line": 148
+        },
+        {
+          "heading": "📝 Nhật ký cập nhật (Changelog)",
+          "level": 2,
+          "line": 157
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "ruff.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "lint",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "lint.per-file-ignores",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "format",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "vercel.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "buildCommand",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "installCommand",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "outputDirectory",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "rewrites",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "website_features.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 317,
+      "nonEmptyLines": 233,
+      "sections": [
+        {
+          "heading": "Tính năng Website & Cách Hoạt Động",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Tổng quan",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Cấu trúc chính",
+          "level": 3,
+          "line": 10
+        },
+        {
+          "heading": "2. Điều hướng và các trang",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Sidebar",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "3. Mô hình dữ liệu và lưu trữ",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Các thao tác dữ liệu",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "Các thực thể dữ liệu cốt lõi",
+          "level": 3,
+          "line": 56
+        },
+        {
+          "heading": "Seed Data",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "4. Phân tích tính năng",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "4.1 Setup & Config",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "4.2 Task List",
+          "level": 3,
+          "line": 84
+        },
+        {
+          "heading": "4.3 Eisenhower Matrix",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "4.4 Calendar View",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "4.5 Work Report",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "4.6 Staff Report (Manager View)",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "4.7 Insights",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "Game Scorecards",
+          "level": 4,
+          "line": 144
+        },
+        {
+          "heading": "Weekly Summary",
+          "level": 4,
+          "line": 156
+        },
+        {
+          "heading": "AI Evaluation",
+          "level": 4,
+          "line": 166
+        },
+        {
+          "heading": "5. Component Library",
+          "level": 2,
+          "line": 180
+        },
+        {
+          "heading": "6. Tính năng đánh giá AI",
+          "level": 2,
+          "line": 195
+        },
+        {
+          "heading": "Cách hoạt động",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "Ghi chú",
+          "level": 3,
+          "line": 210
+        },
+        {
+          "heading": "7. Backend API",
+          "level": 2,
+          "line": 217
+        },
+        {
+          "heading": "Endpoints",
+          "level": 3,
+          "line": 221
+        },
+        {
+          "heading": "Storage",
+          "level": 3,
+          "line": 235
+        },
+        {
+          "heading": "8. Animations",
+          "level": 2,
+          "line": 241
+        },
+        {
+          "heading": "9. Hành vi Modal",
+          "level": 2,
+          "line": 250
+        },
+        {
+          "heading": "10. Cách sử dụng",
+          "level": 2,
+          "line": 259
+        },
+        {
+          "heading": "Khởi động ứng dụng",
+          "level": 3,
+          "line": 261
+        },
+        {
+          "heading": "Luồng làm việc",
+          "level": 3,
+          "line": 267
+        },
+        {
+          "heading": "11. Cải tiến trong tương lai",
+          "level": 2,
+          "line": 275
+        },
+        {
+          "heading": "12. Xác thực người dùng (Thêm mới)",
+          "level": 2,
+          "line": 286
+        },
+        {
+          "heading": "Quy trình xác thực",
+          "level": 3,
+          "line": 290
+        },
+        {
+          "heading": "Vai trò người dùng",
+          "level": 3,
+          "line": 298
+        },
+        {
+          "heading": "Giao diện",
+          "level": 3,
+          "line": 305
+        },
+        {
+          "heading": "Bảo mật",
+          "level": 3,
+          "line": 312
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 38
+      }
+    }
+  ]
+}

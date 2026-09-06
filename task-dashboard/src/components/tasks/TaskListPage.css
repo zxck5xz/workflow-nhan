@@ -120,7 +120,9 @@
 }
 
 @media (max-width: 900px) {
-  .tasks-quick-stats { grid-template-columns: repeat(2, 1fr); }
+  .tasks-quick-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ── Sort indicator ── */

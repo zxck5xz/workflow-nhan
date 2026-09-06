@@ -14,12 +14,14 @@ This backend provides a dedicated API server for the Task Management Dashboard f
 ## Setup
 
 1. Install dependencies:
+
    ```bash
    cd backend
    npm install
    ```
 
 2. Start the backend server:
+
    ```bash
    npm start
    ```

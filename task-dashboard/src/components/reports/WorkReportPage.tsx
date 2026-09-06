@@ -20,7 +20,7 @@ export function WorkReportPage() {
     // 1. Determine Date Range
     let startDate = new Date();
     let endDate = new Date();
-    
+
     if (timeRange === 'today') {
       const today = new Date(getToday());
       startDate = today;
@@ -34,14 +34,14 @@ export function WorkReportPage() {
     const endStr = endDate.toISOString().split('T')[0];
 
     // 2. Filter Tasks for the selected Assignee
-    const userTasks = tasks.filter(t => t.assigneeId === assigneeId);
+    const userTasks = tasks.filter((t) => t.assigneeId === assigneeId);
 
     // 3. Categorize Tasks
     const completedTasks: Task[] = [];
     const inProgressTasks: Task[] = [];
     const overdueTasks: Task[] = [];
 
-    userTasks.forEach(task => {
+    userTasks.forEach((task) => {
       const isCompleted = task.status === 'done';
       const isOverdueTask = isOverdue(task);
 
@@ -65,20 +65,20 @@ export function WorkReportPage() {
       inProgressTasks,
       overdueTasks,
       startStr,
-      endStr
+      endStr,
     };
   }, [tasks, timeRange, assigneeId]);
 
   const generateSlackText = () => {
     const { completedTasks, inProgressTasks, overdueTasks, startStr, endStr } = reportData;
-    const assignee = members.find(m => m.id === assigneeId);
-    
+    const assignee = members.find((m) => m.id === assigneeId);
+
     let text = `🚀 *BÁO CÁO CÔNG VIỆC ${timeRange === 'today' ? startStr : `Tuần ${startStr} - ${endStr}`}*\n`;
     text += `👤 Người báo cáo: ${assignee?.name || 'Unknown'}\n\n`;
 
     // Group completed by project
     const completedByProject = new Map<string, Task[]>();
-    completedTasks.forEach(t => {
+    completedTasks.forEach((t) => {
       if (!completedByProject.has(t.projectId)) completedByProject.set(t.projectId, []);
       completedByProject.get(t.projectId)!.push(t);
     });
@@ -86,8 +86,8 @@ export function WorkReportPage() {
     text += `✅ *ĐÃ HOÀN THÀNH (${completedTasks.length} task):*\n`;
     if (completedTasks.length === 0) text += `- (Không có)\n`;
     completedByProject.forEach((tasks, pId) => {
-      const pName = projects.find(p => p.id === pId)?.name || 'Khác';
-      tasks.forEach(t => {
+      const pName = projects.find((p) => p.id === pId)?.name || 'Khác';
+      tasks.forEach((t) => {
         text += `- [${pName}] ${t.title}\n`;
       });
     });
@@ -95,16 +95,16 @@ export function WorkReportPage() {
 
     text += `⏳ *ĐANG THỰC HIỆN (${inProgressTasks.length} task):*\n`;
     if (inProgressTasks.length === 0) text += `- (Không có)\n`;
-    inProgressTasks.forEach(t => {
-      const pName = projects.find(p => p.id === t.projectId)?.name || 'Khác';
+    inProgressTasks.forEach((t) => {
+      const pName = projects.find((p) => p.id === t.projectId)?.name || 'Khác';
       text += `- [${pName}] ${t.title}\n`;
     });
     text += '\n';
 
     if (overdueTasks.length > 0) {
       text += `⚠️ *TRỄ HẠN (${overdueTasks.length} task):*\n`;
-      overdueTasks.forEach(t => {
-        const pName = projects.find(p => p.id === t.projectId)?.name || 'Khác';
+      overdueTasks.forEach((t) => {
+        const pName = projects.find((p) => p.id === t.projectId)?.name || 'Khác';
         text += `- [${pName}] ${t.title} (Hạn: ${t.deadline})\n`;
       });
       text += '\n';
@@ -122,7 +122,7 @@ export function WorkReportPage() {
   };
 
   const slackText = generateSlackText();
-  const selectedMember = members.find(m => m.id === assigneeId);
+  const selectedMember = members.find((m) => m.id === assigneeId);
 
   return (
     <div className="report-page animate-fade-in">
@@ -135,7 +135,10 @@ export function WorkReportPage() {
             <h5>Bước thực hiện</h5>
             <ul>
               <li>Chọn khoảng thời gian (Hôm nay / Tuần này) và thành viên.</li>
-              <li>Kiểm tra số liệu ở thống kê và preview Slack, nhấn <strong>Copy to Clipboard</strong> để gửi.</li>
+              <li>
+                Kiểm tra số liệu ở thống kê và preview Slack, nhấn{' '}
+                <strong>Copy to Clipboard</strong> để gửi.
+              </li>
             </ul>
           </PageHelp>
         </div>
@@ -147,13 +150,13 @@ export function WorkReportPage() {
           <div className="form-group">
             <label className="form-label">Khoảng thời gian</label>
             <div className="time-range-toggles">
-              <button 
+              <button
                 className={`toggle-btn ${timeRange === 'today' ? 'active' : ''}`}
                 onClick={() => setTimeRange('today')}
               >
                 Hôm nay
               </button>
-              <button 
+              <button
                 className={`toggle-btn ${timeRange === 'this_week' ? 'active' : ''}`}
                 onClick={() => setTimeRange('this_week')}
               >
@@ -164,20 +167,26 @@ export function WorkReportPage() {
 
           <div className="form-group">
             <label className="form-label">Thành viên</label>
-            <select 
-              className="form-select" 
-              value={assigneeId} 
-              onChange={e => setAssigneeId(e.target.value)}
+            <select
+              className="form-select"
+              value={assigneeId}
+              onChange={(e) => setAssigneeId(e.target.value)}
             >
-              {members.map(m => (
-                <option key={m.id} value={m.id}>{m.name}</option>
+              {members.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.name}
+                </option>
               ))}
             </select>
           </div>
 
           {selectedMember && (
             <div className="selected-member-profile">
-              <Avatar initials={selectedMember.initials} color={selectedMember.avatarColor} size="lg" />
+              <Avatar
+                initials={selectedMember.initials}
+                color={selectedMember.avatarColor}
+                size="lg"
+              />
               <div className="profile-details">
                 <strong>{selectedMember.name}</strong>
                 <span className="profile-role">{selectedMember.role}</span>
@@ -189,15 +198,24 @@ export function WorkReportPage() {
         {/* Preview & Output */}
         <div className="report-content">
           <div className="report-stats">
-            <div className="stat-card" style={{ '--stat-accent': 'var(--color-success)' } as React.CSSProperties}>
+            <div
+              className="stat-card"
+              style={{ '--stat-accent': 'var(--color-success)' } as React.CSSProperties}
+            >
               <span className="stat-card__label">Hoàn thành</span>
               <span className="stat-card__value">{reportData.completedTasks.length}</span>
             </div>
-            <div className="stat-card" style={{ '--stat-accent': 'var(--color-info)' } as React.CSSProperties}>
+            <div
+              className="stat-card"
+              style={{ '--stat-accent': 'var(--color-info)' } as React.CSSProperties}
+            >
               <span className="stat-card__label">Đang thực hiện</span>
               <span className="stat-card__value">{reportData.inProgressTasks.length}</span>
             </div>
-            <div className="stat-card" style={{ '--stat-accent': 'var(--color-danger)' } as React.CSSProperties}>
+            <div
+              className="stat-card"
+              style={{ '--stat-accent': 'var(--color-danger)' } as React.CSSProperties}
+            >
               <span className="stat-card__label">Trễ hạn</span>
               <span className="stat-card__value">{reportData.overdueTasks.length}</span>
             </div>
@@ -205,16 +223,14 @@ export function WorkReportPage() {
 
           <div className="slack-preview card">
             <div className="slack-preview__header">
-              <h3 className="card-title" style={{ margin: 0 }}>Slack Markdown Preview</h3>
+              <h3 className="card-title" style={{ margin: 0 }}>
+                Slack Markdown Preview
+              </h3>
               <Button variant="primary" onClick={handleCopy}>
                 {copySuccess ? '✅ Đã Copy' : '📋 Copy to Clipboard'}
               </Button>
             </div>
-            <textarea 
-              className="slack-preview__textarea"
-              readOnly
-              value={slackText}
-            />
+            <textarea className="slack-preview__textarea" readOnly value={slackText} />
           </div>
         </div>
       </div>

@@ -1,0 +1,9 @@
+{
+  "projectRoot": "C:\\Users\\Admin\\Desktop\\agent AI\\workflow-nhan",
+  "batchFiles": [
+    {"path": "task-dashboard/Dockerfile", "language": "dockerfile", "sizeLines": 31, "fileCategory": "infra"}
+  ],
+  "batchImportData": {
+    "task-dashboard/Dockerfile": []
+  }
+}

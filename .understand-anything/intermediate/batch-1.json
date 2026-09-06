@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "backend/Dockerfile",
+      "summary": "Docker configuration for the backend service, using Node.js 20-alpine.",
+      "tags": ["containerization", "infrastructure", "deployment"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:backend/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "backend/.dockerignore",
+      "summary": "Specifies files and directories to ignore when building the backend Docker image.",
+      "tags": ["containerization", "infrastructure"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "summary": "Main service definition in the backend Dockerfile using node:20-alpine image.",
+      "tags": ["service", "node"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "service:backend/Dockerfile:node",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "file:backend/src/server.js",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "file:backend/package.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

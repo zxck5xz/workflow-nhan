@@ -1,0 +1,460 @@
+{
+  "nodes": [
+    {
+      "id": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "type": "file",
+      "name": "CodeAnalysisPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "summary": "React component for APK file analysis and reporting with log tracking.",
+      "tags": ["component", "apk-analysis", "reporting"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:task-dashboard/src/components/reports/CodeAnalysisPage.tsx:CodeAnalysisPage",
+      "type": "function",
+      "name": "CodeAnalysisPage",
+      "filePath": "task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "lineRange": [6, 538],
+      "summary": "Main component for the Code Analysis page, handling file uploads and analysis execution.",
+      "tags": ["component", "ui-logic", "hook-consumer"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "type": "file",
+      "name": "InsightsPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/InsightsPage.tsx",
+      "summary": "React component providing project insights, scorecards, and AI evaluation tools.",
+      "tags": ["component", "dashboard", "ai-evaluation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:task-dashboard/src/components/reports/InsightsPage.tsx:InsightsPage",
+      "type": "function",
+      "name": "InsightsPage",
+      "filePath": "task-dashboard/src/components/reports/InsightsPage.tsx",
+      "lineRange": [11, 117],
+      "summary": "Main entry point for the Insights page, managing tabs and high-level state.",
+      "tags": ["component", "navigation", "state-management"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/components/reports/InsightsPage.tsx:AIEvaluationSection",
+      "type": "function",
+      "name": "AIEvaluationSection",
+      "filePath": "task-dashboard/src/components/reports/InsightsPage.tsx",
+      "lineRange": [441, 855],
+      "summary": "Component for running AI-driven game evaluations and displaying results as slides.",
+      "tags": ["component", "ai-logic", "ui-slides"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "type": "file",
+      "name": "StaffReportPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "summary": "Report page displaying staff performance metrics and active tasks.",
+      "tags": ["component", "reporting", "staff-metrics"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "type": "file",
+      "name": "WorkReportPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "summary": "Report page for summarizing work progress and generating Slack updates.",
+      "tags": ["component", "reporting", "slack-integration"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "type": "file",
+      "name": "SetupPage.tsx",
+      "filePath": "task-dashboard/src/components/setup/SetupPage.tsx",
+      "summary": "Configuration page for managing projects and team members.",
+      "tags": ["component", "setup", "admin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/Sidebar.tsx",
+      "type": "file",
+      "name": "Sidebar.tsx",
+      "filePath": "task-dashboard/src/components/Sidebar.tsx",
+      "summary": "Main navigation sidebar component with role-based access control.",
+      "tags": ["component", "navigation", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "type": "file",
+      "name": "ProjectControlPage.tsx",
+      "filePath": "task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "summary": "Page for project-specific task management with list, board, and overview views.",
+      "tags": ["component", "task-management", "kanban"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "type": "file",
+      "name": "TaskListPage.tsx",
+      "filePath": "task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "summary": "Global task list page with comprehensive filtering and sorting options.",
+      "tags": ["component", "task-management", "filtering"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "file",
+      "name": "AppContext.tsx",
+      "filePath": "task-dashboard/src/contexts/AppContext.tsx",
+      "summary": "Global application state provider using React Context and a reducer for data management.",
+      "tags": ["context", "state-management", "provider"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "file",
+      "name": "AuthContext.tsx",
+      "filePath": "task-dashboard/src/contexts/AuthContext.tsx",
+      "summary": "Authentication context provider managing user login, registration, and session state.",
+      "tags": ["context", "authentication", "provider"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/data/apiService.ts",
+      "type": "file",
+      "name": "apiService.ts",
+      "filePath": "task-dashboard/src/data/apiService.ts",
+      "summary": "Service for making authenticated HTTP requests to the backend API.",
+      "tags": ["service", "api", "http"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/data/dataService.ts",
+      "type": "file",
+      "name": "dataService.ts",
+      "filePath": "task-dashboard/src/data/dataService.ts",
+      "summary": "Service for managing local and remote data synchronization and persistence.",
+      "tags": ["service", "persistence", "sync"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/data/seedData.ts",
+      "type": "file",
+      "name": "seedData.ts",
+      "filePath": "task-dashboard/src/data/seedData.ts",
+      "summary": "Static seed data and utilities for initializing the application state.",
+      "tags": ["data", "mock", "initialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/services/authService.ts",
+      "type": "file",
+      "name": "authService.ts",
+      "filePath": "task-dashboard/src/services/authService.ts",
+      "summary": "Service for authentication-related API calls and session storage management.",
+      "tags": ["service", "authentication", "api"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/types/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "task-dashboard/src/types/index.ts",
+      "summary": "Centralized type definitions for the application's domain models.",
+      "tags": ["types", "typescript", "models"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/utils/apkParser.ts",
+      "type": "file",
+      "name": "apkParser.ts",
+      "filePath": "task-dashboard/src/utils/apkParser.ts",
+      "summary": "Utility for client-side APK parsing and manifest analysis using JSZip.",
+      "tags": ["utility", "apk-parsing", "binary-extraction"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:task-dashboard/src/utils/apkParser.ts:ClientSideApkParser",
+      "type": "class",
+      "name": "ClientSideApkParser",
+      "filePath": "task-dashboard/src/utils/apkParser.ts",
+      "lineRange": [12, 125],
+      "summary": "Class containing methods to asynchronously parse APK files in the browser.",
+      "tags": ["class", "parser", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/utils/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "task-dashboard/src/utils/index.ts",
+      "summary": "General-purpose utility functions for formatting, calculations, and date manipulation.",
+      "tags": ["utility", "formatting", "date-utils"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/setup/SetupPage.css",
+      "type": "file",
+      "name": "SetupPage.css",
+      "filePath": "task-dashboard/src/components/setup/SetupPage.css",
+      "summary": "Styles for the Setup page.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/Sidebar.css",
+      "type": "file",
+      "name": "Sidebar.css",
+      "filePath": "task-dashboard/src/components/Sidebar.css",
+      "summary": "Styles for the Sidebar component.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "type": "file",
+      "name": "ProjectControlPage.css",
+      "filePath": "task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "summary": "Styles for the Project Control page.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/TaskListPage.css",
+      "type": "file",
+      "name": "TaskListPage.css",
+      "filePath": "task-dashboard/src/components/tasks/TaskListPage.css",
+      "summary": "Styles for the Task List page.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/styles/global.css",
+      "type": "file",
+      "name": "global.css",
+      "filePath": "task-dashboard/src/styles/global.css",
+      "summary": "Global CSS styles and utility classes.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/styles/tokens.css",
+      "type": "file",
+      "name": "tokens.css",
+      "filePath": "task-dashboard/src/styles/tokens.css",
+      "summary": "CSS variable tokens for theme colors and spacing.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "task-dashboard/src/index.css",
+      "summary": "Root CSS file.",
+      "tags": ["markup", "css", "styling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "task-dashboard/src/main.tsx",
+      "summary": "Application entry point that renders the React tree.",
+      "tags": ["entry-point", "react", "bootstrap"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "function:task-dashboard/src/components/reports/CodeAnalysisPage.tsx:CodeAnalysisPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/utils/apkParser.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "function:task-dashboard/src/components/reports/InsightsPage.tsx:InsightsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "function:task-dashboard/src/components/reports/InsightsPage.tsx:AIEvaluationSection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/setup/SetupPage.css",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/components/Sidebar.css",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/TaskListPage.css",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/data/dataService.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/data/apiService.ts",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/utils/apkParser.ts",
+      "target": "class:task-dashboard/src/utils/apkParser.ts:ClientSideApkParser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/index.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "task-dashboard/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 73,
+      "nonEmptyLines": 60,
+      "sections": [
+        {
+          "heading": "React + TypeScript + Vite",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "React Compiler",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Expanding the ESLint configuration",
+          "level": 2,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "task-dashboard/index.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/lighthouse-report.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13946,
+      "nonEmptyLines": 13946,
+      "sections": [
+        {
+          "heading": "lighthouseVersion",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "requestedUrl",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "mainDocumentUrl",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "finalDisplayedUrl",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "finalUrl",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "fetchTime",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "gatherMode",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "runWarnings",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "userAgent",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "environment",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "audits",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "configSettings",
+          "level": 1,
+          "line": 8121
+        },
+        {
+          "heading": "categories",
+          "level": 1,
+          "line": 8174
+        },
+        {
+          "heading": "categoryGroups",
+          "level": 1,
+          "line": 9049
+        },
+        {
+          "heading": "stackPacks",
+          "level": 1,
+          "line": 9129
+        },
+        {
+          "heading": "entities",
+          "level": 1,
+          "line": 9130
+        },
+        {
+          "heading": "fullPageScreenshot",
+          "level": 1,
+          "line": 9149
+        },
+        {
+          "heading": "timing",
+          "level": 1,
+          "line": 103
+        },
+        {
+          "heading": "i18n",
+          "level": 1,
+          "line": 12397
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 19
+      }
+    },
+    {
+      "path": "task-dashboard/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 43,
+      "nonEmptyLines": 43,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "task-dashboard/tsconfig.app.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "task-dashboard/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 7,
+      "nonEmptyLines": 7,
+      "sections": [
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "references",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "task-dashboard/tsconfig.node.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 24,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "task-dashboard/vercel.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 9,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "buildCommand",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installCommand",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "outputDirectory",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "rewrites",
+          "level": 1,
+          "line": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    }
+  ]
+}

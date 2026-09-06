@@ -1,0 +1,33 @@
+{
+  "projectRoot": "C:\\Users\\Admin\\Desktop\\agent AI\\workflow-nhan",
+  "batchFiles": [
+    {"path": ".lintstagedrc.json", "language": "json", "sizeLines": 5, "fileCategory": "config"},
+    {"path": ".mcp.json", "language": "json", "sizeLines": 23, "fileCategory": "config"},
+    {"path": "ANDROID_RE_WORKFLOW.md", "language": "markdown", "sizeLines": 49, "fileCategory": "docs"},
+    {"path": "CODE_RE_ANALYSIS.md", "language": "markdown", "sizeLines": 82, "fileCategory": "docs"},
+    {"path": "COPY_PASTE_GUIDE.md", "language": "markdown", "sizeLines": 226, "fileCategory": "docs"},
+    {"path": "SOP.md", "language": "markdown", "sizeLines": 195, "fileCategory": "docs"},
+    {"path": "TODO.md", "language": "markdown", "sizeLines": 22, "fileCategory": "docs"},
+    {"path": "docker-compose.yml", "language": "yaml", "sizeLines": 39, "fileCategory": "infra"},
+    {"path": "package.json", "language": "json", "sizeLines": 23, "fileCategory": "config"},
+    {"path": "preparing_workflows.md", "language": "markdown", "sizeLines": 221, "fileCategory": "docs"},
+    {"path": "ruff.toml", "language": "toml", "sizeLines": 20, "fileCategory": "config"},
+    {"path": "vercel.json", "language": "json", "sizeLines": 8, "fileCategory": "config"},
+    {"path": "website_features.md", "language": "markdown", "sizeLines": 317, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    ".lintstagedrc.json": [],
+    ".mcp.json": [],
+    "ANDROID_RE_WORKFLOW.md": [],
+    "CODE_RE_ANALYSIS.md": [],
+    "COPY_PASTE_GUIDE.md": [],
+    "SOP.md": [],
+    "TODO.md": [],
+    "docker-compose.yml": [],
+    "package.json": [],
+    "preparing_workflows.md": [],
+    "ruff.toml": [],
+    "vercel.json": [],
+    "website_features.md": []
+  }
+}

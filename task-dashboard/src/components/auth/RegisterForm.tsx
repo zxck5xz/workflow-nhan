@@ -14,7 +14,7 @@ export const RegisterForm = () => {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    
+
     try {
       await register(name, email, password, role);
     } catch (err: any) {
@@ -40,7 +40,7 @@ export const RegisterForm = () => {
             disabled={loading}
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -52,7 +52,7 @@ export const RegisterForm = () => {
             disabled={loading}
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
@@ -64,7 +64,7 @@ export const RegisterForm = () => {
             disabled={loading}
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="role">Role:</label>
           <select
@@ -79,7 +79,7 @@ export const RegisterForm = () => {
             <option value="VIEWER">Viewer</option>
           </select>
         </div>
-        
+
         <button type="submit" disabled={loading} className="btn btn-primary">
           {loading ? 'Registering...' : 'Register'}
         </button>

@@ -1,0 +1,28 @@
+{
+  "projectRoot": "C:/Users/Admin/Desktop/agent AI/workflow-nhan",
+  "batchFiles": [
+    {"path": "understand/languages/cpp.md", "language": "markdown", "sizeLines": 47, "fileCategory": "docs"},
+    {"path": "understand/languages/csharp.md", "language": "markdown", "sizeLines": 46, "fileCategory": "docs"},
+    {"path": "understand/languages/css.md", "language": "markdown", "sizeLines": 37, "fileCategory": "docs"},
+    {"path": "understand/languages/dockerfile.md", "language": "markdown", "sizeLines": 34, "fileCategory": "docs"},
+    {"path": "understand/languages/go.md", "language": "markdown", "sizeLines": 47, "fileCategory": "docs"},
+    {"path": "understand/languages/graphql.md", "language": "markdown", "sizeLines": 35, "fileCategory": "docs"},
+    {"path": "understand/languages/html.md", "language": "markdown", "sizeLines": 34, "fileCategory": "docs"},
+    {"path": "understand/languages/java.md", "language": "markdown", "sizeLines": 45, "fileCategory": "docs"},
+    {"path": "understand/languages/javascript.md", "language": "markdown", "sizeLines": 46, "fileCategory": "docs"},
+    {"path": "understand/languages/json.md", "language": "markdown", "sizeLines": 34, "fileCategory": "docs"},
+    {"path": "understand/languages/kotlin.md", "language": "markdown", "sizeLines": 45, "fileCategory": "docs"},
+    {"path": "understand/languages/markdown.md", "language": "markdown", "sizeLines": 34, "fileCategory": "docs"},
+    {"path": "understand/languages/php.md", "language": "markdown", "sizeLines": 46, "fileCategory": "docs"},
+    {"path": "understand/languages/protobuf.md", "language": "markdown", "sizeLines": 34, "fileCategory": "docs"},
+    {"path": "understand/languages/python.md", "language": "markdown", "sizeLines": 48, "fileCategory": "docs"},
+    {"path": "understand/languages/ruby.md", "language": "markdown", "sizeLines": 46, "fileCategory": "docs"},
+    {"path": "understand/languages/rust.md", "language": "markdown", "sizeLines": 47, "fileCategory": "docs"},
+    {"path": "understand/languages/shell.md", "language": "markdown", "sizeLines": 35, "fileCategory": "docs"},
+    {"path": "understand/languages/sql.md", "language": "markdown", "sizeLines": 36, "fileCategory": "docs"},
+    {"path": "understand/languages/swift.md", "language": "markdown", "sizeLines": 46, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "understand/languages/cpp.md": [], "understand/languages/csharp.md": [], "understand/languages/css.md": [], "understand/languages/dockerfile.md": [], "understand/languages/go.md": [], "understand/languages/graphql.md": [], "understand/languages/html.md": [], "understand/languages/java.md": [], "understand/languages/javascript.md": [], "understand/languages/json.md": [], "understand/languages/kotlin.md": [], "understand/languages/markdown.md": [], "understand/languages/php.md": [], "understand/languages/protobuf.md": [], "understand/languages/python.md": [], "understand/languages/ruby.md": [], "understand/languages/rust.md": [], "understand/languages/shell.md": [], "understand/languages/sql.md": [], "understand/languages/swift.md": []
+  }
+}

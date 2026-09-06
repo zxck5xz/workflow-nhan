@@ -1,0 +1,13 @@
+{
+  "projectRoot": "C:\\Users\\Admin\\Desktop\\agent AI\\workflow-nhan",
+  "batchFiles": [
+    {"path": "backend/CODE_RE_ANALYSIS.md", "language": "markdown", "sizeLines": 28, "fileCategory": "docs"},
+    {"path": "backend/README.md", "language": "markdown", "sizeLines": 35, "fileCategory": "docs"},
+    {"path": "backend/package.json", "language": "json", "sizeLines": 28, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "backend/CODE_RE_ANALYSIS.md": [],
+    "backend/README.md": [],
+    "backend/package.json": []
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 301,
+      "nonEmptyLines": 261,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/reports/InsightsPage.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 281,
+      "nonEmptyLines": 242,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/reports/StaffReportPage.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 194,
+      "nonEmptyLines": 167,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/reports/WorkReportPage.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 119,
+      "nonEmptyLines": 104,
+      "metrics": {}
+    }
+  ]
+}

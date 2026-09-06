@@ -1,12 +1,26 @@
 services:
+  frontend:
+    build:
+      context: .
+      dockerfile: task-dashboard/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:4000
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
   backend:
     build:
-      context: ./backend
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "4000:4000"
     environment:
       PORT: 4000
       DATABASE_URL: postgresql://postgres:postgres@db:5432/task_dash?schema=public
+      JWT_SECRET: your-secret-key-change-in-production
+      NODE_ENV: production
     depends_on:
       - db
 
@@ -23,4 +37,3 @@ services:
 
 volumes:
   postgres_data:
-

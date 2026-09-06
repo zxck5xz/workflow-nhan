@@ -84,17 +84,15 @@ export class ClientSideApkParser {
     return result;
   }
 
-  /**
-   * Extremely simplified Binary XML (AXML) to string conversion.
-   * Real AXML parsing is complex, but for security analysis,
-   * we can often extract identifying strings.
-   */
+  private static isPrintableAscii(charCode: number): boolean {
+    return charCode >= 32 && charCode <= 126;
+  }
+
   private static decodeBinaryXml(uint8: Uint8Array): string {
     let out = '';
     for (let i = 0; i < uint8.length; i++) {
       const charCode = uint8[i];
-      // Keep only printable ASCII for basic analysis
-      if (charCode >= 32 && charCode <= 126) {
+      if (this.isPrintableAscii(charCode)) {
         out += String.fromCharCode(charCode);
       } else {
         out += ' ';
@@ -103,15 +101,12 @@ export class ClientSideApkParser {
     return out;
   }
 
-  /**
-   * Scans DEX files for printable strings.
-   */
   private static extractDexStrings(uint8: Uint8Array): string[] {
     const strings: string[] = [];
     let current = '';
     for (let i = 0; i < uint8.length; i++) {
       const charCode = uint8[i];
-      if (charCode >= 32 && charCode <= 126) {
+      if (this.isPrintableAscii(charCode)) {
         current += String.fromCharCode(charCode);
       } else {
         if (current.length > 4) {

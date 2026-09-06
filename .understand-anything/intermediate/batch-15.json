@@ -1,0 +1,403 @@
+{
+  "nodes": [
+    {
+      "id": "config:.gemini/settings.json",
+      "type": "config",
+      "name": "settings.json",
+      "filePath": ".gemini/settings.json",
+      "summary": "Configuration for Gemini CLI, specifically defining Model Context Protocol (MCP) servers.",
+      "tags": ["configuration", "gemini-cli", "mcp-servers"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.husky/pre-commit",
+      "type": "file",
+      "name": "pre-commit",
+      "filePath": ".husky/pre-commit",
+      "summary": "Husky pre-commit hook script for running linting or tests before committing.",
+      "tags": ["script", "husky", "git-hooks"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.husky/pre-push",
+      "type": "file",
+      "name": "pre-push",
+      "filePath": ".husky/pre-push",
+      "summary": "Husky pre-push hook script to ensure tests pass before pushing to the remote repository.",
+      "tags": ["script", "husky", "git-hooks"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.prettierignore",
+      "type": "file",
+      "name": ".prettierignore",
+      "filePath": ".prettierignore",
+      "summary": "Excludes specific files and directories from Prettier code formatting.",
+      "tags": ["configuration", "prettier", "formatting"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore patterns for the Understand-Anything codebase analysis tool.",
+      "tags": ["configuration", "analysis", "ignore-list"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ai-agents/code_re_agent.py",
+      "type": "file",
+      "name": "code_re_agent.py",
+      "filePath": "ai-agents/code_re_agent.py",
+      "summary": "Automated code reverse engineering agent that analyzes project structure, environment, and data flows.",
+      "tags": ["code", "ai-agent", "reverse-engineering", "python"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ai-agents/code_re_agent.py:CodeREAgent",
+      "type": "class",
+      "name": "CodeREAgent",
+      "filePath": "ai-agents/code_re_agent.py",
+      "lineRange": [13, 177],
+      "summary": "Class implementing the reverse engineering agent with methods for package, environment, and API analysis.",
+      "tags": ["class", "analysis-engine", "python"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ai-agents/game_eval_agent.py",
+      "type": "file",
+      "name": "game_eval_agent.py",
+      "filePath": "ai-agents/game_eval_agent.py",
+      "summary": "Expert AI agent for game evaluation, capable of parsing Excel data, conducting web research, and generating SWOT reports.",
+      "tags": ["code", "ai-agent", "game-evaluation", "python"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:ai-agents/game_eval_agent.py:GameEvalAgent",
+      "type": "class",
+      "name": "GameEvalAgent",
+      "filePath": "ai-agents/game_eval_agent.py",
+      "lineRange": [19, 591],
+      "summary": "Comprehensive class for game evaluation logic, including data loading, web search, and report generation.",
+      "tags": ["class", "evaluation-logic", "python"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:ai-agents/game_eval_agent.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "ai-agents/game_eval_agent.py",
+      "lineRange": [593, 711],
+      "summary": "CLI entry point for the GameEvalAgent, handling file path arguments and orchestration.",
+      "tags": ["function", "entry-point", "cli"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:ai-agents/GameEvalAgent_SOP.md",
+      "type": "document",
+      "name": "GameEvalAgent_SOP.md",
+      "filePath": "ai-agents/GameEvalAgent_SOP.md",
+      "summary": "Standard Operating Procedure for the Game Evaluation Agent, outlining workflows and evaluation criteria.",
+      "tags": ["documentation", "sop", "ai-agent", "workflow"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ai-agents/pptx_generator.py",
+      "type": "file",
+      "name": "pptx_generator.py",
+      "filePath": "ai-agents/pptx_generator.py",
+      "summary": "Automated PowerPoint presentation generator that converts markdown reports into visual slides.",
+      "tags": ["code", "automation", "pptx-generation", "python"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "type": "file",
+      "name": "prisma.config.ts",
+      "filePath": "backend/prisma.config.ts",
+      "summary": "Configuration file for Prisma ORM, likely handling environment variables or custom provider settings.",
+      "tags": ["code", "config", "prisma", "typescript"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:backend/prisma/docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "backend/prisma/docker-compose.yml",
+      "summary": "Docker Compose configuration for provisioning a PostgreSQL database for Prisma.",
+      "tags": ["infrastructure", "docker-compose", "database", "postgresql"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/prisma/migrate-import.ts",
+      "type": "file",
+      "name": "migrate-import.ts",
+      "filePath": "backend/prisma/migrate-import.ts",
+      "summary": "Utility script for importing data during or after Prisma migrations.",
+      "tags": ["code", "utility", "prisma", "migration", "typescript"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260526045525_init/migration.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "backend/prisma/migrations/20260526045525_init/migration.sql",
+      "summary": "Database table definition for users, including credentials and metadata.",
+      "tags": ["database", "table", "users"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/prisma/migrations/20260526045525_init/migration.sql",
+      "type": "file",
+      "name": "20260526045525_init",
+      "filePath": "backend/prisma/migrations/20260526045525_init/migration.sql",
+      "summary": "Initial SQL migration for the database schema.",
+      "tags": ["database", "migration", "sql"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+      "type": "file",
+      "name": "20260527020000_add_auth_fields",
+      "filePath": "backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+      "summary": "SQL migration adding authentication-related fields to the user schema.",
+      "tags": ["database", "migration", "sql", "auth"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/prisma/migrations/20260603011026_init/migration.sql",
+      "type": "file",
+      "name": "20260603011026_init",
+      "filePath": "backend/prisma/migrations/20260603011026_init/migration.sql",
+      "summary": "Subsequent initialization or correction SQL migration.",
+      "tags": ["database", "migration", "sql"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "type": "config",
+      "name": "migration_lock.toml",
+      "filePath": "backend/prisma/migrations/migration_lock.toml",
+      "summary": "Prisma migration lock file preventing concurrent migration runs.",
+      "tags": ["configuration", "prisma", "migration-lock"],
+      "complexity": "simple"
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "type": "schema",
+      "name": "schema.prisma",
+      "filePath": "backend/prisma/schema.prisma",
+      "summary": "Prisma schema file defining the database models and relationships for the backend.",
+      "tags": ["data", "schema", "prisma", "orm"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "type": "file",
+      "name": "seed.ts",
+      "filePath": "backend/prisma/seed.ts",
+      "summary": "Entry point for seeding the database with initial data using Prisma.",
+      "tags": ["code", "database-seeding", "typescript"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/seed-users.ts",
+      "type": "file",
+      "name": "seed-users.ts",
+      "filePath": "backend/seed-users.ts",
+      "summary": "Specialized script for seeding user data into the database.",
+      "tags": ["code", "database-seeding", "users", "typescript"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/__tests__/auth.test.js",
+      "type": "file",
+      "name": "auth.test.js",
+      "filePath": "backend/src/__tests__/auth.test.js",
+      "summary": "Unit tests for the authentication service and related logic.",
+      "tags": ["code", "test", "auth", "javascript"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "backend/src/auth.js",
+      "summary": "Authentication service implementing login, registration, and session management.",
+      "tags": ["code", "auth-service", "security", "javascript"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/data-store-db.js",
+      "type": "file",
+      "name": "data-store-db.js",
+      "filePath": "backend/src/data-store-db.js",
+      "summary": "Database-backed data storage implementation for tasks, projects, and users.",
+      "tags": ["code", "data-store", "database", "javascript"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/data-store.js",
+      "type": "file",
+      "name": "data-store.js",
+      "filePath": "backend/src/data-store.js",
+      "summary": "Generic data store interface or base implementation for the backend.",
+      "tags": ["code", "data-store", "interface", "javascript"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/db.js",
+      "type": "file",
+      "name": "db.js",
+      "filePath": "backend/src/db.js",
+      "summary": "Database connection and initialization logic using Prisma or raw SQL.",
+      "tags": ["code", "database", "connection", "javascript"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/logger.js",
+      "type": "file",
+      "name": "logger.js",
+      "filePath": "backend/src/logger.js",
+      "summary": "Utility for logging application events, errors, and performance metrics.",
+      "tags": ["code", "utility", "logging", "javascript"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:ai-agents/code_re_agent.py",
+      "target": "class:ai-agents/code_re_agent.py:CodeREAgent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ai-agents/game_eval_agent.py",
+      "target": "class:ai-agents/game_eval_agent.py:GameEvalAgent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ai-agents/game_eval_agent.py",
+      "target": "function:ai-agents/game_eval_agent.py:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "document:ai-agents/GameEvalAgent_SOP.md",
+      "target": "file:ai-agents/game_eval_agent.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:ai-agents/pptx_generator.py",
+      "target": "file:ai-agents/game_eval_agent.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:backend/prisma/docker-compose.yml",
+      "target": "file:backend/src/db.js",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/prisma/migrate-import.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/prisma/migrations/20260526045525_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260526045525_init/migration.sql:users",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+      "target": "table:backend/prisma/migrations/20260526045525_init/migration.sql:users",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "file:backend/prisma/migrations/20260526045525_init/migration.sql",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "file:backend/seed-users.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/seed-users.ts",
+      "target": "file:backend/src/auth.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/__tests__/auth.test.js",
+      "target": "file:backend/src/auth.js",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/data-store-db.js",
+      "target": "file:backend/src/db.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/data-store-db.js",
+      "target": "file:backend/src/logger.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/data-store.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/db.js",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

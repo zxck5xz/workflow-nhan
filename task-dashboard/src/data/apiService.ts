@@ -1,4 +1,4 @@
-import type { AppData } from '../types';
+import type { AppData, ResearchReport } from '../types';
 import { authService } from '../services/authService';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -87,24 +87,25 @@ export const apiService = {
     });
   },
 
-  async interpretApk(apkData: any): Promise<any> {
-    return request('/api/interpret-apk', {
+  async interpretApk(apkData: Record<string, unknown>): Promise<ResearchReport['interpretation']> {
+    return request('/api/research/interpret', {
       method: 'POST',
       body: JSON.stringify(apkData),
     });
   },
 
-  async listResearchReports(): Promise<any[]> {
-    const res = await request<{ reports: any[] }>('/api/research-reports');
+  async listResearchReports(): Promise<ResearchReport[]> {
+    const res = await request<{ reports: ResearchReport[] }>('/api/research-reports');
     return res.reports;
   },
 
-  async saveResearchReport(report: any): Promise<any> {
+  async saveResearchReport(report: Partial<ResearchReport>): Promise<{ success: boolean; report: ResearchReport }> {
     return request('/api/research-reports', {
       method: 'POST',
       body: JSON.stringify(report),
     });
   },
+
 
   async analyzeSentiment(query: string, reportId?: string): Promise<{
     sentimentScore: number;

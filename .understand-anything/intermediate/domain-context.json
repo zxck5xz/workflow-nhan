@@ -1,0 +1,1051 @@
+{
+  "projectRoot": "C:\\Users\\Admin\\Desktop\\agent AI\\workflow-nhan",
+  "fileCount": 253,
+  "fileTree": [
+    "ai-agents\\code_re_agent.py",
+    "ai-agents\\game_eval_agent.py",
+    "ai-agents\\pptx_generator.py",
+    "backend\\prisma\\migrate-import.ts",
+    "backend\\prisma\\seed.ts",
+    "backend\\src\\__tests__\\auth.test.js",
+    "backend\\src\\generated\\internal\\class.ts",
+    "backend\\src\\generated\\internal\\prismaNamespace.ts",
+    "backend\\src\\generated\\internal\\prismaNamespaceBrowser.ts",
+    "backend\\src\\generated\\models\\GameScorecard.ts",
+    "backend\\src\\generated\\models\\Member.ts",
+    "backend\\src\\generated\\models\\PriorityConfig.ts",
+    "backend\\src\\generated\\models\\Project.ts",
+    "backend\\src\\generated\\models\\Snapshot.ts",
+    "backend\\src\\generated\\models\\StatusConfig.ts",
+    "backend\\src\\generated\\models\\Task.ts",
+    "backend\\src\\generated\\models\\WeeklyInsight.ts",
+    "backend\\src\\generated\\runtime\\client.d.ts",
+    "backend\\src\\generated\\runtime\\client.js",
+    "backend\\src\\generated\\runtime\\index-browser.d.ts",
+    "backend\\src\\generated\\runtime\\index-browser.js",
+    "backend\\src\\generated\\runtime\\wasm-compiler-edge.js",
+    "backend\\src\\generated\\browser.ts",
+    "backend\\src\\generated\\client.d.ts",
+    "backend\\src\\generated\\client.js",
+    "backend\\src\\generated\\client.ts",
+    "backend\\src\\generated\\commonInputTypes.ts",
+    "backend\\src\\generated\\default.d.ts",
+    "backend\\src\\generated\\default.js",
+    "backend\\src\\generated\\edge.d.ts",
+    "backend\\src\\generated\\edge.js",
+    "backend\\src\\generated\\enums.ts",
+    "backend\\src\\generated\\index-browser.js",
+    "backend\\src\\generated\\index.d.ts",
+    "backend\\src\\generated\\index.js",
+    "backend\\src\\generated\\models.ts",
+    "backend\\src\\generated\\query_compiler_fast_bg.js",
+    "backend\\src\\generated\\query_compiler_fast_bg.wasm-base64.js",
+    "backend\\src\\generated\\wasm-edge-light-loader.mjs",
+    "backend\\src\\generated\\wasm-worker-loader.mjs",
+    "backend\\src\\auth.js",
+    "backend\\src\\data-store-db.js",
+    "backend\\src\\data-store.js",
+    "backend\\src\\logger.js",
+    "backend\\src\\server.js",
+    "backend\\prisma.config.ts",
+    "backend\\seed-users.ts",
+    "Harness-context-engineering\\chunking\\compressor.py",
+    "Harness-context-engineering\\chunking\\treesitter_chunker.py",
+    "Harness-context-engineering\\compact\\anthropic.py",
+    "Harness-context-engineering\\compact\\gemini.py",
+    "Harness-context-engineering\\compact\\openai.py",
+    "Harness-context-engineering\\compact\\summarizer.py",
+    "Harness-context-engineering\\context\\assembler.py",
+    "Harness-context-engineering\\context\\budgeting.py",
+    "Harness-context-engineering\\context\\sanitizer.py",
+    "Harness-context-engineering\\memory\\episodic.py",
+    "Harness-context-engineering\\memory\\vector_store.py",
+    "Harness-context-engineering\\retrieval\\bm25.py",
+    "Harness-context-engineering\\retrieval\\cache.py",
+    "Harness-context-engineering\\retrieval\\embeddings.py",
+    "Harness-context-engineering\\retrieval\\graph.py",
+    "Harness-context-engineering\\retrieval\\reranker.py",
+    "Harness-context-engineering\\server.py",
+    "Harness-context-engineering\\test_client.py",
+    "mcp_server\\__init__.py",
+    "mcp_server\\handlers.py",
+    "mcp_server\\main.py",
+    "task-dashboard\\src\\components\\auth\\LoginForm.tsx",
+    "task-dashboard\\src\\components\\auth\\RegisterForm.tsx",
+    "task-dashboard\\src\\components\\auth\\UserManagementPage.tsx",
+    "task-dashboard\\src\\components\\calendar\\CalendarPage.tsx",
+    "task-dashboard\\src\\components\\common\\index.tsx",
+    "task-dashboard\\src\\components\\common\\PageHelp.tsx",
+    "task-dashboard\\src\\components\\common\\ProjectModal.tsx",
+    "task-dashboard\\src\\components\\common\\TaskDetailsModal.tsx",
+    "task-dashboard\\src\\components\\common\\TaskFormModal.tsx",
+    "task-dashboard\\src\\components\\reports\\CodeAnalysisPage.tsx",
+    "task-dashboard\\src\\components\\reports\\InsightsPage.tsx",
+    "task-dashboard\\src\\components\\reports\\StaffReportPage.tsx",
+    "task-dashboard\\src\\components\\reports\\WorkReportPage.tsx",
+    "task-dashboard\\src\\components\\setup\\SetupPage.tsx",
+    "task-dashboard\\src\\components\\tasks\\ProjectControlPage.tsx",
+    "task-dashboard\\src\\components\\tasks\\TaskListPage.tsx",
+    "task-dashboard\\src\\components\\Sidebar.tsx",
+    "task-dashboard\\src\\contexts\\AppContext.tsx",
+    "task-dashboard\\src\\contexts\\AuthContext.tsx",
+    "task-dashboard\\src\\data\\activeSeedData.ts",
+    "task-dashboard\\src\\data\\apiService.ts",
+    "task-dashboard\\src\\data\\dataService.ts",
+    "task-dashboard\\src\\data\\localTestData.ts",
+    "task-dashboard\\src\\data\\seedData.ts",
+    "task-dashboard\\src\\services\\authService.ts",
+    "task-dashboard\\src\\types\\index.ts",
+    "task-dashboard\\src\\utils\\apkParser.ts",
+    "task-dashboard\\src\\utils\\index.ts",
+    "task-dashboard\\src\\App.tsx",
+    "task-dashboard\\src\\main.tsx",
+    "task-dashboard\\eslint.config.js",
+    "task-dashboard\\vite.config.ts",
+    "understand\\build-fingerprints.mjs",
+    "understand\\compute-batches.mjs",
+    "understand\\extract-import-map.mjs",
+    "understand\\extract-structure.mjs",
+    "understand\\merge-batch-graphs.py",
+    "understand\\merge-subdomain-graphs.py",
+    "understand\\scan-project.mjs",
+    "Understand-Anything\\homepage\\astro.config.mjs",
+    "Understand-Anything\\scripts\\generate-large-graph.mjs",
+    "Understand-Anything\\tests\\skill\\understand\\test_compute_batches.test.mjs",
+    "Understand-Anything\\tests\\skill\\understand\\test_extract_import_map.test.mjs",
+    "Understand-Anything\\tests\\skill\\understand\\test_merge_batch_graphs.py",
+    "Understand-Anything\\tests\\skill\\understand\\test_scan_project.test.mjs",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\change-classifier.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\domain-normalize.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\domain-persistence.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\domain-types.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\embedding-search.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\fingerprint.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\framework-registry.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\ignore-filter.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\ignore-generator.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\language-lesson.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\language-registry.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\layer-detector.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\normalize-graph.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\parsers.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\plugin-discovery.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\plugin-registry.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\schema.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\search.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\staleness.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\__tests__\\tour-generator.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\graph-builder.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\graph-builder.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\language-lesson.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\layer-detector.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\llm-analyzer.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\llm-analyzer.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\normalize-graph.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\analyzer\\tour-generator.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\languages\\framework-registry.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\languages\\index.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\languages\\language-registry.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\languages\\types.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\persistence\\index.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\persistence\\persistence.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\plugins\\discovery.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\plugins\\registry.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\plugins\\tree-sitter-plugin.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\plugins\\tree-sitter-plugin.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\change-classifier.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\embedding-search.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\fingerprint.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\ignore-filter.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\ignore-generator.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\index.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\schema.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\search.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\staleness.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\types.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\src\\types.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\core\\vitest.config.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\scripts\\benchmark-aggregations.mjs",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\scripts\\benchmark-layout.mjs",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\Breadcrumb.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\CodeViewer.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\ContainerNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\CustomNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\DiffToggle.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\DomainClusterNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\DomainGraphView.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\ExportMenu.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\FileExplorer.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\FilterPanel.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\FlowNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\GraphView.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\KeyboardShortcutsHelp.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\KnowledgeGraphView.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\LayerClusterNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\LayerLegend.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\LearnPanel.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\MobileBottomNav.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\MobileDrawer.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\MobileLayout.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\NodeInfo.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\NodeTooltip.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\OnboardingOverlay.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\PathFinderModal.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\PersonaSelector.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\PortalNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\ProjectOverview.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\SearchBar.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\StepNode.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\ThemePicker.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\TokenGate.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\components\\WarningBanner.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\contexts\\I18nContext.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\hooks\\useIsMobile.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\hooks\\useKeyboardShortcuts.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\en.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\index.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\ja.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\ko.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\ru.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\zh-TW.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\locales\\zh.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\themes\\index.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\themes\\presets.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\themes\\theme-engine.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\themes\\ThemeContext.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\themes\\types.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\containers.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\edgeAggregation.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\elk-layout.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\filters.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\layerStats.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\layout.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\layout.worker.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\utils\\louvain.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\App.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\main.tsx",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\store.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\src\\vite-env.d.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\vite.config.demo.ts",
+    "Understand-Anything\\understand-anything-plugin\\packages\\dashboard\\vite.config.ts",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\build-fingerprints.mjs",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\compute-batches.mjs",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\extract-import-map.mjs",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\extract-structure.mjs",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\merge-batch-graphs.py",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\merge-subdomain-graphs.py",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand\\scan-project.mjs",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand-domain\\extract-domain-context.py",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand-knowledge\\merge-knowledge-graph.py",
+    "Understand-Anything\\understand-anything-plugin\\skills\\understand-knowledge\\parse-knowledge-base.py",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\context-builder.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\diff-analyzer.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\explain-builder.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\extract-structure.test.mjs",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\merge-recover-imports.test.mjs",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\onboard-builder.test.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\__tests__\\worktree-redirect.test.mjs",
+    "Understand-Anything\\understand-anything-plugin\\src\\context-builder.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\diff-analyzer.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\explain-builder.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\index.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\onboard-builder.ts",
+    "Understand-Anything\\understand-anything-plugin\\src\\understand-chat.ts",
+    "Understand-Anything\\understand-anything-plugin\\vitest.config.ts",
+    "Understand-Anything\\eslint.config.mjs",
+    "Understand-Anything\\vitest.config.ts",
+    "load_excel_demo.py"
+  ],
+  "entryPoints": [
+    {
+      "file": "backend\\src\\generated\\runtime\\client.js",
+      "line": 8434,
+      "type": "event",
+      "description": "Event listener",
+      "match": ".on('error'",
+      "snippet": "      let i = new Gl.EventEmitter().on('error', () => {});\n      ((this._extensions = Qe.empty()),\n        (this._previewFeatures = e.previewFeatures),\n        (this._clientVersion = e.clientVersion ?? wi),\n        (this._activeProvider = e.activeProvider),"
+    },
+    {
+      "file": "backend\\src\\generated\\runtime\\wasm-compiler-edge.js",
+      "line": 10170,
+      "type": "event",
+      "description": "Event listener",
+      "match": ".on('error'",
+      "snippet": "      let i = new Jr().on('error', () => {});\n      ((this._extensions = Et.empty()),\n        (this._previewFeatures = e.previewFeatures),\n        (this._clientVersion = e.clientVersion ?? Zi),\n        (this._activeProvider = e.activeProvider),"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 130,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get('/api/health'",
+      "snippet": "app.get('/api/health', (req, res) => {\n  res.json({ status: 'ok', timestamp: new Date().toISOString() });\n});\n\napp.get('/api/app-data', async (req, res) => {"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 134,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get('/api/app-data'",
+      "snippet": "app.get('/api/app-data', async (req, res) => {\n  const ds = await getDataStore();\n  res.json(await ds.loadData());\n});\n"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 139,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/app-data'",
+      "snippet": "app.post('/api/app-data', async (req, res, next) => {\n  const payload = req.body;\n  try {\n    const ds = await getDataStore();\n    const saved = await ds.saveData(payload);"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 150,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/snapshot'",
+      "snippet": "app.post('/api/snapshot', async (req, res, next) => {\n  try {\n    const ds = await getDataStore();\n    const snapshotFile = await ds.saveSnapshot(await ds.loadData());\n    res.json({ success: true, snapshotFile });"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 160,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get('/api/snapshots'",
+      "snippet": "app.get('/api/snapshots', async (req, res) => {\n  const ds = await getDataStore();\n  res.json({ snapshots: await ds.listSnapshots() });\n});\n"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 165,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get('/api/snapshots/:date'",
+      "snippet": "app.get('/api/snapshots/:date', async (req, res) => {\n  const ds = await getDataStore();\n  const snapshot = await ds.loadSnapshot(req.params.date);\n  if (!snapshot) {\n    return res.status(404).json({ error: 'Snapshot not found' });"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 174,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/evaluate'",
+      "snippet": "app.post('/api/evaluate', (req, res, next) => {\n  const validation = evaluateSchema.safeParse(req.body);\n  if (!validation.success) {\n    return res.status(400).json({ error: 'Invalid evaluation data', details: validation.error });\n  }"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 211,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/generate-pptx'",
+      "snippet": "app.post('/api/generate-pptx', (req, res, next) => {\n  const { markdownPath } = req.body;\n  const args = markdownPath ? ['--markdown', markdownPath] : [];\n  const cmd = `python \"${PPTX_SCRIPT}\" ${args.map((a) => (a.includes(' ') ? `\"${a.replace(/\"/g, '\\\\\"')}\"` : a)).join(' ')}`;\n"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 229,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/analyze-codebase'",
+      "snippet": "app.post('/api/analyze-codebase', (req, res, next) => {\n  const cmd = `python \"${CODE_RE_SCRIPT}\"`;\n\n  exec(cmd, { encoding: 'utf8' }, (error, stdout, stderr) => {\n    if (error) {"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 248,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/open-file'",
+      "snippet": "app.post('/api/open-file', (req, res, next) => {\n  const { filePath } = req.body;\n  if (!filePath) {\n    return res.status(400).json({ error: 'filePath is required' });\n  }"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 267,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/auth/register'",
+      "snippet": "app.post('/api/auth/register', async (req, res) => {\n  return res.status(403).json({ error: 'Public registration is currently disabled' });\n});\n\napp.post('/api/auth/login', async (req, res, next) => {"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 271,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post('/api/auth/login'",
+      "snippet": "app.post('/api/auth/login', async (req, res, next) => {\n  const validation = loginSchema.safeParse(req.body);\n  if (!validation.success) {\n    return res.status(400).json({ error: 'Invalid login credentials', details: validation.error });\n  }"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 286,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get('/api/auth/me'",
+      "snippet": "app.get('/api/auth/me', async (req, res, next) => {\n  try {\n    const user = await AuthService.getUserById(req.user.id);\n    res.json({ user });\n  } catch (error) {"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 296,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get('/api/users'",
+      "snippet": "app.get('/api/users', authorize('ADMIN'), async (req, res, next) => {\n  try {\n    const users = await AuthService.getAllUsers();\n    res.json({ users });\n  } catch (error) {"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 305,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.patch('/api/users/:id/role'",
+      "snippet": "app.patch('/api/users/:id/role', authorize('ADMIN'), async (req, res, next) => {\n  try {\n    const user = await AuthService.updateUserRole(req.params.id, req.body.role);\n    res.json({ user });\n  } catch (error) {"
+    },
+    {
+      "file": "backend\\src\\server.js",
+      "line": 314,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.delete('/api/users/:id'",
+      "snippet": "app.delete('/api/users/:id', authorize('ADMIN'), async (req, res, next) => {\n  try {\n    await AuthService.deleteUser(req.params.id);\n    res.json({ success: true });\n  } catch (error) {"
+    },
+    {
+      "file": "mcp_server\\main.py",
+      "line": 38,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.get(\"/health\"",
+      "snippet": "@app.get(\"/health\")\nasync def health():\n    return {\"status\": \"ok\"}\n\n"
+    },
+    {
+      "file": "mcp_server\\main.py",
+      "line": 43,
+      "type": "http",
+      "description": "Express/Koa route",
+      "match": "app.post(\"/mcp/v1/requests\"",
+      "snippet": "@app.post(\"/mcp/v1/requests\")\nasync def mcp_requests(\n    req: MCPRequest, authorized: bool = Depends(verify_api_key)\n):\n    \"\"\"Accept a minimal MCP-style request and return a response."
+    },
+    {
+      "file": "mcp_server\\main.py",
+      "line": 38,
+      "type": "http",
+      "description": "Decorator route (Flask/FastAPI/NestJS)",
+      "match": "@app.get(\"/health\"",
+      "snippet": "@app.get(\"/health\")\nasync def health():\n    return {\"status\": \"ok\"}\n\n"
+    },
+    {
+      "file": "mcp_server\\main.py",
+      "line": 43,
+      "type": "http",
+      "description": "Decorator route (Flask/FastAPI/NestJS)",
+      "match": "@app.post(\"/mcp/v1/requests\"",
+      "snippet": "@app.post(\"/mcp/v1/requests\")\nasync def mcp_requests(\n    req: MCPRequest, authorized: bool = Depends(verify_api_key)\n):\n    \"\"\"Accept a minimal MCP-style request and return a response."
+    }
+  ],
+  "fileSignatures": [
+    {
+      "file": "task-dashboard\\src\\data\\apiService.ts",
+      "exports": [
+        "apiService"
+      ],
+      "imports": [
+        "../types",
+        "../services/authService"
+      ],
+      "lines": 73,
+      "preview": "import type { AppData } from '../types';\nimport { authService } from '../services/authService';\n\nconst API_BASE = import.meta.env.VITE_API_URL || '';\n\nasync function request<T>(path: string, options?: RequestInit): Promise<T> {\n  // Get token from auth service\n  const token = authService.getToken();\n\n  // Prepare headers\n  const headers: HeadersInit = {\n    'Content-Type': 'application/json',\n  };\n\n  // Add authorization header if token exists\n  if (token) {\n    headers['Authorization'] = `Beare"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\Task.ts",
+      "exports": [
+        "TaskModel",
+        "AggregateTask",
+        "TaskAvgAggregateOutputType",
+        "TaskSumAggregateOutputType",
+        "TaskMinAggregateOutputType",
+        "TaskMaxAggregateOutputType",
+        "TaskCountAggregateOutputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 2268,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `Task` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model Task\n *\n */\nexport type TaskModel = runtime.Types.Resul"
+    },
+    {
+      "file": "task-dashboard\\src\\data\\dataService.ts",
+      "exports": [
+        "dataService"
+      ],
+      "imports": [
+        "../types",
+        "./seedData",
+        "./apiService"
+      ],
+      "lines": 183,
+      "preview": "// ============================================================\n// Data Service \u00e2\u20ac\u201d localStorage CRUD + JSON export/import + API sync\n// ============================================================\n\nimport type { AppData, Project, Member, Task, GameScorecard, WeeklyInsight } from '../types';\nimport { seedData } from './seedData';\nimport { apiService } from './apiService';\n\nconst STORAGE_KEY = 'task-dashboard-data';\nconst API_BASE = import.meta.env.VITE_API_URL;\n\nexport const dataService = {\n  as"
+    },
+    {
+      "file": "task-dashboard\\src\\services\\authService.ts",
+      "exports": [
+        "LoginCredentials",
+        "RegisterData",
+        "AuthResponse",
+        "authService"
+      ],
+      "imports": [
+        "../types"
+      ],
+      "lines": 184,
+      "preview": "import type { Member } from '../types';\n\nconst API_BASE = import.meta.env.VITE_API_URL || '';\n\nexport interface LoginCredentials {\n  email: string;\n  password: string;\n}\n\nexport interface RegisterData extends LoginCredentials {\n  name: string;\n  role?: string;\n}\n\nexport interface AuthResponse {\n  user: Member;\n  token: string;\n}\n\nexport const authService = {\n  /**\n   * Login user\n   */\n  async login(credentials: LoginCredentials): Promise<AuthResponse> {\n    const res = await fetch(`${API_BASE}/"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\GameScorecard.ts",
+      "exports": [
+        "GameScorecardModel",
+        "AggregateGameScorecard",
+        "GameScorecardAvgAggregateOutputType",
+        "GameScorecardSumAggregateOutputType",
+        "GameScorecardMinAggregateOutputType",
+        "GameScorecardMaxAggregateOutputType",
+        "GameScorecardCountAggregateOutputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 2157,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `GameScorecard` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model GameScorecard\n *\n */\nexport type GameScorecard"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\Member.ts",
+      "exports": [
+        "MemberModel",
+        "AggregateMember",
+        "MemberMinAggregateOutputType",
+        "MemberMaxAggregateOutputType",
+        "MemberCountAggregateOutputType",
+        "MemberMinAggregateInputType",
+        "MemberMaxAggregateInputType",
+        "MemberCountAggregateInputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 1893,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `Member` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model Member\n *\n */\nexport type MemberModel = runtime.Types"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\PriorityConfig.ts",
+      "exports": [
+        "PriorityConfigModel",
+        "AggregatePriorityConfig",
+        "PriorityConfigAvgAggregateOutputType",
+        "PriorityConfigSumAggregateOutputType",
+        "PriorityConfigMinAggregateOutputType",
+        "PriorityConfigMaxAggregateOutputType",
+        "PriorityConfigCountAggregateOutputType",
+        "PriorityConfigAvgAggregateInputType",
+        "PriorityConfigSumAggregateInputType",
+        "PriorityConfigMinAggregateInputType",
+        "PriorityConfigMaxAggregateInputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 1385,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `PriorityConfig` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model PriorityConfig\n *\n */\nexport type PriorityCon"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\Project.ts",
+      "exports": [
+        "ProjectModel",
+        "AggregateProject",
+        "ProjectMinAggregateOutputType",
+        "ProjectMaxAggregateOutputType",
+        "ProjectCountAggregateOutputType",
+        "ProjectMinAggregateInputType",
+        "ProjectMaxAggregateInputType",
+        "ProjectCountAggregateInputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 1780,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `Project` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model Project\n *\n */\nexport type ProjectModel = runtime.Ty"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\Snapshot.ts",
+      "exports": [
+        "SnapshotModel",
+        "AggregateSnapshot",
+        "SnapshotMinAggregateOutputType",
+        "SnapshotMaxAggregateOutputType",
+        "SnapshotCountAggregateOutputType",
+        "SnapshotMinAggregateInputType",
+        "SnapshotMaxAggregateInputType",
+        "SnapshotCountAggregateInputType",
+        "SnapshotAggregateArgs"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 1313,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `Snapshot` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model Snapshot\n *\n */\nexport type SnapshotModel = runtime"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\StatusConfig.ts",
+      "exports": [
+        "StatusConfigModel",
+        "AggregateStatusConfig",
+        "StatusConfigAvgAggregateOutputType",
+        "StatusConfigSumAggregateOutputType",
+        "StatusConfigMinAggregateOutputType",
+        "StatusConfigMaxAggregateOutputType",
+        "StatusConfigCountAggregateOutputType",
+        "StatusConfigAvgAggregateInputType",
+        "StatusConfigSumAggregateInputType",
+        "StatusConfigMinAggregateInputType",
+        "StatusConfigMaxAggregateInputType",
+        "StatusConfigCountAggregateInputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 1380,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `StatusConfig` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model StatusConfig\n *\n */\nexport type StatusConfigMod"
+    },
+    {
+      "file": "backend\\src\\generated\\models\\WeeklyInsight.ts",
+      "exports": [
+        "WeeklyInsightModel",
+        "AggregateWeeklyInsight",
+        "WeeklyInsightMinAggregateOutputType",
+        "WeeklyInsightMaxAggregateOutputType",
+        "WeeklyInsightCountAggregateOutputType",
+        "WeeklyInsightMinAggregateInputType",
+        "WeeklyInsightMaxAggregateInputType",
+        "WeeklyInsightCountAggregateInputType"
+      ],
+      "imports": [
+        "@prisma/client/runtime/client",
+        "../enums.ts",
+        "../internal/prismaNamespace.ts"
+      ],
+      "lines": 1771,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This file exports the `WeeklyInsight` model and its related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nimport type * as runtime from '@prisma/client/runtime/client';\nimport type * as $Enums from '../enums.ts';\nimport type * as Prisma from '../internal/prismaNamespace.ts';\n\n/**\n * Model WeeklyInsight\n *\n */\nexport type WeeklyInsight"
+    },
+    {
+      "file": "backend\\src\\generated\\models.ts",
+      "exports": [],
+      "imports": [],
+      "lines": 18,
+      "preview": "/* !!! This is code generated by Prisma. Do not edit directly. !!! */\n/* eslint-disable */\n// biome-ignore-all lint: generated file\n// @ts-nocheck\n/*\n * This is a barrel export file for all models and their related types.\n *\n * \u00f0\u0178\u0178\u00a2 You can import this file directly.\n */\nexport type * from './models/Project.ts';\nexport type * from './models/Member.ts';\nexport type * from './models/Task.ts';\nexport type * from './models/StatusConfig.ts';\nexport type * from './models/PriorityConfig.ts';\nexport typ"
+    },
+    {
+      "file": "backend\\src\\generated\\query_compiler_fast_bg.js",
+      "exports": [],
+      "imports": [],
+      "lines": 390,
+      "preview": "'use strict';\nvar h = Object.defineProperty;\nvar T = Object.getOwnPropertyDescriptor;\nvar M = Object.getOwnPropertyNames;\nvar j = Object.prototype.hasOwnProperty;\nvar D = (e, t) => {\n    for (var n in t) h(e, n, { get: t[n], enumerable: !0 });\n  },\n  O = (e, t, n, _) => {\n    if ((t && typeof t == 'object') || typeof t == 'function')\n      for (let r of M(t))\n        !j.call(e, r) &&\n          r !== n &&\n          h(e, r, { get: () => t[r], enumerable: !(_ = T(t, r)) || _.enumerable });\n    retu"
+    },
+    {
+      "file": "backend\\src\\generated\\query_compiler_fast_bg.wasm-base64.js",
+      "exports": [],
+      "imports": [],
+      "lines": 3,
+      "preview": "const wasm =\n  'AGFzbQEAAAABtgRLYAN/f38Bf2ACf38Bf2ACf38AYAF/AGADf39/AGAEf39/fwBgBX9/f39/AGAGf39/f39/AGABfwF/YAR/f39/AX9gAn9+AX9gB39/f39/f38AYAh/f39/f39/fwBgA35+fwF+YAF/AX5gAW8Bf2AFf39/f38Bf2AAAGACf34AYAABf2AJf39/f39/f39/AGAAAW9gAn9vAGAFf39/fn8AYAR/f39+AGAAA39/f2AHf39/f39/fwF/YAR+fn9/AX5gAn9/AW9gAm9vAX9gAW8Bb2ABbwF8YAF+AW9gCX9/f39/f39/fwF/YAR/fH9/AX9gBH99f38Bf2AGf39/f39/AX9gA35+fwF/YAN/f38Df39/YAF+AX9gA29vbwBgA29vbwFvYANvf28AYAJvbwFvYAJvfwFvYAN/f28AYAF8AW9gC39/f39/f39/f39/AGAKf39/f39/f39/fwBgDH9/"
+    },
+    {
+      "file": "mcp_server\\handlers.py",
+      "exports": [],
+      "imports": [
+        "typing"
+      ],
+      "lines": 63,
+      "preview": "import asyncio\nimport os\nfrom typing import Any, Dict\n\n\nasync def handle_request(input_data: Dict[str, Any], metadata: Dict[str, Any]) -> Dict[str, Any]:\n    \"\"\"Dispatch to a configured backend (OpenAI) or fallback to echo.\n\n    Behavior:\n    - If `MCP_BACKEND` is set to `openai` and `OPENAI_API_KEY` exists, call OpenAI.\n    - Otherwise return a simple echo response (safe default for local testing).\n    \"\"\"\n    backend = os.getenv(\"MCP_BACKEND\", \"\").lower()\n    if backend == \"openai\" and os.gete"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\auth\\LoginForm.tsx",
+      "exports": [
+        "LoginForm"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AuthContext"
+      ],
+      "lines": 60,
+      "preview": "import { useState } from 'react';\nimport { useAuth } from '../../contexts/AuthContext';\n\nexport const LoginForm = () => {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState<string | null>(null);\n  const [loading, setLoading] = useState(false);\n  const { login } = useAuth();\n\n  const handleSubmit = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setError(null);\n    setLoading(true);\n\n    try {\n      await logi"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\auth\\RegisterForm.tsx",
+      "exports": [
+        "RegisterForm"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AuthContext"
+      ],
+      "lines": 89,
+      "preview": "import { useState } from 'react';\nimport { useAuth } from '../../contexts/AuthContext';\n\nexport const RegisterForm = () => {\n  const [name, setName] = useState('');\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [role, setRole] = useState('VIEWER');\n  const [error, setError] = useState<string | null>(null);\n  const [loading, setLoading] = useState(false);\n  const { register } = useAuth();\n\n  const handleSubmit = async (e: React.FormEvent) => {\n "
+    },
+    {
+      "file": "task-dashboard\\src\\components\\auth\\UserManagementPage.tsx",
+      "exports": [
+        "UserManagementPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AuthContext",
+        "../../services/authService",
+        "../common",
+        "../common/PageHelp",
+        "../../types"
+      ],
+      "lines": 174,
+      "preview": "import { useState, useEffect } from 'react';\nimport { useAuth } from '../../contexts/AuthContext';\nimport { authService } from '../../services/authService';\nimport { Button, Avatar, EmptyState } from '../common';\nimport PageHelp from '../common/PageHelp';\nimport type { Member } from '../../types';\nimport './UserManagementPage.css';\n\nconst ROLES = ['ADMIN', 'MANAGER', 'TESTER', 'VIEWER'];\n\nexport function UserManagementPage() {\n  const { user: currentUser } = useAuth();\n  const [users, setUsers] "
+    },
+    {
+      "file": "task-dashboard\\src\\components\\calendar\\CalendarPage.tsx",
+      "exports": [
+        "CalendarPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common",
+        "../common/PageHelp",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 210,
+      "preview": "import React, { useState, useMemo } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport { Button, TaskFormModal } from '../common';\nimport PageHelp from '../common/PageHelp';\nimport { getMonthCalendarDays, isSameDay } from '../../utils';\nimport type { Task } from '../../types';\nimport './CalendarPage.css';\n\nexport function CalendarPage() {\n  const { state, dispatch } = useApp();\n  const { tasks } = state.data;\n\n  const [currentDate, setCurrentDate] = useState(new Date());\n  "
+    },
+    {
+      "file": "task-dashboard\\src\\components\\common\\index.tsx",
+      "exports": [
+        "Button",
+        "Badge",
+        "Avatar"
+      ],
+      "imports": [
+        "react",
+        "react-dom"
+      ],
+      "lines": 149,
+      "preview": "import type { ReactNode } from 'react';\nimport { createPortal } from 'react-dom';\nimport './Common.css';\n\n// \u00e2\u201d\u20ac\u00e2\u201d\u20ac Button \u00e2\u201d\u20ac\u00e2\u201d\u20ac\ninterface ButtonProps {\n  children: ReactNode;\n  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';\n  size?: 'sm' | 'md' | 'lg';\n  onClick?: () => void;\n  type?: 'button' | 'submit';\n  disabled?: boolean;\n  className?: string;\n  title?: string;\n  style?: React.CSSProperties;\n}\n\nexport function Button({\n  children,\n  variant = 'secondary',\n  size = 'md',\n  onClick"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\common\\PageHelp.tsx",
+      "exports": [
+        "PageHelp"
+      ],
+      "imports": [
+        "react",
+        "."
+      ],
+      "lines": 32,
+      "preview": "import React, { useState } from 'react';\nimport { Button, Modal } from '.';\nimport './PageHelp.css';\n\nexport function PageHelp({\n  title,\n  children,\n  buttonLabel = '\u00e2\ufffd\u201c H\u00c6\u00b0\u00e1\u00bb\u203ang d\u00e1\u00ba\u00abn',\n}: {\n  title: string;\n  children: React.ReactNode;\n  buttonLabel?: string;\n}) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div className=\"page-help\">\n      <Button variant=\"ghost\" onClick={() => setOpen(true)}>\n        {buttonLabel}\n      </Button>\n      <Modal\n        isOpen={open}\n        onCl"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\common\\ProjectModal.tsx",
+      "exports": [
+        "ProjectModal"
+      ],
+      "imports": [
+        "react",
+        "./index",
+        "uuid",
+        "../../types"
+      ],
+      "lines": 127,
+      "preview": "import { useState, useEffect } from 'react';\nimport { Button, Modal } from './index';\nimport { v4 as uuid } from 'uuid';\nimport type { Project, Platform } from '../../types';\n\nconst PLATFORMS: Platform[] = ['iOS', 'Android', 'PC', 'Console', 'Web', 'Cross-platform'];\nconst COLORS = [\n  '#ff6b35',\n  '#00c48c',\n  '#3b82f6',\n  '#ffb830',\n  '#e74c8b',\n  '#8b5cf6',\n  '#ef4444',\n  '#06b6d4',\n  '#84cc16',\n  '#f97316',\n];\n\ninterface ProjectModalProps {\n  isOpen: boolean;\n  project: Project | null;\n  onC"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\common\\TaskDetailsModal.tsx",
+      "exports": [
+        "TaskDetailsModal"
+      ],
+      "imports": [
+        "react",
+        "./index",
+        "../../types"
+      ],
+      "lines": 237,
+      "preview": "import { useMemo } from 'react';\nimport { Button, Badge, Avatar, Modal } from './index';\nimport type { Task } from '../../types';\n\ninterface TaskDetailsModalProps {\n  isOpen: boolean;\n  task: Task | null;\n  onClose: () => void;\n  members: Array<{ id: string; initials: string; avatarColor: string; name: string }>;\n  projects: Array<{ id: string; name: string; color: string; platform: string; genre: string }>;\n  statuses: Array<{ id: string; label: string; color: string }>;\n}\n\nexport function Task"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\common\\TaskFormModal.tsx",
+      "exports": [
+        "TaskFormModal"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "./index",
+        "uuid",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 310,
+      "preview": "import { useState, useEffect } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport { Button, Modal } from './index';\nimport { v4 as uuid } from 'uuid';\nimport { classifyEisenhower, getDaysUntilDeadline, getToday } from '../../utils';\nimport type { Task, TaskStatus, Priority } from '../../types';\n\ninterface TaskFormModalProps {\n  isOpen: boolean;\n  task: Task | null;\n  onClose: () => void;\n  onSave: (t: Task) => void;\n  onDelete?: () => void;\n  defaultProjectId?: string;\n  de"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\reports\\CodeAnalysisPage.tsx",
+      "exports": [
+        "CodeAnalysisPage"
+      ],
+      "imports": [
+        "react",
+        "../../data/apiService",
+        "../../utils/apkParser"
+      ],
+      "lines": 224,
+      "preview": "import { useState, useRef } from 'react';\nimport { apiService } from '../../data/apiService';\nimport { ClientSideApkParser } from '../../utils/apkParser';\nimport './CodeAnalysisPage.css';\n\ntype AnalysisMode = 'codebase' | 'apk';\n\nexport function CodeAnalysisPage() {\n  const [mode, setMode] = useState<AnalysisMode>('codebase');\n  const [loading, setLoading] = useState(false);\n  const [report, setReport] = useState<string | null>(null);\n  const [error, setError] = useState<string | null>(null);\n  "
+    },
+    {
+      "file": "task-dashboard\\src\\components\\reports\\InsightsPage.tsx",
+      "exports": [
+        "InsightsPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common",
+        "../../utils",
+        "../../types",
+        "uuid"
+      ],
+      "lines": 1028,
+      "preview": "import React, { useState, useMemo } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport { Button, Modal } from '../common';\nimport { getStartOfWeek } from '../../utils';\n\nimport type { GameScorecard, WeeklyInsight } from '../../types';\n\nimport { v4 as uuid } from 'uuid';\nimport './InsightsPage.css';\n\nexport function InsightsPage() {\n  const { state, dispatch } = useApp();\n  const { scorecards, insights, projects, members } = state.data;\n\n  const [activeTab, setActiveTab] = u"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\reports\\StaffReportPage.tsx",
+      "exports": [
+        "StaffReportPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common",
+        "../common/PageHelp",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 180,
+      "preview": "import { useMemo } from 'react';\n\nimport { useApp } from '../../contexts/AppContext';\nimport { Avatar, Badge } from '../common';\nimport PageHelp from '../common/PageHelp';\nimport { isOverdue } from '../../utils';\nimport type { Task } from '../../types';\nimport './StaffReportPage.css';\n\nexport function StaffReportPage() {\n  const { state } = useApp();\n  const { members, tasks, projects } = state.data;\n\n  // Aggregate metrics per member\n  const memberMetrics = useMemo(() => {\n    return members.ma"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\reports\\WorkReportPage.tsx",
+      "exports": [
+        "WorkReportPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common",
+        "../common/PageHelp",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 239,
+      "preview": "import React, { useState, useMemo } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport { Button, Avatar } from '../common';\nimport PageHelp from '../common/PageHelp';\nimport { getToday, getStartOfWeek, getEndOfWeek, isOverdue } from '../../utils';\nimport type { Task } from '../../types';\nimport './WorkReportPage.css';\n\ntype TimeRange = 'today' | 'this_week' | 'custom';\n\nexport function WorkReportPage() {\n  const { state } = useApp();\n  const { tasks, projects, members } = s"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\setup\\SetupPage.tsx",
+      "exports": [
+        "SetupPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common",
+        "../common/PageHelp",
+        "uuid",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 266,
+      "preview": "import { useState } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport { Button, Avatar, Modal, ProjectModal } from '../common';\nimport PageHelp from '../common/PageHelp';\nimport { v4 as uuid } from 'uuid';\nimport { getInitials } from '../../utils';\nimport type { Project, Member } from '../../types';\nimport './SetupPage.css';\n\nconst COLORS = [\n  '#ff6b35',\n  '#00c48c',\n  '#3b82f6',\n  '#ffb830',\n  '#e74c8b',\n  '#8b5cf6',\n  '#ef4444',\n  '#06b6d4',\n  '#84cc16',\n  '#f97316',\n];"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\tasks\\ProjectControlPage.tsx",
+      "exports": [
+        "ProjectControlPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common",
+        "../common/PageHelp",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 360,
+      "preview": "import { useState, useMemo } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport { Button, Badge, Avatar, EmptyState, TaskFormModal, ProjectModal } from '../common';\nimport PageHelp from '../common/PageHelp';\nimport { isOverdue, formatRelativeDate } from '../../utils';\nimport type { Task, Project } from '../../types';\nimport './ProjectControlPage.css';\n\ntype ViewMode = 'list' | 'board' | 'overview';\n\nexport function ProjectControlPage() {\n  const { state, dispatch } = useApp"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\tasks\\TaskListPage.tsx",
+      "exports": [
+        "TaskListPage"
+      ],
+      "imports": [
+        "react",
+        "../../contexts/AppContext",
+        "../common/PageHelp",
+        "../../utils",
+        "../../types"
+      ],
+      "lines": 417,
+      "preview": "import { useState, useMemo } from 'react';\nimport { useApp } from '../../contexts/AppContext';\nimport {\n  Button,\n  Badge,\n  Avatar,\n  WeightDots,\n  EmptyState,\n  TaskFormModal,\n  ProjectModal,\n} from '../common';\nimport PageHelp from '../common/PageHelp';\nimport { isOverdue, formatRelativeDate, getDaysUntilDeadline } from '../../utils';\nimport type { Task, TaskStatus, Priority, TaskFilters } from '../../types';\nimport './TaskListPage.css';\n\ntype SortKey = 'title' | 'deadline' | 'priority' | 'we"
+    },
+    {
+      "file": "task-dashboard\\src\\components\\Sidebar.tsx",
+      "exports": [
+        "Sidebar"
+      ],
+      "imports": [
+        "react",
+        "../contexts/AppContext",
+        "../contexts/AuthContext",
+        "../types"
+      ],
+      "lines": 64,
+      "preview": "import { useMemo } from 'react';\nimport { useApp } from '../contexts/AppContext';\nimport { useAuth } from '../contexts/AuthContext';\nimport type { PageId } from '../types';\nimport './Sidebar.css';\n\nconst NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string; role?: string }[] = [\n  { id: 'project-control', label: 'D\u00e1\u00bb\u00b1 \u00c3\u00a1n & Task', icon: '\u00f0\u0178\u201c\u0160', section: 'Qu\u00e1\u00ba\u00a3n l\u00c3\u00bd' },\n  { id: 'calendar', label: 'L\u00e1\u00bb\u2039ch', icon: '\u00f0\u0178\u201c\u2026' },\n  { id: 'setup', label: 'C\u00e1\u00ba\u00a5u h\u00c3\u00acnh', icon: '\u00e2\u0161\u2122\u00ef\u00b8\ufffd', se"
+    },
+    {
+      "file": "task-dashboard\\src\\contexts\\AppContext.tsx",
+      "exports": [],
+      "imports": [
+        "../data/dataService",
+        "../data/seedData"
+      ],
+      "lines": 192,
+      "preview": "import {\n  createContext,\n  useContext,\n  useReducer,\n  useCallback,\n  useEffect,\n  type ReactNode,\n} from 'react';\nimport type {\n  AppData,\n  Task,\n  Project,\n  Member,\n  PageId,\n  GameScorecard,\n  WeeklyInsight,\n} from '../types';\nimport { dataService } from '../data/dataService';\nimport { seedData } from '../data/seedData';\n\ninterface AppState {\n  data: AppData;\n  activePage: PageId;\n  sidebarCollapsed: boolean;\n  loading: boolean;\n}\n\ntype AppAction =\n  | { type: 'SET_DATA'; payload: AppData "
+    },
+    {
+      "file": "task-dashboard\\src\\contexts\\AuthContext.tsx",
+      "exports": [
+        "AuthProvider",
+        "useAuth"
+      ],
+      "imports": [
+        "react",
+        "../types",
+        "../services/authService"
+      ],
+      "lines": 75,
+      "preview": "import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';\nimport type { Member } from '../types';\nimport { authService } from '../services/authService';\n\ninterface AuthContextValue {\n  user: Member | null;\n  loading: boolean;\n  login: (email: string, password: string) => Promise<void>;\n  register: (name: string, email: string, password: string, role?: string) => Promise<void>;\n  logout: () => void;\n  isAuthenticated: boolean;\n}\n\nconst AuthContext = createContext<Aut"
+    },
+    {
+      "file": "task-dashboard\\src\\data\\activeSeedData.ts",
+      "exports": [
+        "loadLocalTestData",
+        "activeSeedData"
+      ],
+      "imports": [
+        "../types",
+        "./seedData"
+      ],
+      "lines": 18,
+      "preview": "import type { AppData } from '../types';\nimport { seedData } from './seedData';\n\nconst useLocal = import.meta.env.VITE_USE_LOCAL_DATA === 'true';\n\nexport async function loadLocalTestData(): Promise<AppData | null> {\n  if (!useLocal) return null;\n  try {\n    const { localTestData } = await import('./localTestData');\n    console.log('Using local test data');\n    return localTestData;\n  } catch (e) {\n    console.error('Failed to load local test data', e);\n    return null;\n  }\n}\n\nexport const active"
+    },
+    {
+      "file": "task-dashboard\\src\\data\\localTestData.ts",
+      "exports": [
+        "localTestData"
+      ],
+      "imports": [
+        "../types"
+      ],
+      "lines": 20,
+      "preview": "import type { AppData } from '../types';\n\n// B\u00e1\u00bb\u2122 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u gi\u00e1\u00ba\u00a3 d\u00c3\u00b9ng \u00c4\u2018\u00e1\u00bb\u0192 test local.\n// File n\u00c3\u00a0y \u00c4\u2018\u00c3\u00a3 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c th\u00c3\u00aam v\u00c3\u00a0o .gitignore v\u00c3\u00a0 s\u00e1\u00ba\u00bd kh\u00c3\u00b4ng b\u00e1\u00bb\u2039 commit.\nexport const localTestData: AppData = {\n  projects: [\n    // { id: 'proj-test', name: 'D\u00e1\u00bb\u00b1 \u00c3\u00a1n Test', platform: 'PC', genre: 'Test', status: 'active', color: '#ff6b35', createdAt: '2026-05-28' },\n  ],\n  members: [\n    // { id: 'mem-test', name: 'Tester', email: 'test@example.com', role: 'Tester', avatarColor: '#00c48c', initial"
+    },
+    {
+      "file": "task-dashboard\\src\\data\\seedData.ts",
+      "exports": [
+        "seedData"
+      ],
+      "imports": [
+        "../types"
+      ],
+      "lines": 430,
+      "preview": "// ============================================================\n// Seed Data \u00e2\u20ac\u201d Demo data for 5 team members, 3 projects, 25 tasks\n// ============================================================\n\nimport type { AppData } from '../types';\n\nconst today = new Date();\nconst d = (daysOffset: number) => {\n  const date = new Date(today);\n  date.setDate(date.getDate() + daysOffset);\n  return date.toISOString().split('T')[0];\n};\n\nconst past = (daysAgo: number) => d(-daysAgo);\n\nexport const seedData: AppD"
+    },
+    {
+      "file": "task-dashboard\\src\\types\\index.ts",
+      "exports": [
+        "Platform",
+        "TaskStatus",
+        "Priority",
+        "Project",
+        "Member",
+        "EisenhowerClassification",
+        "Task",
+        "GameScorecard",
+        "WeeklyInsight"
+      ],
+      "imports": [],
+      "lines": 150,
+      "preview": "// ============================================================\n// Task Management Dashboard \u00e2\u20ac\u201d Core Type Definitions\n// ============================================================\n\nexport type Platform = 'iOS' | 'Android' | 'PC' | 'Console' | 'Web' | 'Cross-platform';\n\nexport type TaskStatus = 'backlog' | 'in-testing' | 'evaluating' | 'reporting' | 'done';\n\nexport type Priority = 'P0' | 'P1' | 'P2';\n\nexport interface Project {\n  id: string;\n  name: string;\n  platform: Platform;\n  genre: strin"
+    },
+    {
+      "file": "task-dashboard\\src\\utils\\apkParser.ts",
+      "exports": [
+        "ApkAnalysisResult",
+        "ClientSideApkParser"
+      ],
+      "imports": [
+        "jszip"
+      ],
+      "lines": 117,
+      "preview": "import JSZip from 'jszip';\n\nexport interface ApkAnalysisResult {\n  packageName: string;\n  versionName: string;\n  permissions: string[];\n  activities: string[];\n  apiEndpoints: string[];\n  suspiciousKeys: string[];\n}\n\nexport class ClientSideApkParser {\n  static async parse(file: File): Promise<ApkAnalysisResult> {\n    const zip = await JSZip.loadAsync(file);\n    const result: ApkAnalysisResult = {\n      packageName: 'Unknown',\n      versionName: 'Unknown',\n      permissions: [],\n      activities:"
+    },
+    {
+      "file": "task-dashboard\\src\\utils\\index.ts",
+      "exports": [
+        "classifyEisenhower",
+        "getDaysUntilDeadline",
+        "isOverdue",
+        "formatDate",
+        "formatDateShort",
+        "formatRelativeDate",
+        "getToday",
+        "getStartOfWeek",
+        "getEndOfWeek"
+      ],
+      "imports": [
+        "../types"
+      ],
+      "lines": 156,
+      "preview": "// ============================================================\n// Utility Functions\n// ============================================================\n\nimport type { Task, Priority, EisenhowerClassification } from '../types';\n\n// \u00e2\u201d\u20ac\u00e2\u201d\u20ac Eisenhower Auto-Classification \u00e2\u201d\u20ac\u00e2\u201d\u20ac\nexport function classifyEisenhower(priority: Priority, deadline: string): EisenhowerClassification {\n  const daysUntilDeadline = getDaysUntilDeadline(deadline);\n\n  let urgent = false;\n  let important = false;\n\n  switch (priorit"
+    }
+  ],
+  "metadata": {
+    "package.json": {
+      "name": "workflow-nhan-root",
+      "description": null,
+      "scripts": [
+        "dev:backend",
+        "dev:frontend",
+        "dev",
+        "build",
+        "lint",
+        "prepare"
+      ],
+      "dependencies": [],
+      "devDependencies": [
+        "concurrently",
+        "husky",
+        "lint-staged",
+        "prettier"
+      ]
+    },
+    "docker-compose.yml": "services:\n  frontend:\n    build:\n      context: .\n      dockerfile: task-dashboard/Dockerfile\n      args:\n        VITE_API_URL: http://localhost:4000\n    ports:\n      - \"3000:80\"\n    depends_on:\n      - backend\n\n  backend:\n    build:\n      context: .\n      dockerfile: backend/Dockerfile\n    ports:\n      - \"4000:4000\"\n    environment:\n      PORT: 4000\n      DATABASE_URL: postgresql://postgres:postgres@db:5432/task_dash?schema=public\n      JWT_SECRET: your-secret-key-change-in-production\n    depends_on:\n      - db\n\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_DB: task_dash\n      POSTGRES_USER: postgres\n      POSTGRES_PASSWORD: postgres\n    ports:\n      - \"5432:5432\"\n    volumes:\n      - postgres_data:/var/lib/postgresql/data\n\nvolumes:\n  postgres_data:\n"
+  }
+}

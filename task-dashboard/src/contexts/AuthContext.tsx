@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const storedUser = authService.getUser();
     const token = authService.getToken();
-    
+
     if (storedUser && token) {
       setUser(storedUser);
     }

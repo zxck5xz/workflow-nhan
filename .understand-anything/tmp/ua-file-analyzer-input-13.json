@@ -1,0 +1,49 @@
+{
+  "projectRoot": "C:/Users/Admin/Desktop/agent AI/workflow-nhan",
+  "batchFiles": [
+    {
+      "path": "understand/locales/en.md",
+      "language": "markdown",
+      "sizeLines": 43,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "understand/locales/ja.md",
+      "language": "markdown",
+      "sizeLines": 48,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "understand/locales/ko.md",
+      "language": "markdown",
+      "sizeLines": 48,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "understand/locales/ru.md",
+      "language": "markdown",
+      "sizeLines": 49,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "understand/locales/zh-TW.md",
+      "language": "markdown",
+      "sizeLines": 48,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "understand/locales/zh.md",
+      "language": "markdown",
+      "sizeLines": 48,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "understand/locales/en.md": [],
+    "understand/locales/ja.md": [],
+    "understand/locales/ko.md": [],
+    "understand/locales/ru.md": [],
+    "understand/locales/zh-TW.md": [],
+    "understand/locales/zh.md": []
+  }
+}

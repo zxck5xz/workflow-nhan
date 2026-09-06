@@ -405,7 +405,10 @@ async function searchRedditSentiment(query, limit = 25) {
           },
           signal: AbortSignal.timeout(10000),
         });
-        if (!resp.ok) continue;
+        if (!resp.ok) {
+          console.error(`[Reddit Search] Error ${resp.status} for ${url} with UA ${ua.slice(0, 20)}...`);
+          continue;
+        }
         const data = await resp.json();
         const children = data?.data?.children || [];
         if (children.length === 0) continue;
@@ -426,8 +429,8 @@ async function searchRedditSentiment(query, limit = 25) {
             date: d.created_utc ? new Date(d.created_utc * 1000).toISOString() : null,
           };
         });
-      } catch {
-        /* try next */
+      } catch (err) {
+        console.error(`[Reddit Search] Fetch failed for ${url}: ${err.message}`);
       }
     }
   }
@@ -447,7 +450,10 @@ async function searchNitterSentiment(query, limit = 10) {
         headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
         signal: AbortSignal.timeout(8000),
       });
-      if (!resp.ok) continue;
+      if (!resp.ok) {
+        console.error(`[Nitter Search] Error ${resp.status} for ${instance}`);
+        continue;
+      }
       const html = await resp.text();
       const tweetRegex = /<div class="tweet-content[^"]*"[^>]*>(.*?)<\/div>/gs;
       const tweets = [];
@@ -464,8 +470,8 @@ async function searchNitterSentiment(query, limit = 10) {
         });
       }
       if (tweets.length > 0) return tweets;
-    } catch {
-      /* try next */
+    } catch (err) {
+      console.error(`[Nitter Search] Fetch failed for ${instance}: ${err.message}`);
     }
   }
   return [];

@@ -3,55 +3,84 @@
 Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết kế các workflow. Cấu trúc được thiết kế để có thể tái sử dụng cho bất kỳ quy trình công việc nào.
 
 ## 📋 Trạng thái hiện tại
+
 - **Dự án:** Thiết kế 3 Workflow (Quản lý, Test/Phân tích, Portfolio/Trình bày)
 - **Tiến độ:** Giai đoạn 3 (hoàn thiện) + Backend DB Migration + Xác thực người dùng — Full-stack deployed & verified (Vercel + Railway + Neon)
 - **Ngày khởi tạo:** 2026-05-11
-- **Cập nhật cuối:** 2026-05-28 (Fixing Deploy)
+- **Cập nhật cuối:** 2026-08-24 (CF Workers Migration - Phase 1)
 
 ---
 
 ## 🏗️ Giai đoạn 1: Thu thập bối cảnh
+
 ...
+
+- **2026-08-24 (Cloudflare Workers Migration - Phase 1):**
+  - **Tổng quan:** Bắt đầu migrate backend từ Railway sang Cloudflare Workers. TypeScript Worker hoàn thiện, Python routes đang đánh giá.
+  - **CF Worker (TypeScript) — HOÀN THÀNH:**
+    - Entry point: `backend/worker/src/index.ts` với custom router (22 routes).
+    - Auth: JWT bằng `jose` library (Web Crypto API compatible).
+    - DB: Neon serverless driver thay Prisma ORM (raw SQL tagged templates).
+    - Routes hoạt động: health, auth/login, auth/me, users (ADMIN), app-data (GET/POST), snapshot, snapshots, research/sentiment, research-reports, search-product, search-app-info.
+    - CORS middleware, error handling, role-based authorization.
+    - Build size: 305 KiB / gzip 83 KiB.
+    - TypeScript: zero errors, wrangler dry-run: success.
+  - **Python Routes — ĐANG ĐÁNH GIÁ:**
+    - `/api/evaluate` (game_eval_agent.py) — ❌ Không chạy được: dùng subprocess + CLI tools外部.
+    - `/api/generate-pptx` (pptx_generator.py) — ✅ Có thể chạy: python-pptx có PyEmscripten wheels.
+    - `/api/interpret-apk` (apk_interpreter.py) — ✅ Có thể chạy: pure stdlib, zero deps.
+    - `/api/open-file` (Windows start cmd) — ❌ Không khả thi: desktop-only.
+  - **3 phương án đang cân nhắc:**
+    1. Python Worker (Pyodide) cho apk/pptx + External API cho evaluate/open-file.
+    2. External Python service cho tất cả Python routes.
+    3. Giữ Railway cho Python routes, CF Worker cho TS routes.
+  - **Files mới:** `backend/worker/` (index.ts, auth.ts, db.ts, middleware.ts, types.ts, routes/*).
+  - **Tiếp theo:** User quyết định phương án Python routes → implement + deploy.
 - **2026-05-28 (Sửa lỗi Deploy & Hoàn thiện):**
   - **Tổng quan:** Khắc phục sự cố deploy fail trên Vercel và Railway. Tiến độ đạt ~97%.
   - **Frontend (Vercel):**
-    *   Fix 15 lỗi TypeScript (unused variables, missing props in common components, type mismatches).
-    *   Cập nhật `vercel.json` để hỗ trợ build từ thư mục con.
-    *   Mở rộng `Button`, `Badge`, `Avatar` để hỗ trợ các props mới (`style`, `title`, size `xs`).
+    - Fix 15 lỗi TypeScript (unused variables, missing props in common components, type mismatches).
+    - Cập nhật `vercel.json` để hỗ trợ build từ thư mục con.
+    - Mở rộng `Button`, `Badge`, `Avatar` để hỗ trợ các props mới (`style`, `title`, size `xs`).
   - **Backend (Railway):**
-    *   Sửa lỗi typo `prisma-client` -> `prisma-client-js` trong `schema.prisma`.
-    *   Di chuyển `tsx` và `prisma` sang `dependencies` để đảm bảo có sẵn khi build trên cloud.
-    *   Cập nhật `DataStoreDB.js` để xử lý các trường `email` và `password` bắt buộc khi đồng bộ dữ liệu member.
+    - Sửa lỗi typo `prisma-client` -> `prisma-client-js` trong `schema.prisma`.
+    - Di chuyển `tsx` và `prisma` sang `dependencies` để đảm bảo có sẵn khi build trên cloud.
+    - Cập nhật `DataStoreDB.js` để xử lý các trường `email` và `password` bắt buộc khi đồng bộ dữ liệu member.
   - **Kết quả:** Build local thành công, sẵn sàng đẩy lên môi trường production.
-*Mục tiêu: Hiểu rõ môi trường và nhu cầu thực tế để thiết kế không bị xa rời thực tế.*
+    _Mục tiêu: Hiểu rõ môi trường và nhu cầu thực tế để thiết kế không bị xa rời thực tế._
 
 - [x] **1.1. Công cụ vận hành (Stack):** Slack (giao tiếp), Jira (đề xuất quản lý task & bug).
 - [x] **1.2. Đối tượng sản phẩm:** Game & Mobile Game.
 - [x] **1.3. Nhân sự & vai trò:** Team 5 người.
 - [x] **1.4. Điểm đau:** Cần test số lượng lớn game và đưa ra đánh giá tổng hợp nhanh, hiệu quả.
 - [x] **1.5. Công cụ hỗ trợ & hạ tầng:**
-    - **IDE:** VS Code (Remote SSH / Codespaces).
-    - **AI Models:** Claude 3.5 (Phân tích), Gemini 1.5 Pro (Đánh giá video/game), GPT-4o (Tự động hóa).
-    - **Remote Access:** Cloud-first (Jira Cloud, Slack, GitHub, Tailscale nếu cần truy cập máy local).
+  - **IDE:** VS Code (Remote SSH / Codespaces).
+  - **AI Models:** Claude 3.5 (Phân tích), Gemini 1.5 Pro (Đánh giá video/game), GPT-4o (Tự động hóa).
+  - **Remote Access:** Cloud-first (Jira Cloud, Slack, GitHub, Tailscale nếu cần truy cập máy local).
 
 ## ⚙️ Giai đoạn 2: Thiết kế kiến trúc hệ thống
-*Mục tiêu: Xây dựng logic kết nối giữa các workflow.*
+
+_Mục tiêu: Xây dựng logic kết nối giữa các workflow._
 
 - [x] **2.1. Luồng dữ liệu:** Jira (Task list) -> Slack (Thông báo) -> Portfolio (Báo cáo cuối).
 - [x] **2.2. Trạng thái:** Backlog -> In Testing -> Evaluating -> Reporting -> Done.
 - [ ] **2.3. Tự động hóa:** Kết nối Jira-Slack, dùng AI tổng hợp báo cáo từ checklist.
 
 ## ✍️ Giai đoạn 3: Chi tiết hóa 3 workflow mục tiêu
-*Mục tiêu: Hoàn thiện template và hướng dẫn cho từng mục.*
+
+_Mục tiêu: Hoàn thiện template và hướng dẫn cho từng mục._
 
 ### Workflow 1: Quản lý (cá nhân & team)
+
 - [x] Sử dụng Jira Kanban Board.
 - [x] Định nghĩa hệ thống ưu tiên: P0 (Hot/Đối thủ), P1 (Yêu cầu dự án), P2 (Nghiên cứu).
 - [x] Thiết lập trường tuỳ chỉnh: Nền tảng, Thể loại, Tester.
 - [x] Tích hợp thông báo Slack Daily Check-in.
 
 #### 🚧 Task Management Dashboard (Đang xây dựng)
+
 **Quyết định kỹ thuật (đã xác nhận 2026-05-13):**
+
 - **Loại ứng dụng:** Ứng dụng web độc lập (thư mục `workflow-nhan/task-dashboard/`)
 - **Triển khai:** Local hoặc deploy cloud cho truy cập từ xa
 - **Lưu trữ:** File JSON (localStorage + export/import), tích lũy dữ liệu lịch sử
@@ -59,6 +88,7 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 - **Eisenhower:** Tự động phân loại dựa trên ưu tiên + hạn chót, cho phép chỉnh sửa thủ công
 
 **5 Modules:**
+
 - [x] **Form 1 — Setup & Config:** Cấu hình danh sách dự án, nhân sự, trạng thái, cấp độ.
 - [x] **Form 2 — Task List:** Nhập công việc, hạn chót, trọng số, người phụ trách. Chỉnh sửa trực tiếp, lọc và hành động hàng loạt.
 - [x] **Form 3 — Calendar View:** Hiển thị Tháng/Tuần/Ngày, kéo & thả đổi lịch.
@@ -66,6 +96,7 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 - [x] **Form 5 — Staff Report:** Phân tích hiệu suất nhân sự, so sánh nhân sự và so sánh cùng kỳ.
 
 **Tiến độ xây dựng:**
+
 - [x] Phase 1: Nền tảng (Vite + React + TS, Hệ thống thiết kế, Lớp dữ liệu)
 - [x] Phase 2: Các form cốt lõi (Setup + Task List)
 - [x] Phase 3: Lịch (Tháng/Tuần/Ngày + Kéo & thả)
@@ -73,15 +104,20 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 - [x] Phase 5: Hoàn thiện (Animations, Export, Responsive, Testing)
 
 ### Workflow 2: Test, Đánh giá & Phân tích
+
 - [x] Xây dựng Game Scorecard (1-5 điểm): Core Loop, Monetization, Visual/UX, Retention, USP.
 - [x] Ma trận phân tích so sánh các game cùng thể loại.
 - [x] Hệ thống lưu trữ báo cáo tập trung trên Jira/Confluence.
 - [x] Quy trình tổng hợp Insight nhanh hàng tuần.
 - [x] Triển khai AI Game Eval Agent:
-    - [x] Tự động nghiên cứu đối thủ, đánh giá framework và xuất báo cáo Doc/Markdown.
-    - [x] **Mới:** Đọc nội dung đánh giá/phân tích từ file và tự động tổng hợp hạng mục, tiêu chí đánh giá.
+  - [x] Tự động nghiên cứu đối thủ, đánh giá framework và xuất báo cáo Doc/Markdown.
+  - [x] **Mới:** Đọc nội dung đánh giá/phân tích từ file và tự động tổng hợp hạng mục, tiêu chí đánh giá.
+- [x] **Mới:** Bổ sung Workflow thực tế: Phân tích ngược Android (Reverse Engineering) - Xem `ANDROID_RE_WORKFLOW.md`.
+- [x] **Mới:** Triển khai **CodeREAgent** (`ai-agents/code_re_agent.py`) để tự động áp dụng logic RE vào chính project hiện tại - Kết quả tại `CODE_RE_ANALYSIS.md`.
+- [x] **Mới:** Triển khai **Client-side APK Analysis** (JSZip) - Phân tích "decrypted" flow của app mobile ngay trong trình duyệt, bảo mật 100% dữ liệu người dùng.
 
 ### Workflow 3: Portfolio & Presentation
+
 - [x] Cấu trúc Storytelling: Trend Overview -> Top Picks -> Deep Dive -> Lesson Learned.
 - [x] Template thiết kế sẵn (Slide/Web) để nhập dữ liệu nhanh.
 - [x] Quy trình đóng gói và xuất file (PDF/Link).
@@ -89,7 +125,8 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 - [ ] Xây dựng thư viện hình ảnh/clip gameplay làm tư liệu.
 
 ## 🗄️ Backend & Database Migration
-*Mục tiêu: Chuyển từ lưu trữ JSON (localStorage/file) sang cơ sở dữ liệu PostgreSQL qua Prisma.*
+
+_Mục tiêu: Chuyển từ lưu trữ JSON (localStorage/file) sang cơ sở dữ liệu PostgreSQL qua Prisma._
 
 - [x] Thiết lập Prisma schema (Project, Member, Task, StatusConfig, PriorityConfig, GameScorecard, WeeklyInsight, Snapshot)
 - [x] Tạo migration `20260526045525_init`
@@ -104,7 +141,7 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
   - [x] Thêm role-based authorization middleware
   - [x] Tạo script seed-users.ts để tạo các user mặc định
   - [x] Frontend: AuthContext, AuthService, login/register forms
-   - [x] Frontend: Cập nhật dataService để bao gồm token trong headers
+  - [x] Frontend: Cập nhật dataService để bao gồm token trong headers
 - [x] **Deploy backend lên Railway + Neon Postgres**
   - Backend Railway: `https://backend-production-84f2a.up.railway.app`
   - Database: Neon Postgres (`neondb_owner@ep-odd-hill`)
@@ -123,13 +160,16 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 - [x] Viết hướng dẫn hosting/deploy (SOP.md)
 
 ## 🔄 Giai đoạn 4: Đóng gói & Tái sử dụng
+
 - [x] Tạo check-list hướng dẫn nhanh (SOP).
 - [x] Hướng dẫn cách "Copy-Paste" framework này cho workflow mới.
 
 ---
 
 ## 🚀 Hướng dẫn tiếp tục
-*Để bắt đầu lại công việc, bạn chỉ cần ra lệnh cho AI:*
+
+_Để bắt đầu lại công việc, bạn chỉ cần ra lệnh cho AI:_
+
 1. "Hãy đọc file `workflow-nhan/preparing_workflows.md` để nắm bắt tiến độ."
 2. "Tiếp tục thực hiện [Việc cụ thể]" (Ví dụ: "Chạy migration DB", "Xây dựng thư viện hình ảnh cho Workflow 3", "Hoàn thiện Giai đoạn 4").
 
@@ -200,4 +240,3 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 - **2026-05-14 (Ca 1):** Hoàn thành toàn bộ Workflow 1 (Task Management Dashboard) với 5 Modules. Đã triển khai Calendar Drag & Drop, Work Report (Slack format) và Staff Report (Manager View). Sửa lỗi giao diện Sidebar overlap. Toàn bộ code đã build thành công. Cập nhật layout Modal (Sticky Header/Footer) để sửa lỗi chồng nút Save trong form nhân sự.
 - **2026-05-13:** Bắt đầu xây dựng Workflow 1 — Task Management Dashboard. Xác nhận quyết định kỹ thuật: Ứng dụng độc lập, lưu JSON, tự phân loại Eisenhower, kéo & thả Calendar. Đã tạo kế hoạch triển khai chi tiết với 5 module và 5 giai đoạn. Đánh dấu hoàn thành mục 1.5 (Công cụ & Hạ tầng).
 - **2026-05-11:** Khởi tạo tài liệu, xác định bối cảnh Team 5 người, Game Testing, Jira + Slack Cloud, cấu hình Remote và IDE/AI. Đã chi tiết hóa 3 workflow mục tiêu.
-

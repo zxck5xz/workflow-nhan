@@ -1,0 +1,1972 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/src/server.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 373,
+      "nonEmptyLines": 322,
+      "functions": [
+        {
+          "name": "getDataStoreDB",
+          "startLine": 26,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "getDataStore",
+          "startLine": 37,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "authMiddleware",
+          "startLine": 43,
+          "endLine": 64,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        },
+        {
+          "name": "authorize",
+          "startLine": 67,
+          "endLine": 81,
+          "params": [
+            "...allowedRoles"
+          ]
+        },
+        {
+          "name": "execWithTimeout",
+          "startLine": 290,
+          "endLine": 300,
+          "params": [
+            "cmd"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getDataStoreDB",
+          "callee": "(async () => {\r\n    dataStoreDB = new DataStoreDB();\r\n    return dataStoreDB;\r\n  })",
+          "lineNumber": 30
+        },
+        {
+          "caller": "getDataStore",
+          "callee": "getDataStoreDB",
+          "lineNumber": 38
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "publicPaths.includes",
+          "lineNumber": 47
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "next",
+          "lineNumber": 48
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "authHeader?.startsWith",
+          "lineNumber": 52
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "res.status(401).json",
+          "lineNumber": 53
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "res.status",
+          "lineNumber": 53
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "authHeader.split",
+          "lineNumber": 57
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "AuthService.verifyToken",
+          "lineNumber": 58
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "next",
+          "lineNumber": 60
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "res.status(401).json",
+          "lineNumber": 62
+        },
+        {
+          "caller": "authMiddleware",
+          "callee": "res.status",
+          "lineNumber": 62
+        },
+        {
+          "caller": "authorize",
+          "callee": "res.status(401).json",
+          "lineNumber": 70
+        },
+        {
+          "caller": "authorize",
+          "callee": "res.status",
+          "lineNumber": 70
+        },
+        {
+          "caller": "authorize",
+          "callee": "allowedRoles.includes",
+          "lineNumber": 75
+        },
+        {
+          "caller": "authorize",
+          "callee": "res.status(403).json",
+          "lineNumber": 76
+        },
+        {
+          "caller": "authorize",
+          "callee": "res.status",
+          "lineNumber": 76
+        },
+        {
+          "caller": "authorize",
+          "callee": "next",
+          "lineNumber": 79
+        },
+        {
+          "caller": "execWithTimeout",
+          "callee": "exec",
+          "lineNumber": 292
+        },
+        {
+          "caller": "execWithTimeout",
+          "callee": "reject",
+          "lineNumber": 294
+        },
+        {
+          "caller": "execWithTimeout",
+          "callee": "resolve",
+          "lineNumber": 296
+        },
+        {
+          "caller": "extract",
+          "callee": "html.match",
+          "lineNumber": 318
+        },
+        {
+          "caller": "extract",
+          "callee": "m[1].trim",
+          "lineNumber": 319
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "load_excel_demo.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "load_excel_example",
+          "startLine": 6,
+          "endLine": 23,
+          "params": [
+            "file_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "load_excel_example",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 7
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "os.path.basename",
+          "lineNumber": 7
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "pd.read_excel",
+          "lineNumber": 11
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 12
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 13
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "df.head",
+          "lineNumber": 13
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 15
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 16
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "df.columns.tolist",
+          "lineNumber": 16
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "pd.read_excel",
+          "lineNumber": 19
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "list",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "all_sheets.keys",
+          "lineNumber": 20
+        },
+        {
+          "caller": "load_excel_example",
+          "callee": "print",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/handlers.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "handle_request",
+          "startLine": 6,
+          "endLine": 26,
+          "params": [
+            "input_data",
+            "metadata"
+          ]
+        },
+        {
+          "name": "_call_openai",
+          "startLine": 29,
+          "endLine": 63,
+          "params": [
+            "input_data",
+            "metadata"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "handle_request",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "_call_openai",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "handle_request",
+          "callee": "os.getenv(\"MCP_BACKEND\", \"\").lower",
+          "lineNumber": 13
+        },
+        {
+          "caller": "handle_request",
+          "callee": "os.getenv",
+          "lineNumber": 13
+        },
+        {
+          "caller": "handle_request",
+          "callee": "os.getenv",
+          "lineNumber": 14
+        },
+        {
+          "caller": "handle_request",
+          "callee": "_call_openai",
+          "lineNumber": 16
+        },
+        {
+          "caller": "handle_request",
+          "callee": "asyncio.sleep",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_call_openai",
+          "callee": "RuntimeError",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_call_openai",
+          "callee": "os.getenv",
+          "lineNumber": 41
+        },
+        {
+          "caller": "_call_openai",
+          "callee": "input_data.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_call_openai",
+          "callee": "input_data.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_call_openai",
+          "callee": "str",
+          "lineNumber": 45
+        },
+        {
+          "caller": "sync_call",
+          "callee": "openai.ChatCompletion.create",
+          "lineNumber": 49
+        },
+        {
+          "caller": "sync_call",
+          "callee": "os.getenv",
+          "lineNumber": 50
+        },
+        {
+          "caller": "sync_call",
+          "callee": "float",
+          "lineNumber": 52
+        },
+        {
+          "caller": "sync_call",
+          "callee": "os.getenv",
+          "lineNumber": 52
+        },
+        {
+          "caller": "sync_call",
+          "callee": "getattr",
+          "lineNumber": 55
+        },
+        {
+          "caller": "sync_call",
+          "callee": "resp.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "sync_call",
+          "callee": "choices[0].get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "sync_call",
+          "callee": "choices[0].get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "sync_call",
+          "callee": "msg.get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "sync_call",
+          "callee": "isinstance",
+          "lineNumber": 58
+        },
+        {
+          "caller": "sync_call",
+          "callee": "resp.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_call_openai",
+          "callee": "asyncio.to_thread",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mcp_server/main.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "verify_api_key",
+          "startLine": 19,
+          "endLine": 35,
+          "params": [
+            "x_api_key"
+          ]
+        },
+        {
+          "name": "health",
+          "startLine": 39,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "mcp_requests",
+          "startLine": 44,
+          "endLine": 52,
+          "params": [
+            "req",
+            "authorized"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "MCPRequest",
+          "startLine": 14,
+          "endLine": 16,
+          "methods": [],
+          "properties": [
+            "input",
+            "metadata"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MCPRequest",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "verify_api_key",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "health",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "mcp_requests",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "verify_api_key",
+          "callee": "Header",
+          "lineNumber": 19
+        },
+        {
+          "caller": "verify_api_key",
+          "callee": "os.getenv",
+          "lineNumber": 25
+        },
+        {
+          "caller": "verify_api_key",
+          "callee": "HTTPException",
+          "lineNumber": 27
+        },
+        {
+          "caller": "verify_api_key",
+          "callee": "HTTPException",
+          "lineNumber": 32
+        },
+        {
+          "caller": "mcp_requests",
+          "callee": "Depends",
+          "lineNumber": 45
+        },
+        {
+          "caller": "mcp_requests",
+          "callee": "handle_request",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 37,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "Minimal MCP Server",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "mcp_server/requirements.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "metrics": {}
+    },
+    {
+      "path": "reports/Evaluation_Puzzle Quest Mobile_20260515.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 39,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "Analysis Report: Puzzle Quest Mobile",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Raw Data Analysis",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Scorecard",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Research Insights",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Key Findings",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Action Items",
+          "level": 2,
+          "line": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "task-dashboard/eslint.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/App.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/App.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "AppContent",
+          "startLine": 34,
+          "endLine": 84,
+          "params": []
+        },
+        {
+          "name": "App",
+          "startLine": 86,
+          "endLine": 92,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AppContent",
+          "callee": "useApp",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AppContent",
+          "callee": "useAuth",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/auth/LoginForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "LoginForm",
+          "startLine": 4,
+          "endLine": 60,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LoginForm",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LoginForm",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "LoginForm",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "LoginForm",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "LoginForm",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "LoginForm",
+          "callee": "useAuth",
+          "lineNumber": 9
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 12
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 13
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setLoading",
+          "lineNumber": 14
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "login",
+          "lineNumber": 17
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 19
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setLoading",
+          "lineNumber": 21
+        },
+        {
+          "caller": "LoginForm",
+          "callee": "setEmail",
+          "lineNumber": 36
+        },
+        {
+          "caller": "LoginForm",
+          "callee": "setPassword",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/auth/RegisterForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "RegisterForm",
+          "startLine": 4,
+          "endLine": 89,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RegisterForm",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RegisterForm",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "useAuth",
+          "lineNumber": 11
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 14
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 15
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setLoading",
+          "lineNumber": 16
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "register",
+          "lineNumber": 19
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 21
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setLoading",
+          "lineNumber": 23
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "setName",
+          "lineNumber": 38
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "setEmail",
+          "lineNumber": 50
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "setPassword",
+          "lineNumber": 62
+        },
+        {
+          "caller": "RegisterForm",
+          "callee": "setRole",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/auth/UserManagementPage.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 79,
+      "nonEmptyLines": 66,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 174,
+      "nonEmptyLines": 163,
+      "functions": [
+        {
+          "name": "UserManagementPage",
+          "startLine": 11,
+          "endLine": 174,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserManagementPage",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "UserManagementPage",
+          "callee": "useAuth",
+          "lineNumber": 12
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "useEffect",
+          "lineNumber": 17
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "fetchUsers",
+          "lineNumber": 18
+        },
+        {
+          "caller": "fetchUsers",
+          "callee": "setLoading",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fetchUsers",
+          "callee": "authService.getUsers",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fetchUsers",
+          "callee": "setUsers",
+          "lineNumber": 25
+        },
+        {
+          "caller": "fetchUsers",
+          "callee": "setError",
+          "lineNumber": 26
+        },
+        {
+          "caller": "fetchUsers",
+          "callee": "setError",
+          "lineNumber": 28
+        },
+        {
+          "caller": "fetchUsers",
+          "callee": "setLoading",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleUpdateRole",
+          "callee": "authService.updateUserRole",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleUpdateRole",
+          "callee": "setUsers",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleUpdateRole",
+          "callee": "users.map",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleUpdateRole",
+          "callee": "alert",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handleDeleteUser",
+          "callee": "alert",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleDeleteUser",
+          "callee": "confirm",
+          "lineNumber": 49
+        },
+        {
+          "caller": "handleDeleteUser",
+          "callee": "authService.deleteUser",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleDeleteUser",
+          "callee": "setUsers",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handleDeleteUser",
+          "callee": "users.filter",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handleDeleteUser",
+          "callee": "alert",
+          "lineNumber": 57
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "users.map",
+          "lineNumber": 124
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "handleUpdateRole",
+          "lineNumber": 143
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "ROLES.map",
+          "lineNumber": 146
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "new Date(user.joinedAt).toLocaleDateString",
+          "lineNumber": 153
+        },
+        {
+          "caller": "UserManagementPage",
+          "callee": "handleDeleteUser",
+          "lineNumber": 158
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/calendar/CalendarPage.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 177,
+      "nonEmptyLines": 152,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 210,
+      "nonEmptyLines": 191,
+      "functions": [
+        {
+          "name": "CalendarPage",
+          "startLine": 9,
+          "endLine": 210,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CalendarPage",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CalendarPage",
+          "callee": "useApp",
+          "lineNumber": 10
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "currentDate.getFullYear",
+          "lineNumber": 18
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "currentDate.getMonth",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "useMemo",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "getMonthCalendarDays",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "useMemo",
+          "lineNumber": 23
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "tasks.forEach",
+          "lineNumber": 25
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "map.has",
+          "lineNumber": 28
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "map.set",
+          "lineNumber": 28
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "map.get(dateKey)!.push",
+          "lineNumber": 29
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "map.get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "prevMonth",
+          "callee": "setCurrentDate",
+          "lineNumber": 35
+        },
+        {
+          "caller": "nextMonth",
+          "callee": "setCurrentDate",
+          "lineNumber": 39
+        },
+        {
+          "caller": "goToToday",
+          "callee": "setCurrentDate",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handleDragStart",
+          "callee": "e.dataTransfer.setData",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleDragOver",
+          "callee": "e.preventDefault",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleDragOver",
+          "callee": "e.currentTarget.classList.add",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleDragLeave",
+          "callee": "e.currentTarget.classList.remove",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleDrop",
+          "callee": "e.preventDefault",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handleDrop",
+          "callee": "e.currentTarget.classList.remove",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleDrop",
+          "callee": "e.dataTransfer.getData",
+          "lineNumber": 64
+        },
+        {
+          "caller": "handleDrop",
+          "callee": "tasks.find",
+          "lineNumber": 67
+        },
+        {
+          "caller": "handleDrop",
+          "callee": "dispatch",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleDayClick",
+          "callee": "setSelectedDate",
+          "lineNumber": 77
+        },
+        {
+          "caller": "handleDayClick",
+          "callee": "setShowAddModal",
+          "lineNumber": 78
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setSelectedDate",
+          "lineNumber": 103
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setShowAddModal",
+          "lineNumber": 104
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].map",
+          "lineNumber": 126
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "days.map",
+          "lineNumber": 133
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "day.toISOString().split",
+          "lineNumber": 134
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "day.toISOString",
+          "lineNumber": 134
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "day.getMonth",
+          "lineNumber": 135
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "isSameDay",
+          "lineNumber": 136
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "tasksByDate.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "handleDrop",
+          "lineNumber": 145
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "(e.target as HTMLElement).closest",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "handleDayClick",
+          "lineNumber": 149
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "day.getDate",
+          "lineNumber": 153
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "dayTasks.map",
+          "lineNumber": 159
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "task.priority.toLowerCase",
+          "lineNumber": 162
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "handleDragStart",
+          "lineNumber": 164
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "e.stopPropagation",
+          "lineNumber": 166
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setEditTask",
+          "lineNumber": 167
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setShowAddModal",
+          "lineNumber": 186
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setEditTask",
+          "lineNumber": 187
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setSelectedDate",
+          "lineNumber": 188
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "dispatch",
+          "lineNumber": 191
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "dispatch",
+          "lineNumber": 192
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setShowAddModal",
+          "lineNumber": 193
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setEditTask",
+          "lineNumber": 194
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setSelectedDate",
+          "lineNumber": 195
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "confirm",
+          "lineNumber": 200
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "dispatch",
+          "lineNumber": 201
+        },
+        {
+          "caller": "CalendarPage",
+          "callee": "setEditTask",
+          "lineNumber": 202
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/common/Common.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 419,
+      "nonEmptyLines": 370,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 34,
+      "classes": [
+        {
+          "name": "ErrorBoundary",
+          "startLine": 13,
+          "endLine": 40,
+          "methods": [
+            "getDerivedStateFromError",
+            "componentDidCatch",
+            "render"
+          ],
+          "properties": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ErrorBoundary",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "componentDidCatch",
+          "callee": "console.error",
+          "lineNumber": 21
+        },
+        {
+          "caller": "render",
+          "callee": "this.setState",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/common/index.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 149,
+      "nonEmptyLines": 135,
+      "functions": [
+        {
+          "name": "Button",
+          "startLine": 18,
+          "endLine": 41,
+          "params": [
+            "{\r\n  children,\r\n  variant = 'secondary',\r\n  size = 'md',\r\n  onClick,\r\n  type = 'button',\r\n  disabled,\r\n  className = '',\r\n  title,\r\n  style,\r\n}"
+          ]
+        },
+        {
+          "name": "Badge",
+          "startLine": 51,
+          "endLine": 57,
+          "params": [
+            "{ children, variant = '', className = '', style }"
+          ]
+        },
+        {
+          "name": "Avatar",
+          "startLine": 67,
+          "endLine": 77,
+          "params": [
+            "{ initials, color, size = 'md', title }"
+          ]
+        },
+        {
+          "name": "Modal",
+          "startLine": 88,
+          "endLine": 111,
+          "params": [
+            "{ isOpen, onClose, title, children, footer }"
+          ]
+        },
+        {
+          "name": "WeightDots",
+          "startLine": 119,
+          "endLine": 127,
+          "params": [
+            "{ weight, max = 5 }"
+          ]
+        },
+        {
+          "name": "EmptyState",
+          "startLine": 137,
+          "endLine": 146,
+          "params": [
+            "{ icon, title, description, action }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Button",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "Badge",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "Avatar",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "Modal",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "WeightDots",
+          "line": 119,
+          "isDefault": false
+        },
+        {
+          "name": "EmptyState",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "TaskFormModal",
+          "line": 148,
+          "isDefault": false
+        },
+        {
+          "name": "ProjectModal",
+          "line": 149,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Modal",
+          "callee": "createPortal",
+          "lineNumber": 91
+        },
+        {
+          "caller": "Modal",
+          "callee": "onClose",
+          "lineNumber": 95
+        },
+        {
+          "caller": "WeightDots",
+          "callee": "Array.from({ length: max }).map",
+          "lineNumber": 122
+        },
+        {
+          "caller": "WeightDots",
+          "callee": "Array.from",
+          "lineNumber": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 8,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/common/PageHelp.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "metrics": {}
+    },
+    {
+      "path": "task-dashboard/src/components/common/PageHelp.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "PageHelp",
+          "startLine": 5,
+          "endLine": 30,
+          "params": [
+            "{\r\n  title,\r\n  children,\r\n  buttonLabel = '❓ Hướng dẫn',\r\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PageHelp",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "PageHelp",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "PageHelp",
+          "callee": "setOpen",
+          "lineNumber": 17
+        },
+        {
+          "caller": "PageHelp",
+          "callee": "setOpen",
+          "lineNumber": 22
+        },
+        {
+          "caller": "PageHelp",
+          "callee": "setOpen",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/common/ProjectModal.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 121,
+      "functions": [
+        {
+          "name": "ProjectModal",
+          "startLine": 27,
+          "endLine": 127,
+          "params": [
+            "{ isOpen, project, onClose, onSave }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProjectModal",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ProjectModal",
+          "callee": "useState",
+          "lineNumber": 28
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "useEffect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setName",
+          "lineNumber": 35
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setPlatform",
+          "lineNumber": 36
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setGenre",
+          "lineNumber": 37
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setColor",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "name.trim",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onSave",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "uuid().slice",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "uuid",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "name.trim",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "genre.trim",
+          "lineNumber": 48
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "new Date().toISOString().split",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "new Date().toISOString",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setName",
+          "lineNumber": 75
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setPlatform",
+          "lineNumber": 86
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "PLATFORMS.map",
+          "lineNumber": 88
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setGenre",
+          "lineNumber": 100
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "COLORS.map",
+          "lineNumber": 108
+        },
+        {
+          "caller": "ProjectModal",
+          "callee": "setColor",
+          "lineNumber": 111
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 254,
+      "nonEmptyLines": 239,
+      "functions": [
+        {
+          "name": "TaskDetailsModal",
+          "startLine": 14,
+          "endLine": 254,
+          "params": [
+            "{\n  isOpen,\n  task,\n  onClose,\n  members,\n  projects,\n  statuses,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TaskDetailsModal",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "useMemo",
+          "lineNumber": 22
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "members.find",
+          "lineNumber": 23
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "useMemo",
+          "lineNumber": 27
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "projects.find",
+          "lineNumber": 28
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "useMemo",
+          "lineNumber": 32
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "statuses.find",
+          "lineNumber": 33
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "task.tags.map",
+          "lineNumber": 72
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "task.priority.toLowerCase",
+          "lineNumber": 97
+        },
+        {
+          "caller": "TaskDetailsModal",
+          "callee": "/^https?:\\/\\//.test",
+          "lineNumber": 172
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "task-dashboard/src/components/common/TaskFormModal.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 341,
+      "nonEmptyLines": 326,
+      "functions": [
+        {
+          "name": "TaskFormModal",
+          "startLine": 300,
+          "endLine": 341,
+          "params": [
+            "{\n  isOpen,\n  task,\n  onClose,\n  onSave,\n  onDelete,\n  defaultProjectId,\n  defaultDeadline,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TaskFormModal",
+          "line": 300,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "handleSubmit",
+          "callee": "title.trim",
+          "lineNumber": 53
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onSave",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "uuid().slice",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "uuid",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "title.trim",
+          "lineNumber": 60
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "description.trim",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "new Date().toISOString",
+          "lineNumber": 68
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "new Date().toISOString",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "tags\n          .split(',')\n          .map((t) => t.trim())\n          .filter",
+          "lineNumber": 71
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "tags\n          .split(',')\n          .map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "tags\n          .split",
+          "lineNumber": 71
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "t.trim",
+          "lineNumber": 73
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "result.trim",
+          "lineNumber": 75
+        },
+        {
+          "caller": "TaskFormModal",
+          "callee": "useRef",
+          "lineNumber": 309
+        },
+        {
+          "caller": "TaskFormModal",
+          "callee": "formRef.current?.submit",
+          "lineNumber": 325
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

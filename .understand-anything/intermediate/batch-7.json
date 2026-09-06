@@ -1,0 +1,47 @@
+{
+  "nodes": [
+    {
+      "id": "document:backend/CODE_RE_ANALYSIS.md",
+      "type": "document",
+      "name": "CODE_RE_ANALYSIS.md",
+      "filePath": "backend/CODE_RE_ANALYSIS.md",
+      "summary": "Analysis report specific to the backend codebase architecture.",
+      "tags": ["documentation", "analysis", "backend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:backend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/README.md",
+      "summary": "Overview and setup instructions for the backend service.",
+      "tags": ["documentation", "backend", "readme"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Backend service package configuration and dependencies.",
+      "tags": ["configuration", "backend", "build-system"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:backend/README.md",
+      "target": "config:backend/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/src/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

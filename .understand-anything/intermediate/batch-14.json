@@ -1,0 +1,68 @@
+{
+  "nodes": [
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Battle_of_Balls_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md",
+      "summary": "AI evaluation report for 'Battle of Balls', covering project overview, quality scorecard, SWOT analysis, and strategic insights.",
+      "tags": ["documentation", "game-evaluation", "swot-analysis", "market-research"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "type": "document",
+      "name": "Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "summary": "AI evaluation report for 'Càn Quét Tam Quốc', analyzing social features, achievements, and SWOT components.",
+      "tags": ["documentation", "game-evaluation", "swot-analysis", "social-features"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Game_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Game_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Game_20260519.md",
+      "summary": "AI evaluation report for a general game project, focusing on core loop, graphics, monetization, and retention.",
+      "tags": ["documentation", "game-evaluation", "core-loop", "monetization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "type": "document",
+      "name": "Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "summary": "AI evaluation report for 'HLV Đỉnh Cao', detailing player and coach recruitment features, community features, and SWOT.",
+      "tags": ["documentation", "game-evaluation", "sports-game", "swot-analysis"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md",
+      "type": "document",
+      "name": "Evaluation_POKEMON_REWORK_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md",
+      "summary": "AI evaluation report for 'Pokemon Rework', covering mobile OS compatibility, community engagement, and strategic action items.",
+      "tags": ["documentation", "game-evaluation", "pokemon", "market-analysis"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Solo_LevelingArise_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md",
+      "summary": "AI evaluation report for 'Solo Leveling: Arise', analyzing attributes, professions, weapons, and story elements.",
+      "tags": ["documentation", "game-evaluation", "solo-leveling", "rpg-analysis"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Ultimate_Football_Club_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md",
+      "summary": "Extensive AI evaluation report for 'Ultimate Football Club', covering IP, market fit, gameplay depth, graphics, and monetization.",
+      "tags": ["documentation", "game-evaluation", "football-game", "monetization", "market-fit"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": []
+}

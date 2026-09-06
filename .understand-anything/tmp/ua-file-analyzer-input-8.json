@@ -1,0 +1,23 @@
+{
+  "projectRoot": "C:\\Users\\Admin\\Desktop\\agent AI\\workflow-nhan",
+  "batchFiles": [
+    {"path": "task-dashboard/README.md", "language": "markdown", "sizeLines": 73, "fileCategory": "docs"},
+    {"path": "task-dashboard/index.html", "language": "html", "sizeLines": 13, "fileCategory": "markup"},
+    {"path": "task-dashboard/lighthouse-report.json", "language": "json", "sizeLines": 13945, "fileCategory": "config"},
+    {"path": "task-dashboard/package.json", "language": "json", "sizeLines": 43, "fileCategory": "config"},
+    {"path": "task-dashboard/tsconfig.app.json", "language": "json", "sizeLines": 25, "fileCategory": "config"},
+    {"path": "task-dashboard/tsconfig.json", "language": "json", "sizeLines": 7, "fileCategory": "config"},
+    {"path": "task-dashboard/tsconfig.node.json", "language": "json", "sizeLines": 24, "fileCategory": "config"},
+    {"path": "task-dashboard/vercel.json", "language": "json", "sizeLines": 9, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "task-dashboard/README.md": [],
+    "task-dashboard/index.html": [],
+    "task-dashboard/lighthouse-report.json": [],
+    "task-dashboard/package.json": [],
+    "task-dashboard/tsconfig.app.json": [],
+    "task-dashboard/tsconfig.json": [],
+    "task-dashboard/tsconfig.node.json": [],
+    "task-dashboard/vercel.json": []
+  }
+}

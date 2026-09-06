@@ -7,7 +7,18 @@ import { getInitials } from '../../utils';
 import type { Project, Member } from '../../types';
 import './SetupPage.css';
 
-const COLORS = ['#ff6b35', '#00c48c', '#3b82f6', '#ffb830', '#e74c8b', '#8b5cf6', '#ef4444', '#06b6d4', '#84cc16', '#f97316'];
+const COLORS = [
+  '#ff6b35',
+  '#00c48c',
+  '#3b82f6',
+  '#ffb830',
+  '#e74c8b',
+  '#8b5cf6',
+  '#ef4444',
+  '#06b6d4',
+  '#84cc16',
+  '#f97316',
+];
 
 export function SetupPage() {
   return (
@@ -47,22 +58,35 @@ function ProjectsSection() {
     <div className="setup-section">
       <div className="setup-section__header">
         <h3>📁 Dự án ({state.data.projects.length})</h3>
-        <Button variant="primary" size="sm" onClick={() => setShowAdd(true)}>+ Thêm</Button>
+        <Button variant="primary" size="sm" onClick={() => setShowAdd(true)}>
+          + Thêm
+        </Button>
       </div>
       <div className="setup-section__body">
         <div className="editable-list">
-          {state.data.projects.map(proj => (
+          {state.data.projects.map((proj) => (
             <div key={proj.id} className="editable-list__item">
               <div className="editable-list__color-dot" style={{ background: proj.color }} />
               <div className="editable-list__item-info">
                 <div className="editable-list__item-name">{proj.name}</div>
-                <div className="editable-list__item-meta">{proj.platform} · {proj.genre} · {proj.status}</div>
+                <div className="editable-list__item-meta">
+                  {proj.platform} · {proj.genre} · {proj.status}
+                </div>
               </div>
               <div className="editable-list__item-actions">
-                <Button variant="ghost" size="sm" onClick={() => setEditProject(proj)}>✏️</Button>
-                <Button variant="ghost" size="sm" onClick={() => {
-                  if (confirm(`Xóa dự án "${proj.name}"?`)) dispatch({ type: 'DELETE_PROJECT', payload: proj.id });
-                }}>🗑️</Button>
+                <Button variant="ghost" size="sm" onClick={() => setEditProject(proj)}>
+                  ✏️
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    if (confirm(`Xóa dự án "${proj.name}"?`))
+                      dispatch({ type: 'DELETE_PROJECT', payload: proj.id });
+                  }}
+                >
+                  🗑️
+                </Button>
               </div>
             </div>
           ))}
@@ -72,11 +96,15 @@ function ProjectsSection() {
       <ProjectModal
         isOpen={showAdd || !!editProject}
         project={editProject}
-        onClose={() => { setShowAdd(false); setEditProject(null); }}
+        onClose={() => {
+          setShowAdd(false);
+          setEditProject(null);
+        }}
         onSave={(p) => {
           if (editProject) dispatch({ type: 'UPDATE_PROJECT', payload: p });
           else dispatch({ type: 'ADD_PROJECT', payload: p });
-          setShowAdd(false); setEditProject(null);
+          setShowAdd(false);
+          setEditProject(null);
         }}
       />
     </div>
@@ -93,11 +121,13 @@ function MembersSection() {
     <div className="setup-section">
       <div className="setup-section__header">
         <h3>👥 Nhân sự ({state.data.members.length})</h3>
-        <Button variant="primary" size="sm" onClick={() => setShowAdd(true)}>+ Thêm</Button>
+        <Button variant="primary" size="sm" onClick={() => setShowAdd(true)}>
+          + Thêm
+        </Button>
       </div>
       <div className="setup-section__body">
         <div className="editable-list">
-          {state.data.members.map(mem => (
+          {state.data.members.map((mem) => (
             <div key={mem.id} className="editable-list__item">
               <Avatar initials={mem.initials} color={mem.avatarColor} />
               <div className="editable-list__item-info">
@@ -105,10 +135,19 @@ function MembersSection() {
                 <div className="editable-list__item-meta">{mem.role}</div>
               </div>
               <div className="editable-list__item-actions">
-                <Button variant="ghost" size="sm" onClick={() => setEditMember(mem)}>✏️</Button>
-                <Button variant="ghost" size="sm" onClick={() => {
-                  if (confirm(`Xóa nhân sự "${mem.name}"?`)) dispatch({ type: 'DELETE_MEMBER', payload: mem.id });
-                }}>🗑️</Button>
+                <Button variant="ghost" size="sm" onClick={() => setEditMember(mem)}>
+                  ✏️
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    if (confirm(`Xóa nhân sự "${mem.name}"?`))
+                      dispatch({ type: 'DELETE_MEMBER', payload: mem.id });
+                  }}
+                >
+                  🗑️
+                </Button>
               </div>
             </div>
           ))}
@@ -118,18 +157,32 @@ function MembersSection() {
       <MemberModal
         isOpen={showAdd || !!editMember}
         member={editMember}
-        onClose={() => { setShowAdd(false); setEditMember(null); }}
+        onClose={() => {
+          setShowAdd(false);
+          setEditMember(null);
+        }}
         onSave={(m) => {
           if (editMember) dispatch({ type: 'UPDATE_MEMBER', payload: m });
           else dispatch({ type: 'ADD_MEMBER', payload: m });
-          setShowAdd(false); setEditMember(null);
+          setShowAdd(false);
+          setEditMember(null);
         }}
       />
     </div>
   );
 }
 
-function MemberModal({ isOpen, member, onClose, onSave }: { isOpen: boolean; member: Member | null; onClose: () => void; onSave: (m: Member) => void }) {
+function MemberModal({
+  isOpen,
+  member,
+  onClose,
+  onSave,
+}: {
+  isOpen: boolean;
+  member: Member | null;
+  onClose: () => void;
+  onSave: (m: Member) => void;
+}) {
   const [name, setName] = useState(member?.name || '');
   const [role, setRole] = useState(member?.role || '');
   const [color, setColor] = useState(member?.avatarColor || COLORS[0]);
@@ -152,28 +205,55 @@ function MemberModal({ isOpen, member, onClose, onSave }: { isOpen: boolean; mem
       isOpen={isOpen}
       onClose={onClose}
       title={member ? 'Sửa nhân sự' : 'Thêm nhân sự'}
-      footer={<><Button onClick={onClose}>Hủy</Button><div style={{ flex: 1 }} /><Button variant="primary" onClick={handleSubmit}>Lưu</Button></>}
+      footer={
+        <>
+          <Button onClick={onClose}>Hủy</Button>
+          <div style={{ flex: 1 }} />
+          <Button variant="primary" onClick={handleSubmit}>
+            Lưu
+          </Button>
+        </>
+      }
     >
       <div className="form-group">
         <label className="form-label">Họ tên</label>
-        <input className="form-input" value={name} onChange={e => setName(e.target.value)} placeholder="VD: Nhân Nguyễn" autoFocus />
+        <input
+          className="form-input"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="VD: Nhân Nguyễn"
+          autoFocus
+        />
       </div>
       <div className="form-group">
         <label className="form-label">Vai trò</label>
-        <input className="form-input" value={role} onChange={e => setRole(e.target.value)} placeholder="VD: Lead Tester, QA, Analyst" />
+        <input
+          className="form-input"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          placeholder="VD: Lead Tester, QA, Analyst"
+        />
       </div>
       <div className="form-group" style={{ marginTop: 'var(--space-2)' }}>
         <label className="form-label">Màu avatar</label>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          {COLORS.map(c => (
+          {COLORS.map((c) => (
             <div
               key={c}
               onClick={() => setColor(c)}
               style={{
-                width: 28, height: 28, borderRadius: '50%', background: c, cursor: 'pointer',
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                background: c,
+                cursor: 'pointer',
                 border: color === c ? '2px solid white' : '2px solid transparent',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '10px', fontWeight: 700, color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: 'white',
               }}
             >
               {name ? getInitials(name) : '?'}

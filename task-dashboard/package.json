@@ -12,13 +12,12 @@
     "analyze": "vite-bundle-visualizer"
   },
   "dependencies": {
-    "html2pdf.js": "^0.14.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "jszip": "^3.10.1",
-    "lucide-react": "^1.14.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.15.0",
-    "recharts": "^3.8.1",
     "uuid": "^14.0.0"
   },
   "devDependencies": {

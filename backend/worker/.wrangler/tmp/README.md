@@ -1,0 +1,1 @@
+This folder contains the built output assets for the worker "workflow-nhan-backend" generated at 2026-08-24T07:08:04.596Z.

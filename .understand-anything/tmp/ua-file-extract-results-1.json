@@ -1,0 +1,83 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 2,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/.dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "metrics": {}
+    },
+    {
+      "path": "backend/Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra",
+      "totalLines": 13,
+      "nonEmptyLines": 8,
+      "services": [
+        {
+          "name": "node",
+          "image": "node:20-alpine",
+          "ports": [
+            4000
+          ],
+          "startLine": 1,
+          "endLine": 14
+        }
+      ],
+      "steps": [
+        {
+          "name": "FROM node:20-alpine",
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "COPY package.json ./",
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "COPY prisma ./prisma/",
+          "startLine": 6,
+          "endLine": 6
+        },
+        {
+          "name": "COPY src ./src/",
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "RUN npm install --no-workspaces && npx prisma generate --schema=",
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "EXPOSE 4000",
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "CMD [\"npx\", \"tsx\", \"src/server.js\"]",
+          "startLine": 13,
+          "endLine": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "serviceCount": 1,
+        "stepCount": 8
+      }
+    }
+  ]
+}

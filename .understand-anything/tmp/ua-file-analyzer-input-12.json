@@ -1,0 +1,13 @@
+{
+  "projectRoot": "C:/Users/Admin/Desktop/agent AI/workflow-nhan",
+  "batchFiles": [
+    {"path": "understand/languages/terraform.md", "language": "markdown", "sizeLines": 38, "fileCategory": "docs"},
+    {"path": "understand/languages/typescript.md", "language": "markdown", "sizeLines": 46, "fileCategory": "docs"},
+    {"path": "understand/languages/yaml.md", "language": "markdown", "sizeLines": 35, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "understand/languages/terraform.md": [],
+    "understand/languages/typescript.md": [],
+    "understand/languages/yaml.md": []
+  }
+}

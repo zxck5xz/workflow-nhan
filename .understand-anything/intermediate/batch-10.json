@@ -1,0 +1,95 @@
+{
+  "nodes": [
+    {
+      "id": "document:understand/frameworks/django.md",
+      "type": "document",
+      "name": "django.md",
+      "filePath": "understand/frameworks/django.md",
+      "summary": "Django framework addendum providing project structure guidance and canonical file roles for code analysis.",
+      "tags": ["documentation", "framework-guide", "django", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/express.md",
+      "type": "document",
+      "name": "express.md",
+      "filePath": "understand/frameworks/express.md",
+      "summary": "Express.js framework addendum outlining typical project structures and architectural layers for analysis.",
+      "tags": ["documentation", "framework-guide", "express", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/fastapi.md",
+      "type": "document",
+      "name": "fastapi.md",
+      "filePath": "understand/frameworks/fastapi.md",
+      "summary": "FastAPI framework addendum with patterns for identifying API handlers, models, and dependency injection.",
+      "tags": ["documentation", "framework-guide", "fastapi", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/flask.md",
+      "type": "document",
+      "name": "flask.md",
+      "filePath": "understand/frameworks/flask.md",
+      "summary": "Flask framework addendum describing common patterns for small to medium scale Python web applications.",
+      "tags": ["documentation", "framework-guide", "flask", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/gin.md",
+      "type": "document",
+      "name": "gin.md",
+      "filePath": "understand/frameworks/gin.md",
+      "summary": "Gin (Go) framework addendum focusing on router setup and middleware patterns in Go projects.",
+      "tags": ["documentation", "framework-guide", "gin", "go", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/nextjs.md",
+      "type": "document",
+      "name": "nextjs.md",
+      "filePath": "understand/frameworks/nextjs.md",
+      "summary": "Next.js framework addendum covering App Router vs Pages Router structures and server-side patterns.",
+      "tags": ["documentation", "framework-guide", "nextjs", "react", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/rails.md",
+      "type": "document",
+      "name": "rails.md",
+      "filePath": "understand/frameworks/rails.md",
+      "summary": "Ruby on Rails framework addendum detailing the MVC structure and convention-over-configuration patterns.",
+      "tags": ["documentation", "framework-guide", "rails", "ruby", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/react.md",
+      "type": "document",
+      "name": "react.md",
+      "filePath": "understand/frameworks/react.md",
+      "summary": "React framework addendum providing guidance on component hierarchies, hooks, and state management patterns.",
+      "tags": ["documentation", "framework-guide", "react", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/spring.md",
+      "type": "document",
+      "name": "spring.md",
+      "filePath": "understand/frameworks/spring.md",
+      "summary": "Spring Boot framework addendum focusing on Java-based enterprise patterns and dependency injection.",
+      "tags": ["documentation", "framework-guide", "spring-boot", "java", "understand-plugin"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand/frameworks/vue.md",
+      "type": "document",
+      "name": "vue.md",
+      "filePath": "understand/frameworks/vue.md",
+      "summary": "Vue framework addendum outlining Single File Component (SFC) patterns and Composition API usage.",
+      "tags": ["documentation", "framework-guide", "vue", "understand-plugin"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

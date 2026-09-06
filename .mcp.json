@@ -8,6 +8,26 @@
       "env": {
         "PYTHONUTF8": "1"
       }
+    },
+    "understand-anything": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "understand-anything"
+      ],
+      "env": {
+        "PROJECT_ROOT": "C:/Users/Admin/Desktop/agent AI/workflow-nhan"
+      }
+    },
+    "anysearch": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.anysearch.com/mcp",
+        "--header",
+        "X-Anysearch-Client: mcp/1.0.0"
+      ]
     }
   }
 }

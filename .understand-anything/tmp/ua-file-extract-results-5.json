@@ -1,0 +1,170 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".understand-anything/intermediate/batches.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1580,
+      "nonEmptyLines": 1580,
+      "sections": [
+        {
+          "heading": "schemaVersion",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "algorithm",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "totalFiles",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "totalBatches",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "exportsByPath",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "batches",
+          "level": 1,
+          "line": 216
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".understand-anything/intermediate/domain-context.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1051,
+      "nonEmptyLines": 1051,
+      "sections": [
+        {
+          "heading": "projectRoot",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "fileCount",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "fileTree",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "entryPoints",
+          "level": 1,
+          "line": 259
+        },
+        {
+          "heading": "fileSignatures",
+          "level": 1,
+          "line": 437
+        },
+        {
+          "heading": "metadata",
+          "level": 1,
+          "line": 1029
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".understand-anything/intermediate/scan-result.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1099,
+      "nonEmptyLines": 1099,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "languages",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "frameworks",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "projectRoot",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "scriptCompleted",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "totalFiles",
+          "level": 1,
+          "line": 1068
+        },
+        {
+          "heading": "filteredByIgnore",
+          "level": 1,
+          "line": 1069
+        },
+        {
+          "heading": "estimatedComplexity",
+          "level": 1,
+          "line": 1070
+        },
+        {
+          "heading": "stats",
+          "level": 1,
+          "line": 1071
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    }
+  ]
+}

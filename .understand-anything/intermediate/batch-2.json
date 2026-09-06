@@ -1,0 +1,52 @@
+{
+  "nodes": [
+    {
+      "id": "service:task-dashboard/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "task-dashboard/Dockerfile",
+      "summary": "Multi-stage Docker build for the task-dashboard, including a builder stage and an nginx production stage.",
+      "tags": ["containerization", "infrastructure", "deployment"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:task-dashboard/Dockerfile:builder",
+      "type": "service",
+      "name": "builder",
+      "summary": "Build stage for the task-dashboard using node:24-alpine.",
+      "tags": ["service", "build-stage"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:task-dashboard/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "summary": "Production stage for the task-dashboard using nginx:alpine to serve built assets.",
+      "tags": ["service", "web-server"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:task-dashboard/Dockerfile",
+      "target": "service:task-dashboard/Dockerfile:builder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:task-dashboard/Dockerfile",
+      "target": "service:task-dashboard/Dockerfile:nginx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:task-dashboard/Dockerfile",
+      "target": "file:task-dashboard/package.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

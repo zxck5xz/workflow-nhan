@@ -15,7 +15,7 @@ export function ProjectControlPage() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [search, setSearch] = useState('');
-  
+
   const [showAddTask, setShowAddTask] = useState(false);
   const [showAddProject, setShowAddProject] = useState(false);
   const [editTask, setEditTask] = useState<Task | null>(null);
@@ -24,18 +24,20 @@ export function ProjectControlPage() {
   const filteredTasks = useMemo(() => {
     let result = [...tasks];
     if (selectedProjectId) {
-      result = result.filter(t => t.projectId === selectedProjectId);
+      result = result.filter((t) => t.projectId === selectedProjectId);
     }
     if (search) {
       const q = search.toLowerCase();
-      result = result.filter(t => t.title.toLowerCase().includes(q) || t.tags.some(tag => tag.includes(q)));
+      result = result.filter(
+        (t) => t.title.toLowerCase().includes(q) || t.tags.some((tag) => tag.includes(q)),
+      );
     }
     return result;
   }, [tasks, selectedProjectId, search]);
 
-  const selectedProject = useMemo(() => 
-    projects.find(p => p.id === selectedProjectId), 
-    [projects, selectedProjectId]
+  const selectedProject = useMemo(
+    () => projects.find((p) => p.id === selectedProjectId),
+    [projects, selectedProjectId],
   );
 
   return (
@@ -44,10 +46,17 @@ export function ProjectControlPage() {
       <aside className="pc-sidebar">
         <div className="pc-sidebar__header">
           <h3>Dự án</h3>
-          <Button variant="ghost" size="sm" onClick={() => setShowAddProject(true)} title="Thêm dự án">+</Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowAddProject(true)}
+            title="Thêm dự án"
+          >
+            +
+          </Button>
         </div>
         <div className="pc-sidebar__list">
-          <div 
+          <div
             className={`pc-sidebar__item ${!selectedProjectId ? 'active' : ''}`}
             onClick={() => setSelectedProjectId(null)}
           >
@@ -55,9 +64,9 @@ export function ProjectControlPage() {
             <span className="pc-sidebar__label">Tất cả công việc</span>
           </div>
           <div className="pc-sidebar__divider">Dự án của bạn</div>
-          {projects.map(p => (
-            <div 
-              key={p.id} 
+          {projects.map((p) => (
+            <div
+              key={p.id}
               className={`pc-sidebar__item ${selectedProjectId === p.id ? 'active' : ''}`}
               onClick={() => setSelectedProjectId(p.id)}
             >
@@ -75,7 +84,15 @@ export function ProjectControlPage() {
             <div className="pc-header__title">
               {selectedProject ? (
                 <>
-                  <Badge variant="ghost" style={{ background: `${selectedProject.color}20`, color: selectedProject.color }}>{selectedProject.platform}</Badge>
+                  <Badge
+                    variant="ghost"
+                    style={{
+                      background: `${selectedProject.color}20`,
+                      color: selectedProject.color,
+                    }}
+                  >
+                    {selectedProject.platform}
+                  </Badge>
                   <h1>{selectedProject.name}</h1>
                 </>
               ) : (
@@ -84,41 +101,64 @@ export function ProjectControlPage() {
             </div>
             <div className="pc-header__actions">
               <div className="pc-search">
-                <input 
-                  type="text" 
-                  placeholder="Tìm kiếm nhanh..." 
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm nhanh..."
                   value={search}
-                  onChange={e => setSearch(e.target.value)}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <Button variant="primary" onClick={() => setShowAddTask(true)}>+ Tạo mới</Button>
+              <Button variant="primary" onClick={() => setShowAddTask(true)}>
+                + Tạo mới
+              </Button>
               <PageHelp title="Jira-style Dashboard">
                 <h4>Quản lý dự án tập trung</h4>
-                <p>Hệ thống kết hợp danh sách, bảng Kanban và báo cáo trong một màn hình duy nhất.</p>
+                <p>
+                  Hệ thống kết hợp danh sách, bảng Kanban và báo cáo trong một màn hình duy nhất.
+                </p>
                 <ul>
-                  <li><strong>Sidebar:</strong> Chuyển đổi nhanh giữa các dự án.</li>
-                  <li><strong>List View:</strong> Quản lý chi tiết công việc dạng bảng.</li>
-                  <li><strong>Board View:</strong> Kéo thả (sắp tới) và theo dõi luồng công việc.</li>
-                  <li><strong>Overview:</strong> Thống kê nhanh hiệu suất dự án.</li>
+                  <li>
+                    <strong>Sidebar:</strong> Chuyển đổi nhanh giữa các dự án.
+                  </li>
+                  <li>
+                    <strong>List View:</strong> Quản lý chi tiết công việc dạng bảng.
+                  </li>
+                  <li>
+                    <strong>Board View:</strong> Kéo thả (sắp tới) và theo dõi luồng công việc.
+                  </li>
+                  <li>
+                    <strong>Overview:</strong> Thống kê nhanh hiệu suất dự án.
+                  </li>
                 </ul>
               </PageHelp>
             </div>
           </div>
 
           <nav className="pc-tabs">
-            <button className={viewMode === 'list' ? 'active' : ''} onClick={() => setViewMode('list')}>📋 Danh sách</button>
-            <button className={viewMode === 'board' ? 'active' : ''} onClick={() => setViewMode('board')}>🍱 Bảng (Kanban)</button>
-            <button className={viewMode === 'overview' ? 'active' : ''} onClick={() => setViewMode('overview')}>📊 Tổng quan</button>
+            <button
+              className={viewMode === 'list' ? 'active' : ''}
+              onClick={() => setViewMode('list')}
+            >
+              📋 Danh sách
+            </button>
+            <button
+              className={viewMode === 'board' ? 'active' : ''}
+              onClick={() => setViewMode('board')}
+            >
+              🍱 Bảng (Kanban)
+            </button>
+            <button
+              className={viewMode === 'overview' ? 'active' : ''}
+              onClick={() => setViewMode('overview')}
+            >
+              📊 Tổng quan
+            </button>
           </nav>
         </header>
 
         <section className="pc-content">
-          {viewMode === 'list' && (
-            <ListView tasks={filteredTasks} onEditTask={setEditTask} />
-          )}
-          {viewMode === 'board' && (
-            <BoardView tasks={filteredTasks} onEditTask={setEditTask} />
-          )}
+          {viewMode === 'list' && <ListView tasks={filteredTasks} onEditTask={setEditTask} />}
+          {viewMode === 'board' && <BoardView tasks={filteredTasks} onEditTask={setEditTask} />}
           {viewMode === 'overview' && (
             <OverviewView tasks={filteredTasks} project={selectedProject || null} />
           )}
@@ -126,28 +166,39 @@ export function ProjectControlPage() {
       </main>
 
       {/* Modals */}
-      <ProjectModal 
-        isOpen={showAddProject} 
-        project={null} 
+      <ProjectModal
+        isOpen={showAddProject}
+        project={null}
         onClose={() => setShowAddProject(false)}
-        onSave={(p) => { dispatch({ type: 'ADD_PROJECT', payload: p }); setShowAddProject(false); }}
+        onSave={(p) => {
+          dispatch({ type: 'ADD_PROJECT', payload: p });
+          setShowAddProject(false);
+        }}
       />
       <TaskFormModal
         isOpen={showAddTask || !!editTask}
         task={editTask}
         defaultProjectId={selectedProjectId || undefined}
-        onClose={() => { setShowAddTask(false); setEditTask(null); }}
+        onClose={() => {
+          setShowAddTask(false);
+          setEditTask(null);
+        }}
         onSave={(t) => {
           if (editTask) dispatch({ type: 'UPDATE_TASK', payload: t });
           else dispatch({ type: 'ADD_TASK', payload: t });
-          setShowAddTask(false); setEditTask(null);
+          setShowAddTask(false);
+          setEditTask(null);
         }}
-        onDelete={editTask ? () => {
-          if (confirm(`Xóa task "${editTask.title}"?`)) {
-            dispatch({ type: 'DELETE_TASK', payload: editTask.id });
-            setEditTask(null);
-          }
-        } : undefined}
+        onDelete={
+          editTask
+            ? () => {
+                if (confirm(`Xóa task "${editTask.title}"?`)) {
+                  dispatch({ type: 'DELETE_TASK', payload: editTask.id });
+                  setEditTask(null);
+                }
+              }
+            : undefined
+        }
       />
     </div>
   );
@@ -159,7 +210,14 @@ function ListView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task) 
   const { state } = useApp();
   const { members, statuses } = state.data;
 
-  if (tasks.length === 0) return <EmptyState icon="📝" title="Chưa có công việc" description="Bắt đầu bằng cách tạo một công việc mới." />;
+  if (tasks.length === 0)
+    return (
+      <EmptyState
+        icon="📝"
+        title="Chưa có công việc"
+        description="Bắt đầu bằng cách tạo một công việc mới."
+      />
+    );
 
   return (
     <div className="pc-view-list">
@@ -175,21 +233,42 @@ function ListView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task) 
           </tr>
         </thead>
         <tbody>
-          {tasks.map(task => {
-            const member = members.find(m => m.id === task.assigneeId);
-            const status = statuses.find(s => s.id === task.status);
+          {tasks.map((task) => {
+            const member = members.find((m) => m.id === task.assigneeId);
+            const status = statuses.find((s) => s.id === task.status);
             return (
               <tr key={task.id} className={isOverdue(task) ? 'task-row--overdue' : ''}>
                 <td>
-                  <span className="pc-task-title" onClick={() => onEditTask(task)}>{task.title}</span>
+                  <span className="pc-task-title" onClick={() => onEditTask(task)}>
+                    {task.title}
+                  </span>
                 </td>
                 <td>
-                  {member && <div className="assignee-cell"><Avatar initials={member.initials} color={member.avatarColor} size="sm" /> <span>{member.name}</span></div>}
+                  {member && (
+                    <div className="assignee-cell">
+                      <Avatar initials={member.initials} color={member.avatarColor} size="sm" />{' '}
+                      <span>{member.name}</span>
+                    </div>
+                  )}
                 </td>
-                <td><Badge variant={task.priority.toLowerCase()}>{task.priority}</Badge></td>
-                <td><span className={isOverdue(task) ? 'text-danger' : ''}>{formatRelativeDate(task.deadline)}</span></td>
-                <td><Badge style={{ background: `${status?.color}20`, color: status?.color }}>{status?.label}</Badge></td>
-                <td><Button variant="ghost" size="sm" onClick={() => onEditTask(task)}>✏️</Button></td>
+                <td>
+                  <Badge variant={task.priority.toLowerCase()}>{task.priority}</Badge>
+                </td>
+                <td>
+                  <span className={isOverdue(task) ? 'text-danger' : ''}>
+                    {formatRelativeDate(task.deadline)}
+                  </span>
+                </td>
+                <td>
+                  <Badge style={{ background: `${status?.color}20`, color: status?.color }}>
+                    {status?.label}
+                  </Badge>
+                </td>
+                <td>
+                  <Button variant="ghost" size="sm" onClick={() => onEditTask(task)}>
+                    ✏️
+                  </Button>
+                </td>
               </tr>
             );
           })}
@@ -205,8 +284,8 @@ function BoardView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task)
 
   return (
     <div className="pc-view-board">
-      {statuses.map(status => {
-        const columnTasks = tasks.filter(t => t.status === status.id);
+      {statuses.map((status) => {
+        const columnTasks = tasks.filter((t) => t.status === status.id);
         return (
           <div key={status.id} className="board-column">
             <div className="board-column__header">
@@ -214,15 +293,17 @@ function BoardView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task)
               <span className="count-badge">{columnTasks.length}</span>
             </div>
             <div className="board-column__body">
-              {columnTasks.map(task => {
-                const member = members.find(m => m.id === task.assigneeId);
+              {columnTasks.map((task) => {
+                const member = members.find((m) => m.id === task.assigneeId);
                 return (
                   <div key={task.id} className="board-card" onClick={() => onEditTask(task)}>
                     <div className="board-card__title">{task.title}</div>
                     <div className="board-card__footer">
                       <Badge variant={task.priority.toLowerCase()}>{task.priority}</Badge>
                       <div style={{ flex: 1 }} />
-                      {member && <Avatar initials={member.initials} color={member.avatarColor} size="xs" />}
+                      {member && (
+                        <Avatar initials={member.initials} color={member.avatarColor} size="xs" />
+                      )}
                     </div>
                   </div>
                 );
@@ -236,8 +317,8 @@ function BoardView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task)
 }
 
 function OverviewView({ tasks, project }: { tasks: Task[]; project: Project | null }) {
-  const completed = tasks.filter(t => t.status === 'done').length;
-  const overdue = tasks.filter(t => isOverdue(t)).length;
+  const completed = tasks.filter((t) => t.status === 'done').length;
+  const overdue = tasks.filter((t) => isOverdue(t)).length;
   const progress = tasks.length > 0 ? (completed / tasks.length) * 100 : 0;
 
   return (
@@ -245,22 +326,32 @@ function OverviewView({ tasks, project }: { tasks: Task[]; project: Project | nu
       <div className="overview-stats">
         <div className="stat-box">
           <label>Hoàn thành</label>
-          <div className="value">{completed}/{tasks.length}</div>
-          <div className="progress-small"><div className="fill" style={{ width: `${progress}%` }} /></div>
+          <div className="value">
+            {completed}/{tasks.length}
+          </div>
+          <div className="progress-small">
+            <div className="fill" style={{ width: `${progress}%` }} />
+          </div>
         </div>
         <div className="stat-box danger">
           <label>Trễ hạn</label>
           <div className="value">{overdue}</div>
         </div>
       </div>
-      
+
       {project && (
         <div className="project-details-card">
           <h3>Thông tin dự án</h3>
           <div className="details-grid">
-            <div className="detail-item"><label>Nền tảng:</label> <span>{project.platform}</span></div>
-            <div className="detail-item"><label>Thể loại:</label> <span>{project.genre}</span></div>
-            <div className="detail-item"><label>Ngày tạo:</label> <span>{project.createdAt}</span></div>
+            <div className="detail-item">
+              <label>Nền tảng:</label> <span>{project.platform}</span>
+            </div>
+            <div className="detail-item">
+              <label>Thể loại:</label> <span>{project.genre}</span>
+            </div>
+            <div className="detail-item">
+              <label>Ngày tạo:</label> <span>{project.createdAt}</span>
+            </div>
           </div>
         </div>
       )}

@@ -1,0 +1,27 @@
+{
+  "projectRoot": "C:/Users/Admin/Desktop/agent AI/workflow-nhan",
+  "batchFiles": [
+    {"path": "understand/frameworks/django.md", "language": "markdown", "sizeLines": 67, "fileCategory": "docs"},
+    {"path": "understand/frameworks/express.md", "language": "markdown", "sizeLines": 57, "fileCategory": "docs"},
+    {"path": "understand/frameworks/fastapi.md", "language": "markdown", "sizeLines": 58, "fileCategory": "docs"},
+    {"path": "understand/frameworks/flask.md", "language": "markdown", "sizeLines": 53, "fileCategory": "docs"},
+    {"path": "understand/frameworks/gin.md", "language": "markdown", "sizeLines": 59, "fileCategory": "docs"},
+    {"path": "understand/frameworks/nextjs.md", "language": "markdown", "sizeLines": 59, "fileCategory": "docs"},
+    {"path": "understand/frameworks/rails.md", "language": "markdown", "sizeLines": 65, "fileCategory": "docs"},
+    {"path": "understand/frameworks/react.md", "language": "markdown", "sizeLines": 55, "fileCategory": "docs"},
+    {"path": "understand/frameworks/spring.md", "language": "markdown", "sizeLines": 59, "fileCategory": "docs"},
+    {"path": "understand/frameworks/vue.md", "language": "markdown", "sizeLines": 59, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "understand/frameworks/django.md": [],
+    "understand/frameworks/express.md": [],
+    "understand/frameworks/fastapi.md": [],
+    "understand/frameworks/flask.md": [],
+    "understand/frameworks/gin.md": [],
+    "understand/frameworks/nextjs.md": [],
+    "understand/frameworks/rails.md": [],
+    "understand/frameworks/react.md": [],
+    "understand/frameworks/spring.md": [],
+    "understand/frameworks/vue.md": []
+  }
+}

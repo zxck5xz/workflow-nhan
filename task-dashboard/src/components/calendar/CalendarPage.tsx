@@ -9,7 +9,7 @@ import './CalendarPage.css';
 export function CalendarPage() {
   const { state, dispatch } = useApp();
   const { tasks } = state.data;
-  
+
   const [currentDate, setCurrentDate] = useState(new Date());
   const [editTask, setEditTask] = useState<Task | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -22,7 +22,7 @@ export function CalendarPage() {
 
   const tasksByDate = useMemo(() => {
     const map = new Map<string, Task[]>();
-    tasks.forEach(task => {
+    tasks.forEach((task) => {
       // task.deadline is YYYY-MM-DD
       const dateKey = task.deadline;
       if (!map.has(dateKey)) map.set(dateKey, []);
@@ -64,11 +64,11 @@ export function CalendarPage() {
     const taskId = e.dataTransfer.getData('taskId');
     if (!taskId) return;
 
-    const task = tasks.find(t => t.id === taskId);
+    const task = tasks.find((t) => t.id === taskId);
     if (task && task.deadline !== dateStr) {
       dispatch({
         type: 'UPDATE_TASK',
-        payload: { ...task, deadline: dateStr }
+        payload: { ...task, deadline: dateStr },
       });
     }
   };
@@ -84,19 +84,33 @@ export function CalendarPage() {
         <h1>📅 Lịch công việc</h1>
         <div className="calendar-header-actions">
           <div className="calendar-nav">
-            <Button variant="secondary" onClick={prevMonth}>◀</Button>
-            <Button variant="ghost" onClick={goToToday}>Hôm nay</Button>
-            <Button variant="secondary" onClick={nextMonth}>▶</Button>
+            <Button variant="secondary" onClick={prevMonth}>
+              ◀
+            </Button>
+            <Button variant="ghost" onClick={goToToday}>
+              Hôm nay
+            </Button>
+            <Button variant="secondary" onClick={nextMonth}>
+              ▶
+            </Button>
           </div>
           <h2 className="calendar-title">
             Tháng {month + 1}, {year}
           </h2>
-          <Button variant="primary" onClick={() => { setSelectedDate(null); setShowAddModal(true); }}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setSelectedDate(null);
+              setShowAddModal(true);
+            }}
+          >
             + Thêm công việc
           </Button>
           <PageHelp title="Hướng dẫn sử dụng - Lịch">
             <h4>Tổng quan</h4>
-            <p>Hiển thị lịch tháng và các task theo ngày. Kéo thả task để thay đổi deadline nhanh.</p>
+            <p>
+              Hiển thị lịch tháng và các task theo ngày. Kéo thả task để thay đổi deadline nhanh.
+            </p>
             <h5>Tương tác</h5>
             <ul>
               <li>Nhấn ngày để tạo task mới trên ngày đó.</li>
@@ -109,8 +123,10 @@ export function CalendarPage() {
 
       <div className="calendar-grid">
         {/* Weekday headers */}
-        {['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].map(day => (
-          <div key={day} className="calendar-day-header">{day}</div>
+        {['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].map((day) => (
+          <div key={day} className="calendar-day-header">
+            {day}
+          </div>
         ))}
 
         {/* Days */}
@@ -121,7 +137,7 @@ export function CalendarPage() {
           const dayTasks = tasksByDate.get(dateStr) || [];
 
           return (
-            <div 
+            <div
               key={`${dateStr}-${idx}`}
               className={`calendar-cell ${!isCurrentMonth ? 'calendar-cell--other-month' : ''} ${isToday ? 'calendar-cell--today' : ''}`}
               onDragOver={handleDragOver}
@@ -135,12 +151,14 @@ export function CalendarPage() {
             >
               <div className="calendar-cell__header">
                 <span className="calendar-cell__date">{day.getDate()}</span>
-                {dayTasks.length > 0 && <span className="calendar-cell__count">{dayTasks.length}</span>}
+                {dayTasks.length > 0 && (
+                  <span className="calendar-cell__count">{dayTasks.length}</span>
+                )}
               </div>
               <div className="calendar-cell__tasks">
-                {dayTasks.map(task => (
-                  <div 
-                    key={task.id} 
+                {dayTasks.map((task) => (
+                  <div
+                    key={task.id}
                     className={`calendar-task priority-${task.priority.toLowerCase()} ${task.status === 'done' ? 'calendar-task--done' : ''}`}
                     draggable
                     onDragStart={(e) => handleDragStart(e, task.id)}
@@ -161,19 +179,31 @@ export function CalendarPage() {
       {/* Add/Edit Modal */}
       <TaskFormModal
         isOpen={showAddModal || !!editTask}
-        task={editTask || (selectedDate ? { deadline: selectedDate } as Partial<Task> as Task : null)}
-        onClose={() => { setShowAddModal(false); setEditTask(null); setSelectedDate(null); }}
+        task={
+          editTask || (selectedDate ? ({ deadline: selectedDate } as Partial<Task> as Task) : null)
+        }
+        onClose={() => {
+          setShowAddModal(false);
+          setEditTask(null);
+          setSelectedDate(null);
+        }}
         onSave={(t) => {
           if (editTask) dispatch({ type: 'UPDATE_TASK', payload: t });
           else dispatch({ type: 'ADD_TASK', payload: t });
-          setShowAddModal(false); setEditTask(null); setSelectedDate(null);
+          setShowAddModal(false);
+          setEditTask(null);
+          setSelectedDate(null);
         }}
-        onDelete={editTask ? () => {
-          if (confirm(`Xóa task "${editTask.title}"?`)) {
-            dispatch({ type: 'DELETE_TASK', payload: editTask.id });
-            setEditTask(null);
-          }
-        } : undefined}
+        onDelete={
+          editTask
+            ? () => {
+                if (confirm(`Xóa task "${editTask.title}"?`)) {
+                  dispatch({ type: 'DELETE_TASK', payload: editTask.id });
+                  setEditTask(null);
+                }
+              }
+            : undefined
+        }
       />
     </div>
   );

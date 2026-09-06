@@ -1,0 +1,30 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+
+# Environment and temp folders
+.env
+.env.*
+.DS_Store
+.vercel
+.ruff_cache/
+.venv/
+__pycache__/
+
+# Tool source (nested repo)
+Understand-Anything/
+
+# Large binary/document directories
+PowerPoint/
+slide/
+doc/
+uploads/
+
+# Build outputs
+node_modules/
+dist/
+build/
+out/
+
+# Test files (optional, but keeping them for now unless asked to exclude)
+# *.test.*
+# *.spec.*

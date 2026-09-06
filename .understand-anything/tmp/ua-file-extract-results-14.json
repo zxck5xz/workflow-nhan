@@ -1,0 +1,1059 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 98,
+      "nonEmptyLines": 81,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: Battle of Balls ( 球球大作战) - Cầu Cầu Đại Tác Chiến",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.77 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "📍 SWOT - Strengh (4.3/5.0)",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "📍 SWOT - Weakness (4.3/5.0)",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "📍 SWOT - Oppotunities (4.3/5.0)",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "📍 SWOT - Threats (4.3/5.0)",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "📍 Tổng kết đánh giá (3.0/5.0)",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "📍 Cổ điển (3.5/5.0)",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "📍 Xếp hạng đỉnh cao (3.5/5.0)",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "📍 Thi đấu phổ thông (3.5/5.0)",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "📍 Chế độ giải trí (3.5/5.0)",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "📍 Chế độ huấn luyện (3.5/5.0)",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 85
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 19
+      }
+    },
+    {
+      "path": "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 85,
+      "nonEmptyLines": 69,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: CÀN QUÉT TAM QUỐC",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.58 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "📍 Socializer Features - Cộng đồng (3.5/5.0)",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "📍 Ở mức tương đối (3.5/5.0)",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "📍 Lối chơi vượt phụ bản hạn chế giao tiếp (3.5/5.0)",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "📍 Achiever Features - Thành Tựu (3.5/5.0)",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "📍 Hệ thống danh hiệu tương đối (3.5/5.0)",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "📍 Có chức năng xếp hạng cho từng tính năng (3.5/5.0)",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "📍 Strengths (Điểm mạnh) (4.3/5.0)",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "📍 Weaknesses (Điểm yếu) (3.5/5.0)",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "📍 Opportunities (Cơ hội) (3.5/5.0)",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "📍 Threats (Thách thức) (3.5/5.0)",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 72
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 19
+      }
+    },
+    {
+      "path": "Đánh giá của AI/Evaluation_Game_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 59,
+      "nonEmptyLines": 47,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: Game",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.67 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "📍 Core Loop (4.0/5.0)",
+          "level": 3,
+          "line": 25
+        },
+        {
+          "heading": "📍 Đồ họa & UI/UX (3.5/5.0)",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "📍 Mô hình kiếm tiền (2.5/5.0)",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "📍 Retention (3.5/5.0)",
+          "level": 3,
+          "line": 36
+        },
+        {
+          "heading": "📍 USP (Điểm độc đáo) (4.5/5.0)",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "📍 Điều khiển & Hiệu năng (4.0/5.0)",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 106,
+      "nonEmptyLines": 85,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: HLV ĐỈNH CAO",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.5 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "📍 Bối cảnh (3.5/5.0)",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "📍 Thẻ chiêu mộ cầu thủ (3.5/5.0)",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "📍 Thẻ chiêu mộ HLV (3.5/5.0)",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "📍 Thẻ rút phong cách (3.5/5.0)",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "📍 Thẻ rút chiến thuật (3.5/5.0)",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "📍 Gói tăng tốc đào tạo (3.5/5.0)",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "📍 Socializer Features - Cộng đồng (3.5/5.0)",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "📍 Tính năng cộng đồng chưa được đẩy mạnh (3.5/5.0)",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 59
+        },
+        {
+          "heading": "📍 Achiever Features - Thành Tựu (3.5/5.0)",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "📍 Có hệ thống BXH cho dội hình và cầu thủ (3.5/5.0)",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "📍 Có hệ thống vinh danh và hiển thị các cúp của giải đấu đạt được (3.5/5.0)",
+          "level": 3,
+          "line": 66
+        },
+        {
+          "heading": "📍 Strengths (Điểm mạnh) (4.3/5.0)",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "📍 Weaknesses (Điểm yếu) (2.7/5.0)",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "📍 Opportunities (Cơ hội) (3.5/5.0)",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "📍 Threats (Thách thức) (3.5/5.0)",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 103
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 24
+      }
+    },
+    {
+      "path": "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 79,
+      "nonEmptyLines": 64,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: POKEMON REWORK",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.59 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "📍 Hệ điều hành (Mobile) (3.5/5.0)",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "📍 Socializer Features - Cộng đồng (3.5/5.0)",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "📍 Game có độ tương tác cộng đồng tương đối ổn (3.5/5.0)",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "📍 Achiever Features - Thành Tựu (3.5/5.0)",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "📍 Hệ thống thành tựu cần đầu tư nhiều thời gian (3.5/5.0)",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "📍 Strengths (Điểm mạnh) (4.3/5.0)",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "📍 Weaknesses (Điểm yếu) (3.5/5.0)",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "📍 Opportunities (Cơ hội) (3.5/5.0)",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "📍 Threats (Thách thức) (3.5/5.0)",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 137,
+      "nonEmptyLines": 110,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: Solo Leveling:Arise (Tôi Thăng Cấp Một Mình : Trỗi Dậy)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.6 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "📍 SWOT - Strengh (4.3/5.0)",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "📍 SWOT - Weakness (3.5/5.0)",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "📍 SWOT - Oppotunities (4.3/5.0)",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "📍 SWOT - Threats (4.3/5.0)",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "📍 Tổng kết đánh giá (3.0/5.0)",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "📍 Tổng quát (3.5/5.0)",
+          "level": 3,
+          "line": 76
+        },
+        {
+          "heading": "📍 Điểm thuộc tính (3.5/5.0)",
+          "level": 3,
+          "line": 79
+        },
+        {
+          "heading": "📍 Nghề nghiệp (3.5/5.0)",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "📍 Vũ khí (3.5/5.0)",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "📍 Trang Bị (3.5/5.0)",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 92
+        },
+        {
+          "heading": "📍 Tổng quan (3.5/5.0)",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "📍 Tăng cấp - Tăng Sao (3.5/5.0)",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "📍 Vũ khí - Trang bị (3.5/5.0)",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "📍 Cốt truyện chính tuyến (3.5/5.0)",
+          "level": 3,
+          "line": 102
+        },
+        {
+          "heading": "📍 Cốt truyện Hunter (3.5/5.0)",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "📍 Tài nguyên (3.5/5.0)",
+          "level": 3,
+          "line": 108
+        },
+        {
+          "heading": "📍 Trang bị (3.5/5.0)",
+          "level": 3,
+          "line": 111
+        },
+        {
+          "heading": "📍 Sự kiện (3.5/5.0)",
+          "level": 3,
+          "line": 114
+        },
+        {
+          "heading": "📍 Hợp nhất (3.5/5.0)",
+          "level": 3,
+          "line": 117
+        },
+        {
+          "heading": "📍 Tinh chỉnh (3.5/5.0)",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 124
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 255,
+      "nonEmptyLines": 194,
+      "sections": [
+        {
+          "heading": "Báo cáo Đánh giá sản phẩm: Ultimate Football Club",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Slide 1: Tổng quan dự án",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Slide 2: Bảng điểm chất lượng (Scorecard)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Điểm trung bình: 3.7 / 5.0",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Slide 3: Phân tích Chi tiết Hạng mục (Phần 1)",
+          "level": 2,
+          "line": 73
+        },
+        {
+          "heading": "📍 Nội dung (3.5/5.0)",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "📍 1.1 Quy mô của Nhà sản xuất (3.5/5.0)",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "📍 1.2 Số năm đã phát hành (3.5/5.0)",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "📍 1.3 Sản phẩm có bản quyền IP hay không (3.5/5.0)",
+          "level": 3,
+          "line": 83
+        },
+        {
+          "heading": "📍 1.4 Số quốc gia đã phát hành (3.5/5.0)",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "📍 1.5 Rating trên store (3.5/5.0)",
+          "level": 3,
+          "line": 89
+        },
+        {
+          "heading": "📍 1.6 Total install (3.5/5.0)",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "📍 2.1 Nhận định về IP sản phẩm (3.5/5.0)",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "📍 2.2. Phù hợp với thị hiếu người Việt Nam? (3.5/5.0)",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "📍 2.3 So sánh với các game cùng nội dung tại VN (4.3/5.0)",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "📍 2.5 Cộng đồng của game ở Việt Nam như thế nào? (3.5/5.0)",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "📍 2.6 Game có đang là xu hướng hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "📍 3.1 Hệ thống hướng dẫn tân thủ có chi tiết không? (3.5/5.0)",
+          "level": 3,
+          "line": 110
+        },
+        {
+          "heading": "📍 3.2 Hệ thống nhiệm vụ có phong phú hay không? (4.3/5.0)",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "📍 3.3 Các hoạt động chơi đơn của sản phẩm có nhiều không? (3.5/5.0)",
+          "level": 3,
+          "line": 116
+        },
+        {
+          "heading": "📍 3.4 Game có nhiều hoạt động tương tác giữa người chơi với nhau hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 119
+        },
+        {
+          "heading": "📍 3.5 Mức độ phong phú của game play? (4.3/5.0)",
+          "level": 3,
+          "line": 122
+        },
+        {
+          "heading": "📍 3.6 Mức độ lôi cuốn và hấp dẫn của Gameplay (4.3/5.0)",
+          "level": 3,
+          "line": 125
+        },
+        {
+          "heading": "📍 3.7 Đánh giá mức độ khó của gameplay? (3.5/5.0)",
+          "level": 3,
+          "line": 128
+        },
+        {
+          "heading": "📍 3.8 Game có tạo được động lực để quay lại chơi hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "📍 3.9 Game đòi hỏi tốn nhiều thời gian không? (3.5/5.0)",
+          "level": 3,
+          "line": 134
+        },
+        {
+          "heading": "📍 4.1 Mức độ ấn tượng khi lần đầu tiếp xúc với sản phẩm (3.5/5.0)",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "📍 4.2 Nhận xét về tổng quan Đồ họa? (3.5/5.0)",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "📍 4.3 Mức độ phù hợp của đồ họa tại thị trường Việt Nam (3.5/5.0)",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "📍 4.4. Đồ họa của hệ thống nhân vật? (3.5/5.0)",
+          "level": 3,
+          "line": 146
+        },
+        {
+          "heading": "📍 4.5. Đồ họa của hệ thống Item? (3.5/5.0)",
+          "level": 3,
+          "line": 149
+        },
+        {
+          "heading": "📍 4.6. Hiệu ứng (nhân vật, cấp độ, trang bị, kỹ năng) trong game thể hiện? (3.5/5.0)",
+          "level": 3,
+          "line": 152
+        },
+        {
+          "heading": "📍 4.7. Đồ họa của kiến trúc nhà cửa, thiên nhiên…? (3.5/5.0)",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "Slide 4: Phân tích Chi tiết Hạng mục (Phần 2)",
+          "level": 2,
+          "line": 159
+        },
+        {
+          "heading": "📍 4.8 Yêu cầu về cấu hình thiết bị (3.5/5.0)",
+          "level": 3,
+          "line": 160
+        },
+        {
+          "heading": "📍 4.9 Hao pin nóng máy khi chơi game (3.5/5.0)",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "📍 5.1 Nhận định về nhạc nền? (4.3/5.0)",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "📍 5.2 Nhận định về âm thanh khi tham gia vào trận đấu? (4.3/5.0)",
+          "level": 3,
+          "line": 169
+        },
+        {
+          "heading": "📍 5.3 Nhận định về âm thanh; lắp đặt trang bị, nâng cấp, mua bán…? (4.3/5.0)",
+          "level": 3,
+          "line": 172
+        },
+        {
+          "heading": "📍 5.4 Chất lượng âm thanh của voice chat có tốt không ? (3.5/5.0)",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "📍 6.1 Game có nhiều loại tiền tệ hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 178
+        },
+        {
+          "heading": "📍 6.2 Sẽ ra sao nếu ko nạp tiền mà vẫn muốn tiếp tục chơi game? (3.5/5.0)",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "📍 6.3. Cảm giác chơi game sau khi nạp tiền thì thế nào? (3.5/5.0)",
+          "level": 3,
+          "line": 184
+        },
+        {
+          "heading": "📍 6.4. Có thể buôn bán trao đổi giữa ng chơi vs nhau ? (3.5/5.0)",
+          "level": 3,
+          "line": 187
+        },
+        {
+          "heading": "📍 6.5 Game có nhiều sự kiện kích thích tiêu dùng hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 190
+        },
+        {
+          "heading": "📍 7.1 Chủng loại trang bị, vật phẩm có phong phú? (3.5/5.0)",
+          "level": 3,
+          "line": 193
+        },
+        {
+          "heading": "📍 7.2 Hệ thống nâng cấp vật phẩm có phong phú không ? (3.5/5.0)",
+          "level": 3,
+          "line": 196
+        },
+        {
+          "heading": "📍 7.3 Ấn tượng về thiết kế của trang bị, vật phẩm game khi tham gia chơi (4.3/5.0)",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "📍 7.4 Tính năng hiển thị, xem thông tin trang bị của người chơi khác có chi tiết? (4.3/5.0)",
+          "level": 3,
+          "line": 202
+        },
+        {
+          "heading": "📍 8.1 Vật phẩm trong Cashshop có phong phú và đa dạng hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 205
+        },
+        {
+          "heading": "📍 8.2 Các hình thức và tính năng thu phí có nhiều hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 208
+        },
+        {
+          "heading": "📍 8.3 Các sự kiện giảm giá , kích thích tiêu dùng ở cash shop có phong phú hay ko? (3.5/5.0)",
+          "level": 3,
+          "line": 211
+        },
+        {
+          "heading": "📍 8.4 Game có tính năng mua tặng đồ hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 214
+        },
+        {
+          "heading": "📍 8.5 UI/UX của cash shop như thế nào? (4.3/5.0)",
+          "level": 3,
+          "line": 217
+        },
+        {
+          "heading": "📍 9.1 Hệ thống tán gẫu trong game có đa dạng và đầy đủ hay không? (4.3/5.0)",
+          "level": 3,
+          "line": 220
+        },
+        {
+          "heading": "📍 9.2 Tính thuận tiện trong khi sử dụng \"Hệ thống tán gẫu\" có tốt không? (4.3/5.0)",
+          "level": 3,
+          "line": 223
+        },
+        {
+          "heading": "📍 9.3 Có voice chat hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 226
+        },
+        {
+          "heading": "📍 9.4 Tính năng mạng xã hội có hay không? (3.5/5.0)",
+          "level": 3,
+          "line": 229
+        },
+        {
+          "heading": "📍 9.5 Hệ thống tán gẫu được hiển thị có tốt hay không? (4.3/5.0)",
+          "level": 3,
+          "line": 232
+        },
+        {
+          "heading": "📍 9.6 Tính năng ranking hiển thị như thế nào? (4.3/5.0)",
+          "level": 3,
+          "line": 235
+        },
+        {
+          "heading": "📍 Strengths: (3.5/5.0)",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "Slide 5: Kết quả Nghiên cứu Đối thủ & Xu hướng",
+          "level": 2,
+          "line": 242
+        },
+        {
+          "heading": "Nhận định chiến lược từ AI:",
+          "level": 3,
+          "line": 247
+        },
+        {
+          "heading": "Slide 6: Đề xuất Hành động tiếp theo (Action Items)",
+          "level": 2,
+          "line": 252
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 64
+      }
+    }
+  ]
+}

@@ -1,0 +1,765 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/src/server.js",
+      "type": "file",
+      "name": "server.js",
+      "filePath": "backend/src/server.js",
+      "summary": "Main backend server entry point that initializes the Express application, configures middleware (CORS, auth, body-parser), and defines API routes for codebase and APK analysis.",
+      "tags": ["entry-point", "api-handler", "express", "middleware", "server"],
+      "complexity": "complex",
+      "languageNotes": "Implements custom authentication middleware and role-based authorization for protected routes."
+    },
+    {
+      "id": "function:backend/src/server.js:authMiddleware",
+      "type": "function",
+      "name": "authMiddleware",
+      "filePath": "backend/src/server.js",
+      "lineRange": [43, 64],
+      "summary": "Express middleware that verifies JWT tokens from the Authorization header and attaches the user object to the request.",
+      "tags": ["middleware", "security", "authentication"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/server.js:authorize",
+      "type": "function",
+      "name": "authorize",
+      "filePath": "backend/src/server.js",
+      "lineRange": [67, 81],
+      "summary": "Higher-order middleware factory that creates role-based access control checks for specific routes.",
+      "tags": ["middleware", "security", "authorization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/server.js:execWithTimeout",
+      "type": "function",
+      "name": "execWithTimeout",
+      "filePath": "backend/src/server.js",
+      "lineRange": [290, 300],
+      "summary": "Utility function that executes a shell command with a specified timeout to prevent hanging processes.",
+      "tags": ["utility", "shell", "process-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:load_excel_demo.py",
+      "type": "file",
+      "name": "load_excel_demo.py",
+      "filePath": "load_excel_demo.py",
+      "summary": "Utility script demonstrating how to load and inspect Excel files using pandas, including sheet listing and data preview.",
+      "tags": ["utility", "data-processing", "excel", "python"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:load_excel_demo.py:load_excel_example",
+      "type": "function",
+      "name": "load_excel_example",
+      "filePath": "load_excel_demo.py",
+      "lineRange": [6, 23],
+      "summary": "Demonstrates loading an Excel file, printing its columns, and reading all sheets into a dictionary.",
+      "tags": ["utility", "pandas", "excel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "mcp_server/__init__.py",
+      "summary": "Package initialization file for the Model Context Protocol (MCP) server.",
+      "tags": ["entry-point", "python", "package"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mcp_server/handlers.py",
+      "type": "file",
+      "name": "handlers.py",
+      "filePath": "mcp_server/handlers.py",
+      "summary": "Contains request handlers for the MCP server, including integration with OpenAI for processing natural language requests.",
+      "tags": ["api-handler", "openai", "mcp", "python"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/handlers.py:handle_request",
+      "type": "function",
+      "name": "handle_request",
+      "filePath": "mcp_server/handlers.py",
+      "lineRange": [6, 26],
+      "summary": "Dispatches incoming MCP requests to the appropriate backend (e.g., OpenAI) based on environment configuration.",
+      "tags": ["api-handler", "routing", "mcp"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/handlers.py:_call_openai",
+      "type": "function",
+      "name": "_call_openai",
+      "filePath": "mcp_server/handlers.py",
+      "lineRange": [29, 63],
+      "summary": "Internal handler that communicates with the OpenAI API to process MCP requests using chat completion.",
+      "tags": ["api-client", "openai", "mcp"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:mcp_server/main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "mcp_server/main.py",
+      "summary": "Main entry point for the MCP server using FastAPI, defining routes for health checks and MCP request processing with API key verification.",
+      "tags": ["entry-point", "fastapi", "api-handler", "mcp", "python"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/main.py:verify_api_key",
+      "type": "function",
+      "name": "verify_api_key",
+      "filePath": "mcp_server/main.py",
+      "lineRange": [19, 35],
+      "summary": "Security dependency that validates the X-API-Key header against the server's configured secret.",
+      "tags": ["security", "authentication", "fastapi"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mcp_server/main.py:mcp_requests",
+      "type": "function",
+      "name": "mcp_requests",
+      "filePath": "mcp_server/main.py",
+      "lineRange": [44, 52],
+      "summary": "Main POST endpoint for the MCP server that processes incoming requests after successful authorization.",
+      "tags": ["api-handler", "endpoint", "mcp"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:mcp_server/main.py:MCPRequest",
+      "type": "class",
+      "name": "MCPRequest",
+      "filePath": "mcp_server/main.py",
+      "lineRange": [14, 16],
+      "summary": "Pydantic model defining the expected structure of an MCP request, including input and metadata fields.",
+      "tags": ["data-model", "pydantic", "mcp"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:mcp_server/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "mcp_server/README.md",
+      "summary": "Documentation for the MCP server providing an overview of its purpose, architecture, and usage instructions.",
+      "tags": ["documentation", "mcp", "overview"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:mcp_server/requirements.txt",
+      "type": "document",
+      "name": "requirements.txt",
+      "filePath": "mcp_server/requirements.txt",
+      "summary": "List of Python dependencies required for the MCP server, including FastAPI and OpenAI.",
+      "tags": ["configuration", "python", "dependencies"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:reports/Evaluation_Puzzle Quest Mobile_20260515.md",
+      "type": "document",
+      "name": "Evaluation_Puzzle Quest Mobile_20260515.md",
+      "filePath": "reports/Evaluation_Puzzle Quest Mobile_20260515.md",
+      "summary": "Analysis report for 'Puzzle Quest Mobile', detailing raw data analysis, scorecard, research insights, and findings from an AI-driven evaluation.",
+      "tags": ["documentation", "report", "game-evaluation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:task-dashboard/eslint.config.js",
+      "type": "config",
+      "name": "eslint.config.js",
+      "filePath": "task-dashboard/eslint.config.js",
+      "summary": "ESLint configuration for the task dashboard project, defining linting rules and plugins for React and TypeScript.",
+      "tags": ["configuration", "linting", "javascript"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "task-dashboard/src/App.css",
+      "summary": "Global styles for the main App component, providing base layout and styling resets.",
+      "tags": ["css", "styling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "task-dashboard/src/App.tsx",
+      "summary": "Main React component for the task dashboard, handling routing, layout structure, and wrapping the application in App and Auth providers.",
+      "tags": ["entry-point", "react", "component", "routing"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/App.tsx:AppContent",
+      "type": "function",
+      "name": "AppContent",
+      "filePath": "task-dashboard/src/App.tsx",
+      "lineRange": [34, 84],
+      "summary": "Inner component of App that manages the conditional rendering of the sidebar and main content based on authentication state.",
+      "tags": ["component", "layout", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/App.tsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "task-dashboard/src/App.tsx",
+      "lineRange": [86, 92],
+      "summary": "The root component of the dashboard application, providing global context and error boundaries.",
+      "tags": ["component", "entry-point", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "type": "file",
+      "name": "LoginForm.tsx",
+      "filePath": "task-dashboard/src/components/auth/LoginForm.tsx",
+      "summary": "React component for the user login form, integrating with the AuthContext to perform authentication and handle errors.",
+      "tags": ["component", "authentication", "form", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/components/auth/LoginForm.tsx:LoginForm",
+      "type": "function",
+      "name": "LoginForm",
+      "filePath": "task-dashboard/src/components/auth/LoginForm.tsx",
+      "lineRange": [4, 60],
+      "summary": "Renders the email and password inputs and manages the login submission process.",
+      "tags": ["component", "authentication", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "type": "file",
+      "name": "RegisterForm.tsx",
+      "filePath": "task-dashboard/src/components/auth/RegisterForm.tsx",
+      "summary": "React component for the user registration form, allowing new users to sign up with specific roles and details.",
+      "tags": ["component", "authentication", "form", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/components/auth/RegisterForm.tsx:RegisterForm",
+      "type": "function",
+      "name": "RegisterForm",
+      "filePath": "task-dashboard/src/components/auth/RegisterForm.tsx",
+      "lineRange": [4, 89],
+      "summary": "Manages user registration state and submits new user data to the authentication service.",
+      "tags": ["component", "authentication", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/UserManagementPage.css",
+      "type": "file",
+      "name": "UserManagementPage.css",
+      "filePath": "task-dashboard/src/components/auth/UserManagementPage.css",
+      "summary": "Styles for the user management page, including user tables and role badges.",
+      "tags": ["css", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "type": "file",
+      "name": "UserManagementPage.tsx",
+      "filePath": "task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "summary": "Administrative page for managing users, updating roles, and deleting accounts with real-time feedback.",
+      "tags": ["component", "authentication", "admin", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/components/auth/UserManagementPage.tsx:UserManagementPage",
+      "type": "function",
+      "name": "UserManagementPage",
+      "filePath": "task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "lineRange": [11, 174],
+      "summary": "Fetches user data and provides the interface for administrative actions like role modification and user deletion.",
+      "tags": ["component", "admin", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/calendar/CalendarPage.css",
+      "type": "file",
+      "name": "CalendarPage.css",
+      "filePath": "task-dashboard/src/components/calendar/CalendarPage.css",
+      "summary": "Styles for the interactive calendar view, including grid layouts and drag-and-drop visual cues.",
+      "tags": ["css", "styling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "type": "file",
+      "name": "CalendarPage.tsx",
+      "filePath": "task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "summary": "Interactive calendar view for tasks, supporting drag-and-drop rescheduling and modal-based task creation/editing.",
+      "tags": ["component", "calendar", "tasks", "react"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:task-dashboard/src/components/calendar/CalendarPage.tsx:CalendarPage",
+      "type": "function",
+      "name": "CalendarPage",
+      "filePath": "task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "lineRange": [9, 210],
+      "summary": "Implements the calendar logic, including date calculation, task filtering, and drag-and-drop event handlers.",
+      "tags": ["component", "calendar", "react"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/Common.css",
+      "type": "file",
+      "name": "Common.css",
+      "filePath": "task-dashboard/src/components/common/Common.css",
+      "summary": "Shared CSS styles for common UI components such as buttons, badges, modals, and avatars used across the dashboard.",
+      "tags": ["css", "styling", "shared"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "type": "file",
+      "name": "ErrorBoundary.tsx",
+      "filePath": "task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "summary": "React error boundary component that catches runtime errors in its child tree and displays a fallback UI.",
+      "tags": ["component", "error-handling", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:task-dashboard/src/components/common/ErrorBoundary.tsx:ErrorBoundary",
+      "type": "class",
+      "name": "ErrorBoundary",
+      "filePath": "task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "lineRange": [13, 40],
+      "summary": "Class-based React component that implements componentDidCatch and getDerivedStateFromError for robust error handling.",
+      "tags": ["component", "error-handling", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "file",
+      "name": "index.tsx",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "summary": "Barrel file for common UI components, exporting reusable elements like Button, Badge, Avatar, and Modal.",
+      "tags": ["component", "barrel", "ui-kit", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/index.tsx:Button",
+      "type": "function",
+      "name": "Button",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "lineRange": [18, 41],
+      "summary": "Reusable button component with support for multiple variants and sizes.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/index.tsx:Badge",
+      "type": "function",
+      "name": "Badge",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "lineRange": [51, 57],
+      "summary": "Display component for status badges and labels.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/index.tsx:Avatar",
+      "type": "function",
+      "name": "Avatar",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "lineRange": [67, 77],
+      "summary": "Displays user initials or an image in a circular avatar format.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/index.tsx:Modal",
+      "type": "function",
+      "name": "Modal",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "lineRange": [88, 111],
+      "summary": "A generic modal component using React Portals for overlay rendering.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/index.tsx:WeightDots",
+      "type": "function",
+      "name": "WeightDots",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "lineRange": [119, 127],
+      "summary": "Visual indicator for task complexity or weight using a series of dots.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/index.tsx:EmptyState",
+      "type": "function",
+      "name": "EmptyState",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "lineRange": [137, 146],
+      "summary": "Standardized empty state component with an icon and call to action.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/PageHelp.css",
+      "type": "file",
+      "name": "PageHelp.css",
+      "filePath": "task-dashboard/src/components/common/PageHelp.css",
+      "summary": "Styles for the PageHelp component, including positioning and toggle animations.",
+      "tags": ["css", "styling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "file",
+      "name": "PageHelp.tsx",
+      "filePath": "task-dashboard/src/components/common/PageHelp.tsx",
+      "summary": "A reusable UI component that provides toggleable help content or guides for specific dashboard pages.",
+      "tags": ["component", "ui-kit", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/PageHelp.tsx:PageHelp",
+      "type": "function",
+      "name": "PageHelp",
+      "filePath": "task-dashboard/src/components/common/PageHelp.tsx",
+      "lineRange": [5, 30],
+      "summary": "Renders a help button that expands to show descriptive content.",
+      "tags": ["component", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "type": "file",
+      "name": "ProjectModal.tsx",
+      "filePath": "task-dashboard/src/components/common/ProjectModal.tsx",
+      "summary": "Modal component for creating and editing project details, including platform and genre selection.",
+      "tags": ["component", "modal", "projects", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/ProjectModal.tsx:ProjectModal",
+      "type": "function",
+      "name": "ProjectModal",
+      "filePath": "task-dashboard/src/components/common/ProjectModal.tsx",
+      "lineRange": [27, 127],
+      "summary": "Manages form state for project creation and editing within a modal dialog.",
+      "tags": ["component", "modal", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "type": "file",
+      "name": "TaskDetailsModal.tsx",
+      "filePath": "task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "summary": "Read-only modal that displays full details for a task, including priority, tags, and assigned project/member info.",
+      "tags": ["component", "modal", "tasks", "react"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/TaskDetailsModal.tsx:TaskDetailsModal",
+      "type": "function",
+      "name": "TaskDetailsModal",
+      "filePath": "task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "lineRange": [14, 254],
+      "summary": "Renders task information in a detailed view, resolving member and project IDs to human-readable names.",
+      "tags": ["component", "modal", "react"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "type": "file",
+      "name": "TaskFormModal.tsx",
+      "filePath": "task-dashboard/src/components/common/TaskFormModal.tsx",
+      "summary": "Complete form modal for task management, supporting creation, editing, and deletion with validation.",
+      "tags": ["component", "modal", "tasks", "react"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:task-dashboard/src/components/common/TaskFormModal.tsx:TaskFormModal",
+      "type": "function",
+      "name": "TaskFormModal",
+      "filePath": "task-dashboard/src/components/common/TaskFormModal.tsx",
+      "lineRange": [300, 341],
+      "summary": "Manages complex task form state and interaction logic for creating and updating tasks.",
+      "tags": ["component", "modal", "react"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/server.js",
+      "target": "function:backend/src/server.js:authMiddleware",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "function:backend/src/server.js:authorize",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "function:backend/src/server.js:execWithTimeout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/auth.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:load_excel_demo.py",
+      "target": "function:load_excel_demo.py:load_excel_example",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mcp_server/handlers.py",
+      "target": "function:mcp_server/handlers.py:handle_request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mcp_server/handlers.py",
+      "target": "function:mcp_server/handlers.py:_call_openai",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "function:mcp_server/main.py:verify_api_key",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "function:mcp_server/main.py:mcp_requests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "class:mcp_server/main.py:MCPRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:mcp_server/main.py:mcp_requests",
+      "target": "function:mcp_server/handlers.py:handle_request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:mcp_server/README.md",
+      "target": "file:mcp_server/main.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:mcp_server/requirements.txt",
+      "target": "file:mcp_server/main.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:task-dashboard/eslint.config.js",
+      "target": "file:task-dashboard/src/App.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "function:task-dashboard/src/App.tsx:AppContent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "function:task-dashboard/src/App.tsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "target": "function:task-dashboard/src/components/auth/LoginForm.tsx:LoginForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "target": "function:task-dashboard/src/components/auth/RegisterForm.tsx:RegisterForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "function:task-dashboard/src/components/auth/UserManagementPage.tsx:UserManagementPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "function:task-dashboard/src/components/calendar/CalendarPage.tsx:CalendarPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "target": "class:task-dashboard/src/components/common/ErrorBoundary.tsx:ErrorBoundary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Button",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Badge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Avatar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Modal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:WeightDots",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:EmptyState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "target": "function:task-dashboard/src/components/common/PageHelp.tsx:PageHelp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "target": "function:task-dashboard/src/components/common/ProjectModal.tsx:ProjectModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "target": "function:task-dashboard/src/components/common/TaskDetailsModal.tsx:TaskDetailsModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "function:task-dashboard/src/components/common/TaskFormModal.tsx:TaskFormModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

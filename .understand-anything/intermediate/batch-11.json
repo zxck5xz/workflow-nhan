@@ -1,0 +1,185 @@
+{
+  "nodes": [
+    {
+      "id": "document:understand/languages/cpp.md",
+      "type": "document",
+      "name": "cpp.md",
+      "filePath": "understand/languages/cpp.md",
+      "summary": "C++ language addendum for the understand-plugin, providing patterns for headers, templates, and typical C++ project structures.",
+      "tags": ["documentation", "language-guide", "cpp", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/csharp.md",
+      "type": "document",
+      "name": "csharp.md",
+      "filePath": "understand/languages/csharp.md",
+      "summary": "C# language addendum detailing namespace patterns, property conventions, and .NET ecosystem structures.",
+      "tags": ["documentation", "language-guide", "csharp", "dotnet", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/css.md",
+      "type": "document",
+      "name": "css.md",
+      "filePath": "understand/languages/css.md",
+      "summary": "CSS language addendum focusing on BEM, CSS modules, and preprocessor patterns for frontend style analysis.",
+      "tags": ["documentation", "language-guide", "css", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/dockerfile.md",
+      "type": "document",
+      "name": "dockerfile.md",
+      "filePath": "understand/languages/dockerfile.md",
+      "summary": "Dockerfile addendum defining patterns for multi-stage builds, image layers, and container orchestration metadata.",
+      "tags": ["documentation", "language-guide", "docker", "infrastructure", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/go.md",
+      "type": "document",
+      "name": "go.md",
+      "filePath": "understand/languages/go.md",
+      "summary": "Go language addendum providing guidance on package structures, interfaces, and idiomatic Go patterns.",
+      "tags": ["documentation", "language-guide", "go", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/graphql.md",
+      "type": "document",
+      "name": "graphql.md",
+      "filePath": "understand/languages/graphql.md",
+      "summary": "GraphQL language addendum defining patterns for schemas, resolvers, and API type definitions.",
+      "tags": ["documentation", "language-guide", "graphql", "api-schema", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/html.md",
+      "type": "document",
+      "name": "html.md",
+      "filePath": "understand/languages/html.md",
+      "summary": "HTML language addendum for identifying document structures, template engines, and static markup patterns.",
+      "tags": ["documentation", "language-guide", "html", "markup", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/java.md",
+      "type": "document",
+      "name": "java.md",
+      "filePath": "understand/languages/java.md",
+      "summary": "Java language addendum outlining package hierarchies, annotation-driven patterns, and JVM ecosystem structures.",
+      "tags": ["documentation", "language-guide", "java", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/javascript.md",
+      "type": "document",
+      "name": "javascript.md",
+      "filePath": "understand/languages/javascript.md",
+      "summary": "JavaScript language addendum covering ESM vs CommonJS, prototype patterns, and modern JS features.",
+      "tags": ["documentation", "language-guide", "javascript", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/json.md",
+      "type": "document",
+      "name": "json.md",
+      "filePath": "understand/languages/json.md",
+      "summary": "JSON language addendum for analyzing data structures, configurations, and serialized objects.",
+      "tags": ["documentation", "language-guide", "json", "data-format", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/kotlin.md",
+      "type": "document",
+      "name": "kotlin.md",
+      "filePath": "understand/languages/kotlin.md",
+      "summary": "Kotlin language addendum focusing on concise syntax, coroutines, and Android-specific code patterns.",
+      "tags": ["documentation", "language-guide", "kotlin", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/markdown.md",
+      "type": "document",
+      "name": "markdown.md",
+      "filePath": "understand/languages/markdown.md",
+      "summary": "Markdown language addendum for analyzing documentation structures, cross-references, and static content.",
+      "tags": ["documentation", "language-guide", "markdown", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/php.md",
+      "type": "document",
+      "name": "php.md",
+      "filePath": "understand/languages/php.md",
+      "summary": "PHP language addendum outlining modern PSR standards, composer structures, and legacy patterns.",
+      "tags": ["documentation", "language-guide", "php", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/protobuf.md",
+      "type": "document",
+      "name": "protobuf.md",
+      "filePath": "understand/languages/protobuf.md",
+      "summary": "Protocol Buffers addendum for identifying data serialization schemas and service definitions.",
+      "tags": ["documentation", "language-guide", "protobuf", "schema-definition", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/python.md",
+      "type": "document",
+      "name": "python.md",
+      "filePath": "understand/languages/python.md",
+      "summary": "Python language addendum detailing module structures, decorator patterns, and idiomatic Pythonic code.",
+      "tags": ["documentation", "language-guide", "python", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/ruby.md",
+      "type": "document",
+      "name": "ruby.md",
+      "filePath": "understand/languages/ruby.md",
+      "summary": "Ruby language addendum focusing on gem structures, metaprogramming patterns, and Rails ecosystem conventions.",
+      "tags": ["documentation", "language-guide", "ruby", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/rust.md",
+      "type": "document",
+      "name": "rust.md",
+      "filePath": "understand/languages/rust.md",
+      "summary": "Rust language addendum providing guidance on crates, modules, and memory safety patterns.",
+      "tags": ["documentation", "language-guide", "rust", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/shell.md",
+      "type": "document",
+      "name": "shell.md",
+      "filePath": "understand/languages/shell.md",
+      "summary": "Shell script addendum for analyzing automation scripts, environment setup, and system commands.",
+      "tags": ["documentation", "language-guide", "shell", "scripting", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/sql.md",
+      "type": "document",
+      "name": "sql.md",
+      "filePath": "understand/languages/sql.md",
+      "summary": "SQL language addendum focusing on DDL, DML, and database schema migration patterns.",
+      "tags": ["documentation", "language-guide", "sql", "database", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/swift.md",
+      "type": "document",
+      "name": "swift.md",
+      "filePath": "understand/languages/swift.md",
+      "summary": "Swift language addendum outlining protocol-oriented programming and iOS/macOS ecosystem conventions.",
+      "tags": ["documentation", "language-guide", "swift", "understand-plugin"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

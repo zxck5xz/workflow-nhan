@@ -1,0 +1,3755 @@
+{
+  "fileNodes": [
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "backend/Dockerfile",
+      "summary": "Docker configuration for the backend service, using Node.js 20-alpine.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment"
+      ]
+    },
+    {
+      "id": "service:backend/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "backend/.dockerignore",
+      "summary": "Specifies files and directories to ignore when building the backend Docker image.",
+      "tags": [
+        "containerization",
+        "infrastructure"
+      ]
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "summary": "Main service definition in the backend Dockerfile using node:20-alpine image.",
+      "tags": [
+        "service",
+        "node"
+      ]
+    },
+    {
+      "id": "service:task-dashboard/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "task-dashboard/Dockerfile",
+      "summary": "Multi-stage Docker build for the task-dashboard, including a builder stage and an nginx production stage.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment"
+      ]
+    },
+    {
+      "id": "service:task-dashboard/Dockerfile:builder",
+      "type": "service",
+      "name": "builder",
+      "summary": "Build stage for the task-dashboard using node:24-alpine.",
+      "tags": [
+        "service",
+        "build-stage"
+      ]
+    },
+    {
+      "id": "service:task-dashboard/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "summary": "Production stage for the task-dashboard using nginx:alpine to serve built assets.",
+      "tags": [
+        "service",
+        "web-server"
+      ]
+    },
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "type": "pipeline",
+      "name": "ci.yml",
+      "filePath": ".github/workflows/ci.yml",
+      "summary": "GitHub Actions workflow for continuous integration, handling build and test processes.",
+      "tags": [
+        "ci-cd",
+        "automation",
+        "workflow"
+      ]
+    },
+    {
+      "id": "config:.lintstagedrc.json",
+      "type": "config",
+      "name": ".lintstagedrc.json",
+      "filePath": ".lintstagedrc.json",
+      "summary": "Configuration for lint-staged to run linters on git staged files.",
+      "tags": [
+        "configuration",
+        "linting",
+        "build-system"
+      ]
+    },
+    {
+      "id": "config:.mcp.json",
+      "type": "config",
+      "name": ".mcp.json",
+      "filePath": ".mcp.json",
+      "summary": "Model Context Protocol configuration defining available MCP servers.",
+      "tags": [
+        "configuration",
+        "mcp",
+        "api"
+      ]
+    },
+    {
+      "id": "document:ANDROID_RE_WORKFLOW.md",
+      "type": "document",
+      "name": "ANDROID_RE_WORKFLOW.md",
+      "filePath": "ANDROID_RE_WORKFLOW.md",
+      "summary": "Workflow guide for Android reverse engineering and analysis.",
+      "tags": [
+        "documentation",
+        "android",
+        "reverse-engineering"
+      ]
+    },
+    {
+      "id": "document:CODE_RE_ANALYSIS.md",
+      "type": "document",
+      "name": "CODE_RE_ANALYSIS.md",
+      "filePath": "CODE_RE_ANALYSIS.md",
+      "summary": "Report template for codebase analysis and engineering reverse engineering.",
+      "tags": [
+        "documentation",
+        "analysis",
+        "report"
+      ]
+    },
+    {
+      "id": "document:COPY_PASTE_GUIDE.md",
+      "type": "document",
+      "name": "COPY_PASTE_GUIDE.md",
+      "filePath": "COPY_PASTE_GUIDE.md",
+      "summary": "Guide for replicating and customizing workflows within the framework.",
+      "tags": [
+        "documentation",
+        "workflow",
+        "guide"
+      ]
+    },
+    {
+      "id": "document:SOP.md",
+      "type": "document",
+      "name": "SOP.md",
+      "filePath": "SOP.md",
+      "summary": "Standard Operating Procedure for the Workflow Management System, covering setup and maintenance.",
+      "tags": [
+        "documentation",
+        "sop",
+        "maintenance"
+      ]
+    },
+    {
+      "id": "document:TODO.md",
+      "type": "document",
+      "name": "TODO.md",
+      "filePath": "TODO.md",
+      "summary": "Project task list tracking completed, in-progress, and backlog items.",
+      "tags": [
+        "documentation",
+        "project-management",
+        "todo"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Orchestration file defining multi-container services for the project.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "docker"
+      ]
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Root package configuration for the monorepo, defining workspaces and shared scripts.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "monorepo"
+      ]
+    },
+    {
+      "id": "document:preparing_workflows.md",
+      "type": "document",
+      "name": "preparing_workflows.md",
+      "filePath": "preparing_workflows.md",
+      "summary": "Planning document for core workflows, including task management and analysis.",
+      "tags": [
+        "documentation",
+        "planning",
+        "workflow"
+      ]
+    },
+    {
+      "id": "config:ruff.toml",
+      "type": "config",
+      "name": "ruff.toml",
+      "filePath": "ruff.toml",
+      "summary": "Configuration for the Ruff Python linter and formatter.",
+      "tags": [
+        "configuration",
+        "python",
+        "linting"
+      ]
+    },
+    {
+      "id": "config:vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "vercel.json",
+      "summary": "Vercel deployment configuration for the project.",
+      "tags": [
+        "configuration",
+        "deployment",
+        "vercel"
+      ]
+    },
+    {
+      "id": "document:website_features.md",
+      "type": "document",
+      "name": "website_features.md",
+      "filePath": "website_features.md",
+      "summary": "Comprehensive documentation of website features, components, and backend API.",
+      "tags": [
+        "documentation",
+        "features",
+        "overview"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/intermediate/batches.json",
+      "type": "config",
+      "name": "batches.json",
+      "filePath": ".understand-anything/intermediate/batches.json",
+      "summary": "Generated batch data for project analysis, mapping files to analysis groups.",
+      "tags": [
+        "configuration",
+        "analysis",
+        "metadata"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/intermediate/domain-context.json",
+      "type": "config",
+      "name": "domain-context.json",
+      "filePath": ".understand-anything/intermediate/domain-context.json",
+      "summary": "Domain-level context and metadata for the project analysis.",
+      "tags": [
+        "configuration",
+        "analysis",
+        "domain"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "config",
+      "name": "scan-result.json",
+      "filePath": ".understand-anything/intermediate/scan-result.json",
+      "summary": "Result of the project-wide file scan, including language and complexity metrics.",
+      "tags": [
+        "configuration",
+        "analysis",
+        "scan"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-file-analyzer-input-1.json",
+      "type": "config",
+      "name": "ua-file-analyzer-input-1.json",
+      "filePath": ".understand-anything/tmp/ua-file-analyzer-input-1.json",
+      "summary": "Temporary input file for the file analyzer agent.",
+      "tags": [
+        "configuration",
+        "temporary",
+        "analysis"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "config",
+      "name": "ua-import-map-input.json",
+      "filePath": ".understand-anything/tmp/ua-import-map-input.json",
+      "summary": "Temporary input for import map extraction.",
+      "tags": [
+        "configuration",
+        "temporary",
+        "imports"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "type": "config",
+      "name": "ua-import-map-output.json",
+      "filePath": ".understand-anything/tmp/ua-import-map-output.json",
+      "summary": "Temporary output from import map extraction.",
+      "tags": [
+        "configuration",
+        "temporary",
+        "imports"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "config",
+      "name": "ua-scan-files.json",
+      "filePath": ".understand-anything/tmp/ua-scan-files.json",
+      "summary": "Temporary list of files identified for scanning.",
+      "tags": [
+        "configuration",
+        "temporary",
+        "scan"
+      ]
+    },
+    {
+      "id": "document:backend/CODE_RE_ANALYSIS.md",
+      "type": "document",
+      "name": "CODE_RE_ANALYSIS.md",
+      "filePath": "backend/CODE_RE_ANALYSIS.md",
+      "summary": "Analysis report specific to the backend codebase architecture.",
+      "tags": [
+        "documentation",
+        "analysis",
+        "backend"
+      ]
+    },
+    {
+      "id": "document:backend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/README.md",
+      "summary": "Overview and setup instructions for the backend service.",
+      "tags": [
+        "documentation",
+        "backend",
+        "readme"
+      ]
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Backend service package configuration and dependencies.",
+      "tags": [
+        "configuration",
+        "backend",
+        "build-system"
+      ]
+    },
+    {
+      "id": "document:task-dashboard/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "task-dashboard/README.md",
+      "summary": "Documentation for the task-dashboard frontend application.",
+      "tags": [
+        "documentation",
+        "frontend",
+        "readme"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "task-dashboard/index.html",
+      "summary": "Main HTML entry point for the task-dashboard frontend.",
+      "tags": [
+        "markup",
+        "frontend",
+        "entry-point"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/lighthouse-report.json",
+      "type": "config",
+      "name": "lighthouse-report.json",
+      "filePath": "task-dashboard/lighthouse-report.json",
+      "summary": "Performance and accessibility report from Lighthouse for the dashboard.",
+      "tags": [
+        "configuration",
+        "performance",
+        "audit"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "task-dashboard/package.json",
+      "summary": "Frontend application package configuration and dependencies.",
+      "tags": [
+        "configuration",
+        "frontend",
+        "build-system"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "task-dashboard/tsconfig.app.json",
+      "summary": "TypeScript configuration for the frontend application code.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "task-dashboard/tsconfig.json",
+      "summary": "Main TypeScript configuration for the dashboard workspace.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "task-dashboard/tsconfig.node.json",
+      "summary": "TypeScript configuration for Vite's Node.js environment.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "vite"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "task-dashboard/vercel.json",
+      "summary": "Vercel deployment configuration for the task-dashboard.",
+      "tags": [
+        "configuration",
+        "deployment",
+        "vercel"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "type": "file",
+      "name": "CodeAnalysisPage.css",
+      "filePath": "task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "summary": "Styles for the Code Analysis report page, defining layout and visual presentation of analysis results.",
+      "tags": [
+        "styles",
+        "ui-styling",
+        "code-analysis",
+        "component-styles"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/InsightsPage.css",
+      "type": "file",
+      "name": "InsightsPage.css",
+      "filePath": "task-dashboard/src/components/reports/InsightsPage.css",
+      "summary": "Styles for the Insights report page, managing the visual representation of data visualizations and metrics.",
+      "tags": [
+        "styles",
+        "ui-styling",
+        "insights",
+        "component-styles"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/StaffReportPage.css",
+      "type": "file",
+      "name": "StaffReportPage.css",
+      "filePath": "task-dashboard/src/components/reports/StaffReportPage.css",
+      "summary": "Styles for the Staff Report page, providing visual structure for employee performance and activity data.",
+      "tags": [
+        "styles",
+        "ui-styling",
+        "staff-report",
+        "component-styles"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/WorkReportPage.css",
+      "type": "file",
+      "name": "WorkReportPage.css",
+      "filePath": "task-dashboard/src/components/reports/WorkReportPage.css",
+      "summary": "Styles for the Work Report page, defining the appearance of task logs and progress summaries.",
+      "tags": [
+        "styles",
+        "ui-styling",
+        "work-report",
+        "component-styles"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/django.md",
+      "type": "document",
+      "name": "django.md",
+      "filePath": "understand/frameworks/django.md",
+      "summary": "Django framework addendum providing project structure guidance and canonical file roles for code analysis.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "django",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/express.md",
+      "type": "document",
+      "name": "express.md",
+      "filePath": "understand/frameworks/express.md",
+      "summary": "Express.js framework addendum outlining typical project structures and architectural layers for analysis.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "express",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/fastapi.md",
+      "type": "document",
+      "name": "fastapi.md",
+      "filePath": "understand/frameworks/fastapi.md",
+      "summary": "FastAPI framework addendum with patterns for identifying API handlers, models, and dependency injection.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "fastapi",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/flask.md",
+      "type": "document",
+      "name": "flask.md",
+      "filePath": "understand/frameworks/flask.md",
+      "summary": "Flask framework addendum describing common patterns for small to medium scale Python web applications.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "flask",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/gin.md",
+      "type": "document",
+      "name": "gin.md",
+      "filePath": "understand/frameworks/gin.md",
+      "summary": "Gin (Go) framework addendum focusing on router setup and middleware patterns in Go projects.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "gin",
+        "go",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/nextjs.md",
+      "type": "document",
+      "name": "nextjs.md",
+      "filePath": "understand/frameworks/nextjs.md",
+      "summary": "Next.js framework addendum covering App Router vs Pages Router structures and server-side patterns.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "nextjs",
+        "react",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/rails.md",
+      "type": "document",
+      "name": "rails.md",
+      "filePath": "understand/frameworks/rails.md",
+      "summary": "Ruby on Rails framework addendum detailing the MVC structure and convention-over-configuration patterns.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "rails",
+        "ruby",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/react.md",
+      "type": "document",
+      "name": "react.md",
+      "filePath": "understand/frameworks/react.md",
+      "summary": "React framework addendum providing guidance on component hierarchies, hooks, and state management patterns.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "react",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/spring.md",
+      "type": "document",
+      "name": "spring.md",
+      "filePath": "understand/frameworks/spring.md",
+      "summary": "Spring Boot framework addendum focusing on Java-based enterprise patterns and dependency injection.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "spring-boot",
+        "java",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/frameworks/vue.md",
+      "type": "document",
+      "name": "vue.md",
+      "filePath": "understand/frameworks/vue.md",
+      "summary": "Vue framework addendum outlining Single File Component (SFC) patterns and Composition API usage.",
+      "tags": [
+        "documentation",
+        "framework-guide",
+        "vue",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/cpp.md",
+      "type": "document",
+      "name": "cpp.md",
+      "filePath": "understand/languages/cpp.md",
+      "summary": "C++ language addendum for the understand-plugin, providing patterns for headers, templates, and typical C++ project structures.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "cpp",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/csharp.md",
+      "type": "document",
+      "name": "csharp.md",
+      "filePath": "understand/languages/csharp.md",
+      "summary": "C# language addendum detailing namespace patterns, property conventions, and .NET ecosystem structures.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "csharp",
+        "dotnet",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/css.md",
+      "type": "document",
+      "name": "css.md",
+      "filePath": "understand/languages/css.md",
+      "summary": "CSS language addendum focusing on BEM, CSS modules, and preprocessor patterns for frontend style analysis.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "css",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/dockerfile.md",
+      "type": "document",
+      "name": "dockerfile.md",
+      "filePath": "understand/languages/dockerfile.md",
+      "summary": "Dockerfile addendum defining patterns for multi-stage builds, image layers, and container orchestration metadata.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "docker",
+        "infrastructure",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/go.md",
+      "type": "document",
+      "name": "go.md",
+      "filePath": "understand/languages/go.md",
+      "summary": "Go language addendum providing guidance on package structures, interfaces, and idiomatic Go patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "go",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/graphql.md",
+      "type": "document",
+      "name": "graphql.md",
+      "filePath": "understand/languages/graphql.md",
+      "summary": "GraphQL language addendum defining patterns for schemas, resolvers, and API type definitions.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "graphql",
+        "api-schema",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/html.md",
+      "type": "document",
+      "name": "html.md",
+      "filePath": "understand/languages/html.md",
+      "summary": "HTML language addendum for identifying document structures, template engines, and static markup patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "html",
+        "markup",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/java.md",
+      "type": "document",
+      "name": "java.md",
+      "filePath": "understand/languages/java.md",
+      "summary": "Java language addendum outlining package hierarchies, annotation-driven patterns, and JVM ecosystem structures.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "java",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/javascript.md",
+      "type": "document",
+      "name": "javascript.md",
+      "filePath": "understand/languages/javascript.md",
+      "summary": "JavaScript language addendum covering ESM vs CommonJS, prototype patterns, and modern JS features.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "javascript",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/json.md",
+      "type": "document",
+      "name": "json.md",
+      "filePath": "understand/languages/json.md",
+      "summary": "JSON language addendum for analyzing data structures, configurations, and serialized objects.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "json",
+        "data-format",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/kotlin.md",
+      "type": "document",
+      "name": "kotlin.md",
+      "filePath": "understand/languages/kotlin.md",
+      "summary": "Kotlin language addendum focusing on concise syntax, coroutines, and Android-specific code patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "kotlin",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/markdown.md",
+      "type": "document",
+      "name": "markdown.md",
+      "filePath": "understand/languages/markdown.md",
+      "summary": "Markdown language addendum for analyzing documentation structures, cross-references, and static content.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "markdown",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/php.md",
+      "type": "document",
+      "name": "php.md",
+      "filePath": "understand/languages/php.md",
+      "summary": "PHP language addendum outlining modern PSR standards, composer structures, and legacy patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "php",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/protobuf.md",
+      "type": "document",
+      "name": "protobuf.md",
+      "filePath": "understand/languages/protobuf.md",
+      "summary": "Protocol Buffers addendum for identifying data serialization schemas and service definitions.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "protobuf",
+        "schema-definition",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/python.md",
+      "type": "document",
+      "name": "python.md",
+      "filePath": "understand/languages/python.md",
+      "summary": "Python language addendum detailing module structures, decorator patterns, and idiomatic Pythonic code.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "python",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/ruby.md",
+      "type": "document",
+      "name": "ruby.md",
+      "filePath": "understand/languages/ruby.md",
+      "summary": "Ruby language addendum focusing on gem structures, metaprogramming patterns, and Rails ecosystem conventions.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "ruby",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/rust.md",
+      "type": "document",
+      "name": "rust.md",
+      "filePath": "understand/languages/rust.md",
+      "summary": "Rust language addendum providing guidance on crates, modules, and memory safety patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "rust",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/shell.md",
+      "type": "document",
+      "name": "shell.md",
+      "filePath": "understand/languages/shell.md",
+      "summary": "Shell script addendum for analyzing automation scripts, environment setup, and system commands.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "shell",
+        "scripting",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/sql.md",
+      "type": "document",
+      "name": "sql.md",
+      "filePath": "understand/languages/sql.md",
+      "summary": "SQL language addendum focusing on DDL, DML, and database schema migration patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "sql",
+        "database",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/swift.md",
+      "type": "document",
+      "name": "swift.md",
+      "filePath": "understand/languages/swift.md",
+      "summary": "Swift language addendum outlining protocol-oriented programming and iOS/macOS ecosystem conventions.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "swift",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/terraform.md",
+      "type": "document",
+      "name": "terraform.md",
+      "filePath": "understand/languages/terraform.md",
+      "summary": "Terraform language addendum detailing provider configurations, resource definitions, and infrastructure-as-code patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "terraform",
+        "infrastructure",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/typescript.md",
+      "type": "document",
+      "name": "typescript.md",
+      "filePath": "understand/languages/typescript.md",
+      "summary": "TypeScript language addendum focusing on type definitions, interfaces, generics, and compiler configurations for code analysis.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "typescript",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/languages/yaml.md",
+      "type": "document",
+      "name": "yaml.md",
+      "filePath": "understand/languages/yaml.md",
+      "summary": "YAML language addendum for identifying configuration structures, CI/CD pipelines, and data serialization patterns.",
+      "tags": [
+        "documentation",
+        "language-guide",
+        "yaml",
+        "configuration",
+        "understand-plugin"
+      ]
+    },
+    {
+      "id": "document:understand/locales/en.md",
+      "type": "document",
+      "name": "en.md",
+      "filePath": "understand/locales/en.md",
+      "summary": "English output guidelines for knowledge graph content.",
+      "tags": [
+        "documentation",
+        "locales",
+        "en"
+      ]
+    },
+    {
+      "id": "document:understand/locales/ja.md",
+      "type": "document",
+      "name": "ja.md",
+      "filePath": "understand/locales/ja.md",
+      "summary": "Japanese output guidelines for knowledge graph content.",
+      "tags": [
+        "documentation",
+        "locales",
+        "ja"
+      ]
+    },
+    {
+      "id": "document:understand/locales/ko.md",
+      "type": "document",
+      "name": "ko.md",
+      "filePath": "understand/locales/ko.md",
+      "summary": "Korean output guidelines for knowledge graph content.",
+      "tags": [
+        "documentation",
+        "locales",
+        "ko"
+      ]
+    },
+    {
+      "id": "document:understand/locales/ru.md",
+      "type": "document",
+      "name": "ru.md",
+      "filePath": "understand/locales/ru.md",
+      "summary": "Russian output guidelines for knowledge graph content.",
+      "tags": [
+        "documentation",
+        "locales",
+        "ru"
+      ]
+    },
+    {
+      "id": "document:understand/locales/zh-TW.md",
+      "type": "document",
+      "name": "zh-TW.md",
+      "filePath": "understand/locales/zh-TW.md",
+      "summary": "Traditional Chinese output guidelines for knowledge graph content.",
+      "tags": [
+        "documentation",
+        "locales",
+        "zh-tw"
+      ]
+    },
+    {
+      "id": "document:understand/locales/zh.md",
+      "type": "document",
+      "name": "zh.md",
+      "filePath": "understand/locales/zh.md",
+      "summary": "Simplified Chinese output guidelines for knowledge graph content.",
+      "tags": [
+        "documentation",
+        "locales",
+        "zh"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Battle_of_Balls_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md",
+      "summary": "AI evaluation report for 'Battle of Balls', covering project overview, quality scorecard, SWOT analysis, and strategic insights.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "swot-analysis",
+        "market-research"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "type": "document",
+      "name": "Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+      "summary": "AI evaluation report for 'Càn Quét Tam Quốc', analyzing social features, achievements, and SWOT components.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "swot-analysis",
+        "social-features"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Game_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Game_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Game_20260519.md",
+      "summary": "AI evaluation report for a general game project, focusing on core loop, graphics, monetization, and retention.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "core-loop",
+        "monetization"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "type": "document",
+      "name": "Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+      "summary": "AI evaluation report for 'HLV Đỉnh Cao', detailing player and coach recruitment features, community features, and SWOT.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "sports-game",
+        "swot-analysis"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md",
+      "type": "document",
+      "name": "Evaluation_POKEMON_REWORK_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md",
+      "summary": "AI evaluation report for 'Pokemon Rework', covering mobile OS compatibility, community engagement, and strategic action items.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "pokemon",
+        "market-analysis"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Solo_LevelingArise_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md",
+      "summary": "AI evaluation report for 'Solo Leveling: Arise', analyzing attributes, professions, weapons, and story elements.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "solo-leveling",
+        "rpg-analysis"
+      ]
+    },
+    {
+      "id": "document:Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md",
+      "type": "document",
+      "name": "Evaluation_Ultimate_Football_Club_20260519.md",
+      "filePath": "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md",
+      "summary": "Extensive AI evaluation report for 'Ultimate Football Club', covering IP, market fit, gameplay depth, graphics, and monetization.",
+      "tags": [
+        "documentation",
+        "game-evaluation",
+        "football-game",
+        "monetization",
+        "market-fit"
+      ]
+    },
+    {
+      "id": "config:.gemini/settings.json",
+      "type": "config",
+      "name": "settings.json",
+      "filePath": ".gemini/settings.json",
+      "summary": "Configuration for Gemini CLI, specifically defining Model Context Protocol (MCP) servers.",
+      "tags": [
+        "configuration",
+        "gemini-cli",
+        "mcp-servers"
+      ]
+    },
+    {
+      "id": "file:.husky/pre-commit",
+      "type": "file",
+      "name": "pre-commit",
+      "filePath": ".husky/pre-commit",
+      "summary": "Husky pre-commit hook script for running linting or tests before committing.",
+      "tags": [
+        "script",
+        "husky",
+        "git-hooks"
+      ]
+    },
+    {
+      "id": "file:.husky/pre-push",
+      "type": "file",
+      "name": "pre-push",
+      "filePath": ".husky/pre-push",
+      "summary": "Husky pre-push hook script to ensure tests pass before pushing to the remote repository.",
+      "tags": [
+        "script",
+        "husky",
+        "git-hooks"
+      ]
+    },
+    {
+      "id": "file:.prettierignore",
+      "type": "file",
+      "name": ".prettierignore",
+      "filePath": ".prettierignore",
+      "summary": "Excludes specific files and directories from Prettier code formatting.",
+      "tags": [
+        "configuration",
+        "prettier",
+        "formatting"
+      ]
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore patterns for the Understand-Anything codebase analysis tool.",
+      "tags": [
+        "configuration",
+        "analysis",
+        "ignore-list"
+      ]
+    },
+    {
+      "id": "file:ai-agents/code_re_agent.py",
+      "type": "file",
+      "name": "code_re_agent.py",
+      "filePath": "ai-agents/code_re_agent.py",
+      "summary": "Automated code reverse engineering agent that analyzes project structure, environment, and data flows.",
+      "tags": [
+        "code",
+        "ai-agent",
+        "reverse-engineering",
+        "python"
+      ]
+    },
+    {
+      "id": "file:ai-agents/game_eval_agent.py",
+      "type": "file",
+      "name": "game_eval_agent.py",
+      "filePath": "ai-agents/game_eval_agent.py",
+      "summary": "Expert AI agent for game evaluation, capable of parsing Excel data, conducting web research, and generating SWOT reports.",
+      "tags": [
+        "code",
+        "ai-agent",
+        "game-evaluation",
+        "python"
+      ]
+    },
+    {
+      "id": "document:ai-agents/GameEvalAgent_SOP.md",
+      "type": "document",
+      "name": "GameEvalAgent_SOP.md",
+      "filePath": "ai-agents/GameEvalAgent_SOP.md",
+      "summary": "Standard Operating Procedure for the Game Evaluation Agent, outlining workflows and evaluation criteria.",
+      "tags": [
+        "documentation",
+        "sop",
+        "ai-agent",
+        "workflow"
+      ]
+    },
+    {
+      "id": "file:ai-agents/pptx_generator.py",
+      "type": "file",
+      "name": "pptx_generator.py",
+      "filePath": "ai-agents/pptx_generator.py",
+      "summary": "Automated PowerPoint presentation generator that converts markdown reports into visual slides.",
+      "tags": [
+        "code",
+        "automation",
+        "pptx-generation",
+        "python"
+      ]
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "type": "file",
+      "name": "prisma.config.ts",
+      "filePath": "backend/prisma.config.ts",
+      "summary": "Configuration file for Prisma ORM, likely handling environment variables or custom provider settings.",
+      "tags": [
+        "code",
+        "config",
+        "prisma",
+        "typescript"
+      ]
+    },
+    {
+      "id": "service:backend/prisma/docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "backend/prisma/docker-compose.yml",
+      "summary": "Docker Compose configuration for provisioning a PostgreSQL database for Prisma.",
+      "tags": [
+        "infrastructure",
+        "docker-compose",
+        "database",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "file:backend/prisma/migrate-import.ts",
+      "type": "file",
+      "name": "migrate-import.ts",
+      "filePath": "backend/prisma/migrate-import.ts",
+      "summary": "Utility script for importing data during or after Prisma migrations.",
+      "tags": [
+        "code",
+        "utility",
+        "prisma",
+        "migration",
+        "typescript"
+      ]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260526045525_init/migration.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "backend/prisma/migrations/20260526045525_init/migration.sql",
+      "summary": "Database table definition for users, including credentials and metadata.",
+      "tags": [
+        "database",
+        "table",
+        "users"
+      ]
+    },
+    {
+      "id": "file:backend/prisma/migrations/20260526045525_init/migration.sql",
+      "type": "file",
+      "name": "20260526045525_init",
+      "filePath": "backend/prisma/migrations/20260526045525_init/migration.sql",
+      "summary": "Initial SQL migration for the database schema.",
+      "tags": [
+        "database",
+        "migration",
+        "sql"
+      ]
+    },
+    {
+      "id": "file:backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+      "type": "file",
+      "name": "20260527020000_add_auth_fields",
+      "filePath": "backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+      "summary": "SQL migration adding authentication-related fields to the user schema.",
+      "tags": [
+        "database",
+        "migration",
+        "sql",
+        "auth"
+      ]
+    },
+    {
+      "id": "file:backend/prisma/migrations/20260603011026_init/migration.sql",
+      "type": "file",
+      "name": "20260603011026_init",
+      "filePath": "backend/prisma/migrations/20260603011026_init/migration.sql",
+      "summary": "Subsequent initialization or correction SQL migration.",
+      "tags": [
+        "database",
+        "migration",
+        "sql"
+      ]
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "type": "config",
+      "name": "migration_lock.toml",
+      "filePath": "backend/prisma/migrations/migration_lock.toml",
+      "summary": "Prisma migration lock file preventing concurrent migration runs.",
+      "tags": [
+        "configuration",
+        "prisma",
+        "migration-lock"
+      ]
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "type": "schema",
+      "name": "schema.prisma",
+      "filePath": "backend/prisma/schema.prisma",
+      "summary": "Prisma schema file defining the database models and relationships for the backend.",
+      "tags": [
+        "data",
+        "schema",
+        "prisma",
+        "orm"
+      ]
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "type": "file",
+      "name": "seed.ts",
+      "filePath": "backend/prisma/seed.ts",
+      "summary": "Entry point for seeding the database with initial data using Prisma.",
+      "tags": [
+        "code",
+        "database-seeding",
+        "typescript"
+      ]
+    },
+    {
+      "id": "file:backend/seed-users.ts",
+      "type": "file",
+      "name": "seed-users.ts",
+      "filePath": "backend/seed-users.ts",
+      "summary": "Specialized script for seeding user data into the database.",
+      "tags": [
+        "code",
+        "database-seeding",
+        "users",
+        "typescript"
+      ]
+    },
+    {
+      "id": "file:backend/src/__tests__/auth.test.js",
+      "type": "file",
+      "name": "auth.test.js",
+      "filePath": "backend/src/__tests__/auth.test.js",
+      "summary": "Unit tests for the authentication service and related logic.",
+      "tags": [
+        "code",
+        "test",
+        "auth",
+        "javascript"
+      ]
+    },
+    {
+      "id": "file:backend/src/auth.js",
+      "type": "file",
+      "name": "auth.js",
+      "filePath": "backend/src/auth.js",
+      "summary": "Authentication service implementing login, registration, and session management.",
+      "tags": [
+        "code",
+        "auth-service",
+        "security",
+        "javascript",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:backend/src/data-store-db.js",
+      "type": "file",
+      "name": "data-store-db.js",
+      "filePath": "backend/src/data-store-db.js",
+      "summary": "Database-backed data storage implementation for tasks, projects, and users.",
+      "tags": [
+        "code",
+        "data-store",
+        "database",
+        "javascript"
+      ]
+    },
+    {
+      "id": "file:backend/src/data-store.js",
+      "type": "file",
+      "name": "data-store.js",
+      "filePath": "backend/src/data-store.js",
+      "summary": "Generic data store interface or base implementation for the backend.",
+      "tags": [
+        "code",
+        "data-store",
+        "interface",
+        "javascript"
+      ]
+    },
+    {
+      "id": "file:backend/src/db.js",
+      "type": "file",
+      "name": "db.js",
+      "filePath": "backend/src/db.js",
+      "summary": "Database connection and initialization logic using Prisma or raw SQL.",
+      "tags": [
+        "code",
+        "database",
+        "connection",
+        "javascript"
+      ]
+    },
+    {
+      "id": "file:backend/src/logger.js",
+      "type": "file",
+      "name": "logger.js",
+      "filePath": "backend/src/logger.js",
+      "summary": "Utility for logging application events, errors, and performance metrics.",
+      "tags": [
+        "code",
+        "utility",
+        "logging",
+        "javascript"
+      ]
+    },
+    {
+      "id": "file:backend/src/server.js",
+      "type": "file",
+      "name": "server.js",
+      "filePath": "backend/src/server.js",
+      "summary": "Main backend server entry point that initializes the Express application, configures middleware (CORS, auth, body-parser), and defines API routes for codebase and APK analysis.",
+      "tags": [
+        "entry-point",
+        "api-handler",
+        "express",
+        "middleware",
+        "server"
+      ]
+    },
+    {
+      "id": "file:load_excel_demo.py",
+      "type": "file",
+      "name": "load_excel_demo.py",
+      "filePath": "load_excel_demo.py",
+      "summary": "Utility script demonstrating how to load and inspect Excel files using pandas, including sheet listing and data preview.",
+      "tags": [
+        "utility",
+        "data-processing",
+        "excel",
+        "python"
+      ]
+    },
+    {
+      "id": "file:mcp_server/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "mcp_server/__init__.py",
+      "summary": "Package initialization file for the Model Context Protocol (MCP) server.",
+      "tags": [
+        "entry-point",
+        "python",
+        "package"
+      ]
+    },
+    {
+      "id": "file:mcp_server/handlers.py",
+      "type": "file",
+      "name": "handlers.py",
+      "filePath": "mcp_server/handlers.py",
+      "summary": "Contains request handlers for the MCP server, including integration with OpenAI for processing natural language requests.",
+      "tags": [
+        "api-handler",
+        "openai",
+        "mcp",
+        "python"
+      ]
+    },
+    {
+      "id": "file:mcp_server/main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "mcp_server/main.py",
+      "summary": "Main entry point for the MCP server using FastAPI, defining routes for health checks and MCP request processing with API key verification.",
+      "tags": [
+        "entry-point",
+        "fastapi",
+        "api-handler",
+        "mcp",
+        "python"
+      ]
+    },
+    {
+      "id": "document:mcp_server/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "mcp_server/README.md",
+      "summary": "Documentation for the MCP server providing an overview of its purpose, architecture, and usage instructions.",
+      "tags": [
+        "documentation",
+        "mcp",
+        "overview"
+      ]
+    },
+    {
+      "id": "document:mcp_server/requirements.txt",
+      "type": "document",
+      "name": "requirements.txt",
+      "filePath": "mcp_server/requirements.txt",
+      "summary": "List of Python dependencies required for the MCP server, including FastAPI and OpenAI.",
+      "tags": [
+        "configuration",
+        "python",
+        "dependencies"
+      ]
+    },
+    {
+      "id": "document:reports/Evaluation_Puzzle Quest Mobile_20260515.md",
+      "type": "document",
+      "name": "Evaluation_Puzzle Quest Mobile_20260515.md",
+      "filePath": "reports/Evaluation_Puzzle Quest Mobile_20260515.md",
+      "summary": "Analysis report for 'Puzzle Quest Mobile', detailing raw data analysis, scorecard, research insights, and findings from an AI-driven evaluation.",
+      "tags": [
+        "documentation",
+        "report",
+        "game-evaluation"
+      ]
+    },
+    {
+      "id": "config:task-dashboard/eslint.config.js",
+      "type": "config",
+      "name": "eslint.config.js",
+      "filePath": "task-dashboard/eslint.config.js",
+      "summary": "ESLint configuration for the task dashboard project, defining linting rules and plugins for React and TypeScript.",
+      "tags": [
+        "configuration",
+        "linting",
+        "javascript"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "task-dashboard/src/App.css",
+      "summary": "Global styles for the main App component, providing base layout and styling resets.",
+      "tags": [
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "task-dashboard/src/App.tsx",
+      "summary": "Main React component for the task dashboard, handling routing, layout structure, and wrapping the application in App and Auth providers.",
+      "tags": [
+        "entry-point",
+        "react",
+        "component",
+        "routing"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "type": "file",
+      "name": "LoginForm.tsx",
+      "filePath": "task-dashboard/src/components/auth/LoginForm.tsx",
+      "summary": "React component for the user login form, integrating with the AuthContext to perform authentication and handle errors.",
+      "tags": [
+        "component",
+        "authentication",
+        "form",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "type": "file",
+      "name": "RegisterForm.tsx",
+      "filePath": "task-dashboard/src/components/auth/RegisterForm.tsx",
+      "summary": "React component for the user registration form, allowing new users to sign up with specific roles and details.",
+      "tags": [
+        "component",
+        "authentication",
+        "form",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/UserManagementPage.css",
+      "type": "file",
+      "name": "UserManagementPage.css",
+      "filePath": "task-dashboard/src/components/auth/UserManagementPage.css",
+      "summary": "Styles for the user management page, including user tables and role badges.",
+      "tags": [
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "type": "file",
+      "name": "UserManagementPage.tsx",
+      "filePath": "task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "summary": "Administrative page for managing users, updating roles, and deleting accounts with real-time feedback.",
+      "tags": [
+        "component",
+        "authentication",
+        "admin",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/calendar/CalendarPage.css",
+      "type": "file",
+      "name": "CalendarPage.css",
+      "filePath": "task-dashboard/src/components/calendar/CalendarPage.css",
+      "summary": "Styles for the interactive calendar view, including grid layouts and drag-and-drop visual cues.",
+      "tags": [
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "type": "file",
+      "name": "CalendarPage.tsx",
+      "filePath": "task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "summary": "Interactive calendar view for tasks, supporting drag-and-drop rescheduling and modal-based task creation/editing.",
+      "tags": [
+        "component",
+        "calendar",
+        "tasks",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/Common.css",
+      "type": "file",
+      "name": "Common.css",
+      "filePath": "task-dashboard/src/components/common/Common.css",
+      "summary": "Shared CSS styles for common UI components such as buttons, badges, modals, and avatars used across the dashboard.",
+      "tags": [
+        "css",
+        "styling",
+        "shared"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "type": "file",
+      "name": "ErrorBoundary.tsx",
+      "filePath": "task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "summary": "React error boundary component that catches runtime errors in its child tree and displays a fallback UI.",
+      "tags": [
+        "component",
+        "error-handling",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "file",
+      "name": "index.tsx",
+      "filePath": "task-dashboard/src/components/common/index.tsx",
+      "summary": "Barrel file for common UI components, exporting reusable elements like Button, Badge, Avatar, and Modal.",
+      "tags": [
+        "component",
+        "barrel",
+        "ui-kit",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/PageHelp.css",
+      "type": "file",
+      "name": "PageHelp.css",
+      "filePath": "task-dashboard/src/components/common/PageHelp.css",
+      "summary": "Styles for the PageHelp component, including positioning and toggle animations.",
+      "tags": [
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "file",
+      "name": "PageHelp.tsx",
+      "filePath": "task-dashboard/src/components/common/PageHelp.tsx",
+      "summary": "A reusable UI component that provides toggleable help content or guides for specific dashboard pages.",
+      "tags": [
+        "component",
+        "ui-kit",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "type": "file",
+      "name": "ProjectModal.tsx",
+      "filePath": "task-dashboard/src/components/common/ProjectModal.tsx",
+      "summary": "Modal component for creating and editing project details, including platform and genre selection.",
+      "tags": [
+        "component",
+        "modal",
+        "projects",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "type": "file",
+      "name": "TaskDetailsModal.tsx",
+      "filePath": "task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "summary": "Read-only modal that displays full details for a task, including priority, tags, and assigned project/member info.",
+      "tags": [
+        "component",
+        "modal",
+        "tasks",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "type": "file",
+      "name": "TaskFormModal.tsx",
+      "filePath": "task-dashboard/src/components/common/TaskFormModal.tsx",
+      "summary": "Complete form modal for task management, supporting creation, editing, and deletion with validation.",
+      "tags": [
+        "component",
+        "modal",
+        "tasks",
+        "react"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "type": "file",
+      "name": "CodeAnalysisPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "summary": "React component for APK file analysis and reporting with log tracking.",
+      "tags": [
+        "component",
+        "apk-analysis",
+        "reporting"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "type": "file",
+      "name": "InsightsPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/InsightsPage.tsx",
+      "summary": "React component providing project insights, scorecards, and AI evaluation tools.",
+      "tags": [
+        "component",
+        "dashboard",
+        "ai-evaluation"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "type": "file",
+      "name": "StaffReportPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "summary": "Report page displaying staff performance metrics and active tasks.",
+      "tags": [
+        "component",
+        "reporting",
+        "staff-metrics"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "type": "file",
+      "name": "WorkReportPage.tsx",
+      "filePath": "task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "summary": "Report page for summarizing work progress and generating Slack updates.",
+      "tags": [
+        "component",
+        "reporting",
+        "slack-integration"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "type": "file",
+      "name": "SetupPage.tsx",
+      "filePath": "task-dashboard/src/components/setup/SetupPage.tsx",
+      "summary": "Configuration page for managing projects and team members.",
+      "tags": [
+        "component",
+        "setup",
+        "admin"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/Sidebar.tsx",
+      "type": "file",
+      "name": "Sidebar.tsx",
+      "filePath": "task-dashboard/src/components/Sidebar.tsx",
+      "summary": "Main navigation sidebar component with role-based access control.",
+      "tags": [
+        "component",
+        "navigation",
+        "layout"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "type": "file",
+      "name": "ProjectControlPage.tsx",
+      "filePath": "task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "summary": "Page for project-specific task management with list, board, and overview views.",
+      "tags": [
+        "component",
+        "task-management",
+        "kanban"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "type": "file",
+      "name": "TaskListPage.tsx",
+      "filePath": "task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "summary": "Global task list page with comprehensive filtering and sorting options.",
+      "tags": [
+        "component",
+        "task-management",
+        "filtering"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "file",
+      "name": "AppContext.tsx",
+      "filePath": "task-dashboard/src/contexts/AppContext.tsx",
+      "summary": "Global application state provider using React Context and a reducer for data management.",
+      "tags": [
+        "context",
+        "state-management",
+        "provider"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "file",
+      "name": "AuthContext.tsx",
+      "filePath": "task-dashboard/src/contexts/AuthContext.tsx",
+      "summary": "Authentication context provider managing user login, registration, and session state.",
+      "tags": [
+        "context",
+        "authentication",
+        "provider"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/data/apiService.ts",
+      "type": "file",
+      "name": "apiService.ts",
+      "filePath": "task-dashboard/src/data/apiService.ts",
+      "summary": "Service for making authenticated HTTP requests to the backend API.",
+      "tags": [
+        "service",
+        "api",
+        "http"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/data/dataService.ts",
+      "type": "file",
+      "name": "dataService.ts",
+      "filePath": "task-dashboard/src/data/dataService.ts",
+      "summary": "Service for managing local and remote data synchronization and persistence.",
+      "tags": [
+        "service",
+        "persistence",
+        "sync"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/data/seedData.ts",
+      "type": "file",
+      "name": "seedData.ts",
+      "filePath": "task-dashboard/src/data/seedData.ts",
+      "summary": "Static seed data and utilities for initializing the application state.",
+      "tags": [
+        "data",
+        "mock",
+        "initialization"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/services/authService.ts",
+      "type": "file",
+      "name": "authService.ts",
+      "filePath": "task-dashboard/src/services/authService.ts",
+      "summary": "Service for authentication-related API calls and session storage management.",
+      "tags": [
+        "service",
+        "authentication",
+        "api"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/types/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "task-dashboard/src/types/index.ts",
+      "summary": "Centralized type definitions for the application's domain models.",
+      "tags": [
+        "types",
+        "typescript",
+        "models"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/utils/apkParser.ts",
+      "type": "file",
+      "name": "apkParser.ts",
+      "filePath": "task-dashboard/src/utils/apkParser.ts",
+      "summary": "Utility for client-side APK parsing and manifest analysis using JSZip.",
+      "tags": [
+        "utility",
+        "apk-parsing",
+        "binary-extraction"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/utils/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "task-dashboard/src/utils/index.ts",
+      "summary": "General-purpose utility functions for formatting, calculations, and date manipulation.",
+      "tags": [
+        "utility",
+        "formatting",
+        "date-utils"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/setup/SetupPage.css",
+      "type": "file",
+      "name": "SetupPage.css",
+      "filePath": "task-dashboard/src/components/setup/SetupPage.css",
+      "summary": "Styles for the Setup page.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/Sidebar.css",
+      "type": "file",
+      "name": "Sidebar.css",
+      "filePath": "task-dashboard/src/components/Sidebar.css",
+      "summary": "Styles for the Sidebar component.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "type": "file",
+      "name": "ProjectControlPage.css",
+      "filePath": "task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "summary": "Styles for the Project Control page.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/components/tasks/TaskListPage.css",
+      "type": "file",
+      "name": "TaskListPage.css",
+      "filePath": "task-dashboard/src/components/tasks/TaskListPage.css",
+      "summary": "Styles for the Task List page.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/styles/global.css",
+      "type": "file",
+      "name": "global.css",
+      "filePath": "task-dashboard/src/styles/global.css",
+      "summary": "Global CSS styles and utility classes.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/styles/tokens.css",
+      "type": "file",
+      "name": "tokens.css",
+      "filePath": "task-dashboard/src/styles/tokens.css",
+      "summary": "CSS variable tokens for theme colors and spacing.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "task-dashboard/src/index.css",
+      "summary": "Root CSS file.",
+      "tags": [
+        "markup",
+        "css",
+        "styling"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "task-dashboard/src/main.tsx",
+      "summary": "Application entry point that renders the React tree.",
+      "tags": [
+        "entry-point",
+        "react",
+        "bootstrap"
+      ]
+    },
+    {
+      "id": "file:task-dashboard/vite.config.ts",
+      "type": "config",
+      "name": "vite.config.ts",
+      "filePath": "task-dashboard/vite.config.ts",
+      "summary": "Vite configuration for the task dashboard frontend, defining build and development settings.",
+      "tags": [
+        "configuration",
+        "vite",
+        "build-system"
+      ]
+    },
+    {
+      "id": "file:test_candy.apk",
+      "type": "file",
+      "name": "test_candy.apk",
+      "filePath": "test_candy.apk",
+      "summary": "Sample APK file used for testing the client-side APK parser.",
+      "tags": [
+        "test-asset",
+        "apk",
+        "binary"
+      ]
+    },
+    {
+      "id": "file:test_real.apk",
+      "type": "file",
+      "name": "test_real.apk",
+      "filePath": "test_real.apk",
+      "summary": "Another sample APK file for testing purposes.",
+      "tags": [
+        "test-asset",
+        "apk",
+        "binary"
+      ]
+    },
+    {
+      "id": "file:test.apk",
+      "type": "file",
+      "name": "test.apk",
+      "filePath": "test.apk",
+      "summary": "General test APK asset.",
+      "tags": [
+        "test-asset",
+        "apk",
+        "binary"
+      ]
+    },
+    {
+      "id": "document:understand-chat/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "understand-chat/SKILL.md",
+      "summary": "Documentation for the understand-chat skill, including instructions for reading and responding to graph-based queries.",
+      "tags": [
+        "documentation",
+        "skill",
+        "instructions"
+      ]
+    },
+    {
+      "id": "document:understand-dashboard/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "understand-dashboard/SKILL.md",
+      "summary": "Instructions for using the understand-dashboard skill to visualize codebase knowledge graphs.",
+      "tags": [
+        "documentation",
+        "skill",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "file:understand/build-fingerprints.mjs",
+      "type": "file",
+      "name": "build-fingerprints.mjs",
+      "filePath": "understand/build-fingerprints.mjs",
+      "summary": "Script for generating structural fingerprints for files to optimize incremental analysis.",
+      "tags": [
+        "script",
+        "fingerprinting",
+        "optimization"
+      ]
+    },
+    {
+      "id": "file:understand/compute-batches.mjs",
+      "type": "file",
+      "name": "compute-batches.mjs",
+      "filePath": "understand/compute-batches.mjs",
+      "summary": "Core logic for clustering project files into batches using the Louvain algorithm for parallel analysis.",
+      "tags": [
+        "script",
+        "batching",
+        "clustering"
+      ]
+    },
+    {
+      "id": "file:understand/extract-import-map.mjs",
+      "type": "file",
+      "name": "extract-import-map.mjs",
+      "filePath": "understand/extract-import-map.mjs",
+      "summary": "Comprehensive import resolver supporting multiple languages and configuration-based aliases.",
+      "tags": [
+        "script",
+        "import-resolution",
+        "static-analysis"
+      ]
+    },
+    {
+      "id": "file:understand/extract-structure.mjs",
+      "type": "file",
+      "name": "extract-structure.mjs",
+      "filePath": "understand/extract-structure.mjs",
+      "summary": "Tree-sitter based structural extractor for gathering functions, classes, and re-exports from source files.",
+      "tags": [
+        "script",
+        "parsing",
+        "tree-sitter"
+      ]
+    },
+    {
+      "id": "file:understand/merge-batch-graphs.py",
+      "type": "file",
+      "name": "merge-batch-graphs.py",
+      "filePath": "understand/merge-batch-graphs.py",
+      "summary": "Python script for consolidating individual batch results into a unified knowledge graph with normalization.",
+      "tags": [
+        "script",
+        "merging",
+        "graph-normalization"
+      ]
+    },
+    {
+      "id": "file:understand/merge-subdomain-graphs.py",
+      "type": "file",
+      "name": "merge-subdomain-graphs.py",
+      "filePath": "understand/merge-subdomain-graphs.py",
+      "summary": "Aggregates domain-specific graphs into the main knowledge repository.",
+      "tags": [
+        "script",
+        "merging",
+        "domain-logic"
+      ]
+    },
+    {
+      "id": "file:understand/scan-project.mjs",
+      "type": "file",
+      "name": "scan-project.mjs",
+      "filePath": "understand/scan-project.mjs",
+      "summary": "Project-level scanner that identifies all relevant files and initial metadata for the analysis pipeline.",
+      "tags": [
+        "script",
+        "scanning",
+        "initialization"
+      ]
+    },
+    {
+      "id": "document:understand/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "understand/SKILL.md",
+      "summary": "Main instruction set for the understand skill, defining the entire codebase analysis workflow.",
+      "tags": [
+        "documentation",
+        "skill",
+        "orchestration"
+      ]
+    }
+  ],
+  "importEdges": [
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/data-store-db.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/auth.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/data-store.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/logger.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "file:mcp_server/handlers.py",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/components/Sidebar.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/components/auth/UserManagementPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/components/calendar/CalendarPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "file:task-dashboard/src/components/common/Common.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/utils/apkParser.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/InsightsPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/StaffReportPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/WorkReportPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/setup/SetupPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/components/Sidebar.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/TaskListPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/data/dataService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/data/seedData.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/apiService.ts",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/apiService.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/data/seedData.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/seedData.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/App.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/index.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/services/authService.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/utils/index.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    }
+  ],
+  "allEdges": [
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "service:backend/Dockerfile:node",
+      "type": "contains"
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "file:backend/src/server.js",
+      "type": "deploys"
+    },
+    {
+      "source": "service:task-dashboard/Dockerfile",
+      "target": "service:task-dashboard/Dockerfile:builder",
+      "type": "contains"
+    },
+    {
+      "source": "service:task-dashboard/Dockerfile",
+      "target": "service:task-dashboard/Dockerfile:nginx",
+      "type": "contains"
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:backend/Dockerfile",
+      "type": "depends_on"
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:task-dashboard/Dockerfile",
+      "type": "depends_on"
+    },
+    {
+      "source": "document:SOP.md",
+      "target": "config:package.json",
+      "type": "documents"
+    },
+    {
+      "source": "document:website_features.md",
+      "target": "file:task-dashboard/src/App.tsx",
+      "type": "documents"
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:.lintstagedrc.json",
+      "type": "configures"
+    },
+    {
+      "source": "config:.understand-anything/intermediate/batches.json",
+      "target": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "depends_on"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "config:backend/package.json",
+      "type": "documents"
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/src/server.js",
+      "type": "configures"
+    },
+    {
+      "source": "document:task-dashboard/README.md",
+      "target": "config:task-dashboard/package.json",
+      "type": "documents"
+    },
+    {
+      "source": "config:task-dashboard/package.json",
+      "target": "file:task-dashboard/src/main.tsx",
+      "type": "configures"
+    },
+    {
+      "source": "config:task-dashboard/tsconfig.json",
+      "target": "config:task-dashboard/tsconfig.app.json",
+      "type": "configures"
+    },
+    {
+      "source": "file:task-dashboard/index.html",
+      "target": "file:task-dashboard/src/main.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "target": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "type": "related"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.css",
+      "target": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "type": "related"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.css",
+      "target": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "type": "related"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.css",
+      "target": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "type": "related"
+    },
+    {
+      "source": "file:ai-agents/code_re_agent.py",
+      "target": "class:ai-agents/code_re_agent.py:CodeREAgent",
+      "type": "contains"
+    },
+    {
+      "source": "file:ai-agents/game_eval_agent.py",
+      "target": "class:ai-agents/game_eval_agent.py:GameEvalAgent",
+      "type": "contains"
+    },
+    {
+      "source": "file:ai-agents/game_eval_agent.py",
+      "target": "function:ai-agents/game_eval_agent.py:main",
+      "type": "contains"
+    },
+    {
+      "source": "document:ai-agents/GameEvalAgent_SOP.md",
+      "target": "file:ai-agents/game_eval_agent.py",
+      "type": "documents"
+    },
+    {
+      "source": "file:ai-agents/pptx_generator.py",
+      "target": "file:ai-agents/game_eval_agent.py",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures"
+    },
+    {
+      "source": "service:backend/prisma/docker-compose.yml",
+      "target": "file:backend/src/db.js",
+      "type": "deploys"
+    },
+    {
+      "source": "file:backend/prisma/migrate-import.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/prisma/migrations/20260526045525_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260526045525_init/migration.sql:users",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+      "target": "table:backend/prisma/migrations/20260526045525_init/migration.sql:users",
+      "type": "migrates"
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "file:backend/prisma/migrations/20260526045525_init/migration.sql",
+      "type": "migrates"
+    },
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "file:backend/seed-users.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/seed-users.ts",
+      "target": "file:backend/src/auth.js",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "file:backend/src/__tests__/auth.test.js",
+      "type": "tested_by"
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/src/data-store-db.js",
+      "target": "file:backend/src/db.js",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/src/data-store-db.js",
+      "target": "file:backend/src/logger.js",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/src/data-store.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "related"
+    },
+    {
+      "source": "file:backend/src/db.js",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "function:backend/src/server.js:authMiddleware",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "function:backend/src/server.js:authorize",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "function:backend/src/server.js:execWithTimeout",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/auth.js",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:load_excel_demo.py",
+      "target": "function:load_excel_demo.py:load_excel_example",
+      "type": "contains"
+    },
+    {
+      "source": "file:mcp_server/handlers.py",
+      "target": "function:mcp_server/handlers.py:handle_request",
+      "type": "contains"
+    },
+    {
+      "source": "file:mcp_server/handlers.py",
+      "target": "function:mcp_server/handlers.py:_call_openai",
+      "type": "contains"
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "function:mcp_server/main.py:verify_api_key",
+      "type": "contains"
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "function:mcp_server/main.py:mcp_requests",
+      "type": "contains"
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "class:mcp_server/main.py:MCPRequest",
+      "type": "contains"
+    },
+    {
+      "source": "function:mcp_server/main.py:mcp_requests",
+      "target": "function:mcp_server/handlers.py:handle_request",
+      "type": "calls"
+    },
+    {
+      "source": "document:mcp_server/README.md",
+      "target": "file:mcp_server/main.py",
+      "type": "documents"
+    },
+    {
+      "source": "document:mcp_server/requirements.txt",
+      "target": "file:mcp_server/main.py",
+      "type": "configures"
+    },
+    {
+      "source": "config:task-dashboard/eslint.config.js",
+      "target": "file:task-dashboard/src/App.tsx",
+      "type": "configures"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "function:task-dashboard/src/App.tsx:AppContent",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "function:task-dashboard/src/App.tsx:App",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "target": "function:task-dashboard/src/components/auth/LoginForm.tsx:LoginForm",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "target": "function:task-dashboard/src/components/auth/RegisterForm.tsx:RegisterForm",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "function:task-dashboard/src/components/auth/UserManagementPage.tsx:UserManagementPage",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "function:task-dashboard/src/components/calendar/CalendarPage.tsx:CalendarPage",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "target": "class:task-dashboard/src/components/common/ErrorBoundary.tsx:ErrorBoundary",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Button",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Badge",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Avatar",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:Modal",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:WeightDots",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "function:task-dashboard/src/components/common/index.tsx:EmptyState",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "target": "function:task-dashboard/src/components/common/PageHelp.tsx:PageHelp",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "target": "function:task-dashboard/src/components/common/ProjectModal.tsx:ProjectModal",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "target": "function:task-dashboard/src/components/common/TaskDetailsModal.tsx:TaskDetailsModal",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "function:task-dashboard/src/components/common/TaskFormModal.tsx:TaskFormModal",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "function:task-dashboard/src/components/reports/CodeAnalysisPage.tsx:CodeAnalysisPage",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/utils/apkParser.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "function:task-dashboard/src/components/reports/InsightsPage.tsx:InsightsPage",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "function:task-dashboard/src/components/reports/InsightsPage.tsx:AIEvaluationSection",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/setup/SetupPage.css",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/components/Sidebar.css",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/TaskListPage.css",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/data/dataService.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/data/apiService.ts",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/utils/apkParser.ts",
+      "target": "class:task-dashboard/src/utils/apkParser.ts:ClientSideApkParser",
+      "type": "contains"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/index.css",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:understand/compute-batches.mjs",
+      "target": "function:understand/compute-batches.mjs:runLouvain",
+      "type": "contains"
+    },
+    {
+      "source": "file:understand/extract-import-map.mjs",
+      "target": "function:understand/extract-import-map.mjs:resolveTsJsImport",
+      "type": "contains"
+    },
+    {
+      "source": "file:understand/merge-batch-graphs.py",
+      "target": "function:understand/merge-batch-graphs.py:merge_and_normalize",
+      "type": "contains"
+    },
+    {
+      "source": "file:understand/compute-batches.mjs",
+      "target": "file:understand/extract-import-map.mjs",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:understand/merge-batch-graphs.py",
+      "target": "file:understand/scan-project.mjs",
+      "type": "depends_on"
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/scan-project.mjs",
+      "type": "documents"
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/compute-batches.mjs",
+      "type": "documents"
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/extract-structure.mjs",
+      "type": "documents"
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/merge-batch-graphs.py",
+      "type": "documents"
+    },
+    {
+      "source": "file:backend/src/auth.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/data-store-db.js",
+      "target": "file:backend/src/db.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/auth.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/data-store-db.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/data-store.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:backend/src/server.js",
+      "target": "file:backend/src/logger.js",
+      "type": "imports"
+    },
+    {
+      "source": "file:mcp_server/main.py",
+      "target": "file:mcp_server/handlers.py",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/components/common/ErrorBoundary.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/components/Sidebar.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/App.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/LoginForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/RegisterForm.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/components/auth/UserManagementPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/auth/UserManagementPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/components/calendar/CalendarPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/calendar/CalendarPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/index.tsx",
+      "target": "file:task-dashboard/src/components/common/Common.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/ProjectModal.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskDetailsModal.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/common/TaskFormModal.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "target": "file:task-dashboard/src/utils/apkParser.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/InsightsPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/StaffReportPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/components/reports/WorkReportPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/components/setup/SetupPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/setup/SetupPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/components/Sidebar.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/Sidebar.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/ProjectControlPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/common/index.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/common/PageHelp.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/components/tasks/TaskListPage.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/components/tasks/TaskListPage.tsx",
+      "target": "file:task-dashboard/src/utils/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/data/dataService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/data/seedData.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AppContext.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/apiService.ts",
+      "target": "file:task-dashboard/src/services/authService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/apiService.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/data/apiService.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/data/seedData.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/dataService.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/data/seedData.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/App.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/contexts/AuthContext.tsx",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/main.tsx",
+      "target": "file:task-dashboard/src/index.css",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/services/authService.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "file:task-dashboard/src/utils/index.ts",
+      "target": "file:task-dashboard/src/types/index.ts",
+      "type": "imports"
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "config:backend/package.json",
+      "type": "depends_on"
+    },
+    {
+      "source": "service:task-dashboard/Dockerfile",
+      "target": "config:task-dashboard/package.json",
+      "type": "depends_on"
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "config:package.json",
+      "type": "depends_on"
+    },
+    {
+      "source": "file:task-dashboard/vite.config.ts",
+      "target": "file:task-dashboard/src/main.tsx",
+      "type": "configures"
+    }
+  ]
+}

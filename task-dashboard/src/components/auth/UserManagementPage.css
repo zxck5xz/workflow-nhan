@@ -67,7 +67,8 @@
   color: var(--color-danger) !important;
 }
 
-.loading-state, .error-state {
+.loading-state,
+.error-state {
   padding: var(--space-5);
   text-align: center;
   color: var(--color-text-muted);

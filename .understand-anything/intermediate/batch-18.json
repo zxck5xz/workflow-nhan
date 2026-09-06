@@ -1,0 +1,232 @@
+{
+  "nodes": [
+    {
+      "id": "file:task-dashboard/vite.config.ts",
+      "type": "config",
+      "name": "vite.config.ts",
+      "filePath": "task-dashboard/vite.config.ts",
+      "summary": "Vite configuration for the task dashboard frontend, defining build and development settings.",
+      "tags": ["configuration", "vite", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_candy.apk",
+      "type": "file",
+      "name": "test_candy.apk",
+      "filePath": "test_candy.apk",
+      "summary": "Sample APK file used for testing the client-side APK parser.",
+      "tags": ["test-asset", "apk", "binary"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test_real.apk",
+      "type": "file",
+      "name": "test_real.apk",
+      "filePath": "test_real.apk",
+      "summary": "Another sample APK file for testing purposes.",
+      "tags": ["test-asset", "apk", "binary"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test.apk",
+      "type": "file",
+      "name": "test.apk",
+      "filePath": "test.apk",
+      "summary": "General test APK asset.",
+      "tags": ["test-asset", "apk", "binary"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand-chat/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "understand-chat/SKILL.md",
+      "summary": "Documentation for the understand-chat skill, including instructions for reading and responding to graph-based queries.",
+      "tags": ["documentation", "skill", "instructions"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:understand-dashboard/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "understand-dashboard/SKILL.md",
+      "summary": "Instructions for using the understand-dashboard skill to visualize codebase knowledge graphs.",
+      "tags": ["documentation", "skill", "dashboard"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:understand/build-fingerprints.mjs",
+      "type": "file",
+      "name": "build-fingerprints.mjs",
+      "filePath": "understand/build-fingerprints.mjs",
+      "summary": "Script for generating structural fingerprints for files to optimize incremental analysis.",
+      "tags": ["script", "fingerprinting", "optimization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:understand/compute-batches.mjs",
+      "type": "file",
+      "name": "compute-batches.mjs",
+      "filePath": "understand/compute-batches.mjs",
+      "summary": "Core logic for clustering project files into batches using the Louvain algorithm for parallel analysis.",
+      "tags": ["script", "batching", "clustering"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:understand/compute-batches.mjs:runLouvain",
+      "type": "function",
+      "name": "runLouvain",
+      "filePath": "understand/compute-batches.mjs",
+      "lineRange": [201, 216],
+      "summary": "Executes the Louvain community detection algorithm on the project's import graph.",
+      "tags": ["algorithm", "graph-theory", "batching"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:understand/extract-import-map.mjs",
+      "type": "file",
+      "name": "extract-import-map.mjs",
+      "filePath": "understand/extract-import-map.mjs",
+      "summary": "Comprehensive import resolver supporting multiple languages and configuration-based aliases.",
+      "tags": ["script", "import-resolution", "static-analysis"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:understand/extract-import-map.mjs:resolveTsJsImport",
+      "type": "function",
+      "name": "resolveTsJsImport",
+      "filePath": "understand/extract-import-map.mjs",
+      "lineRange": [397, 454],
+      "summary": "Resolves JavaScript and TypeScript imports, handling node_modules, local files, and tsconfig paths.",
+      "tags": ["logic", "typescript", "resolver"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:understand/extract-structure.mjs",
+      "type": "file",
+      "name": "extract-structure.mjs",
+      "filePath": "understand/extract-structure.mjs",
+      "summary": "Tree-sitter based structural extractor for gathering functions, classes, and re-exports from source files.",
+      "tags": ["script", "parsing", "tree-sitter"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:understand/merge-batch-graphs.py",
+      "type": "file",
+      "name": "merge-batch-graphs.py",
+      "filePath": "understand/merge-batch-graphs.py",
+      "summary": "Python script for consolidating individual batch results into a unified knowledge graph with normalization.",
+      "tags": ["script", "merging", "graph-normalization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:understand/merge-batch-graphs.py:merge_and_normalize",
+      "type": "function",
+      "name": "merge_and_normalize",
+      "filePath": "understand/merge-batch-graphs.py",
+      "lineRange": [735, 1100],
+      "summary": "Primary function for merging node/edge fragments and applying semantic deduplication logic.",
+      "tags": ["logic", "graph-processing", "normalization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:understand/merge-subdomain-graphs.py",
+      "type": "file",
+      "name": "merge-subdomain-graphs.py",
+      "filePath": "understand/merge-subdomain-graphs.py",
+      "summary": "Aggregates domain-specific graphs into the main knowledge repository.",
+      "tags": ["script", "merging", "domain-logic"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:understand/scan-project.mjs",
+      "type": "file",
+      "name": "scan-project.mjs",
+      "filePath": "understand/scan-project.mjs",
+      "summary": "Project-level scanner that identifies all relevant files and initial metadata for the analysis pipeline.",
+      "tags": ["script", "scanning", "initialization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:understand/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "understand/SKILL.md",
+      "summary": "Main instruction set for the understand skill, defining the entire codebase analysis workflow.",
+      "tags": ["documentation", "skill", "orchestration"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:understand/compute-batches.mjs",
+      "target": "function:understand/compute-batches.mjs:runLouvain",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:understand/extract-import-map.mjs",
+      "target": "function:understand/extract-import-map.mjs:resolveTsJsImport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:understand/merge-batch-graphs.py",
+      "target": "function:understand/merge-batch-graphs.py:merge_and_normalize",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:understand/compute-batches.mjs",
+      "target": "file:understand/extract-import-map.mjs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:understand/merge-batch-graphs.py",
+      "target": "file:understand/scan-project.mjs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/scan-project.mjs",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/compute-batches.mjs",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/extract-structure.mjs",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:understand/SKILL.md",
+      "target": "file:understand/merge-batch-graphs.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:task-dashboard/vite.config.ts",
+      "target": "file:task-dashboard/src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

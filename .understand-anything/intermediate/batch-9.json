@@ -1,0 +1,70 @@
+{
+  "nodes": [
+    {
+      "id": "file:task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "type": "file",
+      "name": "CodeAnalysisPage.css",
+      "filePath": "task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "summary": "Styles for the Code Analysis report page, defining layout and visual presentation of analysis results.",
+      "tags": ["styles", "ui-styling", "code-analysis", "component-styles"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/InsightsPage.css",
+      "type": "file",
+      "name": "InsightsPage.css",
+      "filePath": "task-dashboard/src/components/reports/InsightsPage.css",
+      "summary": "Styles for the Insights report page, managing the visual representation of data visualizations and metrics.",
+      "tags": ["styles", "ui-styling", "insights", "component-styles"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/StaffReportPage.css",
+      "type": "file",
+      "name": "StaffReportPage.css",
+      "filePath": "task-dashboard/src/components/reports/StaffReportPage.css",
+      "summary": "Styles for the Staff Report page, providing visual structure for employee performance and activity data.",
+      "tags": ["styles", "ui-styling", "staff-report", "component-styles"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/src/components/reports/WorkReportPage.css",
+      "type": "file",
+      "name": "WorkReportPage.css",
+      "filePath": "task-dashboard/src/components/reports/WorkReportPage.css",
+      "summary": "Styles for the Work Report page, defining the appearance of task logs and progress summaries.",
+      "tags": ["styles", "ui-styling", "work-report", "component-styles"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:task-dashboard/src/components/reports/CodeAnalysisPage.css",
+      "target": "file:task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/InsightsPage.css",
+      "target": "file:task-dashboard/src/components/reports/InsightsPage.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/StaffReportPage.css",
+      "target": "file:task-dashboard/src/components/reports/StaffReportPage.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:task-dashboard/src/components/reports/WorkReportPage.css",
+      "target": "file:task-dashboard/src/components/reports/WorkReportPage.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

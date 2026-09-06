@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "id": "document:understand/languages/terraform.md",
+      "type": "document",
+      "name": "terraform.md",
+      "filePath": "understand/languages/terraform.md",
+      "summary": "Terraform language addendum detailing provider configurations, resource definitions, and infrastructure-as-code patterns.",
+      "tags": ["documentation", "language-guide", "terraform", "infrastructure", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/typescript.md",
+      "type": "document",
+      "name": "typescript.md",
+      "filePath": "understand/languages/typescript.md",
+      "summary": "TypeScript language addendum focusing on type definitions, interfaces, generics, and compiler configurations for code analysis.",
+      "tags": ["documentation", "language-guide", "typescript", "understand-plugin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/languages/yaml.md",
+      "type": "document",
+      "name": "yaml.md",
+      "filePath": "understand/languages/yaml.md",
+      "summary": "YAML language addendum for identifying configuration structures, CI/CD pipelines, and data serialization patterns.",
+      "tags": ["documentation", "language-guide", "yaml", "configuration", "understand-plugin"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

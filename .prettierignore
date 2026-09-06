@@ -1,0 +1,17 @@
+node_modules
+dist
+.venv
+*.json
+package-lock.json
+.gemini
+Đánh giá của AI
+PowerPoint
+doc
+backend/data
+backend/generated
+task-dashboard/dist
+harness-context-engineering/chunking
+harness-context-engineering/compact
+harness-context-engineering/context
+harness-context-engineering/memory
+harness-context-engineering/retrieval

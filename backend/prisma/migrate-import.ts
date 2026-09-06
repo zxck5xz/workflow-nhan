@@ -204,7 +204,7 @@ async function main() {
 
   // snapshots
   if (fs.existsSync(SNAPSHOT_DIR)) {
-    const files = fs.readdirSync(SNAPSHOT_DIR).filter(f => f.endsWith('.json'));
+    const files = fs.readdirSync(SNAPSHOT_DIR).filter((f) => f.endsWith('.json'));
     for (const f of files) {
       const datePart = f.replace(/\.json$/, '');
       const snapshotDate = new Date(datePart);
@@ -230,4 +230,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

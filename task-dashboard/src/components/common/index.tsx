@@ -15,7 +15,17 @@ interface ButtonProps {
   style?: React.CSSProperties;
 }
 
-export function Button({ children, variant = 'secondary', size = 'md', onClick, type = 'button', disabled, className = '', title, style }: ButtonProps) {
+export function Button({
+  children,
+  variant = 'secondary',
+  size = 'md',
+  onClick,
+  type = 'button',
+  disabled,
+  className = '',
+  title,
+  style,
+}: ButtonProps) {
   return (
     <button
       type={type}
@@ -79,17 +89,24 @@ export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) 
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="modal-backdrop" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+    <div
+      className="modal-backdrop"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div className="modal">
         <div className="modal__header">
           <h3>{title}</h3>
-          <button className="modal__close" onClick={onClose}>✕</button>
+          <button className="modal__close" onClick={onClose}>
+            ✕
+          </button>
         </div>
         <div className="modal__body">{children}</div>
         {footer && <div className="modal__footer">{footer}</div>}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 

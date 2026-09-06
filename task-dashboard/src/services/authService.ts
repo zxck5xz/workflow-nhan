@@ -62,7 +62,7 @@ export const authService = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // Token will be added by interceptor
+        Authorization: `Bearer ${this.getToken()}`,
       },
     });
 
@@ -129,7 +129,7 @@ export const authService = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.getToken()}`
+        Authorization: `Bearer ${this.getToken()}`,
       },
     });
 
@@ -150,7 +150,7 @@ export const authService = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.getToken()}`
+        Authorization: `Bearer ${this.getToken()}`,
       },
       body: JSON.stringify({ role }),
     });
@@ -172,7 +172,7 @@ export const authService = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.getToken()}`
+        Authorization: `Bearer ${this.getToken()}`,
       },
     });
 
@@ -180,5 +180,5 @@ export const authService = {
       const errorData = await res.json();
       throw new Error(errorData.error || 'Failed to delete user');
     }
-  }
-  };
+  },
+};

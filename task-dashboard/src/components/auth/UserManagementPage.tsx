@@ -34,7 +34,7 @@ export function UserManagementPage() {
   const handleUpdateRole = async (userId: string, newRole: string) => {
     try {
       await authService.updateUserRole(userId, newRole);
-      setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+      setUsers(users.map((u) => (u.id === userId ? { ...u, role: newRole } : u)));
     } catch (err: any) {
       alert(err.message || 'Failed to update role');
     }
@@ -52,7 +52,7 @@ export function UserManagementPage() {
 
     try {
       await authService.deleteUser(userId);
-      setUsers(users.filter(u => u.id !== userId));
+      setUsers(users.filter((u) => u.id !== userId));
     } catch (err: any) {
       alert(err.message || 'Failed to delete user');
     }
@@ -61,10 +61,10 @@ export function UserManagementPage() {
   if (currentUser?.role !== 'ADMIN') {
     return (
       <div className="user-management-page">
-        <EmptyState 
-          icon="🚫" 
-          title="Access Denied" 
-          description="You do not have permission to view this page. Only administrators can manage users." 
+        <EmptyState
+          icon="🚫"
+          title="Access Denied"
+          description="You do not have permission to view this page. Only administrators can manage users."
         />
       </div>
     );
@@ -75,15 +75,27 @@ export function UserManagementPage() {
       <div className="page-header">
         <h1>👥 Quản lý User</h1>
         <div className="header-actions">
-          <Button variant="secondary" onClick={fetchUsers}>🔄 Refresh</Button>
+          <Button variant="secondary" onClick={fetchUsers}>
+            🔄 Refresh
+          </Button>
           <PageHelp title="Hướng dẫn - Quản lý User">
             <h4>Phân quyền hệ thống</h4>
-            <p>Admin có thể thay đổi vai trò của các thành viên hoặc xóa tài khoản khỏi hệ thống.</p>
+            <p>
+              Admin có thể thay đổi vai trò của các thành viên hoặc xóa tài khoản khỏi hệ thống.
+            </p>
             <ul>
-              <li><strong>ADMIN:</strong> Toàn quyền hệ thống.</li>
-              <li><strong>MANAGER:</strong> Quản lý task, xem báo cáo nhân sự.</li>
-              <li><strong>TESTER:</strong> Thực hiện test, đánh giá game.</li>
-              <li><strong>VIEWER:</strong> Chỉ xem dữ liệu.</li>
+              <li>
+                <strong>ADMIN:</strong> Toàn quyền hệ thống.
+              </li>
+              <li>
+                <strong>MANAGER:</strong> Quản lý task, xem báo cáo nhân sự.
+              </li>
+              <li>
+                <strong>TESTER:</strong> Thực hiện test, đánh giá game.
+              </li>
+              <li>
+                <strong>VIEWER:</strong> Chỉ xem dữ liệu.
+              </li>
             </ul>
           </PageHelp>
         </div>
@@ -109,8 +121,11 @@ export function UserManagementPage() {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
-                  <tr key={user.id} className={user.id === currentUser?.id ? 'current-user-row' : ''}>
+                {users.map((user) => (
+                  <tr
+                    key={user.id}
+                    className={user.id === currentUser?.id ? 'current-user-row' : ''}
+                  >
                     <td>
                       <div className="user-cell">
                         <Avatar initials={user.initials} color={user.avatarColor} size="sm" />
@@ -122,22 +137,24 @@ export function UserManagementPage() {
                     </td>
                     <td>{user.email}</td>
                     <td>
-                      <select 
+                      <select
                         className="role-select"
                         value={user.role}
                         onChange={(e) => handleUpdateRole(user.id, e.target.value)}
                         disabled={user.id === currentUser?.id}
                       >
-                        {ROLES.map(role => (
-                          <option key={role} value={role}>{role}</option>
+                        {ROLES.map((role) => (
+                          <option key={role} value={role}>
+                            {role}
+                          </option>
                         ))}
                       </select>
                     </td>
                     <td>{new Date(user.joinedAt).toLocaleDateString()}</td>
                     <td>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={() => handleDeleteUser(user.id)}
                         disabled={user.id === currentUser?.id}
                         className="delete-btn"

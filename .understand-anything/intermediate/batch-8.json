@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "document:task-dashboard/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "task-dashboard/README.md",
+      "summary": "Documentation for the task-dashboard frontend application.",
+      "tags": ["documentation", "frontend", "readme"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:task-dashboard/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "task-dashboard/index.html",
+      "summary": "Main HTML entry point for the task-dashboard frontend.",
+      "tags": ["markup", "frontend", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:task-dashboard/lighthouse-report.json",
+      "type": "config",
+      "name": "lighthouse-report.json",
+      "filePath": "task-dashboard/lighthouse-report.json",
+      "summary": "Performance and accessibility report from Lighthouse for the dashboard.",
+      "tags": ["configuration", "performance", "audit"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:task-dashboard/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "task-dashboard/package.json",
+      "summary": "Frontend application package configuration and dependencies.",
+      "tags": ["configuration", "frontend", "build-system"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:task-dashboard/tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "task-dashboard/tsconfig.app.json",
+      "summary": "TypeScript configuration for the frontend application code.",
+      "tags": ["configuration", "typescript", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:task-dashboard/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "task-dashboard/tsconfig.json",
+      "summary": "Main TypeScript configuration for the dashboard workspace.",
+      "tags": ["configuration", "typescript", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:task-dashboard/tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "task-dashboard/tsconfig.node.json",
+      "summary": "TypeScript configuration for Vite's Node.js environment.",
+      "tags": ["configuration", "typescript", "vite"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:task-dashboard/vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "task-dashboard/vercel.json",
+      "summary": "Vercel deployment configuration for the task-dashboard.",
+      "tags": ["configuration", "deployment", "vercel"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:task-dashboard/README.md",
+      "target": "config:task-dashboard/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:task-dashboard/package.json",
+      "target": "file:task-dashboard/src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:task-dashboard/tsconfig.json",
+      "target": "config:task-dashboard/tsconfig.app.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:task-dashboard/index.html",
+      "target": "file:task-dashboard/src/main.tsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

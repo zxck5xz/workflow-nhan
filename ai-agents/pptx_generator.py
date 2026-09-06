@@ -426,10 +426,13 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="PPTX Slide Deck Compiler")
     parser.add_argument("--markdown", type=str, help="Specific markdown file path to compile")
+    parser.add_argument("--markdown-dir", type=str, help="Directory containing markdown files to compile")
+    parser.add_argument("--output-dir", type=str, help="Output directory for generated PPTX files")
     args = parser.parse_args()
 
-    workspace_dir = "c:/Users/Admin/Desktop/agent AI"
-    output_dir = os.path.join(workspace_dir, "workflow-nhan/PowerPoint")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.abspath(os.path.join(script_dir, ".."))
+    output_dir = args.output_dir or os.path.join(project_root, "PowerPoint")
     os.makedirs(output_dir, exist_ok=True)
 
     print("=== PPTX Slide Deck Compiler ===")
@@ -452,7 +455,7 @@ def main():
             import traceback
             traceback.print_exc()
     else:
-        md_dir = os.path.join(workspace_dir, "workflow-nhan/Đánh giá của AI")
+        md_dir = args.markdown_dir or os.path.join(project_root, "Đánh giá của AI")
         print(f"Scanning directory: {md_dir}")
         print(f"Output directory: {output_dir}")
 

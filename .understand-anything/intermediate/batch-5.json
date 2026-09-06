@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    {
+      "id": "config:.understand-anything/intermediate/batches.json",
+      "type": "config",
+      "name": "batches.json",
+      "filePath": ".understand-anything/intermediate/batches.json",
+      "summary": "Generated batch data for project analysis, mapping files to analysis groups.",
+      "tags": ["configuration", "analysis", "metadata"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.understand-anything/intermediate/domain-context.json",
+      "type": "config",
+      "name": "domain-context.json",
+      "filePath": ".understand-anything/intermediate/domain-context.json",
+      "summary": "Domain-level context and metadata for the project analysis.",
+      "tags": ["configuration", "analysis", "domain"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "config",
+      "name": "scan-result.json",
+      "filePath": ".understand-anything/intermediate/scan-result.json",
+      "summary": "Result of the project-wide file scan, including language and complexity metrics.",
+      "tags": ["configuration", "analysis", "scan"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:.understand-anything/intermediate/batches.json",
+      "target": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

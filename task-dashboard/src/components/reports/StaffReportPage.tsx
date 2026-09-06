@@ -13,15 +13,15 @@ export function StaffReportPage() {
 
   // Aggregate metrics per member
   const memberMetrics = useMemo(() => {
-    return members.map(member => {
-      const userTasks = tasks.filter(t => t.assigneeId === member.id);
-      
+    return members.map((member) => {
+      const userTasks = tasks.filter((t) => t.assigneeId === member.id);
+
       let completed = 0;
       let inProgress = 0;
       let overdue = 0;
       const activeTasks: Task[] = [];
 
-      userTasks.forEach(task => {
+      userTasks.forEach((task) => {
         if (task.status === 'done') {
           completed++;
         } else if (task.status !== 'backlog') {
@@ -46,7 +46,7 @@ export function StaffReportPage() {
         inProgress,
         overdue,
         progressPercent,
-        activeTasks
+        activeTasks,
       };
     });
   }, [members, tasks]);
@@ -59,7 +59,10 @@ export function StaffReportPage() {
         <div className="header-actions">
           <PageHelp title="Hướng dẫn - Báo cáo nhân sự">
             <h4>Mục đích</h4>
-            <p>Trang này tổng hợp số liệu theo từng thành viên để giúp manager nắm khối lượng và tiến độ.</p>
+            <p>
+              Trang này tổng hợp số liệu theo từng thành viên để giúp manager nắm khối lượng và tiến
+              độ.
+            </p>
             <h5>Sử dụng</h5>
             <ul>
               <li>Xem tổng số task, số đã hoàn thành, đang làm và trễ hạn của từng người.</li>
@@ -70,9 +73,17 @@ export function StaffReportPage() {
       </div>
 
       <div className="staff-grid">
-        {memberMetrics.map(metrics => {
-          const { member, totalAssigned, completed, inProgress, overdue, progressPercent, activeTasks } = metrics;
-          
+        {memberMetrics.map((metrics) => {
+          const {
+            member,
+            totalAssigned,
+            completed,
+            inProgress,
+            overdue,
+            progressPercent,
+            activeTasks,
+          } = metrics;
+
           return (
             <div key={member.id} className="staff-card card">
               <div className="staff-card__header">
@@ -89,15 +100,26 @@ export function StaffReportPage() {
                   <span className="metric-label">Tổng Task</span>
                 </div>
                 <div className="metric">
-                  <span className="metric-value" style={{ color: 'var(--color-success)' }}>{completed}</span>
+                  <span className="metric-value" style={{ color: 'var(--color-success)' }}>
+                    {completed}
+                  </span>
                   <span className="metric-label">Hoàn thành</span>
                 </div>
                 <div className="metric">
-                  <span className="metric-value" style={{ color: 'var(--color-info)' }}>{inProgress}</span>
+                  <span className="metric-value" style={{ color: 'var(--color-info)' }}>
+                    {inProgress}
+                  </span>
                   <span className="metric-label">Đang làm</span>
                 </div>
                 <div className="metric">
-                  <span className="metric-value" style={{ color: overdue > 0 ? 'var(--color-danger)' : 'var(--color-text-primary)' }}>{overdue}</span>
+                  <span
+                    className="metric-value"
+                    style={{
+                      color: overdue > 0 ? 'var(--color-danger)' : 'var(--color-text-primary)',
+                    }}
+                  >
+                    {overdue}
+                  </span>
                   <span className="metric-label">Trễ hạn</span>
                 </div>
               </div>
@@ -108,9 +130,13 @@ export function StaffReportPage() {
                   <span className="progress-percent">{progressPercent}%</span>
                 </div>
                 <div className="progress-bar-bg">
-                  <div 
-                    className="progress-bar-fill" 
-                    style={{ width: `${progressPercent}%`, background: progressPercent === 100 ? 'var(--color-success)' : 'var(--color-accent)' }} 
+                  <div
+                    className="progress-bar-fill"
+                    style={{
+                      width: `${progressPercent}%`,
+                      background:
+                        progressPercent === 100 ? 'var(--color-success)' : 'var(--color-accent)',
+                    }}
                   />
                 </div>
               </div>
@@ -119,13 +145,19 @@ export function StaffReportPage() {
                 <h4 className="active-tasks-title">Đang thực hiện ({inProgress})</h4>
                 {activeTasks.length > 0 ? (
                   <ul className="active-task-list">
-                    {activeTasks.map(task => {
-                      const proj = projects.find(p => p.id === task.projectId);
+                    {activeTasks.map((task) => {
+                      const proj = projects.find((p) => p.id === task.projectId);
                       return (
                         <li key={task.id} className="active-task-item">
-                          <span className="task-proj-dot" style={{ background: proj?.color || '#ccc' }} title={proj?.name} />
+                          <span
+                            className="task-proj-dot"
+                            style={{ background: proj?.color || '#ccc' }}
+                            title={proj?.name}
+                          />
                           <span className="task-title-truncate">{task.title}</span>
-                          <Badge variant={task.priority.toLowerCase()} className="xs-badge">{task.priority}</Badge>
+                          <Badge variant={task.priority.toLowerCase()} className="xs-badge">
+                            {task.priority}
+                          </Badge>
                         </li>
                       );
                     })}

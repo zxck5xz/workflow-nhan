@@ -115,16 +115,18 @@ export function getMonthCalendarDays(year: number, month: number): Date[] {
 }
 
 export function isSameDay(a: Date, b: Date): boolean {
-  return a.getFullYear() === b.getFullYear() &&
+  return (
+    a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate();
+    a.getDate() === b.getDate()
+  );
 }
 
 // ── String Helpers ──
 export function getInitials(name: string): string {
   return name
     .split(' ')
-    .map(w => w[0])
+    .map((w) => w[0])
     .join('')
     .toUpperCase()
     .slice(0, 2);
@@ -132,9 +134,9 @@ export function getInitials(name: string): string {
 
 // ── Statistics ──
 export function calculateOnTimeRate(tasks: Task[]): number {
-  const completed = tasks.filter(t => t.status === 'done' && t.completedAt);
+  const completed = tasks.filter((t) => t.status === 'done' && t.completedAt);
   if (completed.length === 0) return 0;
-  const onTime = completed.filter(t => {
+  const onTime = completed.filter((t) => {
     const deadline = new Date(t.deadline);
     const completedAt = new Date(t.completedAt!);
     return completedAt <= deadline;
@@ -143,7 +145,7 @@ export function calculateOnTimeRate(tasks: Task[]): number {
 }
 
 export function calculateAvgCompletionDays(tasks: Task[]): number {
-  const completed = tasks.filter(t => t.status === 'done' && t.completedAt);
+  const completed = tasks.filter((t) => t.status === 'done' && t.completedAt);
   if (completed.length === 0) return 0;
   const totalDays = completed.reduce((sum, t) => {
     const created = new Date(t.createdAt);

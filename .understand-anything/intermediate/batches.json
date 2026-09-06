@@ -1,0 +1,1580 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 174,
+  "totalBatches": 18,
+  "exportsByPath": {
+    ".husky/pre-commit": [],
+    ".husky/pre-push": [],
+    ".prettierignore": [],
+    ".understand-anything/.understandignore": [],
+    "ai-agents/code_re_agent.py": [
+      "CodeREAgent"
+    ],
+    "ai-agents/game_eval_agent.py": [
+      "GameEvalAgent",
+      "main"
+    ],
+    "ai-agents/pptx_generator.py": [
+      "PPTXGenerator",
+      "main"
+    ],
+    "backend/prisma.config.ts": [],
+    "backend/prisma/migrate-import.ts": [],
+    "backend/prisma/seed.ts": [],
+    "backend/seed-users.ts": [],
+    "backend/src/__tests__/auth.test.js": [],
+    "backend/src/auth.js": [
+      "AuthService"
+    ],
+    "backend/src/data-store-db.js": [
+      "DataStoreDB"
+    ],
+    "backend/src/data-store.js": [
+      "DataStore"
+    ],
+    "backend/src/db.js": [
+      "getDb"
+    ],
+    "backend/src/logger.js": [],
+    "backend/src/server.js": [],
+    "load_excel_demo.py": [
+      "load_excel_example"
+    ],
+    "mcp_server/__init__.py": [],
+    "mcp_server/handlers.py": [
+      "handle_request",
+      "_call_openai"
+    ],
+    "mcp_server/main.py": [
+      "MCPRequest",
+      "verify_api_key",
+      "health",
+      "mcp_requests"
+    ],
+    "task-dashboard/eslint.config.js": [],
+    "task-dashboard/src/App.tsx": [],
+    "task-dashboard/src/components/auth/LoginForm.tsx": [
+      "LoginForm"
+    ],
+    "task-dashboard/src/components/auth/RegisterForm.tsx": [
+      "RegisterForm"
+    ],
+    "task-dashboard/src/components/auth/UserManagementPage.tsx": [
+      "UserManagementPage"
+    ],
+    "task-dashboard/src/components/calendar/CalendarPage.tsx": [
+      "CalendarPage"
+    ],
+    "task-dashboard/src/components/common/ErrorBoundary.tsx": [
+      "ErrorBoundary"
+    ],
+    "task-dashboard/src/components/common/index.tsx": [
+      "Button",
+      "Badge",
+      "Avatar",
+      "Modal",
+      "WeightDots",
+      "EmptyState",
+      "TaskFormModal",
+      "ProjectModal"
+    ],
+    "task-dashboard/src/components/common/PageHelp.tsx": [
+      "PageHelp"
+    ],
+    "task-dashboard/src/components/common/ProjectModal.tsx": [
+      "ProjectModal"
+    ],
+    "task-dashboard/src/components/common/TaskDetailsModal.tsx": [
+      "TaskDetailsModal"
+    ],
+    "task-dashboard/src/components/common/TaskFormModal.tsx": [
+      "TaskFormModal"
+    ],
+    "task-dashboard/src/components/reports/CodeAnalysisPage.tsx": [
+      "CodeAnalysisPage"
+    ],
+    "task-dashboard/src/components/reports/InsightsPage.tsx": [
+      "InsightsPage"
+    ],
+    "task-dashboard/src/components/reports/StaffReportPage.tsx": [
+      "StaffReportPage"
+    ],
+    "task-dashboard/src/components/reports/WorkReportPage.tsx": [
+      "WorkReportPage"
+    ],
+    "task-dashboard/src/components/setup/SetupPage.tsx": [
+      "SetupPage"
+    ],
+    "task-dashboard/src/components/Sidebar.tsx": [
+      "Sidebar"
+    ],
+    "task-dashboard/src/components/tasks/ProjectControlPage.tsx": [
+      "ProjectControlPage"
+    ],
+    "task-dashboard/src/components/tasks/TaskListPage.tsx": [
+      "TaskListPage"
+    ],
+    "task-dashboard/src/contexts/AppContext.tsx": [
+      "AppProvider",
+      "useApp"
+    ],
+    "task-dashboard/src/contexts/AuthContext.tsx": [
+      "AuthProvider",
+      "useAuth"
+    ],
+    "task-dashboard/src/data/apiService.ts": [
+      "apiService"
+    ],
+    "task-dashboard/src/data/dataService.ts": [
+      "dataService"
+    ],
+    "task-dashboard/src/data/seedData.ts": [
+      "seedData"
+    ],
+    "task-dashboard/src/main.tsx": [],
+    "task-dashboard/src/services/authService.ts": [
+      "authService"
+    ],
+    "task-dashboard/src/types/index.ts": [],
+    "task-dashboard/src/utils/apkParser.ts": [
+      "ClientSideApkParser"
+    ],
+    "task-dashboard/src/utils/index.ts": [
+      "classifyEisenhower",
+      "getDaysUntilDeadline",
+      "isOverdue",
+      "formatDate",
+      "formatDateShort",
+      "formatRelativeDate",
+      "getToday",
+      "getStartOfWeek",
+      "getEndOfWeek",
+      "getDaysInMonth",
+      "getMonthCalendarDays",
+      "isSameDay",
+      "getInitials",
+      "calculateOnTimeRate",
+      "calculateAvgCompletionDays"
+    ],
+    "task-dashboard/vite.config.ts": [],
+    "test_candy.apk": [],
+    "test_real.apk": [],
+    "test.apk": [],
+    "understand/build-fingerprints.mjs": [],
+    "understand/compute-batches.mjs": [],
+    "understand/extract-import-map.mjs": [
+      "resolveTsJsImport",
+      "resolvePythonImport",
+      "resolveGoImport",
+      "resolveJavaImport",
+      "resolveKotlinImport",
+      "resolveCSharpImport",
+      "resolveRubyImport",
+      "resolvePhpImport",
+      "resolveRustImport",
+      "resolveCppImport"
+    ],
+    "understand/extract-structure.mjs": [
+      "buildResult"
+    ],
+    "understand/merge-batch-graphs.py": [
+      "normalize_direction",
+      "_num",
+      "load_batch",
+      "classify_id_fix",
+      "normalize_node_id",
+      "normalize_complexity",
+      "_path_segments",
+      "_basename",
+      "is_test_path",
+      "_strip_test_infix",
+      "_join",
+      "_add_unique",
+      "_js_ts_sibling_candidates",
+      "production_candidates",
+      "_file_node_path",
+      "_swap_tested_by_in_place",
+      "_ensure_tested_tag",
+      "link_tests",
+      "merge_and_normalize",
+      "recover_imports_from_scan",
+      "main"
+    ],
+    "understand/merge-subdomain-graphs.py": [
+      "_num",
+      "load_graph",
+      "merge_graphs",
+      "main"
+    ],
+    "understand/scan-project.mjs": [
+      "detectLanguage",
+      "detectCategory",
+      "estimateComplexity"
+    ]
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "backend/.dockerignore",
+          "language": "unknown",
+          "sizeLines": 4,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "backend/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 13,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "backend/.dockerignore": [],
+        "backend/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "task-dashboard/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 31,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "task-dashboard/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "language": "yaml",
+          "sizeLines": 31,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".github/workflows/ci.yml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": ".lintstagedrc.json",
+          "language": "json",
+          "sizeLines": 5,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".mcp.json",
+          "language": "json",
+          "sizeLines": 23,
+          "fileCategory": "config"
+        },
+        {
+          "path": "ANDROID_RE_WORKFLOW.md",
+          "language": "markdown",
+          "sizeLines": 49,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "CODE_RE_ANALYSIS.md",
+          "language": "markdown",
+          "sizeLines": 82,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "COPY_PASTE_GUIDE.md",
+          "language": "markdown",
+          "sizeLines": 226,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "SOP.md",
+          "language": "markdown",
+          "sizeLines": 195,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "TODO.md",
+          "language": "markdown",
+          "sizeLines": 22,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 39,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 23,
+          "fileCategory": "config"
+        },
+        {
+          "path": "preparing_workflows.md",
+          "language": "markdown",
+          "sizeLines": 221,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "ruff.toml",
+          "language": "toml",
+          "sizeLines": 20,
+          "fileCategory": "config"
+        },
+        {
+          "path": "vercel.json",
+          "language": "json",
+          "sizeLines": 8,
+          "fileCategory": "config"
+        },
+        {
+          "path": "website_features.md",
+          "language": "markdown",
+          "sizeLines": 317,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        ".lintstagedrc.json": [],
+        ".mcp.json": [],
+        "ANDROID_RE_WORKFLOW.md": [],
+        "CODE_RE_ANALYSIS.md": [],
+        "COPY_PASTE_GUIDE.md": [],
+        "SOP.md": [],
+        "TODO.md": [],
+        "docker-compose.yml": [],
+        "package.json": [],
+        "preparing_workflows.md": [],
+        "ruff.toml": [],
+        "vercel.json": [],
+        "website_features.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": ".understand-anything/intermediate/batches.json",
+          "language": "json",
+          "sizeLines": 2193,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/intermediate/domain-context.json",
+          "language": "json",
+          "sizeLines": 1050,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/intermediate/scan-result.json",
+          "language": "json",
+          "sizeLines": 1178,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/intermediate/batches.json": [],
+        ".understand-anything/intermediate/domain-context.json": [],
+        ".understand-anything/intermediate/scan-result.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": ".understand-anything/tmp/ua-file-analyzer-input-1.json",
+          "language": "json",
+          "sizeLines": 174,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/tmp/ua-import-map-input.json",
+          "language": "json",
+          "sizeLines": 1007,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/tmp/ua-import-map-output.json",
+          "language": "json",
+          "sizeLines": 298,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/tmp/ua-scan-files.json",
+          "language": "json",
+          "sizeLines": 1039,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/tmp/ua-file-analyzer-input-1.json": [],
+        ".understand-anything/tmp/ua-import-map-input.json": [],
+        ".understand-anything/tmp/ua-import-map-output.json": [],
+        ".understand-anything/tmp/ua-scan-files.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "backend/CODE_RE_ANALYSIS.md",
+          "language": "markdown",
+          "sizeLines": 28,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "backend/README.md",
+          "language": "markdown",
+          "sizeLines": 35,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "backend/package.json",
+          "language": "json",
+          "sizeLines": 28,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "backend/CODE_RE_ANALYSIS.md": [],
+        "backend/README.md": [],
+        "backend/package.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "task-dashboard/README.md",
+          "language": "markdown",
+          "sizeLines": 73,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "task-dashboard/index.html",
+          "language": "html",
+          "sizeLines": 13,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/lighthouse-report.json",
+          "language": "json",
+          "sizeLines": 13945,
+          "fileCategory": "config"
+        },
+        {
+          "path": "task-dashboard/package.json",
+          "language": "json",
+          "sizeLines": 43,
+          "fileCategory": "config"
+        },
+        {
+          "path": "task-dashboard/tsconfig.app.json",
+          "language": "json",
+          "sizeLines": 25,
+          "fileCategory": "config"
+        },
+        {
+          "path": "task-dashboard/tsconfig.json",
+          "language": "json",
+          "sizeLines": 7,
+          "fileCategory": "config"
+        },
+        {
+          "path": "task-dashboard/tsconfig.node.json",
+          "language": "json",
+          "sizeLines": 24,
+          "fileCategory": "config"
+        },
+        {
+          "path": "task-dashboard/vercel.json",
+          "language": "json",
+          "sizeLines": 9,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "task-dashboard/README.md": [],
+        "task-dashboard/index.html": [],
+        "task-dashboard/lighthouse-report.json": [],
+        "task-dashboard/package.json": [],
+        "task-dashboard/tsconfig.app.json": [],
+        "task-dashboard/tsconfig.json": [],
+        "task-dashboard/tsconfig.node.json": [],
+        "task-dashboard/vercel.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "task-dashboard/src/components/reports/CodeAnalysisPage.css",
+          "language": "css",
+          "sizeLines": 301,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/reports/InsightsPage.css",
+          "language": "css",
+          "sizeLines": 281,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/reports/StaffReportPage.css",
+          "language": "css",
+          "sizeLines": 194,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/reports/WorkReportPage.css",
+          "language": "css",
+          "sizeLines": 119,
+          "fileCategory": "markup"
+        }
+      ],
+      "batchImportData": {
+        "task-dashboard/src/components/reports/CodeAnalysisPage.css": [],
+        "task-dashboard/src/components/reports/InsightsPage.css": [],
+        "task-dashboard/src/components/reports/StaffReportPage.css": [],
+        "task-dashboard/src/components/reports/WorkReportPage.css": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "understand/frameworks/django.md",
+          "language": "markdown",
+          "sizeLines": 67,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/express.md",
+          "language": "markdown",
+          "sizeLines": 57,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/fastapi.md",
+          "language": "markdown",
+          "sizeLines": 58,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/flask.md",
+          "language": "markdown",
+          "sizeLines": 53,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/gin.md",
+          "language": "markdown",
+          "sizeLines": 59,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/nextjs.md",
+          "language": "markdown",
+          "sizeLines": 59,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/rails.md",
+          "language": "markdown",
+          "sizeLines": 65,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/react.md",
+          "language": "markdown",
+          "sizeLines": 55,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/spring.md",
+          "language": "markdown",
+          "sizeLines": 59,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/frameworks/vue.md",
+          "language": "markdown",
+          "sizeLines": 59,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "understand/frameworks/django.md": [],
+        "understand/frameworks/express.md": [],
+        "understand/frameworks/fastapi.md": [],
+        "understand/frameworks/flask.md": [],
+        "understand/frameworks/gin.md": [],
+        "understand/frameworks/nextjs.md": [],
+        "understand/frameworks/rails.md": [],
+        "understand/frameworks/react.md": [],
+        "understand/frameworks/spring.md": [],
+        "understand/frameworks/vue.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "understand/languages/cpp.md",
+          "language": "markdown",
+          "sizeLines": 47,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/csharp.md",
+          "language": "markdown",
+          "sizeLines": 46,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/css.md",
+          "language": "markdown",
+          "sizeLines": 37,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/dockerfile.md",
+          "language": "markdown",
+          "sizeLines": 34,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/go.md",
+          "language": "markdown",
+          "sizeLines": 47,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/graphql.md",
+          "language": "markdown",
+          "sizeLines": 35,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/html.md",
+          "language": "markdown",
+          "sizeLines": 34,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/java.md",
+          "language": "markdown",
+          "sizeLines": 45,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/javascript.md",
+          "language": "markdown",
+          "sizeLines": 46,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/json.md",
+          "language": "markdown",
+          "sizeLines": 34,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/kotlin.md",
+          "language": "markdown",
+          "sizeLines": 45,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/markdown.md",
+          "language": "markdown",
+          "sizeLines": 34,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/php.md",
+          "language": "markdown",
+          "sizeLines": 46,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/protobuf.md",
+          "language": "markdown",
+          "sizeLines": 34,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/python.md",
+          "language": "markdown",
+          "sizeLines": 48,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/ruby.md",
+          "language": "markdown",
+          "sizeLines": 46,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/rust.md",
+          "language": "markdown",
+          "sizeLines": 47,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/shell.md",
+          "language": "markdown",
+          "sizeLines": 35,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/sql.md",
+          "language": "markdown",
+          "sizeLines": 36,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/swift.md",
+          "language": "markdown",
+          "sizeLines": 46,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "understand/languages/cpp.md": [],
+        "understand/languages/csharp.md": [],
+        "understand/languages/css.md": [],
+        "understand/languages/dockerfile.md": [],
+        "understand/languages/go.md": [],
+        "understand/languages/graphql.md": [],
+        "understand/languages/html.md": [],
+        "understand/languages/java.md": [],
+        "understand/languages/javascript.md": [],
+        "understand/languages/json.md": [],
+        "understand/languages/kotlin.md": [],
+        "understand/languages/markdown.md": [],
+        "understand/languages/php.md": [],
+        "understand/languages/protobuf.md": [],
+        "understand/languages/python.md": [],
+        "understand/languages/ruby.md": [],
+        "understand/languages/rust.md": [],
+        "understand/languages/shell.md": [],
+        "understand/languages/sql.md": [],
+        "understand/languages/swift.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "understand/languages/terraform.md",
+          "language": "markdown",
+          "sizeLines": 38,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/typescript.md",
+          "language": "markdown",
+          "sizeLines": 46,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/languages/yaml.md",
+          "language": "markdown",
+          "sizeLines": 35,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "understand/languages/terraform.md": [],
+        "understand/languages/typescript.md": [],
+        "understand/languages/yaml.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "understand/locales/en.md",
+          "language": "markdown",
+          "sizeLines": 43,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/locales/ja.md",
+          "language": "markdown",
+          "sizeLines": 48,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/locales/ko.md",
+          "language": "markdown",
+          "sizeLines": 48,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/locales/ru.md",
+          "language": "markdown",
+          "sizeLines": 49,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/locales/zh-TW.md",
+          "language": "markdown",
+          "sizeLines": 48,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/locales/zh.md",
+          "language": "markdown",
+          "sizeLines": 48,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "understand/locales/en.md": [],
+        "understand/locales/ja.md": [],
+        "understand/locales/ko.md": [],
+        "understand/locales/ru.md": [],
+        "understand/locales/zh-TW.md": [],
+        "understand/locales/zh.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md",
+          "language": "markdown",
+          "sizeLines": 98,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md",
+          "language": "markdown",
+          "sizeLines": 85,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Đánh giá của AI/Evaluation_Game_20260519.md",
+          "language": "markdown",
+          "sizeLines": 59,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md",
+          "language": "markdown",
+          "sizeLines": 106,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md",
+          "language": "markdown",
+          "sizeLines": 79,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md",
+          "language": "markdown",
+          "sizeLines": 137,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md",
+          "language": "markdown",
+          "sizeLines": 255,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "Đánh giá của AI/Evaluation_Battle_of_Balls_(_球球大作战)_-_Cầu_Cầu_Đại_Tác_Chiến_20260519.md": [],
+        "Đánh giá của AI/Evaluation_CÀN_QUÉT_TAM_QUỐC_20260519.md": [],
+        "Đánh giá của AI/Evaluation_Game_20260519.md": [],
+        "Đánh giá của AI/Evaluation_HLV_ĐỈNH_CAO_20260519.md": [],
+        "Đánh giá của AI/Evaluation_POKEMON_REWORK_20260519.md": [],
+        "Đánh giá của AI/Evaluation_Solo_LevelingArise_(Tôi_Thăng_Cấp_Một_Mình__Trỗi_Dậy)_20260519.md": [],
+        "Đánh giá của AI/Evaluation_Ultimate_Football_Club_20260519.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 15,
+      "files": [
+        {
+          "path": ".gemini/settings.json",
+          "language": "json",
+          "sizeLines": 17,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".husky/pre-commit",
+          "language": "unknown",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".husky/pre-push",
+          "language": "unknown",
+          "sizeLines": 3,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".prettierignore",
+          "language": "unknown",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".understand-anything/.understandignore",
+          "language": "unknown",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ai-agents/code_re_agent.py",
+          "language": "python",
+          "sizeLines": 181,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ai-agents/game_eval_agent.py",
+          "language": "python",
+          "sizeLines": 714,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ai-agents/GameEvalAgent_SOP.md",
+          "language": "markdown",
+          "sizeLines": 88,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "ai-agents/pptx_generator.py",
+          "language": "python",
+          "sizeLines": 479,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/prisma.config.ts",
+          "language": "typescript",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/prisma/docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 14,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "backend/prisma/migrate-import.ts",
+          "language": "typescript",
+          "sizeLines": 232,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/prisma/migrations/20260526045525_init/migration.sql",
+          "language": "sql",
+          "sizeLines": 161,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql",
+          "language": "sql",
+          "sizeLines": 14,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/migrations/20260603011026_init/migration.sql",
+          "language": "sql",
+          "sizeLines": 2,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/migrations/migration_lock.toml",
+          "language": "toml",
+          "sizeLines": 3,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/prisma/schema.prisma",
+          "language": "prisma",
+          "sizeLines": 184,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/seed.ts",
+          "language": "typescript",
+          "sizeLines": 4,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/seed-users.ts",
+          "language": "typescript",
+          "sizeLines": 125,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/__tests__/auth.test.js",
+          "language": "javascript",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/auth.js",
+          "language": "javascript",
+          "sizeLines": 149,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/data-store-db.js",
+          "language": "javascript",
+          "sizeLines": 340,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/data-store.js",
+          "language": "javascript",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/db.js",
+          "language": "javascript",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/logger.js",
+          "language": "javascript",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".gemini/settings.json": [],
+        ".husky/pre-commit": [],
+        ".husky/pre-push": [],
+        ".prettierignore": [],
+        ".understand-anything/.understandignore": [],
+        "ai-agents/code_re_agent.py": [],
+        "ai-agents/game_eval_agent.py": [],
+        "ai-agents/GameEvalAgent_SOP.md": [],
+        "ai-agents/pptx_generator.py": [],
+        "backend/prisma.config.ts": [],
+        "backend/prisma/docker-compose.yml": [],
+        "backend/prisma/migrate-import.ts": [],
+        "backend/prisma/migrations/20260526045525_init/migration.sql": [],
+        "backend/prisma/migrations/20260527020000_add_auth_fields/migration.sql": [],
+        "backend/prisma/migrations/20260603011026_init/migration.sql": [],
+        "backend/prisma/migrations/migration_lock.toml": [],
+        "backend/prisma/schema.prisma": [],
+        "backend/prisma/seed.ts": [],
+        "backend/seed-users.ts": [],
+        "backend/src/__tests__/auth.test.js": [],
+        "backend/src/auth.js": [],
+        "backend/src/data-store-db.js": [],
+        "backend/src/data-store.js": [],
+        "backend/src/db.js": [],
+        "backend/src/logger.js": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 16,
+      "files": [
+        {
+          "path": "backend/src/server.js",
+          "language": "javascript",
+          "sizeLines": 373,
+          "fileCategory": "code"
+        },
+        {
+          "path": "load_excel_demo.py",
+          "language": "python",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "mcp_server/__init__.py",
+          "language": "python",
+          "sizeLines": 3,
+          "fileCategory": "code"
+        },
+        {
+          "path": "mcp_server/handlers.py",
+          "language": "python",
+          "sizeLines": 63,
+          "fileCategory": "code"
+        },
+        {
+          "path": "mcp_server/main.py",
+          "language": "python",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "mcp_server/README.md",
+          "language": "markdown",
+          "sizeLines": 37,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "mcp_server/requirements.txt",
+          "language": "txt",
+          "sizeLines": 4,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "reports/Evaluation_Puzzle Quest Mobile_20260515.md",
+          "language": "markdown",
+          "sizeLines": 39,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "task-dashboard/eslint.config.js",
+          "language": "javascript",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/App.css",
+          "language": "css",
+          "sizeLines": 2,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/App.tsx",
+          "language": "typescript",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/auth/LoginForm.tsx",
+          "language": "typescript",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/auth/RegisterForm.tsx",
+          "language": "typescript",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/auth/UserManagementPage.css",
+          "language": "css",
+          "sizeLines": 79,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/auth/UserManagementPage.tsx",
+          "language": "typescript",
+          "sizeLines": 174,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/calendar/CalendarPage.css",
+          "language": "css",
+          "sizeLines": 177,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/calendar/CalendarPage.tsx",
+          "language": "typescript",
+          "sizeLines": 210,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/common/Common.css",
+          "language": "css",
+          "sizeLines": 419,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/common/ErrorBoundary.tsx",
+          "language": "typescript",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/common/index.tsx",
+          "language": "typescript",
+          "sizeLines": 149,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/common/PageHelp.css",
+          "language": "css",
+          "sizeLines": 16,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/common/PageHelp.tsx",
+          "language": "typescript",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/common/ProjectModal.tsx",
+          "language": "typescript",
+          "sizeLines": 127,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/common/TaskDetailsModal.tsx",
+          "language": "typescript",
+          "sizeLines": 254,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/common/TaskFormModal.tsx",
+          "language": "typescript",
+          "sizeLines": 341,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/src/server.js": [],
+        "load_excel_demo.py": [],
+        "mcp_server/__init__.py": [],
+        "mcp_server/handlers.py": [],
+        "mcp_server/main.py": [],
+        "mcp_server/README.md": [],
+        "mcp_server/requirements.txt": [],
+        "reports/Evaluation_Puzzle Quest Mobile_20260515.md": [],
+        "task-dashboard/eslint.config.js": [],
+        "task-dashboard/src/App.css": [],
+        "task-dashboard/src/App.tsx": [],
+        "task-dashboard/src/components/auth/LoginForm.tsx": [],
+        "task-dashboard/src/components/auth/RegisterForm.tsx": [],
+        "task-dashboard/src/components/auth/UserManagementPage.css": [],
+        "task-dashboard/src/components/auth/UserManagementPage.tsx": [],
+        "task-dashboard/src/components/calendar/CalendarPage.css": [],
+        "task-dashboard/src/components/calendar/CalendarPage.tsx": [],
+        "task-dashboard/src/components/common/Common.css": [],
+        "task-dashboard/src/components/common/ErrorBoundary.tsx": [],
+        "task-dashboard/src/components/common/index.tsx": [],
+        "task-dashboard/src/components/common/PageHelp.css": [],
+        "task-dashboard/src/components/common/PageHelp.tsx": [],
+        "task-dashboard/src/components/common/ProjectModal.tsx": [],
+        "task-dashboard/src/components/common/TaskDetailsModal.tsx": [],
+        "task-dashboard/src/components/common/TaskFormModal.tsx": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 17,
+      "files": [
+        {
+          "path": "task-dashboard/src/components/reports/CodeAnalysisPage.tsx",
+          "language": "typescript",
+          "sizeLines": 538,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/reports/InsightsPage.tsx",
+          "language": "typescript",
+          "sizeLines": 1028,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/reports/StaffReportPage.tsx",
+          "language": "typescript",
+          "sizeLines": 180,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/reports/WorkReportPage.tsx",
+          "language": "typescript",
+          "sizeLines": 239,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/setup/SetupPage.css",
+          "language": "css",
+          "sizeLines": 116,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/setup/SetupPage.tsx",
+          "language": "typescript",
+          "sizeLines": 266,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/Sidebar.css",
+          "language": "css",
+          "sizeLines": 180,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/Sidebar.tsx",
+          "language": "typescript",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/tasks/ProjectControlPage.css",
+          "language": "css",
+          "sizeLines": 308,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/tasks/ProjectControlPage.tsx",
+          "language": "typescript",
+          "sizeLines": 360,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/components/tasks/TaskListPage.css",
+          "language": "css",
+          "sizeLines": 164,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/components/tasks/TaskListPage.tsx",
+          "language": "typescript",
+          "sizeLines": 417,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/contexts/AppContext.tsx",
+          "language": "typescript",
+          "sizeLines": 116,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/contexts/AuthContext.tsx",
+          "language": "typescript",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/data/apiService.ts",
+          "language": "typescript",
+          "sizeLines": 74,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/data/dataService.ts",
+          "language": "typescript",
+          "sizeLines": 183,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/data/seedData.ts",
+          "language": "typescript",
+          "sizeLines": 430,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/index.css",
+          "language": "css",
+          "sizeLines": 2,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/main.tsx",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/services/authService.ts",
+          "language": "typescript",
+          "sizeLines": 184,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/styles/global.css",
+          "language": "css",
+          "sizeLines": 600,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/styles/tokens.css",
+          "language": "css",
+          "sizeLines": 126,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "task-dashboard/src/types/index.ts",
+          "language": "typescript",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/utils/apkParser.ts",
+          "language": "typescript",
+          "sizeLines": 125,
+          "fileCategory": "code"
+        },
+        {
+          "path": "task-dashboard/src/utils/index.ts",
+          "language": "typescript",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "task-dashboard/src/components/reports/CodeAnalysisPage.tsx": [],
+        "task-dashboard/src/components/reports/InsightsPage.tsx": [],
+        "task-dashboard/src/components/reports/StaffReportPage.tsx": [],
+        "task-dashboard/src/components/reports/WorkReportPage.tsx": [],
+        "task-dashboard/src/components/setup/SetupPage.css": [],
+        "task-dashboard/src/components/setup/SetupPage.tsx": [],
+        "task-dashboard/src/components/Sidebar.css": [],
+        "task-dashboard/src/components/Sidebar.tsx": [],
+        "task-dashboard/src/components/tasks/ProjectControlPage.css": [],
+        "task-dashboard/src/components/tasks/ProjectControlPage.tsx": [],
+        "task-dashboard/src/components/tasks/TaskListPage.css": [],
+        "task-dashboard/src/components/tasks/TaskListPage.tsx": [],
+        "task-dashboard/src/contexts/AppContext.tsx": [],
+        "task-dashboard/src/contexts/AuthContext.tsx": [],
+        "task-dashboard/src/data/apiService.ts": [],
+        "task-dashboard/src/data/dataService.ts": [],
+        "task-dashboard/src/data/seedData.ts": [],
+        "task-dashboard/src/index.css": [],
+        "task-dashboard/src/main.tsx": [],
+        "task-dashboard/src/services/authService.ts": [],
+        "task-dashboard/src/styles/global.css": [],
+        "task-dashboard/src/styles/tokens.css": [],
+        "task-dashboard/src/types/index.ts": [],
+        "task-dashboard/src/utils/apkParser.ts": [],
+        "task-dashboard/src/utils/index.ts": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 18,
+      "files": [
+        {
+          "path": "task-dashboard/vite.config.ts",
+          "language": "typescript",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "test_candy.apk",
+          "language": "apk",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "test_real.apk",
+          "language": "apk",
+          "sizeLines": 2,
+          "fileCategory": "code"
+        },
+        {
+          "path": "test.apk",
+          "language": "apk",
+          "sizeLines": 3,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand-chat/SKILL.md",
+          "language": "markdown",
+          "sizeLines": 55,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand-dashboard/SKILL.md",
+          "language": "markdown",
+          "sizeLines": 105,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "understand/build-fingerprints.mjs",
+          "language": "javascript",
+          "sizeLines": 90,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/compute-batches.mjs",
+          "language": "javascript",
+          "sizeLines": 555,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/extract-import-map.mjs",
+          "language": "javascript",
+          "sizeLines": 1567,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/extract-structure.mjs",
+          "language": "javascript",
+          "sizeLines": 334,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/merge-batch-graphs.py",
+          "language": "python",
+          "sizeLines": 1164,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/merge-subdomain-graphs.py",
+          "language": "python",
+          "sizeLines": 308,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/scan-project.mjs",
+          "language": "javascript",
+          "sizeLines": 802,
+          "fileCategory": "code"
+        },
+        {
+          "path": "understand/SKILL.md",
+          "language": "markdown",
+          "sizeLines": 844,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "task-dashboard/vite.config.ts": [],
+        "test_candy.apk": [],
+        "test_real.apk": [],
+        "test.apk": [],
+        "understand-chat/SKILL.md": [],
+        "understand-dashboard/SKILL.md": [],
+        "understand/build-fingerprints.mjs": [],
+        "understand/compute-batches.mjs": [],
+        "understand/extract-import-map.mjs": [],
+        "understand/extract-structure.mjs": [],
+        "understand/merge-batch-graphs.py": [],
+        "understand/merge-subdomain-graphs.py": [],
+        "understand/scan-project.mjs": [],
+        "understand/SKILL.md": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

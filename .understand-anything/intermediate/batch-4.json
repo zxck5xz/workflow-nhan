@@ -1,0 +1,158 @@
+{
+  "nodes": [
+    {
+      "id": "config:.lintstagedrc.json",
+      "type": "config",
+      "name": ".lintstagedrc.json",
+      "filePath": ".lintstagedrc.json",
+      "summary": "Configuration for lint-staged to run linters on git staged files.",
+      "tags": ["configuration", "linting", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.mcp.json",
+      "type": "config",
+      "name": ".mcp.json",
+      "filePath": ".mcp.json",
+      "summary": "Model Context Protocol configuration defining available MCP servers.",
+      "tags": ["configuration", "mcp", "api"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:ANDROID_RE_WORKFLOW.md",
+      "type": "document",
+      "name": "ANDROID_RE_WORKFLOW.md",
+      "filePath": "ANDROID_RE_WORKFLOW.md",
+      "summary": "Workflow guide for Android reverse engineering and analysis.",
+      "tags": ["documentation", "android", "reverse-engineering"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:CODE_RE_ANALYSIS.md",
+      "type": "document",
+      "name": "CODE_RE_ANALYSIS.md",
+      "filePath": "CODE_RE_ANALYSIS.md",
+      "summary": "Report template for codebase analysis and engineering reverse engineering.",
+      "tags": ["documentation", "analysis", "report"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:COPY_PASTE_GUIDE.md",
+      "type": "document",
+      "name": "COPY_PASTE_GUIDE.md",
+      "filePath": "COPY_PASTE_GUIDE.md",
+      "summary": "Guide for replicating and customizing workflows within the framework.",
+      "tags": ["documentation", "workflow", "guide"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:SOP.md",
+      "type": "document",
+      "name": "SOP.md",
+      "filePath": "SOP.md",
+      "summary": "Standard Operating Procedure for the Workflow Management System, covering setup and maintenance.",
+      "tags": ["documentation", "sop", "maintenance"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:TODO.md",
+      "type": "document",
+      "name": "TODO.md",
+      "filePath": "TODO.md",
+      "summary": "Project task list tracking completed, in-progress, and backlog items.",
+      "tags": ["documentation", "project-management", "todo"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Orchestration file defining multi-container services for the project.",
+      "tags": ["orchestration", "infrastructure", "docker"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Root package configuration for the monorepo, defining workspaces and shared scripts.",
+      "tags": ["configuration", "build-system", "monorepo"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:preparing_workflows.md",
+      "type": "document",
+      "name": "preparing_workflows.md",
+      "filePath": "preparing_workflows.md",
+      "summary": "Planning document for core workflows, including task management and analysis.",
+      "tags": ["documentation", "planning", "workflow"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:ruff.toml",
+      "type": "config",
+      "name": "ruff.toml",
+      "filePath": "ruff.toml",
+      "summary": "Configuration for the Ruff Python linter and formatter.",
+      "tags": ["configuration", "python", "linting"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "vercel.json",
+      "summary": "Vercel deployment configuration for the project.",
+      "tags": ["configuration", "deployment", "vercel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:website_features.md",
+      "type": "document",
+      "name": "website_features.md",
+      "filePath": "website_features.md",
+      "summary": "Comprehensive documentation of website features, components, and backend API.",
+      "tags": ["documentation", "features", "overview"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:backend/Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:task-dashboard/Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:SOP.md",
+      "target": "config:package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:website_features.md",
+      "target": "file:task-dashboard/src/App.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:.lintstagedrc.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

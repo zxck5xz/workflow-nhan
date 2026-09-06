@@ -96,17 +96,44 @@
   white-space: nowrap;
 }
 
-.badge--p0 { background: var(--color-p0-bg); color: var(--color-p0); }
-.badge--p1 { background: var(--color-p1-bg); color: var(--color-p1); }
-.badge--p2 { background: var(--color-p2-bg); color: var(--color-p2); }
+.badge--p0 {
+  background: var(--color-p0-bg);
+  color: var(--color-p0);
+}
+.badge--p1 {
+  background: var(--color-p1-bg);
+  color: var(--color-p1);
+}
+.badge--p2 {
+  background: var(--color-p2-bg);
+  color: var(--color-p2);
+}
 
-.badge--backlog { background: rgba(92,98,128,0.15); color: var(--color-status-backlog); }
-.badge--in-testing { background: rgba(59,130,246,0.15); color: var(--color-status-in-testing); }
-.badge--evaluating { background: rgba(255,184,48,0.15); color: var(--color-status-evaluating); }
-.badge--reporting { background: rgba(168,85,247,0.15); color: var(--color-status-reporting); }
-.badge--done { background: var(--color-success-muted); color: var(--color-success); }
+.badge--backlog {
+  background: rgba(92, 98, 128, 0.15);
+  color: var(--color-status-backlog);
+}
+.badge--in-testing {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--color-status-in-testing);
+}
+.badge--evaluating {
+  background: rgba(255, 184, 48, 0.15);
+  color: var(--color-status-evaluating);
+}
+.badge--reporting {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--color-status-reporting);
+}
+.badge--done {
+  background: var(--color-success-muted);
+  color: var(--color-success);
+}
 
-.badge--overdue { background: var(--color-danger-muted); color: var(--color-danger); }
+.badge--overdue {
+  background: var(--color-danger-muted);
+  color: var(--color-danger);
+}
 
 /* ── Avatar ── */
 .avatar {
@@ -123,9 +150,21 @@
   letter-spacing: -0.02em;
 }
 
-.avatar--sm { width: 24px; height: 24px; font-size: 10px; }
-.avatar--lg { width: 36px; height: 36px; font-size: var(--text-sm); }
-.avatar--xl { width: 48px; height: 48px; font-size: var(--text-md); }
+.avatar--sm {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+.avatar--lg {
+  width: 36px;
+  height: 36px;
+  font-size: var(--text-sm);
+}
+.avatar--xl {
+  width: 48px;
+  height: 48px;
+  font-size: var(--text-md);
+}
 
 /* ── Modal ── */
 .modal-backdrop {

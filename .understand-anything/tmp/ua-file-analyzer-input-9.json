@@ -1,0 +1,15 @@
+{
+  "projectRoot": "C:/Users/Admin/Desktop/agent AI/workflow-nhan",
+  "batchFiles": [
+    {"path": "task-dashboard/src/components/reports/CodeAnalysisPage.css", "language": "css", "sizeLines": 301, "fileCategory": "markup"},
+    {"path": "task-dashboard/src/components/reports/InsightsPage.css", "language": "css", "sizeLines": 281, "fileCategory": "markup"},
+    {"path": "task-dashboard/src/components/reports/StaffReportPage.css", "language": "css", "sizeLines": 194, "fileCategory": "markup"},
+    {"path": "task-dashboard/src/components/reports/WorkReportPage.css", "language": "css", "sizeLines": 119, "fileCategory": "markup"}
+  ],
+  "batchImportData": {
+    "task-dashboard/src/components/reports/CodeAnalysisPage.css": [],
+    "task-dashboard/src/components/reports/InsightsPage.css": [],
+    "task-dashboard/src/components/reports/StaffReportPage.css": [],
+    "task-dashboard/src/components/reports/WorkReportPage.css": []
+  }
+}

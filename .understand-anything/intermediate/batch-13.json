@@ -1,0 +1,59 @@
+{
+  "nodes": [
+    {
+      "id": "document:understand/locales/en.md",
+      "type": "document",
+      "name": "en.md",
+      "filePath": "understand/locales/en.md",
+      "summary": "English output guidelines for knowledge graph content.",
+      "tags": ["documentation", "locales", "en"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/locales/ja.md",
+      "type": "document",
+      "name": "ja.md",
+      "filePath": "understand/locales/ja.md",
+      "summary": "Japanese output guidelines for knowledge graph content.",
+      "tags": ["documentation", "locales", "ja"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/locales/ko.md",
+      "type": "document",
+      "name": "ko.md",
+      "filePath": "understand/locales/ko.md",
+      "summary": "Korean output guidelines for knowledge graph content.",
+      "tags": ["documentation", "locales", "ko"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/locales/ru.md",
+      "type": "document",
+      "name": "ru.md",
+      "filePath": "understand/locales/ru.md",
+      "summary": "Russian output guidelines for knowledge graph content.",
+      "tags": ["documentation", "locales", "ru"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/locales/zh-TW.md",
+      "type": "document",
+      "name": "zh-TW.md",
+      "filePath": "understand/locales/zh-TW.md",
+      "summary": "Traditional Chinese output guidelines for knowledge graph content.",
+      "tags": ["documentation", "locales", "zh-tw"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:understand/locales/zh.md",
+      "type": "document",
+      "name": "zh.md",
+      "filePath": "understand/locales/zh.md",
+      "summary": "Simplified Chinese output guidelines for knowledge graph content.",
+      "tags": ["documentation", "locales", "zh"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

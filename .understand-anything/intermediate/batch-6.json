@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:.understand-anything/tmp/ua-file-analyzer-input-1.json",
+      "type": "config",
+      "name": "ua-file-analyzer-input-1.json",
+      "filePath": ".understand-anything/tmp/ua-file-analyzer-input-1.json",
+      "summary": "Temporary input file for the file analyzer agent.",
+      "tags": ["configuration", "temporary", "analysis"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "config",
+      "name": "ua-import-map-input.json",
+      "filePath": ".understand-anything/tmp/ua-import-map-input.json",
+      "summary": "Temporary input for import map extraction.",
+      "tags": ["configuration", "temporary", "imports"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "type": "config",
+      "name": "ua-import-map-output.json",
+      "filePath": ".understand-anything/tmp/ua-import-map-output.json",
+      "summary": "Temporary output from import map extraction.",
+      "tags": ["configuration", "temporary", "imports"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "config",
+      "name": "ua-scan-files.json",
+      "filePath": ".understand-anything/tmp/ua-scan-files.json",
+      "summary": "Temporary list of files identified for scanning.",
+      "tags": ["configuration", "temporary", "scan"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": []
+}
