@@ -1,6 +1,6 @@
 import pino from 'pino';
 
-const isProduction = process.env.NODE_ENV === 'production' || !!process.env.RAILWAY_ENVIRONMENT;
+const isProduction = process.env.NODE_ENV === 'production';
 
 const logger = isProduction
   ? pino({ level: process.env.LOG_LEVEL || 'info' })

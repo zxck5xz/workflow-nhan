@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": [
     "backend",
+    "backend/worker",
     "task-dashboard",
     "mobile-app"
   ],

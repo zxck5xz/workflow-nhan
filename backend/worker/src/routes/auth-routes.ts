@@ -5,11 +5,19 @@ import { jsonResponse, errorResponse, wrapHandler } from '../middleware';
 import bcrypt from 'bcryptjs';
 
 export const loginHandler: RouteHandler = wrapHandler(async (request, env) => {
-  const body = await request.json() as any;
+  const body = (await request.json()) as any;
   const { email, password } = body;
 
   if (!email || !password) {
-    return errorResponse('Invalid login credentials', 400);
+    return errorResponse('Email and password are required', 400);
+  }
+
+  if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return errorResponse('Invalid email format', 400);
+  }
+
+  if (typeof password !== 'string' || password.length < 6) {
+    return errorResponse('Password must be at least 6 characters', 400);
   }
 
   const sql = getSql(env.DATABASE_URL);

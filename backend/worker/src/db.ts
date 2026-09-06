@@ -46,15 +46,17 @@ export async function deleteMember(sql: NeonQuery, id: string) {
 // ===== AppData Queries =====
 
 export async function loadAllData(sql: NeonQuery) {
-  const [projects, members, tasks, statuses, priorities, scorecards, insights] = await Promise.all([
-    sql`SELECT * FROM "Project" ORDER BY "createdAt" ASC`,
-    sql`SELECT id, name, email, role, "avatarColor", initials, "joinedAt" FROM "Member" ORDER BY "joinedAt" ASC`,
-    sql`SELECT * FROM "Task" ORDER BY "createdAt" ASC`,
-    sql`SELECT * FROM "StatusConfig" ORDER BY "order" ASC`,
-    sql`SELECT * FROM "PriorityConfig" ORDER BY "defaultWeight" DESC`,
-    sql`SELECT * FROM "GameScorecard" ORDER BY "week" ASC`,
-    sql`SELECT * FROM "WeeklyInsight" ORDER BY "week" ASC`,
-  ].map(p => p.then(asRows)));
+  const [projects, members, tasks, statuses, priorities, scorecards, insights] = await Promise.all(
+    [
+      sql`SELECT * FROM "Project" ORDER BY "createdAt" ASC`,
+      sql`SELECT id, name, email, role, "avatarColor", initials, "joinedAt" FROM "Member" ORDER BY "joinedAt" ASC`,
+      sql`SELECT * FROM "Task" ORDER BY "createdAt" ASC`,
+      sql`SELECT * FROM "StatusConfig" ORDER BY "order" ASC`,
+      sql`SELECT * FROM "PriorityConfig" ORDER BY "defaultWeight" DESC`,
+      sql`SELECT * FROM "GameScorecard" ORDER BY "week" ASC`,
+      sql`SELECT * FROM "WeeklyInsight" ORDER BY "week" ASC`,
+    ].map((p) => p.then(asRows)),
+  );
 
   return {
     projects: projects.map((p: any) => ({
@@ -142,91 +144,130 @@ function toPrismaStatus(s: string) {
 
 export async function saveAllData(sql: NeonQuery, data: any) {
   const payload = { ...data, lastUpdated: new Date().toISOString() };
+  const errors: string[] = [];
 
-  for (const p of payload.projects ?? []) {
-    await sql`
-      INSERT INTO "Project" (id, name, platform, genre, status, color, "createdAt")
-      VALUES (${p.id}, ${p.name}, ${p.platform}, ${p.genre}, ${p.status}, ${p.color}, ${p.createdAt ? new Date(p.createdAt) : new Date()})
-      ON CONFLICT (id) DO UPDATE SET
-        name = EXCLUDED.name, platform = EXCLUDED.platform, genre = EXCLUDED.genre,
-        status = EXCLUDED.status, color = EXCLUDED.color
-    `;
+  const tables = [
+    {
+      name: 'Project',
+      items: payload.projects ?? [],
+      handler: async (p: any) => {
+        await sql`
+        INSERT INTO "Project" (id, name, platform, genre, status, color, "createdAt")
+        VALUES (${p.id}, ${p.name}, ${p.platform}, ${p.genre}, ${p.status}, ${p.color}, ${p.createdAt ? new Date(p.createdAt) : new Date()})
+        ON CONFLICT (id) DO UPDATE SET
+          name = EXCLUDED.name, platform = EXCLUDED.platform, genre = EXCLUDED.genre,
+          status = EXCLUDED.status, color = EXCLUDED.color
+      `;
+      },
+    },
+    {
+      name: 'Member',
+      items: payload.members ?? [],
+      handler: async (m: any) => {
+        const email = m.email || `${m.id}@example.com`;
+        await sql`
+        INSERT INTO "Member" (id, name, email, role, "avatarColor", initials, "joinedAt", password)
+        VALUES (${m.id}, ${m.name}, ${email}, ${m.role}, ${m.avatarColor}, ${m.initials}, ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, 'default-sync-password')
+        ON CONFLICT (id) DO UPDATE SET
+          name = EXCLUDED.name, email = EXCLUDED.email, role = EXCLUDED.role,
+          "avatarColor" = EXCLUDED."avatarColor", initials = EXCLUDED.initials
+      `;
+      },
+    },
+    {
+      name: 'StatusConfig',
+      items: payload.statuses ?? [],
+      handler: async (s: any) => {
+        const id = toPrismaStatus(s.id);
+        await sql`
+        INSERT INTO "StatusConfig" (id, label, color, "order")
+        VALUES (${id}, ${s.label}, ${s.color}, ${s.order})
+        ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label, color = EXCLUDED.color, "order" = EXCLUDED."order"
+      `;
+      },
+    },
+    {
+      name: 'PriorityConfig',
+      items: payload.priorities ?? [],
+      handler: async (pr: any) => {
+        await sql`
+        INSERT INTO "PriorityConfig" (id, label, color, "defaultWeight")
+        VALUES (${pr.id}, ${pr.label}, ${pr.color}, ${pr.defaultWeight})
+        ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label, color = EXCLUDED.color, "defaultWeight" = EXCLUDED."defaultWeight"
+      `;
+      },
+    },
+    {
+      name: 'Task',
+      items: payload.tasks ?? [],
+      handler: async (t: any) => {
+        const status = toPrismaStatus(t.status);
+        await sql`
+        INSERT INTO "Task" (id, title, description, "projectId", "assigneeId", status, priority, weight, deadline, "createdAt", "completedAt",
+          "eisenhowerUrgent", "eisenhowerImportant", "eisenhowerAutoClassified", tags, result)
+        VALUES (${t.id}, ${t.title}, ${t.description}, ${t.projectId}, ${t.assigneeId}, ${status}, ${t.priority}, ${t.weight},
+          ${t.deadline ? new Date(t.deadline) : null}, ${t.createdAt ? new Date(t.createdAt) : new Date()}, ${t.completedAt ? new Date(t.completedAt) : null},
+          ${t.eisenhower?.urgent ?? false}, ${t.eisenhower?.important ?? false}, ${t.eisenhower?.autoClassified ?? false},
+          ${t.tags ? JSON.stringify(t.tags) : null}, ${t.result ?? null})
+        ON CONFLICT (id) DO UPDATE SET
+          title = EXCLUDED.title, description = EXCLUDED.description, "projectId" = EXCLUDED."projectId",
+          "assigneeId" = EXCLUDED."assigneeId", status = EXCLUDED.status, priority = EXCLUDED.priority,
+          weight = EXCLUDED.weight, deadline = EXCLUDED.deadline, "completedAt" = EXCLUDED."completedAt",
+          "eisenhowerUrgent" = EXCLUDED."eisenhowerUrgent", "eisenhowerImportant" = EXCLUDED."eisenhowerImportant",
+          "eisenhowerAutoClassified" = EXCLUDED."eisenhowerAutoClassified", tags = EXCLUDED.tags, result = EXCLUDED.result
+      `;
+      },
+    },
+    {
+      name: 'GameScorecard',
+      items: payload.scorecards ?? [],
+      handler: async (sc: any) => {
+        await sql`
+        INSERT INTO "GameScorecard" (id, "projectId", week, "ratingsCoreLoop", "ratingsMonetization", "ratingsVisualUx", "ratingsRetention", "ratingsUsp", summary, "authorId", "createdAt")
+        VALUES (${sc.id}, ${sc.projectId}, ${sc.week ? new Date(sc.week) : new Date()},
+          ${sc.ratings?.coreLoop ?? 0}, ${sc.ratings?.monetization ?? 0}, ${sc.ratings?.visualUx ?? 0},
+          ${sc.ratings?.retention ?? 0}, ${sc.ratings?.usp ?? 0},
+          ${sc.summary}, ${sc.authorId}, ${sc.createdAt ? new Date(sc.createdAt) : new Date()})
+        ON CONFLICT (id) DO UPDATE SET
+          "projectId" = EXCLUDED."projectId", week = EXCLUDED.week,
+          "ratingsCoreLoop" = EXCLUDED."ratingsCoreLoop", "ratingsMonetization" = EXCLUDED."ratingsMonetization",
+          "ratingsVisualUx" = EXCLUDED."ratingsVisualUx", "ratingsRetention" = EXCLUDED."ratingsRetention",
+          "ratingsUsp" = EXCLUDED."ratingsUsp", summary = EXCLUDED.summary
+      `;
+      },
+    },
+    {
+      name: 'WeeklyInsight',
+      items: payload.insights ?? [],
+      handler: async (ins: any) => {
+        await sql`
+        INSERT INTO "WeeklyInsight" (id, week, title, "overallStatus", highlights, risks, "actionItems", "authorId", "createdAt")
+        VALUES (${ins.id}, ${ins.week ? new Date(ins.week) : new Date()}, ${ins.title}, ${ins.overallStatus},
+          ${ins.highlights ? JSON.stringify(ins.highlights) : null}, ${ins.risks ? JSON.stringify(ins.risks) : null},
+          ${ins.actionItems ? JSON.stringify(ins.actionItems) : null}, ${ins.authorId}, ${ins.createdAt ? new Date(ins.createdAt) : new Date()})
+        ON CONFLICT (id) DO UPDATE SET
+          week = EXCLUDED.week, title = EXCLUDED.title, "overallStatus" = EXCLUDED."overallStatus",
+          highlights = EXCLUDED.highlights, risks = EXCLUDED.risks, "actionItems" = EXCLUDED."actionItems"
+      `;
+      },
+    },
+  ];
+
+  for (const table of tables) {
+    for (const item of table.items) {
+      try {
+        await table.handler(item);
+      } catch (err: any) {
+        errors.push(`${table.name}: ${err.message}`);
+      }
+    }
   }
 
-  for (const m of payload.members ?? []) {
-    const email = m.email || `${m.id}@example.com`;
-    await sql`
-      INSERT INTO "Member" (id, name, email, role, "avatarColor", initials, "joinedAt", password)
-      VALUES (${m.id}, ${m.name}, ${email}, ${m.role}, ${m.avatarColor}, ${m.initials}, ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, 'default-sync-password')
-      ON CONFLICT (id) DO UPDATE SET
-        name = EXCLUDED.name, email = EXCLUDED.email, role = EXCLUDED.role,
-        "avatarColor" = EXCLUDED."avatarColor", initials = EXCLUDED.initials
-    `;
+  if (errors.length > 0) {
+    console.error('saveAllData partial failures:', errors);
   }
 
-  for (const s of payload.statuses ?? []) {
-    const id = toPrismaStatus(s.id);
-    await sql`
-      INSERT INTO "StatusConfig" (id, label, color, "order")
-      VALUES (${id}, ${s.label}, ${s.color}, ${s.order})
-      ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label, color = EXCLUDED.color, "order" = EXCLUDED."order"
-    `;
-  }
-
-  for (const pr of payload.priorities ?? []) {
-    await sql`
-      INSERT INTO "PriorityConfig" (id, label, color, "defaultWeight")
-      VALUES (${pr.id}, ${pr.label}, ${pr.color}, ${pr.defaultWeight})
-      ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label, color = EXCLUDED.color, "defaultWeight" = EXCLUDED."defaultWeight"
-    `;
-  }
-
-  for (const t of payload.tasks ?? []) {
-    const status = toPrismaStatus(t.status);
-    await sql`
-      INSERT INTO "Task" (id, title, description, "projectId", "assigneeId", status, priority, weight, deadline, "createdAt", "completedAt",
-        "eisenhowerUrgent", "eisenhowerImportant", "eisenhowerAutoClassified", tags, result)
-      VALUES (${t.id}, ${t.title}, ${t.description}, ${t.projectId}, ${t.assigneeId}, ${status}, ${t.priority}, ${t.weight},
-        ${t.deadline ? new Date(t.deadline) : null}, ${t.createdAt ? new Date(t.createdAt) : new Date()}, ${t.completedAt ? new Date(t.completedAt) : null},
-        ${t.eisenhower?.urgent ?? false}, ${t.eisenhower?.important ?? false}, ${t.eisenhower?.autoClassified ?? false},
-        ${t.tags ? JSON.stringify(t.tags) : null}, ${t.result ?? null})
-      ON CONFLICT (id) DO UPDATE SET
-        title = EXCLUDED.title, description = EXCLUDED.description, "projectId" = EXCLUDED."projectId",
-        "assigneeId" = EXCLUDED."assigneeId", status = EXCLUDED.status, priority = EXCLUDED.priority,
-        weight = EXCLUDED.weight, deadline = EXCLUDED.deadline, "completedAt" = EXCLUDED."completedAt",
-        "eisenhowerUrgent" = EXCLUDED."eisenhowerUrgent", "eisenhowerImportant" = EXCLUDED."eisenhowerImportant",
-        "eisenhowerAutoClassified" = EXCLUDED."eisenhowerAutoClassified", tags = EXCLUDED.tags, result = EXCLUDED.result
-    `;
-  }
-
-  for (const sc of payload.scorecards ?? []) {
-    await sql`
-      INSERT INTO "GameScorecard" (id, "projectId", week, "ratingsCoreLoop", "ratingsMonetization", "ratingsVisualUx", "ratingsRetention", "ratingsUsp", summary, "authorId", "createdAt")
-      VALUES (${sc.id}, ${sc.projectId}, ${sc.week ? new Date(sc.week) : new Date()},
-        ${sc.ratings?.coreLoop ?? 0}, ${sc.ratings?.monetization ?? 0}, ${sc.ratings?.visualUx ?? 0},
-        ${sc.ratings?.retention ?? 0}, ${sc.ratings?.usp ?? 0},
-        ${sc.summary}, ${sc.authorId}, ${sc.createdAt ? new Date(sc.createdAt) : new Date()})
-      ON CONFLICT (id) DO UPDATE SET
-        "projectId" = EXCLUDED."projectId", week = EXCLUDED.week,
-        "ratingsCoreLoop" = EXCLUDED."ratingsCoreLoop", "ratingsMonetization" = EXCLUDED."ratingsMonetization",
-        "ratingsVisualUx" = EXCLUDED."ratingsVisualUx", "ratingsRetention" = EXCLUDED."ratingsRetention",
-        "ratingsUsp" = EXCLUDED."ratingsUsp", summary = EXCLUDED.summary
-    `;
-  }
-
-  for (const ins of payload.insights ?? []) {
-    await sql`
-      INSERT INTO "WeeklyInsight" (id, week, title, "overallStatus", highlights, risks, "actionItems", "authorId", "createdAt")
-      VALUES (${ins.id}, ${ins.week ? new Date(ins.week) : new Date()}, ${ins.title}, ${ins.overallStatus},
-        ${ins.highlights ? JSON.stringify(ins.highlights) : null}, ${ins.risks ? JSON.stringify(ins.risks) : null},
-        ${ins.actionItems ? JSON.stringify(ins.actionItems) : null}, ${ins.authorId}, ${ins.createdAt ? new Date(ins.createdAt) : new Date()})
-      ON CONFLICT (id) DO UPDATE SET
-        week = EXCLUDED.week, title = EXCLUDED.title, "overallStatus" = EXCLUDED."overallStatus",
-        highlights = EXCLUDED.highlights, risks = EXCLUDED.risks, "actionItems" = EXCLUDED."actionItems"
-    `;
-  }
-
-  return payload;
+  return { ...payload, _errors: errors.length > 0 ? errors : undefined };
 }
 
 // ===== Snapshot Queries =====
@@ -247,13 +288,17 @@ export async function saveSnapshot(sql: NeonQuery, data: any) {
 }
 
 export async function listSnapshots(sql: NeonQuery) {
-  const rows = asRows(await sql`SELECT "snapshotDate" FROM "Snapshot" ORDER BY "snapshotDate" DESC`);
+  const rows = asRows(
+    await sql`SELECT "snapshotDate" FROM "Snapshot" ORDER BY "snapshotDate" DESC`,
+  );
   return rows.map((r: any) => dateToDateOnly(r.snapshotDate));
 }
 
 export async function loadSnapshot(sql: NeonQuery, date: string) {
   const snapshotDate = dateToDateOnly(date);
-  const rows = asRows(await sql`SELECT * FROM "Snapshot" WHERE "snapshotDate" = ${snapshotDate}::date LIMIT 1`);
+  const rows = asRows(
+    await sql`SELECT * FROM "Snapshot" WHERE "snapshotDate" = ${snapshotDate}::date LIMIT 1`,
+  );
   if (rows.length === 0) return null;
   const snap = rows[0] as any;
   return { ...snap.payload, snapshotDate };
@@ -262,11 +307,25 @@ export async function loadSnapshot(sql: NeonQuery, date: string) {
 // ===== Research Report Queries =====
 
 export async function saveResearchReport(sql: NeonQuery, report: any) {
-  const { id, type, title, packageName, technicalData, interpretation, markdownReport,
-    sentimentScore, sentimentSummary, redditMentions, twitterMentions, authorId, createdAt } = report;
+  const {
+    id,
+    type,
+    title,
+    packageName,
+    technicalData,
+    interpretation,
+    markdownReport,
+    sentimentScore,
+    sentimentSummary,
+    redditMentions,
+    twitterMentions,
+    authorId,
+    createdAt,
+  } = report;
 
   if (id) {
-    const rows = asRows(await sql`
+    const rows = asRows(
+      await sql`
       INSERT INTO "ResearchReport" (id, type, title, "packageName", "technicalData", interpretation, "markdownReport",
         "sentimentScore", "sentimentSummary", "redditMentions", "twitterMentions", "authorId", "createdAt")
       VALUES (${id}, ${type}, ${title}, ${packageName ?? null},
@@ -281,10 +340,12 @@ export async function saveResearchReport(sql: NeonQuery, report: any) {
         "sentimentSummary" = EXCLUDED."sentimentSummary", "redditMentions" = EXCLUDED."redditMentions",
         "twitterMentions" = EXCLUDED."twitterMentions"
       RETURNING *
-    `);
+    `,
+    );
     return rows[0];
   } else {
-    const rows = asRows(await sql`
+    const rows = asRows(
+      await sql`
       INSERT INTO "ResearchReport" (type, title, "packageName", "technicalData", interpretation, "markdownReport",
         "sentimentScore", "sentimentSummary", "redditMentions", "twitterMentions", "authorId")
       VALUES (${type}, ${title}, ${packageName ?? null},
@@ -293,7 +354,8 @@ export async function saveResearchReport(sql: NeonQuery, report: any) {
         ${redditMentions ? JSON.stringify(redditMentions) : null}, ${twitterMentions ? JSON.stringify(twitterMentions) : null},
         ${authorId ?? null})
       RETURNING *
-    `);
+    `,
+    );
     return rows[0];
   }
 }

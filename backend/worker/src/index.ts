@@ -6,11 +6,29 @@ import { loginHandler, registerHandler, meHandler } from './routes/auth-routes';
 // User routes
 import { listUsersHandler, updateRoleHandler, deleteUserHandler } from './routes/user-routes';
 // Data routes
-import { getAppDataHandler, saveAppDataHandler, createSnapshotHandler, listSnapshotsHandler, getSnapshotHandler } from './routes/data-routes';
+import {
+  getAppDataHandler,
+  saveAppDataHandler,
+  createSnapshotHandler,
+  listSnapshotsHandler,
+  getSnapshotHandler,
+} from './routes/data-routes';
 // Research routes
-import { sentimentHandler, listReportsHandler, saveReportHandler, getReportHandler } from './routes/research-routes';
+import {
+  sentimentHandler,
+  listReportsHandler,
+  saveReportHandler,
+  getReportHandler,
+} from './routes/research-routes';
 // Utility routes
-import { searchProductHandler, searchAppInfoHandler, evaluateHandler, generatePptxHandler, openFileHandler, interpretApkHandler } from './routes/utility-routes';
+import {
+  searchProductHandler,
+  searchAppInfoHandler,
+  evaluateHandler,
+  generatePptxHandler,
+  openFileHandler,
+  interpretApkHandler,
+} from './routes/utility-routes';
 
 // Simple route matcher
 type RouteEntry = {
@@ -38,6 +56,7 @@ function buildRoutes(): RouteEntry[] {
     ['POST', '/api/generate-pptx', generatePptxHandler],
     ['POST', '/api/open-file', openFileHandler],
     ['POST', '/api/interpret-apk', interpretApkHandler],
+    ['POST', '/api/research/interpret', interpretApkHandler],
     ['POST', '/api/research/sentiment', sentimentHandler],
     ['GET', '/api/research-reports', listReportsHandler],
     ['POST', '/api/research-reports', saveReportHandler],
@@ -64,7 +83,11 @@ function buildRoutes(): RouteEntry[] {
 const routes = buildRoutes();
 
 function healthHandler() {
-  return jsonResponse({ status: 'ok', timestamp: new Date().toISOString(), runtime: 'cloudflare-workers' });
+  return jsonResponse({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    runtime: 'cloudflare-workers',
+  });
 }
 
 async function handleRequest(request: Request, env: Env): Promise<Response> {
@@ -74,7 +97,10 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
 
   // CORS preflight
   if (method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders(env, request.headers.get('Origin')) });
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders(env, request.headers.get('Origin')),
+    });
   }
 
   // Find matching route
@@ -94,7 +120,10 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
     const authResponse = await authMiddleware(request, env, ctx);
     if (authResponse) {
       const headers = corsHeaders(env, request.headers.get('Origin'));
-      return new Response(authResponse.body, { status: authResponse.status, headers: { ...headers, 'Content-Type': 'application/json' } });
+      return new Response(authResponse.body, {
+        status: authResponse.status,
+        headers: { ...headers, 'Content-Type': 'application/json' },
+      });
     }
 
     // Execute handler
@@ -118,6 +147,16 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    // Validate required secrets on first request
+    if (!env.JWT_SECRET) {
+      console.error('FATAL: JWT_SECRET is not set in Worker environment');
+      return jsonResponse({ error: 'Server configuration error' }, 500);
+    }
+    if (!env.DATABASE_URL) {
+      console.error('FATAL: DATABASE_URL is not set in Worker environment');
+      return jsonResponse({ error: 'Server configuration error' }, 500);
+    }
+
     try {
       return await handleRequest(request, env);
     } catch (err: any) {
