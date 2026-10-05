@@ -1,5 +1,6 @@
 import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
 import './forecast.css';
+import { BidaForecast, type BidaGame } from './bida/BidaForecast';
 import { CumulativeChart, DailyUsersChart, RevenueCostChart } from './components/charts/Charts';
 import { InputsContext } from './components/inputsContext';
 import { Scenarios } from './components/Scenarios';
@@ -50,8 +51,58 @@ const fingerprint = (i: Inputs) => {
 };
 const EXCEL_FINGERPRINT = fingerprint(excelOriginal);
 
-/** Trang dự phóng doanh thu & hoàn vốn AuGo (module trong task-dashboard). Toàn bộ giao diện nằm trong div.augo. */
+type Game = 'augo' | BidaGame;
+const GAME_KEY = 'forecast:game';
+const GAMES: { id: Game; label: string; sub: string }[] = [
+  { id: 'augo', label: 'AuGo', sub: 'IAP · theo Excel AuGo Master Plan' },
+  { id: 'bida', label: 'Bida 8 Pool', sub: 'IAP + IAA · theo file Bida' },
+  { id: 'new', label: 'Game mới', sub: 'Mô hình Bida, nhập thông số riêng' },
+];
+
+/** Trang dự phóng doanh thu & hoàn vốn, nhiều game: AuGo (engine AuGo) và Bida 8 Pool / game mới (engine Bida). */
 export function ForecastPage() {
+  const [game, setGame] = useState<Game>(() => {
+    // Link chia sẻ / chế độ in là của AuGo
+    const { hash, search } = window.location;
+    if (hash.startsWith('#s=') || new URLSearchParams(search).has('print')) return 'augo';
+    try {
+      const g = localStorage.getItem(GAME_KEY) as Game | null;
+      return g && GAMES.some((x) => x.id === g) ? g : 'augo';
+    } catch {
+      return 'augo';
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(GAME_KEY, game);
+    } catch {
+      /* chỉ mất ghi nhớ game đang chọn */
+    }
+  }, [game]);
+
+  return (
+    <div className="forecast-root">
+      <nav className="forecast-games no-print" aria-label="Chọn game">
+        {GAMES.map((g) => (
+          <button key={g.id} aria-pressed={game === g.id} onClick={() => setGame(g.id)}>
+            <b>{g.label}</b>
+            <span>{g.sub}</span>
+          </button>
+        ))}
+      </nav>
+      {game === 'augo' ? (
+        <AugoForecast />
+      ) : (
+        <div className="augo">
+          <BidaForecast key={game} game={game} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Dự phóng AuGo theo Excel AuGo Master Plan. Toàn bộ giao diện nằm trong div.augo. */
+function AugoForecast() {
   const [inputs, setInputs] = useState<Inputs>(() => normalize(loadDraft()));
   const [scenarios, setScenarios] = useState<SavedScenario[]>(loadScenarios);
   const [toast, setToast] = useState<string | null>(null);
