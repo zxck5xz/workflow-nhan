@@ -9,6 +9,12 @@ import { apiService } from './apiService';
 const STORAGE_KEY = 'task-dashboard-data';
 const API_BASE = import.meta.env.VITE_API_URL;
 
+// Whether the data in memory came from the server. `save()` sends the whole
+// dataset, so after a failed load (outage, expired token) syncing the cached or
+// seed copy would overwrite newer server rows; until a load succeeds, saves
+// stay local.
+let loadedFromServer = false;
+
 export const dataService = {
   async load(): Promise<AppData> {
     // Try backend first if configured
@@ -16,9 +22,13 @@ export const dataService = {
       try {
         const data = await apiService.loadData();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        loadedFromServer = true;
         return data;
       } catch {
-        console.warn('API unavailable, falling back to localStorage');
+        loadedFromServer = false;
+        console.warn(
+          'API unavailable, falling back to localStorage; changes stay local until reload',
+        );
       }
     }
 
@@ -29,20 +39,14 @@ export const dataService = {
       console.warn('Failed to parse stored data, using seed data');
     }
     const data = { ...seedData, lastUpdated: new Date().toISOString() };
-    if (API_BASE) {
-      // The backend is the source of truth and just failed to answer; never
-      // push seed data over it, only cache it locally.
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } else {
-      await this.save(data);
-    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     return data;
   },
 
   async save(data: AppData): Promise<void> {
     data.lastUpdated = new Date().toISOString();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    if (API_BASE) {
+    if (API_BASE && loadedFromServer) {
       try {
         await apiService.saveData(data);
       } catch {

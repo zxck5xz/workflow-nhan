@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        // Cloudflare Worker via `npm run dev:backend` (wrangler dev)
+        target: 'http://localhost:8787',
         changeOrigin: true,
         secure: false,
       },
@@ -19,7 +20,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom') || id.includes('node_modules/react/')) {
+          if (
+            id.includes('node_modules/react-dom') ||
+            id.includes('node_modules/react-router-dom') ||
+            id.includes('node_modules/react/')
+          ) {
             return 'vendor';
           }
           if (id.includes('node_modules/html2canvas') || id.includes('node_modules/jspdf')) {
