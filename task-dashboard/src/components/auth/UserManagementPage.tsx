@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { authService } from '../../services/authService';
 import { Button, Avatar, EmptyState } from '../common';
@@ -8,35 +8,57 @@ import './UserManagementPage.css';
 
 const ROLES = ['ADMIN', 'MANAGER', 'TESTER', 'VIEWER'];
 
+const errorMessage = (err: unknown, fallback: string) =>
+  (err instanceof Error && err.message) || fallback;
+
+type UsersResult = { users: Member[] } | { error: string };
+
+async function fetchUserList(): Promise<UsersResult> {
+  try {
+    return { users: await authService.getUsers() };
+  } catch (err) {
+    return { error: errorMessage(err, 'Failed to fetch users') };
+  }
+}
+
 export function UserManagementPage() {
   const { user: currentUser } = useAuth();
   const [users, setUsers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchUsers();
+  const applyResult = useCallback((result: UsersResult) => {
+    if ('users' in result) {
+      setUsers(result.users);
+      setError(null);
+    } else {
+      setError(result.error);
+    }
+    setLoading(false);
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      setLoading(true);
-      const data = await authService.getUsers();
-      setUsers(data);
-      setError(null);
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch users');
-    } finally {
-      setLoading(false);
-    }
+  // Initial load; `loading` already starts as true.
+  useEffect(() => {
+    let cancelled = false;
+    fetchUserList().then((result) => {
+      if (!cancelled) applyResult(result);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [applyResult]);
+
+  const fetchUsers = () => {
+    setLoading(true);
+    fetchUserList().then(applyResult);
   };
 
   const handleUpdateRole = async (userId: string, newRole: string) => {
     try {
       await authService.updateUserRole(userId, newRole);
       setUsers(users.map((u) => (u.id === userId ? { ...u, role: newRole } : u)));
-    } catch (err: any) {
-      alert(err.message || 'Failed to update role');
+    } catch (err) {
+      alert(errorMessage(err, 'Failed to update role'));
     }
   };
 
@@ -53,8 +75,8 @@ export function UserManagementPage() {
     try {
       await authService.deleteUser(userId);
       setUsers(users.filter((u) => u.id !== userId));
-    } catch (err: any) {
-      alert(err.message || 'Failed to delete user');
+    } catch (err) {
+      alert(errorMessage(err, 'Failed to delete user'));
     }
   };
 

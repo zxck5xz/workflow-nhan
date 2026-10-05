@@ -4,7 +4,7 @@ import { useApp } from '../../contexts/AppContext';
 import { TaskCard } from '../tasks/TaskCard';
 import { EmptyState } from '../common/EmptyState';
 import { colors, spacing, borderRadius, typography } from '../../theme';
-import { formatDate, isOverdue } from '../../utils';
+import { isOverdue } from '../../utils';
 import {
   startOfMonth,
   endOfMonth,
@@ -15,7 +15,7 @@ import {
   addMonths,
   subMonths,
 } from 'date-fns';
-import type { Task, CalendarEvent } from '../../types';
+import type { CalendarEvent } from '../../types';
 
 export function CalendarScreen() {
   const { state } = useApp();

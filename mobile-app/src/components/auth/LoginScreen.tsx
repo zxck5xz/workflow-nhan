@@ -27,8 +27,8 @@ export function LoginScreen() {
     setLoading(true);
     try {
       await login(email.trim(), password);
-    } catch (e: any) {
-      Alert.alert('Login Failed', e.message || 'Unknown error');
+    } catch (e) {
+      Alert.alert('Login Failed', (e instanceof Error && e.message) || 'Unknown error');
     } finally {
       setLoading(false);
     }

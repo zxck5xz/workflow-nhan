@@ -3,7 +3,7 @@ import { useApp } from '../../contexts/AppContext';
 import { Card } from '../common/Card';
 import { Avatar } from '../common/Avatar';
 import { Badge } from '../common/Badge';
-import { colors, spacing, borderRadius, typography } from '../../theme';
+import { colors, spacing, typography } from '../../theme';
 
 export function UserManagementScreen() {
   const { state } = useApp();

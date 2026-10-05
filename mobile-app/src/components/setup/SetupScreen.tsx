@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../common/Button';
 import { Card } from '../common/Card';
 import { Avatar } from '../common/Avatar';
 import { colors, spacing, borderRadius, typography } from '../../theme';
-import type { Member, Project, StatusConfig, PriorityConfig } from '../../types';
 import { v4 as uuid } from 'uuid';
 
 export function SetupScreen() {
