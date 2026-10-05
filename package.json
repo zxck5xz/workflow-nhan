@@ -8,7 +8,7 @@
     "mobile-app"
   ],
   "scripts": {
-    "dev:backend": "npm run start --workspace=backend",
+    "dev:backend": "npm run dev --workspace=backend/worker",
     "dev:frontend": "npm run dev --workspace=task-dashboard",
     "dev:mobile": "npm run start --workspace=mobile-app",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
