@@ -4,6 +4,12 @@ import { authService } from '../services/authService';
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const res = await rawRequest(path, options);
+  return res.json();
+}
+
+// Like request(), but returns the Response so callers can read non-JSON bodies.
+async function rawRequest(path: string, options?: RequestInit): Promise<Response> {
   // Get token from auth service
   const token = authService.getToken();
 
@@ -31,9 +37,10 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
       // Throw error to be caught by UI, but do NOT alert/reload here to avoid loop
       throw new Error('Unauthorized');
     }
-    throw new Error(`API ${res.status}: ${res.statusText}`);
+    const body = await res.json().catch(() => null);
+    throw new Error(`API ${res.status}: ${body?.error || res.statusText}`);
   }
-  return res.json();
+  return res;
 }
 
 export const apiService = {
@@ -99,15 +106,19 @@ export const apiService = {
     return res.reports;
   },
 
-  async saveResearchReport(report: Partial<ResearchReport>): Promise<{ success: boolean; report: ResearchReport }> {
+  async saveResearchReport(
+    report: Partial<ResearchReport>,
+  ): Promise<{ success: boolean; report: ResearchReport }> {
     return request('/api/research-reports', {
       method: 'POST',
       body: JSON.stringify(report),
     });
   },
 
-
-  async analyzeSentiment(query: string, reportId?: string): Promise<{
+  async analyzeSentiment(
+    query: string,
+    reportId?: string,
+  ): Promise<{
     sentimentScore: number;
     sentimentSummary: string;
     overallLabel: string;
@@ -134,5 +145,26 @@ export const apiService = {
       method: 'POST',
       body: JSON.stringify({ query, reportId }),
     });
+  },
+
+  async evaluateGame(params: {
+    game: string;
+    genre?: string;
+    info?: string;
+    competitors?: string;
+    criteria?: string;
+  }): Promise<{ success: boolean; markdown: string; scorecard: Record<string, unknown> }> {
+    return request('/api/evaluate', {
+      method: 'POST',
+      body: JSON.stringify(params),
+    });
+  },
+
+  async generatePptx(markdown: string): Promise<Blob> {
+    const res = await rawRequest('/api/generate-pptx', {
+      method: 'POST',
+      body: JSON.stringify({ markdown }),
+    });
+    return res.blob();
   },
 };

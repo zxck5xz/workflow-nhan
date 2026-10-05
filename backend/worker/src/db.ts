@@ -144,14 +144,15 @@ function toPrismaStatus(s: string) {
 
 export async function saveAllData(sql: NeonQuery, data: any) {
   const payload = { ...data, lastUpdated: new Date().toISOString() };
-  const errors: string[] = [];
 
+  // Each table maps an item to a (lazy) upsert query; all queries are sent
+  // together in one Neon HTTP transaction below.
   const tables = [
     {
       name: 'Project',
       items: payload.projects ?? [],
-      handler: async (p: any) => {
-        await sql`
+      query: (p: any) => {
+        return sql`
         INSERT INTO "Project" (id, name, platform, genre, status, color, "createdAt")
         VALUES (${p.id}, ${p.name}, ${p.platform}, ${p.genre}, ${p.status}, ${p.color}, ${p.createdAt ? new Date(p.createdAt) : new Date()})
         ON CONFLICT (id) DO UPDATE SET
@@ -163,9 +164,9 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     {
       name: 'Member',
       items: payload.members ?? [],
-      handler: async (m: any) => {
+      query: (m: any) => {
         const email = m.email || `${m.id}@example.com`;
-        await sql`
+        return sql`
         INSERT INTO "Member" (id, name, email, role, "avatarColor", initials, "joinedAt", password)
         VALUES (${m.id}, ${m.name}, ${email}, ${m.role}, ${m.avatarColor}, ${m.initials}, ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, 'default-sync-password')
         ON CONFLICT (id) DO UPDATE SET
@@ -177,9 +178,9 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     {
       name: 'StatusConfig',
       items: payload.statuses ?? [],
-      handler: async (s: any) => {
+      query: (s: any) => {
         const id = toPrismaStatus(s.id);
-        await sql`
+        return sql`
         INSERT INTO "StatusConfig" (id, label, color, "order")
         VALUES (${id}, ${s.label}, ${s.color}, ${s.order})
         ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label, color = EXCLUDED.color, "order" = EXCLUDED."order"
@@ -189,8 +190,8 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     {
       name: 'PriorityConfig',
       items: payload.priorities ?? [],
-      handler: async (pr: any) => {
-        await sql`
+      query: (pr: any) => {
+        return sql`
         INSERT INTO "PriorityConfig" (id, label, color, "defaultWeight")
         VALUES (${pr.id}, ${pr.label}, ${pr.color}, ${pr.defaultWeight})
         ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label, color = EXCLUDED.color, "defaultWeight" = EXCLUDED."defaultWeight"
@@ -200,9 +201,9 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     {
       name: 'Task',
       items: payload.tasks ?? [],
-      handler: async (t: any) => {
+      query: (t: any) => {
         const status = toPrismaStatus(t.status);
-        await sql`
+        return sql`
         INSERT INTO "Task" (id, title, description, "projectId", "assigneeId", status, priority, weight, deadline, "createdAt", "completedAt",
           "eisenhowerUrgent", "eisenhowerImportant", "eisenhowerAutoClassified", tags, result)
         VALUES (${t.id}, ${t.title}, ${t.description}, ${t.projectId}, ${t.assigneeId}, ${status}, ${t.priority}, ${t.weight},
@@ -221,8 +222,8 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     {
       name: 'GameScorecard',
       items: payload.scorecards ?? [],
-      handler: async (sc: any) => {
-        await sql`
+      query: (sc: any) => {
+        return sql`
         INSERT INTO "GameScorecard" (id, "projectId", week, "ratingsCoreLoop", "ratingsMonetization", "ratingsVisualUx", "ratingsRetention", "ratingsUsp", summary, "authorId", "createdAt")
         VALUES (${sc.id}, ${sc.projectId}, ${sc.week ? new Date(sc.week) : new Date()},
           ${sc.ratings?.coreLoop ?? 0}, ${sc.ratings?.monetization ?? 0}, ${sc.ratings?.visualUx ?? 0},
@@ -239,8 +240,8 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     {
       name: 'WeeklyInsight',
       items: payload.insights ?? [],
-      handler: async (ins: any) => {
-        await sql`
+      query: (ins: any) => {
+        return sql`
         INSERT INTO "WeeklyInsight" (id, week, title, "overallStatus", highlights, risks, "actionItems", "authorId", "createdAt")
         VALUES (${ins.id}, ${ins.week ? new Date(ins.week) : new Date()}, ${ins.title}, ${ins.overallStatus},
           ${ins.highlights ? JSON.stringify(ins.highlights) : null}, ${ins.risks ? JSON.stringify(ins.risks) : null},
@@ -253,21 +254,15 @@ export async function saveAllData(sql: NeonQuery, data: any) {
     },
   ];
 
-  for (const table of tables) {
-    for (const item of table.items) {
-      try {
-        await table.handler(item);
-      } catch (err: any) {
-        errors.push(`${table.name}: ${err.message}`);
-      }
-    }
+  // One subrequest regardless of row count (Workers caps subrequests per
+  // invocation), and all-or-nothing like the old Prisma $transaction: any
+  // failing row rolls back the whole save and surfaces as a 500.
+  const queries = tables.flatMap((table) => table.items.map((item: any) => table.query(item)));
+  if (queries.length > 0) {
+    await sql.transaction(queries);
   }
 
-  if (errors.length > 0) {
-    console.error('saveAllData partial failures:', errors);
-  }
-
-  return { ...payload, _errors: errors.length > 0 ? errors : undefined };
+  return payload;
 }
 
 // ===== Snapshot Queries =====
@@ -280,8 +275,8 @@ function dateToDateOnly(d: Date | string) {
 export async function saveSnapshot(sql: NeonQuery, data: any) {
   const snapshotDate = dateToDateOnly(new Date());
   await sql`
-    INSERT INTO "Snapshot" ("snapshotDate", payload)
-    VALUES (${snapshotDate}::date, ${JSON.stringify(data)}::json)
+    INSERT INTO "Snapshot" (id, "snapshotDate", payload)
+    VALUES (${crypto.randomUUID()}, ${snapshotDate}::date, ${JSON.stringify(data)}::json)
     ON CONFLICT ("snapshotDate") DO UPDATE SET payload = EXCLUDED.payload
   `;
   return `${snapshotDate}.json`;
@@ -346,9 +341,9 @@ export async function saveResearchReport(sql: NeonQuery, report: any) {
   } else {
     const rows = asRows(
       await sql`
-      INSERT INTO "ResearchReport" (type, title, "packageName", "technicalData", interpretation, "markdownReport",
+      INSERT INTO "ResearchReport" (id, type, title, "packageName", "technicalData", interpretation, "markdownReport",
         "sentimentScore", "sentimentSummary", "redditMentions", "twitterMentions", "authorId")
-      VALUES (${type}, ${title}, ${packageName ?? null},
+      VALUES (${crypto.randomUUID()}, ${type}, ${title}, ${packageName ?? null},
         ${technicalData ? JSON.stringify(technicalData) : null}, ${interpretation ? JSON.stringify(interpretation) : null},
         ${markdownReport ?? null}, ${sentimentScore ?? null}, ${sentimentSummary ?? null},
         ${redditMentions ? JSON.stringify(redditMentions) : null}, ${twitterMentions ? JSON.stringify(twitterMentions) : null},

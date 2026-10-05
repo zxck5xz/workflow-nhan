@@ -3,9 +3,10 @@ import { useApp } from '../../contexts/AppContext';
 import { Button, Modal } from '../common';
 import { getStartOfWeek } from '../../utils';
 
-import type { GameScorecard, WeeklyInsight } from '../../types';
+import type { GameScorecard, Member, Project, WeeklyInsight } from '../../types';
 
 import { v4 as uuid } from 'uuid';
+import { apiService } from '../../data/apiService';
 import './InsightsPage.css';
 
 export function InsightsPage() {
@@ -56,7 +57,7 @@ export function InsightsPage() {
             scorecards={scorecards}
             projects={projects}
             onAdd={() => setShowScorecardModal(true)}
-            onEdit={(sc: any) => {
+            onEdit={(sc: GameScorecard) => {
               setEditScorecard(sc);
               setShowScorecardModal(true);
             }}
@@ -66,7 +67,7 @@ export function InsightsPage() {
           <SummarySection
             insights={insights}
             onAdd={() => setShowInsightModal(true)}
-            onEdit={(ins: any) => {
+            onEdit={(ins: WeeklyInsight) => {
               setEditInsight(ins);
               setShowInsightModal(true);
             }}
@@ -117,7 +118,21 @@ export function InsightsPage() {
 }
 
 // ── Scorecards Section ──
-function ScorecardsSection({ scorecards, projects, onAdd, onEdit, onDelete }: any) {
+interface ScorecardsSectionProps {
+  scorecards: GameScorecard[];
+  projects: Project[];
+  onAdd: () => void;
+  onEdit: (sc: GameScorecard) => void;
+  onDelete: (id: string) => void;
+}
+
+function ScorecardsSection({
+  scorecards,
+  projects,
+  onAdd,
+  onEdit,
+  onDelete,
+}: ScorecardsSectionProps) {
   return (
     <div className="insights-section">
       <div className="section-actions">
@@ -134,7 +149,7 @@ function ScorecardsSection({ scorecards, projects, onAdd, onEdit, onDelete }: an
           </div>
         )}
         {scorecards.map((sc: GameScorecard) => {
-          const project = projects.find((p: any) => p.id === sc.projectId);
+          const project = projects.find((p) => p.id === sc.projectId);
           return (
             <div key={sc.id} className="scorecard-card card">
               <div className="scorecard-card__header">
@@ -196,7 +211,14 @@ function getRatingColor(value: number) {
 }
 
 // ── Summary Section ──
-function SummarySection({ insights, onAdd, onEdit, onDelete }: any) {
+interface SummarySectionProps {
+  insights: WeeklyInsight[];
+  onAdd: () => void;
+  onEdit: (ins: WeeklyInsight) => void;
+  onDelete: (id: string) => void;
+}
+
+function SummarySection({ insights, onAdd, onEdit, onDelete }: SummarySectionProps) {
   return (
     <div className="insights-section">
       <div className="section-actions">
@@ -267,7 +289,23 @@ function SummarySection({ insights, onAdd, onEdit, onDelete }: any) {
 }
 
 // ── Modal Components ──
-function ScorecardModal({ isOpen, scorecard, projects, members, onClose, onSave }: any) {
+interface ScorecardModalProps {
+  isOpen: boolean;
+  scorecard: GameScorecard | null;
+  projects: Project[];
+  members: Member[];
+  onClose: () => void;
+  onSave: (sc: GameScorecard) => void;
+}
+
+function ScorecardModal({
+  isOpen,
+  scorecard,
+  projects,
+  members,
+  onClose,
+  onSave,
+}: ScorecardModalProps) {
   const [projectId, setProjectId] = useState(scorecard?.projectId || projects[0]?.id || '');
   const [ratings, setRatings] = useState(
     scorecard?.ratings || { coreLoop: 3, monetization: 3, visualUx: 3, retention: 3, usp: 3 },
@@ -308,7 +346,7 @@ function ScorecardModal({ isOpen, scorecard, projects, members, onClose, onSave 
           value={projectId}
           onChange={(e) => setProjectId(e.target.value)}
         >
-          {projects.map((p: any) => (
+          {projects.map((p) => (
             <option key={p.id} value={p.id}>
               {p.name}
             </option>
@@ -347,9 +385,19 @@ function ScorecardModal({ isOpen, scorecard, projects, members, onClose, onSave 
   );
 }
 
-function InsightModal({ isOpen, insight, members, onClose, onSave }: any) {
+interface InsightModalProps {
+  isOpen: boolean;
+  insight: WeeklyInsight | null;
+  members: Member[];
+  onClose: () => void;
+  onSave: (ins: WeeklyInsight) => void;
+}
+
+function InsightModal({ isOpen, insight, members, onClose, onSave }: InsightModalProps) {
   const [title, setTitle] = useState(insight?.title || '');
-  const [overallStatus, setOverallStatus] = useState(insight?.overallStatus || 'stable');
+  const [overallStatus, setOverallStatus] = useState<WeeklyInsight['overallStatus']>(
+    insight?.overallStatus || 'stable',
+  );
   const [highlights, setHighlights] = useState(insight?.highlights.join('\n') || '');
   const [risks, setRisks] = useState(insight?.risks.join('\n') || '');
   const [actionItems, setActionItems] = useState(insight?.actionItems.join('\n') || '');
@@ -397,7 +445,7 @@ function InsightModal({ isOpen, insight, members, onClose, onSave }: any) {
         <select
           className="form-select"
           value={overallStatus}
-          onChange={(e) => setOverallStatus(e.target.value as any)}
+          onChange={(e) => setOverallStatus(e.target.value as WeeklyInsight['overallStatus'])}
         >
           <option value="excellent">Excellent</option>
           <option value="good">Good</option>
@@ -458,8 +506,7 @@ function AIEvaluationSection() {
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
   const [reportMarkdown, setReportMarkdown] = useState('');
-  const [reportFilePath, setReportFilePath] = useState('');
-  const [pptxPath, setPptxPath] = useState('');
+  const [pptxUrl, setPptxUrl] = useState('');
   const [isCompilingPptx, setIsCompilingPptx] = useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [showRawText, setShowRawText] = useState(false);
@@ -489,8 +536,7 @@ function AIEvaluationSection() {
     setIsEvaluating(true);
     setTerminalLogs([`> Bắt đầu quy trình đánh giá AI cho game: ${game}`]);
     setReportMarkdown('');
-    setReportFilePath('');
-    setPptxPath('');
+    resetPptx();
     setErrorText('');
 
     // Start logging interval to simulate live parsing steps
@@ -523,104 +569,68 @@ function AIEvaluationSection() {
     }, 1200);
 
     try {
-      const response = await fetch('/api/evaluate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          game,
-          genre,
-          info,
-          competitors,
-          criteria: criteria.join(','),
-        }),
+      const resData = await apiService.evaluateGame({
+        game,
+        genre,
+        info,
+        competitors,
+        criteria: criteria.join(','),
       });
 
       clearInterval(logInterval);
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || 'Lỗi không xác định từ server.');
-      }
-
-      const resData = await response.json();
       setTerminalLogs((prev) => [
         ...prev,
-        `> SUCCESS: Báo cáo đã được sinh tại: ${resData.filePath}`,
+        '> SUCCESS: Báo cáo đã được sinh.',
         '> [INFO] Đang tải slide preview...',
       ]);
 
       // Wait a moment for terminal log transition
       setTimeout(() => {
         setReportMarkdown(resData.markdown);
-        setReportFilePath(resData.filePath);
         setIsEvaluating(false);
         setActiveSlideIndex(0);
       }, 800);
-    } catch (err: any) {
+    } catch (err) {
       clearInterval(logInterval);
-      setErrorText(err.message || 'Có lỗi xảy ra trong quá trình đánh giá.');
+      const message = err instanceof Error ? err.message : '';
+      setErrorText(message || 'Có lỗi xảy ra trong quá trình đánh giá.');
       setTerminalLogs((prev) => [
         ...prev,
-        `> LỖI CỰC BỘ: ${err.message || 'Quá trình thực thi thất bại.'}`,
+        `> LỖI CỰC BỘ: ${message || 'Quá trình thực thi thất bại.'}`,
       ]);
       setIsEvaluating(false);
     }
   };
 
-  // Compile PPTX
+  const pptxFileName = `${game.trim() || 'evaluation'}.pptx`;
+
+  const downloadPptx = (url: string) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = pptxFileName;
+    a.click();
+  };
+
+  const resetPptx = () => {
+    if (pptxUrl) URL.revokeObjectURL(pptxUrl);
+    setPptxUrl('');
+  };
+
+  // Compile PPTX from the report markdown and download it
   const handleCompilePptx = async () => {
-    if (!reportFilePath) return;
+    if (!reportMarkdown) return;
 
     setIsCompilingPptx(true);
     try {
-      const response = await fetch('/api/generate-pptx', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          markdownPath: reportFilePath,
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || 'Không thể compile PPTX.');
-      }
-
-      const resData = await response.json();
-      setPptxPath(resData.pptxPath);
-      alert('Đã tạo thành công slide PowerPoint (.pptx)!');
-    } catch (err: any) {
-      alert(`Lỗi xuất PPTX: ${err.message}`);
+      const blob = await apiService.generatePptx(reportMarkdown);
+      const url = URL.createObjectURL(blob);
+      setPptxUrl(url);
+      downloadPptx(url);
+    } catch (err) {
+      alert(`Lỗi xuất PPTX: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setIsCompilingPptx(false);
-    }
-  };
-
-  // Open PPTX
-  const handleOpenPptx = async () => {
-    if (!pptxPath) return;
-
-    try {
-      const response = await fetch('/api/open-file', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filePath: pptxPath,
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error);
-      }
-    } catch (err: any) {
-      alert(`Không thể mở file PPTX: ${err.message}`);
     }
   };
 
@@ -776,7 +786,7 @@ function AIEvaluationSection() {
               variant="secondary"
               onClick={() => {
                 setReportMarkdown('');
-                setPptxPath('');
+                resetPptx();
               }}
             >
               ← Đánh giá game khác
@@ -790,13 +800,17 @@ function AIEvaluationSection() {
                 {showRawText ? 'Hiển thị Slide Preview' : 'Xem Markdown gốc'}
               </Button>
 
-              {!pptxPath ? (
+              {!pptxUrl ? (
                 <Button variant="primary" onClick={handleCompilePptx} disabled={isCompilingPptx}>
                   {isCompilingPptx ? 'Đang xuất PPTX...' : '📥 Xuất PowerPoint (.pptx)'}
                 </Button>
               ) : (
-                <Button variant="primary" className="btn-open-pptx" onClick={handleOpenPptx}>
-                  🖥️ Mở PPTX trên máy tính
+                <Button
+                  variant="primary"
+                  className="btn-open-pptx"
+                  onClick={() => downloadPptx(pptxUrl)}
+                >
+                  📥 Tải lại PPTX
                 </Button>
               )}
             </div>

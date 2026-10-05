@@ -236,7 +236,7 @@ function interpretApkData(data: Record<string, unknown>) {
   const activities = (data.activities as string[]) || [];
   const endpoints = (data.apiEndpoints as string[]) || [];
 
-  const insights: Record<string, unknown> = {
+  const insights = {
     summary: `This application (${pkgName}) appears to be a functional mobile utility with a focus on networking and data synchronization.`,
     security_audit: [] as string[],
     product_logic: [] as string[],
