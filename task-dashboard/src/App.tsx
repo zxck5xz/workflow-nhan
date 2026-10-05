@@ -38,7 +38,7 @@ function AppContent() {
   const { state, setPage } = useApp();
   const { user, loading } = useAuth();
 
-  // Link chia sẻ kịch bản dự phóng (#s=…) hoặc chế độ in (?print) mở thẳng trang Dự phóng AuGo
+  // Link chia sẻ kịch bản dự phóng (#s=…) hoặc chế độ in (?print) mở thẳng view AuGo của trang Dự phóng game
   useEffect(() => {
     const { hash, search } = window.location;
     if (hash.startsWith('#s=') || new URLSearchParams(search).has('print')) setPage('forecast');

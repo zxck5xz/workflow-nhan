@@ -842,3 +842,112 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ===== Chọn game (nằm ngoài div.augo nên tự đặt màu) ===== */
+.forecast-games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px 0;
+}
+.forecast-games button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 170px;
+  padding: 8px 14px;
+  border: 1px solid var(--border, #e4e3de);
+  border-radius: 10px;
+  background: var(--surface, #fff);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.forecast-games button span {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.forecast-games button[aria-pressed='true'] {
+  background: #2a78d6;
+  border-color: #2a78d6;
+  color: #fff;
+}
+.forecast-games button:focus-visible {
+  outline: 2px solid #2a78d6;
+  outline-offset: 2px;
+}
+@media print {
+  .forecast-games {
+    display: none;
+  }
+}
+
+/* ===== View Bida 8 Pool / game mới ===== */
+.augo .bida-title {
+  font-size: 17px;
+  margin: 0 0 2px;
+}
+.augo .field.off {
+  opacity: 0.45;
+}
+.augo .field.off input,
+.augo .field.off select {
+  background: var(--surface-2);
+}
+.augo .bida-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.augo .bida-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+.augo .bida-chip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 11px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.augo .bida-chip .n {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.augo .bida-chip .x {
+  border: 0;
+  background: none;
+  color: var(--text-3);
+  cursor: pointer;
+  font: inherit;
+}
+.augo .bida-chip .btn {
+  margin-top: 6px;
+}
+.augo table.data tr.payback-row td {
+  background: var(--good-bg);
+}
+.augo table.data tr.neg-row td {
+  color: var(--bad);
+}
+.forecast-games button {
+  color: #1b1f24;
+}
+.augo .kpis.bida-kpis {
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+}
+.augo .kpis.bida-kpis .kpi .value {
+  font-size: 20px;
+  white-space: nowrap;
+}
+.augo .kpis.bida-kpis .kpi.secondary .value {
+  font-size: 16px;
+}
