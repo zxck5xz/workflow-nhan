@@ -9,6 +9,7 @@ import {
 import type { AppData, PageId } from '../types';
 import { dataService } from '../data/dataService';
 import { seedData } from '../data/seedData';
+import { useAuth } from './AuthContext';
 
 interface AppState {
   data: AppData;
@@ -56,19 +57,19 @@ type AppAction =
   | { type: 'TOGGLE_SIDEBAR' }
   | { type: 'RESET_DATA' }
   | { type: 'SET_LOADING'; payload: boolean }
-  | { type: `ADD_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: any }
-  | { type: `UPDATE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: any }
-  | { type: `DELETE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: any }
-  | { type: 'ADD_TASK_PROJECT'; payload: any };
+  | { type: `ADD_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
+  | { type: `UPDATE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
+  | { type: `DELETE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
+  | { type: 'ADD_TASK_PROJECT'; payload: unknown };
 
 function camelCase(s: string) {
   return s.charAt(0) + s.slice(1).toLowerCase();
 }
 
-function dataServiceFn(dataService: any, verb: string, entity: string) {
+function dataServiceFn(service: typeof dataService, verb: string, entity: string) {
   const key =
-    `${verb === 'ADD' ? 'add' : verb === 'UPDATE' ? 'update' : 'delete'}${camelCase(entity)}` as keyof typeof dataService;
-  return dataService[key] as (data: AppData, payload: any) => AppData;
+    `${verb === 'ADD' ? 'add' : verb === 'UPDATE' ? 'update' : 'delete'}${camelCase(entity)}` as keyof typeof service;
+  return service[key] as unknown as (data: AppData, payload: unknown) => AppData;
 }
 
 interface AppContextValue {
@@ -88,11 +89,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
     loading: true,
   });
 
+  // Load once a user is signed in (and again if the user changes): before
+  // login there is no token, so the backend would reject the request and we
+  // would fall back to stale local/seed data.
+  const { user } = useAuth();
+  const userId = user?.id;
   useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    dispatch({ type: 'SET_LOADING', payload: true });
     dataService.load().then((data) => {
-      dispatch({ type: 'SET_DATA', payload: data });
+      if (!cancelled) dispatch({ type: 'SET_DATA', payload: data });
     });
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
 
   const setPage = useCallback((page: PageId) => {
     dispatch({ type: 'SET_PAGE', payload: page });
@@ -109,6 +121,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook paired with its provider
 export function useApp() {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error('useApp must be used within AppProvider');

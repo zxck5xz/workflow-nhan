@@ -59,6 +59,16 @@ function AppContent() {
     );
   }
 
+  // Don't render pages (or accept edits) on the placeholder seed data while
+  // the signed-in user's data is still loading.
+  if (state.loading) {
+    return (
+      <div className="app-layout">
+        <div className="loading-spinner">Loading...</div>
+      </div>
+    );
+  }
+
   // User is authenticated, show main app
   return (
     <div className="app-layout">

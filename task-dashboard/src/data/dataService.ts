@@ -29,7 +29,13 @@ export const dataService = {
       console.warn('Failed to parse stored data, using seed data');
     }
     const data = { ...seedData, lastUpdated: new Date().toISOString() };
-    await this.save(data);
+    if (API_BASE) {
+      // The backend is the source of truth and just failed to answer; never
+      // push seed data over it, only cache it locally.
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } else {
+      await this.save(data);
+    }
     return data;
   },
 
