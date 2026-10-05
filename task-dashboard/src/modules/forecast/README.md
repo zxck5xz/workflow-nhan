@@ -1,7 +1,7 @@
 # Module Dự phóng AuGo
 
 Trang **Dự phóng AuGo** (menu Phân tích): nhập tham số → tính lại toàn bộ mô hình theo ngày → KPI, biểu đồ, bảng P&L, kịch bản.
-Thay file `AuGo_Master_Plan_Final.xlsx`. Chuyển từ repo `Dashboard tool` (tag `pre-integration`); công thức chi tiết: `SPEC.md` ở repo đó.
+Thay file `AuGo_Master_Plan_Final.xlsx`. Chuyển từ repo `Dashboard tool` (tag `pre-integration`); công thức chi tiết: [`SPEC.md`](SPEC.md), kế hoạch & quyết định: [`PLAN.md`](PLAN.md).
 
 ## Cấu trúc
 
