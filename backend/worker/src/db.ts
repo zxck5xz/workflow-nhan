@@ -283,10 +283,12 @@ export async function saveSnapshot(sql: NeonQuery, data: any) {
 }
 
 export async function listSnapshots(sql: NeonQuery) {
+  // Cast to text in SQL: the driver parses DATE into a local-midnight Date,
+  // which toISOString() shifts to the previous day east of UTC.
   const rows = asRows(
-    await sql`SELECT "snapshotDate" FROM "Snapshot" ORDER BY "snapshotDate" DESC`,
+    await sql`SELECT "snapshotDate"::text AS "snapshotDate" FROM "Snapshot" ORDER BY "snapshotDate" DESC`,
   );
-  return rows.map((r: any) => dateToDateOnly(r.snapshotDate));
+  return rows.map((r: any) => r.snapshotDate as string);
 }
 
 export async function loadSnapshot(sql: NeonQuery, date: string) {
