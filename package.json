@@ -14,10 +14,12 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "overrides": {
-    "@types/react": "18.3.12"
+    "mobile-app": {
+      "@types/react": "18.3.12"
+    }
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
