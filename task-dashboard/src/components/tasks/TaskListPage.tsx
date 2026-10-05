@@ -109,7 +109,9 @@ export function TaskListPage() {
     dispatch({ type: 'UPDATE_TASK', payload: updated });
   };
 
-  const SortHeader = ({ label, sortKeyName }: { label: string; sortKeyName: SortKey }) => (
+  // A render helper, not a component: defining a component inside render
+  // remounts it every time and loses its state.
+  const sortHeader = (label: string, sortKeyName: SortKey) => (
     <th className="sortable" onClick={() => toggleSort(sortKeyName)}>
       {label}
       <span className={`sort-indicator ${sortKey === sortKeyName ? 'sort-indicator--active' : ''}`}>
@@ -257,13 +259,13 @@ export function TaskListPage() {
             <table className="data-table">
               <thead>
                 <tr>
-                  <SortHeader label="Tên công việc" sortKeyName="title" />
+                  {sortHeader('Tên công việc', 'title')}
                   <th>Dự án</th>
                   <th>Người phụ trách</th>
-                  <SortHeader label="Ưu tiên" sortKeyName="priority" />
-                  <SortHeader label="Trọng số" sortKeyName="weight" />
-                  <SortHeader label="Deadline" sortKeyName="deadline" />
-                  <SortHeader label="Trạng thái" sortKeyName="status" />
+                  {sortHeader('Ưu tiên', 'priority')}
+                  {sortHeader('Trọng số', 'weight')}
+                  {sortHeader('Deadline', 'deadline')}
+                  {sortHeader('Trạng thái', 'status')}
                   <th>Eisenhower</th>
                   <th></th>
                 </tr>

@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { borderRadius, typography } from '../../theme';
 
 interface AvatarProps {
   initials: string;
