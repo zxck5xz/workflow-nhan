@@ -13,7 +13,7 @@ Applies to all team members involved in deployment, maintenance, and usage of th
 - Node.js v18+ installed
 - npm or yarn package manager
 - Git version control
-- Access to Railway, Vercel, and Neon accounts
+- Access to Cloudflare, Vercel, and Neon accounts
 - PostgreSQL database access
 
 ## Procedure
@@ -73,24 +73,34 @@ npm run dev
 
 ### 2. Deployment to Production
 
-#### 2.1 Backend Deployment (Railway)
+#### 2.1 Backend Deployment (Cloudflare Worker)
 
-2.1.1 Create new project on Railway
-2.1.2 Connect GitHub repository
-2.1.3 Set environment variables in Railway dashboard:
+The backend is the Cloudflare Worker in `backend/worker` (production URL:
+`https://workflow-nhan-backend.ai-chat-api.workers.dev`).
 
-- `DATABASE_URL` (provided by Neon integration)
-- `JWT_SECRET` (secure random string)
-- `PORT` (optional, defaults to 4000)
-  2.1.4 Railway will automatically detect and run `npm start`
-  2.1.5 Verify deployment at the provided Railway URL
+2.1.1 Set the Worker secrets once (from `backend/worker`):
+
+```bash
+npx wrangler secret put DATABASE_URL   # Neon connection string (HTTPS-capable endpoint)
+npx wrangler secret put JWT_SECRET     # secure random string
+```
+
+2.1.2 Non-secret config (`CORS_ORIGINS`) lives in `backend/worker/wrangler.toml`.
+Entries may use `*` within one DNS label, e.g. Vercel preview URLs.
+2.1.3 Pushing to `master` with changes under `backend/worker/` deploys automatically via
+`.github/workflows/deploy-worker.yml` (GitHub secrets `CLOUDFLARE_API_TOKEN`,
+`CLOUDFLARE_ACCOUNT_ID`). It can also be run manually from the Actions tab.
+2.1.4 Manual deploy: `cd backend/worker && npx wrangler deploy`
+2.1.5 Preview without touching production:
+`npx wrangler versions upload --preview-alias <name>`
+2.1.6 Verify: `GET /api/health` returns `{"status":"ok","runtime":"cloudflare-workers"}`
 
 #### 2.2 Frontend Deployment (Vercel)
 
 2.2.1 Import project on Vercel from GitHub
 2.2.2 Set environment variables:
 
-- `VITE_API_URL` (your Railway backend URL)
+- `VITE_API_URL` (the Worker URL above)
   2.2.3 Vercel will automatically build and deploy
   2.2.4 Verify deployment at the provided Vercel URL
 
@@ -98,7 +108,7 @@ npm run dev
 
 2.3.1 Create project on Neon
 2.3.2 Copy connection string from Neon dashboard
-2.3.2 Update `DATABASE_URL` in both backend `.env` and Railway environment variables
+2.3.2 Update `DATABASE_URL` in the backend `.env` (for Prisma migrations) and the Worker secret
 2.3.3 Run migrations on production database:
 
 ```bash
@@ -160,7 +170,7 @@ Sử dụng trực tiếp trên Dashboard (Tab **"Phân tích APK Local"**):
 
 #### 4.2 Logs
 
-4.2.1 Backend logs: Check Railway logs dashboard or terminal output
+4.2.1 Backend logs: `cd backend/worker && npx wrangler tail`, or the Cloudflare dashboard
 4.2.2 Frontend errors: Check browser console and Vercel logs
 
 ### 5. Security Considerations
@@ -168,7 +178,7 @@ Sử dụng trực tiếp trên Dashboard (Tab **"Phân tích APK Local"**):
 5.1 Environment Variables
 
 - Never commit `.env` files to version control
-- Use platform-specific secret management (Railway/Vercel env vars)
+- Use platform-specific secret management (Wrangler secrets / Vercel env vars)
 
   5.2 Dependencies
 
@@ -184,7 +194,7 @@ Sử dụng trực tiếp trên Dashboard (Tab **"Phân tích APK Local"**):
 ## References
 
 - Prisma Documentation: https://pris.ly/d
-- Railway Documentation: https://docs.railway.app
+- Cloudflare Workers Documentation: https://developers.cloudflare.com/workers/
 - Vercel Documentation: https://vercel.com/docs
 - Neon Documentation: https://neon.tech/docs
 

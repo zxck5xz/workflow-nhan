@@ -1,35 +1,26 @@
-# Workflow-nhan Backend
+# backend
 
-This backend provides a dedicated API server for the Task Management Dashboard frontend.
+The API runs as a **Cloudflare Worker** in [`worker/`](worker/) (deployed from
+`master` by `.github/workflows/deploy-worker.yml`). See `SOP.md` §2.1.
 
-## Features
+This folder keeps the database tooling shared with the Worker:
 
-- Persistent app data storage in `backend/data/app-data.json`
-- Snapshots saved in `backend/data/snapshots/`
-- AI evaluation endpoint `/api/evaluate`
-- PPTX generation endpoint `/api/generate-pptx`
-- File open endpoint `/api/open-file`
-- Health check at `/api/health`
+- `prisma/schema.prisma` and `prisma/migrations/` — the Neon Postgres schema
+- `seed-users.ts` — create the default users
 
-## Setup
+```bash
+cd backend
+# DATABASE_URL must point at the target database (e.g. via .env)
+npm run migrate:status
+npm run migrate:deploy
+npm run seed:users
+```
 
-1. Install dependencies:
+Local Worker development:
 
-   ```bash
-   cd backend
-   npm install
-   ```
+```bash
+npm run dev:backend   # from the repo root: wrangler dev on http://localhost:8787
+```
 
-2. Start the backend server:
-
-   ```bash
-   npm start
-   ```
-
-3. Run the frontend from `task-dashboard/` as usual.
-
-## Notes
-
-- Vite is configured to proxy `/api` requests to `http://localhost:4000`.
-- The backend uses the existing Python scripts from the `ai-agents/` folder.
-- Data is stored locally and can be restored from snapshots.
+Put `DATABASE_URL` (Neon, HTTPS-capable endpoint) and `JWT_SECRET` in
+`worker/.dev.vars` (git-ignored).

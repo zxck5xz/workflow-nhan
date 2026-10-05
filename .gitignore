@@ -8,3 +8,15 @@ build/
 *.log
 .DS_Store
 .vercel
+
+# Generated / local-only
+__pycache__/
+*.pyc
+.wrangler/
+.dev.vars
+.understand-anything/
+.playwright-mcp/
+
+# Local clones of external tools (were committed as broken submodules)
+/Harness-context-engineering/
+/Understand-Anything/

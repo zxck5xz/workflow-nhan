@@ -214,19 +214,7 @@ export const searchAppInfoHandler: RouteHandler = wrapHandler(async (request) =>
   }
 });
 
-// ===== Python-dependent endpoints =====
-// Some rewritten in JS for Cloudflare Workers
-
-function unavailableResponse(): Response {
-  return jsonResponse(
-    {
-      error:
-        'This endpoint requires Python subprocess execution and is not available on Cloudflare Workers. Use the Railway backend for this feature.',
-      available: false,
-    },
-    501,
-  );
-}
+// ===== Formerly Python-backed endpoints, rewritten in JS for Workers =====
 
 // ===== APK Interpreter (rewritten from apk_interpreter.py) =====
 

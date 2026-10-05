@@ -4,25 +4,11 @@ services:
       context: .
       dockerfile: task-dashboard/Dockerfile
       args:
-        VITE_API_URL: http://localhost:4000
+        # The API is the Cloudflare Worker: run it with `npm run dev:backend`
+        # (wrangler dev on :8787, secrets in backend/worker/.dev.vars).
+        VITE_API_URL: http://localhost:8787
     ports:
-      - "3000:80"
-    depends_on:
-      - backend
-
-  backend:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
-    ports:
-      - "4000:4000"
-    environment:
-      PORT: 4000
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/task_dash?schema=public
-      JWT_SECRET: your-secret-key-change-in-production
-      NODE_ENV: production
-    depends_on:
-      - db
+      - '3000:80'
 
   db:
     image: postgres:16
@@ -31,7 +17,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

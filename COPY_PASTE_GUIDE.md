@@ -184,7 +184,7 @@ If the new workflow requires special permissions:
 
 1. Ensure all new environment variables are configured in:
    - Frontend: Vercel environment variables
-   - Backend: Railway environment variables
+   - Backend: Worker secrets (`wrangler secret put`) or `[vars]` in `backend/worker/wrangler.toml`
 2. Run database migrations if schema changed:
    ```bash
    cd backend
