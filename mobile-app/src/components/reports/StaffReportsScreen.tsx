@@ -4,7 +4,7 @@ import { useApp } from '../../contexts/AppContext';
 import { Card } from '../common/Card';
 import { Avatar } from '../common/Avatar';
 import { colors, spacing, borderRadius, typography } from '../../theme';
-import type { MemberPerformance } from '../../types';
+import type { MemberPerformance, TaskStatus } from '../../types';
 
 export function StaffReportsScreen() {
   const { state } = useApp();
@@ -40,7 +40,7 @@ export function StaffReportsScreen() {
           },
           tasksByStatus: Object.fromEntries(
             statuses.map((s) => [s.id, memberTasks.filter((t) => t.status === s.id).length]),
-          ) as any,
+          ) as Record<TaskStatus, number>,
         };
       },
     );
@@ -111,7 +111,7 @@ export function StaffReportsScreen() {
           {/* Status breakdown */}
           <View style={styles.statusRow}>
             {Object.entries(item.tasksByStatus)
-              .filter(([_, count]) => count > 0)
+              .filter(([, count]) => count > 0)
               .map(([statusId, count]) => (
                 <View key={statusId} style={styles.statusChip}>
                   <Text style={styles.statusText}>

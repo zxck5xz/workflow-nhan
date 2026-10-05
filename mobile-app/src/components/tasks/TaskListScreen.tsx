@@ -7,7 +7,7 @@ import { ProjectModal } from '../common/ProjectModal';
 import { EmptyState } from '../common/EmptyState';
 import { FilterBar } from '../common/FilterBar';
 import { colors, spacing, borderRadius, typography } from '../../theme';
-import type { Task, Project } from '../../types';
+import type { Task } from '../../types';
 
 type ViewMode = 'list' | 'board';
 

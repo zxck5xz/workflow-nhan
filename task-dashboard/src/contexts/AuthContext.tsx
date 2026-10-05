@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { Member } from '../types';
 import { authService } from '../services/authService';
 
@@ -14,19 +14,11 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<Member | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  // Load user from localStorage on init
-  useEffect(() => {
-    const storedUser = authService.getUser();
-    const token = authService.getToken();
-
-    if (storedUser && token) {
-      setUser(storedUser);
-    }
-    setLoading(false);
-  }, []);
+  // Restore the session from localStorage synchronously on first render.
+  const [user, setUser] = useState<Member | null>(() =>
+    authService.getToken() ? authService.getUser() : null,
+  );
+  const [loading, setLoading] = useState<boolean>(false);
 
   const login = async (email: string, password: string) => {
     setLoading(true);
@@ -34,8 +26,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await authService.login({ email, password });
       authService.setSession(response.token, response.user);
       setUser(response.user);
-    } catch (error) {
-      throw error;
     } finally {
       setLoading(false);
     }
@@ -47,8 +37,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await authService.register({ name, email, password, role });
       authService.setSession(response.token, response.user);
       setUser(response.user);
-    } catch (error) {
-      throw error;
     } finally {
       setLoading(false);
     }
@@ -68,6 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook paired with its provider
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error('useAuth must be used within AuthProvider');

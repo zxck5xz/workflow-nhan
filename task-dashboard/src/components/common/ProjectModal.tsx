@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Modal } from './index';
 import { v4 as uuid } from 'uuid';
 import type { Project, Platform } from '../../types';
@@ -24,20 +24,18 @@ interface ProjectModalProps {
   onSave: (p: Project) => void;
 }
 
-export function ProjectModal({ isOpen, project, onClose, onSave }: ProjectModalProps) {
-  const [name, setName] = useState('');
-  const [platform, setPlatform] = useState<Platform>('iOS');
-  const [genre, setGenre] = useState('');
-  const [color, setColor] = useState(COLORS[0]);
+// Remount the form whenever the modal opens (or switches project) so its
+// fields start from the project being edited.
+export function ProjectModal(props: ProjectModalProps) {
+  const key = props.isOpen ? (props.project?.id ?? 'new') : 'closed';
+  return <ProjectModalForm key={key} {...props} />;
+}
 
-  useEffect(() => {
-    if (isOpen) {
-      setName(project?.name || '');
-      setPlatform(project?.platform || 'iOS');
-      setGenre(project?.genre || '');
-      setColor(project?.color || COLORS[0]);
-    }
-  }, [isOpen, project]);
+function ProjectModalForm({ isOpen, project, onClose, onSave }: ProjectModalProps) {
+  const [name, setName] = useState(project?.name || '');
+  const [platform, setPlatform] = useState<Platform>(project?.platform || 'iOS');
+  const [genre, setGenre] = useState(project?.genre || '');
+  const [color, setColor] = useState(project?.color || COLORS[0]);
 
   const handleSubmit = () => {
     if (!name.trim()) return;

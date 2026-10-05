@@ -23,7 +23,9 @@ export const dataService = {
           cachedData = data;
           return data;
         }
-      } catch {}
+      } catch {
+        // No usable cache: fall back to the bundled seed data.
+      }
       return seedData;
     }
   },
@@ -33,7 +35,9 @@ export const dataService = {
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       await apiService.saveData(data);
-    } catch {}
+    } catch {
+      // Offline or API error: data stays in the local cache and syncs on the next save.
+    }
   },
 
   addTask(data: AppData, task: Task): AppData {

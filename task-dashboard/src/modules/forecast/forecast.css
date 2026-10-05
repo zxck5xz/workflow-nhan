@@ -1,0 +1,844 @@
+/* AuGo – dự phóng tài chính. Mọi rule nằm trong .augo để không đè lên CSS của task-dashboard (và ngược lại). */
+.augo {
+  color-scheme: light;
+  --bg: #f4f4f1;
+  --surface: #ffffff;
+  --surface-2: #f8f8f6;
+  --border: #e4e3de;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --text-3: #85847e;
+  --accent: #2a78d6;
+  --accent-ink: #ffffff;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-7: #4a3aa7;
+  --good: #0a7d0a;
+  --good-bg: #e8f5e8;
+  --bad: #c22f2f;
+  --bad-bg: #fbeaea;
+  --warn-bg: #fff7e0;
+  --warn-border: #f0d68a;
+  --grid: #ecebe7;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  --radius: 10px;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  .augo:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #121211;
+    --surface: #1a1a19;
+    --surface-2: #222220;
+    --border: #33332f;
+    --text: #ffffff;
+    --text-2: #c3c2b7;
+    --text-3: #8e8d85;
+    --accent: #3987e5;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-7: #9085e9;
+    --good: #4cc44c;
+    --good-bg: #1d2e1d;
+    --bad: #ef7070;
+    --bad-bg: #3a1f1f;
+    --warn-bg: #2e2816;
+    --warn-border: #5c4b1c;
+    --grid: #2b2b28;
+  }
+}
+
+.augo[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #121211;
+  --surface: #1a1a19;
+  --surface-2: #222220;
+  --border: #33332f;
+  --text: #ffffff;
+  --text-2: #c3c2b7;
+  --text-3: #8e8d85;
+  --accent: #3987e5;
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-7: #9085e9;
+  --good: #4cc44c;
+  --good-bg: #1d2e1d;
+  --bad: #ef7070;
+  --bad-bg: #3a1f1f;
+  --warn-bg: #2e2816;
+  --warn-border: #5c4b1c;
+  --grid: #2b2b28;
+}
+
+.augo * {
+  box-sizing: border-box;
+}
+
+.augo {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.augo button,
+.augo input,
+.augo select,
+.augo textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.augo p {
+  color: inherit;
+  line-height: inherit;
+}
+
+.augo h1,
+.augo h2,
+.augo h3,
+.augo h4 {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  font-weight: 600;
+}
+
+.augo .num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Layout ---------- */
+.augo .augo-app {
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.augo .augo-inputs {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+}
+
+.augo .augo-main {
+  padding: 16px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.augo .topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.augo .topbar h1 {
+  font-size: 18px;
+  margin-right: auto;
+}
+
+.augo .topbar .subtitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+@media (max-width: 900px) {
+  .augo .augo-app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .augo .augo-inputs {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .augo .augo-main {
+    padding: 16px;
+  }
+}
+
+/* ---------- Cards ---------- */
+.augo .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  min-width: 0;
+}
+
+.augo .card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.augo .card-head h2 {
+  font-size: 15px;
+}
+
+.augo .card-head p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.augo .card-head .spacer {
+  margin-left: auto;
+}
+
+/* ---------- Buttons & controls ---------- */
+.augo .btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.augo .btn:hover {
+  background: var(--surface-2);
+}
+
+.augo .btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.augo .btn.small {
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+.augo .btn:focus-visible,
+.augo .field input:focus-visible,
+.augo select:focus-visible,
+.augo textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.augo .segmented {
+  display: grid;
+  min-width: 0;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.augo .segmented button {
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 6px 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-2);
+}
+
+.augo .segmented button[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.augo select {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 5px 8px;
+}
+
+/* ---------- Sidebar fields ---------- */
+.augo .section {
+  margin-top: 18px;
+}
+
+.augo .section > h3 {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.augo details.section > summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-2);
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+
+.augo details.section[open] > summary {
+  margin-bottom: 6px;
+}
+
+.augo .field {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  align-items: center;
+  gap: 2px 10px;
+  padding: 5px 0;
+}
+
+.augo .field label {
+  font-size: 13px;
+}
+
+.augo .field .hint,
+.augo .field .error {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.augo .field .error {
+  color: var(--bad);
+}
+
+.augo .field input[type='text'],
+.augo .field select {
+  width: 100%;
+  text-align: right;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+
+.augo .field.invalid input {
+  border-color: var(--bad);
+}
+
+.augo .field.wide {
+  grid-template-columns: 1fr;
+}
+
+.augo .field.wide input[type='text'],
+.augo .field.wide textarea {
+  text-align: left;
+  width: 100%;
+}
+
+.augo .field textarea {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  resize: vertical;
+}
+
+.augo .input-suffix {
+  position: relative;
+}
+
+.augo .input-suffix span {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--text-3);
+  pointer-events: none;
+}
+
+.augo .input-suffix input[type='text'] {
+  padding-right: 24px;
+}
+
+.augo .toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+/* ---------- Editable grid (lịch theo tháng, đăng ký trước) ---------- */
+.augo .grid-editor {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 280px;
+}
+
+.augo .grid-editor table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+
+.augo .grid-editor th,
+.augo .grid-editor td {
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--grid);
+  white-space: nowrap;
+}
+
+.augo .grid-editor th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  font-weight: 500;
+  color: var(--text-2);
+  text-align: right;
+  z-index: 1;
+}
+
+.augo .grid-editor th:first-child,
+.augo .grid-editor td:first-child {
+  text-align: left;
+  color: var(--text-2);
+}
+
+.augo .grid-editor input {
+  width: 92px;
+  text-align: right;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.augo .grid-editor input:hover,
+.augo .grid-editor input:focus {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+/* ---------- KPI ---------- */
+.augo .kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.augo .kpi .label {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.augo .kpi .value {
+  font-size: 24px;
+  font-weight: 650;
+  margin-top: 4px;
+  line-height: 1.15;
+}
+
+.augo .kpi.secondary .value {
+  font-size: 18px;
+}
+
+.augo .kpi .sub {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+.augo .kpi .value.good {
+  color: var(--good);
+}
+
+.augo .kpi .value.bad {
+  color: var(--bad);
+}
+
+/* ---------- Banner ---------- */
+.augo .banner {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 13px;
+}
+
+.augo .banner ul {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+
+.augo .banner .compare {
+  color: var(--text-2);
+}
+
+.augo .compare-table {
+  border-collapse: collapse;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.augo .compare-table th,
+.augo .compare-table td {
+  padding: 3px 12px 3px 0;
+  text-align: right;
+  border-bottom: 1px solid var(--warn-border);
+}
+
+.augo .compare-table th:first-child,
+.augo .compare-table td:first-child {
+  text-align: left;
+}
+
+/* ---------- Đồng bộ chế độ ---------- */
+.augo .sync-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.augo .sync-report {
+  position: relative;
+  margin-top: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-2);
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-radius: 8px;
+}
+
+.augo .sync-report .close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  border: 0;
+  background: none;
+  color: var(--text-3);
+  cursor: pointer;
+}
+
+.augo .sync-report table {
+  width: 100%;
+  margin: 6px 0 4px;
+  border-collapse: collapse;
+}
+
+.augo .sync-report th,
+.augo .sync-report td {
+  padding: 2px 4px 2px 0;
+  text-align: right;
+}
+
+.augo .sync-report th:first-child,
+.augo .sync-report td:first-child {
+  text-align: left;
+}
+
+.augo .sync-report .ok {
+  color: var(--good);
+  font-weight: 600;
+}
+
+.augo .sync-report .warn {
+  color: var(--bad);
+  font-weight: 600;
+}
+
+/* ---------- Charts ---------- */
+.augo .charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 520px) {
+  .augo .charts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .augo .field {
+    grid-template-columns: 1fr 110px;
+  }
+}
+
+.augo .chart-box {
+  height: 280px;
+}
+
+.augo .legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.augo .legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: -1px;
+}
+
+.augo .legend i.line {
+  height: 2px;
+  border-radius: 1px;
+  vertical-align: 3px;
+}
+
+.augo .tooltip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.12);
+}
+
+.augo .tooltip .t-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.augo .tooltip .t-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.augo .tooltip .t-row span:first-child {
+  color: var(--text-2);
+}
+
+/* ---------- Tables ---------- */
+.augo .tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.augo .tabs button {
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.augo .tabs button[aria-selected='true'] {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.augo .table-wrap {
+  overflow: auto;
+  max-height: 520px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.augo table.data {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.augo table.data th,
+.augo table.data td {
+  padding: 6px 10px;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--grid);
+}
+
+.augo table.data th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-weight: 500;
+  font-size: 12px;
+  z-index: 2;
+}
+
+.augo table.data th:first-child,
+.augo table.data td:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+
+.augo table.data th:first-child {
+  background: var(--surface-2);
+  z-index: 3;
+}
+
+.augo table.data tr.loss td {
+  color: var(--bad);
+}
+
+.augo table.data tr.breakeven td {
+  background: var(--good-bg);
+}
+
+.augo table.data tr.total td {
+  font-weight: 600;
+  background: var(--surface-2);
+  position: sticky;
+  bottom: 0;
+}
+
+.augo table.data tr.strong td {
+  font-weight: 600;
+}
+
+.augo table.data td.neg {
+  color: var(--bad);
+}
+
+/* ---------- Scenarios ---------- */
+.augo .scenario-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.augo .scenario {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.augo .scenario .name {
+  font-weight: 500;
+  margin-right: auto;
+}
+
+.augo .scenario .meta {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.augo .empty {
+  color: var(--text-3);
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.augo .toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--surface);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 50;
+}
+
+.augo .print-only {
+  display: none;
+}
+
+/* ---------- In / PDF: không header, không footer (theo AGENTS.md) ---------- */
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
+@media print {
+  /* Ẩn khung của task-dashboard khi in trang dự phóng */
+  body:has(.augo) {
+    background: #fff;
+  }
+  body:has(.augo) .sidebar {
+    display: none !important;
+  }
+  body:has(.augo) .main-content {
+    margin-left: 0 !important;
+  }
+  .augo {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f6f6f4;
+  }
+  .augo {
+    background: #fff;
+    padding: 10mm 12mm;
+  }
+  .augo .augo-app {
+    display: block;
+  }
+  .augo .augo-inputs,
+  .augo .no-print,
+  .augo .toast {
+    display: none !important;
+  }
+  .augo .print-only {
+    display: block;
+  }
+  .augo .augo-main {
+    padding: 0;
+  }
+  .augo .card,
+  .augo .banner {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+  .augo .table-wrap {
+    max-height: none;
+    overflow: visible;
+  }
+  .augo table.data th,
+  .augo table.data tr.total td {
+    position: static;
+  }
+  .augo .charts {
+    grid-template-columns: 1fr 1fr;
+  }
+}

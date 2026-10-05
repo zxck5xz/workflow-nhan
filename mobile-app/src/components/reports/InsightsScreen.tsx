@@ -2,7 +2,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useApp } from '../../contexts/AppContext';
 import { Card } from '../common/Card';
 import { EmptyState } from '../common/EmptyState';
-import { colors, spacing, borderRadius, typography } from '../../theme';
+import { colors, spacing, typography } from '../../theme';
 
 export function InsightsScreen() {
   const { state } = useApp();
