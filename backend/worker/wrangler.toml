@@ -10,4 +10,6 @@ workers_dev = true
 
 # Environment variables (non-secret)
 [vars]
-CORS_ORIGINS = "https://task-dashboard-chi-lemon.vercel.app,https://workflow-nhan-backend.ai-chat-api.workers.dev,http://localhost:5173,http://localhost:5174"
+# Entries may use `*` within one DNS label; the second entry covers Vercel
+# preview deployments (hash and git-branch URLs) of the dashboard.
+CORS_ORIGINS = "https://task-dashboard-chi-lemon.vercel.app,https://task-dashboard-*-zxck5xzs-projects.vercel.app,https://workflow-nhan-backend.ai-chat-api.workers.dev,http://localhost:5173,http://localhost:5174"

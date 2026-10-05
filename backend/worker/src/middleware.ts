@@ -15,7 +15,7 @@ export function corsHeaders(env: Env, origin: string | null): Record<string, str
     headers['Access-Control-Allow-Origin'] = origin || '*';
   } else {
     const allowed = allowedOrigins.split(',').map((o) => o.trim());
-    if (allowed.includes(origin)) {
+    if (allowed.some((pattern) => originMatches(pattern, origin))) {
       headers['Access-Control-Allow-Origin'] = origin;
       headers['Vary'] = 'Origin';
     }
@@ -24,7 +24,22 @@ export function corsHeaders(env: Env, origin: string | null): Record<string, str
   return headers;
 }
 
-export function jsonResponse(data: any, status = 200, extraHeaders?: Record<string, string>): Response {
+// An entry may contain `*`, which matches within a single DNS label
+// (e.g. https://task-dashboard-*-team.vercel.app for Vercel previews).
+function originMatches(pattern: string, origin: string): boolean {
+  if (!pattern.includes('*')) return pattern === origin;
+  const regex = pattern
+    .split('*')
+    .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('[a-z0-9-]+');
+  return new RegExp(`^${regex}$`).test(origin);
+}
+
+export function jsonResponse(
+  data: any,
+  status = 200,
+  extraHeaders?: Record<string, string>,
+): Response {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
@@ -34,7 +49,11 @@ export function jsonResponse(data: any, status = 200, extraHeaders?: Record<stri
   });
 }
 
-export function errorResponse(message: string, status = 500, extraHeaders?: Record<string, string>): Response {
+export function errorResponse(
+  message: string,
+  status = 500,
+  extraHeaders?: Record<string, string>,
+): Response {
   return jsonResponse({ error: message }, status, extraHeaders);
 }
 
