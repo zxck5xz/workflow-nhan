@@ -5,15 +5,21 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
 ## 📋 Trạng thái hiện tại
 
 - **Dự án:** Thiết kế 3 Workflow (Quản lý, Test/Phân tích, Portfolio/Trình bày)
-- **Tiến độ:** Giai đoạn 3 (hoàn thiện) + Backend DB Migration + Xác thực người dùng — Full-stack deployed & verified (Vercel + Railway + Neon)
+- **Tiến độ:** Giai đoạn 3 (hoàn thiện) + Backend DB Migration + Xác thực người dùng — Full-stack deployed & verified (Vercel + Cloudflare Worker + Neon)
 - **Ngày khởi tạo:** 2026-05-11
-- **Cập nhật cuối:** 2026-08-24 (CF Workers Migration - Phase 1)
+- **Cập nhật cuối:** 2026-10-05 (CF Workers Migration - hoàn tất, Railway đã gỡ)
 
 ---
 
 ## 🏗️ Giai đoạn 1: Thu thập bối cảnh
 
 ...
+
+- **2026-10-05 (Cloudflare Workers Migration - Hoàn tất):**
+  - **Tổng quan:** Backend chạy hoàn toàn trên Cloudflare Worker + Neon. Railway project đã xoá, plan đã huỷ.
+  - **Sửa lỗi sau migrate:** sinh `id` cho Snapshot/ResearchReport; `saveAllData` gom vào 1 transaction Neon (atomic, 1 subrequest); ngày snapshot không lệch timezone; luồng Evaluate → PPTX tải file trực tiếp; dashboard tải dữ liệu sau khi đăng nhập và không đẩy seed data lên server.
+  - **DB:** migration `20261005000000_sync_schema_drift` (thêm `Task.result`, bảng `ResearchReport`) đã áp lên Neon.
+  - **Deploy:** Worker tự deploy từ `master` qua GitHub Actions; CORS chấp nhận Vercel preview (`task-dashboard-*-zxck5xzs-projects.vercel.app`).
 
 - **2026-08-24 (Cloudflare Workers Migration - Phase 1):**
   - **Tổng quan:** Bắt đầu migrate backend từ Railway sang Cloudflare Workers. TypeScript Worker hoàn thiện, Python routes đang đánh giá.
@@ -34,7 +40,7 @@ Tài liệu này dùng để chuẩn bị và quản lý quá trình thiết k�
     1. Python Worker (Pyodide) cho apk/pptx + External API cho evaluate/open-file.
     2. External Python service cho tất cả Python routes.
     3. Giữ Railway cho Python routes, CF Worker cho TS routes.
-  - **Files mới:** `backend/worker/` (index.ts, auth.ts, db.ts, middleware.ts, types.ts, routes/*).
+  - **Files mới:** `backend/worker/` (index.ts, auth.ts, db.ts, middleware.ts, types.ts, routes/\*).
   - **Tiếp theo:** User quyết định phương án Python routes → implement + deploy.
 - **2026-05-28 (Sửa lỗi Deploy & Hoàn thiện):**
   - **Tổng quan:** Khắc phục sự cố deploy fail trên Vercel và Railway. Tiến độ đạt ~97%.
