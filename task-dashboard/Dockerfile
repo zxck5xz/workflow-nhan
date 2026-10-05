@@ -7,10 +7,11 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY task-dashboard/package.json ./task-dashboard/package.json
 COPY backend/package.json ./backend/package.json
-COPY harness-context-engineering/package.json ./harness-context-engineering/package.json
+COPY backend/worker/package.json ./backend/worker/package.json
+COPY mobile-app/package.json ./mobile-app/package.json
 
-# Install dependencies
-RUN npm install --frozen-lockfile
+# Install only the dashboard's dependencies (skip root prepare/husky)
+RUN npm ci --workspace=task-dashboard --include-workspace-root=false --ignore-scripts
 
 # Copy frontend source
 COPY task-dashboard ./task-dashboard

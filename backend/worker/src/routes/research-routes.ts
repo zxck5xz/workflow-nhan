@@ -5,37 +5,133 @@ import { jsonResponse, errorResponse, wrapHandler } from '../middleware';
 // ===== Sentiment Analysis (pure JS, works on Workers) =====
 
 const SENTIMENT_POSITIVE = new Set([
-  'good', 'great', 'excellent', 'amazing', 'awesome', 'love', 'best', 'fantastic',
-  'wonderful', 'superb', 'outstanding', 'beautiful', 'innovative', 'smooth', 'fast',
-  'reliable', 'useful', 'helpful', 'intuitive', 'polished', 'impressive', 'recommend',
-  'must-have', 'fun', 'addictive', 'engaging', 'brilliant', 'perfect',
-  'tuyệt vời', 'tốt', 'xuất sắc', 'hay', 'đỉnh', 'thích', 'yêu thích',
-  'tuyệt', 'siêu', 'pro', 'đẹp', 'ổn định', 'nhanh', 'mượt',
+  'good',
+  'great',
+  'excellent',
+  'amazing',
+  'awesome',
+  'love',
+  'best',
+  'fantastic',
+  'wonderful',
+  'superb',
+  'outstanding',
+  'beautiful',
+  'innovative',
+  'smooth',
+  'fast',
+  'reliable',
+  'useful',
+  'helpful',
+  'intuitive',
+  'polished',
+  'impressive',
+  'recommend',
+  'must-have',
+  'fun',
+  'addictive',
+  'engaging',
+  'brilliant',
+  'perfect',
+  'tuyệt vời',
+  'tốt',
+  'xuất sắc',
+  'hay',
+  'đỉnh',
+  'thích',
+  'yêu thích',
+  'tuyệt',
+  'siêu',
+  'pro',
+  'đẹp',
+  'ổn định',
+  'nhanh',
+  'mượt',
 ]);
 
 const SENTIMENT_NEGATIVE = new Set([
-  'bad', 'terrible', 'awful', 'horrible', 'worst', 'hate', 'ugly', 'boring',
-  'slow', 'buggy', 'broken', 'useless', 'trash', 'garbage', 'frustrating',
-  'disappointing', 'poor', 'mediocre', 'crashes', 'lag', 'spam', 'scam',
-  'overpriced', 'bloatware', 'annoying', 'uninstalled', 'sucks', 'hated',
-  'tệ', 'dở', 'chán', 'tồi', 'kém', 'xấu', 'chậm', 'lỗi', 'rác',
-  'vô dụng', 'thất vọng', 'phí tiền', 'lừa đảo', 'tệ hại', 'tồi tệ',
+  'bad',
+  'terrible',
+  'awful',
+  'horrible',
+  'worst',
+  'hate',
+  'ugly',
+  'boring',
+  'slow',
+  'buggy',
+  'broken',
+  'useless',
+  'trash',
+  'garbage',
+  'frustrating',
+  'disappointing',
+  'poor',
+  'mediocre',
+  'crashes',
+  'lag',
+  'spam',
+  'scam',
+  'overpriced',
+  'bloatware',
+  'annoying',
+  'uninstalled',
+  'sucks',
+  'hated',
+  'tệ',
+  'dở',
+  'chán',
+  'tồi',
+  'kém',
+  'xấu',
+  'chậm',
+  'lỗi',
+  'rác',
+  'vô dụng',
+  'thất vọng',
+  'phí tiền',
+  'lừa đảo',
+  'tệ hại',
+  'tồi tệ',
 ]);
 
-function analyzeSentimentText(text: string) {
-  if (!text) return { score: 0, label: 'neutral' };
-  const cleaned = text
+function cleanText(text: string) {
+  return text
     .toLowerCase()
     .replace(/https?:\/\/\S+/g, '')
     .replace(/[^a-z0-9\sàáâãèéêìíòóôõùúăđĩũơưạảấầẩẫậắằẳẵặẹẻẽềềểễệốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  const words = cleaned.split(/\s+/);
+}
+
+// Terms go through the same cleaning as the text ("must-have" → "must have")
+// and are matched space-delimited; lookarounds let adjacent matches
+// ("tốt tốt") share the space between them.
+const termPattern = (t: string) =>
+  new RegExp(`(?<= )${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?= )`, 'g');
+const toTerm = (t: string, weight: number): [string, number, RegExp] => {
+  const cleaned = cleanText(t);
+  return [cleaned, weight, termPattern(cleaned)];
+};
+const SENTIMENT_TERMS: [string, number, RegExp][] = [
+  ...[...SENTIMENT_POSITIVE].map((t) => toTerm(t, 0.25)),
+  ...[...SENTIMENT_NEGATIVE].map((t) => toTerm(t, -0.25)),
+].sort((a, b) => b[0].length - a[0].length);
+
+export function analyzeSentimentText(text: string) {
+  if (!text) return { score: 0, label: 'neutral' };
+  const cleaned = cleanText(text);
+  // Match whole terms, longest first, so phrases like "thất vọng" or "tuyệt vời"
+  // count once and are not re-counted through their single-word parts.
+  let rest = ` ${cleaned} `;
   let score = 0;
   let count = 0;
-  for (const w of words) {
-    if (SENTIMENT_POSITIVE.has(w)) { score += 0.25; count++; }
-    else if (SENTIMENT_NEGATIVE.has(w)) { score -= 0.25; count++; }
+  for (const [term, weight, pattern] of SENTIMENT_TERMS) {
+    const hits = rest.match(pattern)?.length ?? 0;
+    if (hits === 0) continue;
+    score += weight * hits;
+    count += hits;
+    rest = rest.replace(pattern, ' ');
   }
   const avg = count > 0 ? Math.max(-1, Math.min(1, score / count)) : 0;
   return {
@@ -59,11 +155,15 @@ async function searchRedditSentiment(query: string, limit = 25) {
     for (const ua of agents) {
       try {
         const resp = await fetch(url, {
-          headers: { 'User-Agent': ua, Accept: 'application/json', 'Accept-Language': 'en-US,en;q=0.9' },
+          headers: {
+            'User-Agent': ua,
+            Accept: 'application/json',
+            'Accept-Language': 'en-US,en;q=0.9',
+          },
           signal: AbortSignal.timeout(10000),
         });
         if (!resp.ok) continue;
-        const data = await resp.json() as any;
+        const data = (await resp.json()) as any;
         const children = data?.data?.children || [];
         if (children.length === 0) continue;
         return children.map((p: any) => {
@@ -74,20 +174,29 @@ async function searchRedditSentiment(query: string, limit = 25) {
             subreddit: d.subreddit || '',
             title: (d.title || '').slice(0, 200),
             url: `https://www.reddit.com${d.permalink || ''}`,
-            score: d.score || 0, ups: d.ups || 0, downs: d.downs || 0,
+            score: d.score || 0,
+            ups: d.ups || 0,
+            downs: d.downs || 0,
             numComments: d.num_comments || 0,
-            sentiment: score, sentimentLabel: label,
+            sentiment: score,
+            sentimentLabel: label,
             date: d.created_utc ? new Date(d.created_utc * 1000).toISOString() : null,
           };
         });
-      } catch { /* continue */ }
+      } catch {
+        /* continue */
+      }
     }
   }
   return [];
 }
 
 async function searchNitterSentiment(query: string, limit = 10) {
-  const instances = ['https://nitter.net', 'https://nitter.lacontrevoie.fr', 'https://nitter.1d4.us'];
+  const instances = [
+    'https://nitter.net',
+    'https://nitter.lacontrevoie.fr',
+    'https://nitter.1d4.us',
+  ];
   const encoded = encodeURIComponent(query);
   for (const instance of instances) {
     try {
@@ -104,10 +213,17 @@ async function searchNitterSentiment(query: string, limit = 10) {
         const text = match[1].replace(/<[^>]+>/g, '').trim();
         if (!text) continue;
         const { score, label } = analyzeSentimentText(text);
-        tweets.push({ tweet: text.slice(0, 280), url: instance, sentiment: score, sentimentLabel: label });
+        tweets.push({
+          tweet: text.slice(0, 280),
+          url: instance,
+          sentiment: score,
+          sentimentLabel: label,
+        });
       }
       if (tweets.length > 0) return tweets;
-    } catch { /* continue */ }
+    } catch {
+      /* continue */
+    }
   }
   return [];
 }
@@ -115,7 +231,7 @@ async function searchNitterSentiment(query: string, limit = 10) {
 // ===== Route Handlers =====
 
 export const sentimentHandler: RouteHandler = wrapHandler(async (request, env) => {
-  const { query, reportId } = await request.json() as any;
+  const { query, reportId } = (await request.json()) as any;
   if (!query) {
     return errorResponse('Missing query parameter', 400);
   }
@@ -126,9 +242,12 @@ export const sentimentHandler: RouteHandler = wrapHandler(async (request, env) =
   ]);
 
   const allMentions = [...redditMentions, ...twitterMentions];
-  const avgScore = allMentions.length > 0
-    ? Math.round((allMentions.reduce((s, m) => s + m.sentiment, 0) / allMentions.length) * 10000) / 10000
-    : 0;
+  const avgScore =
+    allMentions.length > 0
+      ? Math.round(
+          (allMentions.reduce((s, m) => s + m.sentiment, 0) / allMentions.length) * 10000,
+        ) / 10000
+      : 0;
   const pos = allMentions.filter((m) => m.sentiment > 0.15).length;
   const neg = allMentions.filter((m) => m.sentiment < -0.15).length;
   const neu = allMentions.length - pos - neg;
@@ -160,7 +279,9 @@ export const sentimentHandler: RouteHandler = wrapHandler(async (request, env) =
           twitterMentions: sentimentResult.twitterMentions,
         });
       }
-    } catch { /* best-effort */ }
+    } catch {
+      /* best-effort */
+    }
   }
 
   return jsonResponse(sentimentResult);

@@ -138,10 +138,22 @@ async function fetchPageMetadata(url: string) {
 
 export const searchProductHandler: RouteHandler = wrapHandler(async (request) => {
   const { query } = (await request.json()) as any;
-  if (!query) {
+  if (!query || typeof query !== 'string') {
     return jsonResponse({ found: false, info: null, error: 'Missing search query' });
   }
+  try {
+    return jsonResponse(await searchProduct(query));
+  } catch (error: any) {
+    console.error('Product search route error:', error);
+    return jsonResponse({
+      found: false,
+      info: null,
+      error: `Search error: ${error?.message || 'Unknown error'}`,
+    });
+  }
+});
 
+async function searchProduct(query: string) {
   const trimmed = query.trim();
   const isUrl = /^https?:\/\//.test(trimmed);
   let result: any = { found: false, info: null };
@@ -197,8 +209,8 @@ export const searchProductHandler: RouteHandler = wrapHandler(async (request) =>
     }
   }
 
-  return jsonResponse(result);
-});
+  return result;
+}
 
 export const searchAppInfoHandler: RouteHandler = wrapHandler(async (request) => {
   const { packageName } = (await request.json()) as any;

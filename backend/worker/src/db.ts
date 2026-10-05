@@ -142,7 +142,14 @@ function toPrismaStatus(s: string) {
   return s === 'in-testing' ? 'in_testing' : s;
 }
 
-export async function saveAllData(sql: NeonQuery, data: any) {
+// `canEditMemberIdentity`: whether the caller may change role/email of existing
+// members. Those fields control login and permissions, so only ADMINs may
+// change them here; everyone else's edits to them are ignored.
+export async function saveAllData(
+  sql: NeonQuery,
+  data: any,
+  { canEditMemberIdentity }: { canEditMemberIdentity: boolean },
+) {
   const payload = { ...data, lastUpdated: new Date().toISOString() };
 
   // Each table maps an item to a (lazy) upsert query; all queries are sent
@@ -170,7 +177,9 @@ export async function saveAllData(sql: NeonQuery, data: any) {
         INSERT INTO "Member" (id, name, email, role, "avatarColor", initials, "joinedAt", password)
         VALUES (${m.id}, ${m.name}, ${email}, ${m.role}, ${m.avatarColor}, ${m.initials}, ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, 'default-sync-password')
         ON CONFLICT (id) DO UPDATE SET
-          name = EXCLUDED.name, email = EXCLUDED.email, role = EXCLUDED.role,
+          name = EXCLUDED.name,
+          email = CASE WHEN ${canEditMemberIdentity}::boolean THEN EXCLUDED.email ELSE "Member".email END,
+          role = CASE WHEN ${canEditMemberIdentity}::boolean THEN EXCLUDED.role ELSE "Member".role END,
           "avatarColor" = EXCLUDED."avatarColor", initials = EXCLUDED.initials
       `;
       },

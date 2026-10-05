@@ -1,8 +1,5 @@
 import type { RouteHandler } from '../types';
-import {
-  getSql, loadAllData, saveAllData,
-  saveSnapshot, listSnapshots, loadSnapshot,
-} from '../db';
+import { getSql, loadAllData, saveAllData, saveSnapshot, listSnapshots, loadSnapshot } from '../db';
 import { jsonResponse, errorResponse, wrapHandler } from '../middleware';
 
 export const getAppDataHandler: RouteHandler = wrapHandler(async (request, env) => {
@@ -11,10 +8,12 @@ export const getAppDataHandler: RouteHandler = wrapHandler(async (request, env) 
   return jsonResponse(data);
 });
 
-export const saveAppDataHandler: RouteHandler = wrapHandler(async (request, env) => {
+export const saveAppDataHandler: RouteHandler = wrapHandler(async (request, env, ctx) => {
   const payload = await request.json();
   const sql = getSql(env.DATABASE_URL);
-  const saved = await saveAllData(sql, payload);
+  const saved = await saveAllData(sql, payload, {
+    canEditMemberIdentity: ctx.user?.role === 'ADMIN',
+  });
   return jsonResponse({ success: true, data: saved });
 });
 
