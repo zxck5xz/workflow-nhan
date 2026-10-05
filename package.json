@@ -18,7 +18,7 @@
   },
   "overrides": {
     "mobile-app": {
-      "@types/react": "18.3.12"
+      "@types/react": "~18.3.12"
     }
   },
   "devDependencies": {
