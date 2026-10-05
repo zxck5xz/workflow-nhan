@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd task-dashboard && npm run build",
+  "buildCommand": "cd task-dashboard && npm test && npm run build",
   "installCommand": "cd task-dashboard && npm install",
   "outputDirectory": "task-dashboard/dist",
   "rewrites": [

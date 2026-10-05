@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { useApp, AppProvider } from './contexts/AppContext';
 import { useAuth } from './contexts/AuthContext';
 import { Sidebar } from './components/Sidebar';
@@ -27,13 +27,22 @@ const InsightsPage = lazy(() =>
 const CodeAnalysisPage = lazy(() =>
   import('./components/reports/CodeAnalysisPage').then((m) => ({ default: m.CodeAnalysisPage })),
 );
+const ForecastPage = lazy(() =>
+  import('./modules/forecast/ForecastPage').then((m) => ({ default: m.ForecastPage })),
+);
 const UserManagementPage = lazy(() =>
   import('./components/auth/UserManagementPage').then((m) => ({ default: m.UserManagementPage })),
 );
 
 function AppContent() {
-  const { state } = useApp();
+  const { state, setPage } = useApp();
   const { user, loading } = useAuth();
+
+  // Link chia sẻ kịch bản dự phóng (#s=…) hoặc chế độ in (?print) mở thẳng trang Dự phóng AuGo
+  useEffect(() => {
+    const { hash, search } = window.location;
+    if (hash.startsWith('#s=') || new URLSearchParams(search).has('print')) setPage('forecast');
+  }, [setPage]);
 
   // Show loading spinner while checking auth state
   if (loading) {
@@ -86,6 +95,7 @@ function AppContent() {
             {state.activePage === 'code-analysis' && <CodeAnalysisPage />}
             {state.activePage === 'staff-reports' && <StaffReportPage />}
             {state.activePage === 'user-management' && <UserManagementPage />}
+            {state.activePage === 'forecast' && <ForecastPage />}
           </ErrorBoundary>
         </Suspense>
       </main>

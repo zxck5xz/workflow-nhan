@@ -13,6 +13,7 @@ const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string; ro
   { id: 'insights', label: 'Insights', icon: '💡' },
   { id: 'code-analysis', label: 'Code Analysis', icon: '🔍' },
   { id: 'staff-reports', label: 'Nhân sự', icon: '👥' },
+  { id: 'forecast', label: 'Dự phóng AuGo', icon: '💰' },
 ];
 
 export function Sidebar() {

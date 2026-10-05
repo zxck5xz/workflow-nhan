@@ -142,7 +142,8 @@ export type PageId =
   | 'staff-reports'
   | 'insights'
   | 'code-analysis'
-  | 'user-management';
+  | 'user-management'
+  | 'forecast';
 
 export interface NavItem {
   id: PageId;
