@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from 'react';
+import { useId, useState, type CSSProperties, type ReactNode } from 'react';
 import { formatInput, parseVnNumber } from '../lib/format';
 import { getPath, type Path } from '../lib/paths';
 import { useInputs } from './inputsContext';
@@ -87,47 +87,6 @@ export function NumberField({ path, label, hint, percent, suffix, digits }: Fiel
   );
 }
 
-/** Danh sách số cách nhau bởi dấu chấm phẩy, vd hệ số tăng theo ngày "250; 230; 200". */
-export function ListField({ path, label, hint, percent }: Omit<FieldProps, 'suffix' | 'digits'>) {
-  const { inputs, set, issues } = useInputs();
-  const id = useId();
-  const values = getPath<number[]>(inputs, path);
-  const scale = percent ? 100 : 1;
-  const shown = values.map((v) => formatInput(v * scale)).join('; ');
-  const [draft, setDraft] = useState<string | null>(null);
-  const error = issues[path];
-
-  return (
-    <div className={`field wide${error ? ' invalid' : ''}`}>
-      <label htmlFor={id}>
-        {label}
-        {percent && ' (%)'}
-      </label>
-      <input
-        id={id}
-        type="text"
-        value={draft ?? shown}
-        onFocus={() => setDraft(shown)}
-        onBlur={() => setDraft(null)}
-        onChange={(e) => {
-          setDraft(e.target.value);
-          const parts = e.target.value
-            .split(';')
-            .map((p) => p.trim())
-            .filter(Boolean);
-          const nums = parts.map(parseVnNumber);
-          if (nums.every((n) => n !== null))
-            set(
-              path,
-              (nums as number[]).map((n) => n / scale),
-            );
-        }}
-      />
-      {error ? <div className="error">{error}</div> : hint && <div className="hint">{hint}</div>}
-    </div>
-  );
-}
-
 export function SelectField<T extends string | number>({
   path,
   label,
@@ -178,18 +137,38 @@ export function Toggle({ path, label }: { path: Path; label: string }) {
   );
 }
 
-export function Section({ title, children }: { title: string; children: ReactNode }) {
+/** Màu nhấn của mục trong sidebar (series-1…7 của bảng màu). */
+export type Tone = 1 | 2 | 3 | 4 | 7;
+const toneStyle = (tone: Tone) => ({ '--tone': `var(--series-${tone})` }) as CSSProperties;
+
+export function Section({
+  title,
+  tone = 1,
+  children,
+}: {
+  title: string;
+  tone?: Tone;
+  children: ReactNode;
+}) {
   return (
-    <section className="section">
+    <section className="section" style={toneStyle(tone)}>
       <h3>{title}</h3>
       {children}
     </section>
   );
 }
 
-export function Advanced({ title, children }: { title: string; children: ReactNode }) {
+export function Advanced({
+  title,
+  tone = 7,
+  children,
+}: {
+  title: string;
+  tone?: Tone;
+  children: ReactNode;
+}) {
   return (
-    <details className="section">
+    <details className="section adv" style={toneStyle(tone)}>
       <summary>{title}</summary>
       {children}
     </details>

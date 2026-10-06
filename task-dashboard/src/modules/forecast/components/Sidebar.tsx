@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import type { AcquisitionMode } from '../engine';
 import { presets } from '../engine/presets';
-import { fmtInt, fmtMoney, fmtPct, formatInput, parseVnNumber } from '../lib/format';
+import { fmtInt, fmtMoney, fmtPct } from '../lib/format';
 import { MODE_LABELS, syncModes, type SyncResult } from '../lib/sync';
-import { Advanced, ListField, NumberField, Section, SelectField, Toggle } from './fields';
+import { Advanced, NumberField, Section, SelectField, Toggle } from './fields';
 import { useInputs } from './inputsContext';
-import { MonthlyEditor, PreRegistrationEditor } from './GridEditors';
+import {
+  ArpuCurveEditor,
+  LaunchBoostEditor,
+  MonthlyEditor,
+  PhaseEditor,
+  PreRegistrationEditor,
+} from './GridEditors';
 
 const MODES = (Object.keys(MODE_LABELS) as AcquisitionMode[]).map((value) => ({
   value,
@@ -121,7 +127,7 @@ export function Sidebar({ onPreset }: { onPreset: (id: string) => void }) {
         />
       </Section>
 
-      <Section title="Chất lượng người chơi">
+      <Section title="Chất lượng người chơi" tone={3}>
         <SelectField
           path="revenue.model"
           label="Cách tính doanh thu"
@@ -146,7 +152,7 @@ export function Sidebar({ onPreset }: { onPreset: (id: string) => void }) {
         )}
       </Section>
 
-      <Section title="Retention">
+      <Section title="Retention" tone={2}>
         <NumberField path="retention.d1" label="Giữ chân ngày 1 (D1)" percent />
         <NumberField path="retention.d3" label="Giữ chân ngày 3 (D3)" percent />
         <NumberField path="retention.d7" label="Giữ chân ngày 7 (D7)" percent />
@@ -163,18 +169,7 @@ export function Sidebar({ onPreset }: { onPreset: (id: string) => void }) {
       </Section>
 
       <Advanced title="Nâng cao: Đợt mở game">
-        <ListField
-          path="acquisition.launchInstallBoost"
-          label="Hệ số lượt cài/NRU các ngày đầu"
-          percent
-          hint="Ngày 1; ngày 2; … (Excel: 250 → 130 trong 14 ngày)"
-        />
-        <ListField
-          path="acquisition.launchMktBoost"
-          label="Hệ số giá ads các ngày đầu"
-          percent
-          hint="Excel: 110 trong 7 ngày"
-        />
+        <LaunchBoostEditor />
         <NumberField
           path="retention.launchCohortBoost"
           label="Hệ số giữ chân nhóm user ngày OB"
@@ -192,7 +187,7 @@ export function Sidebar({ onPreset }: { onPreset: (id: string) => void }) {
         <PreRegistrationEditor />
       </Advanced>
 
-      <Advanced title="Nâng cao: Lịch theo tháng">
+      <Advanced title="Nâng cao: Lịch theo tháng" tone={1}>
         <MonthlyEditor
           note="Tháng vượt quá lịch lấy giá trị tháng cuối."
           columns={[
@@ -209,23 +204,14 @@ export function Sidebar({ onPreset }: { onPreset: (id: string) => void }) {
         />
       </Advanced>
 
-      <Advanced title="Nâng cao: Doanh thu & retention">
-        <ListField
-          path="revenue.phaseMultipliers"
-          label="Hệ số ARPU theo pha cohort"
-          hint="OB; pha 2; pha 3 (Excel: 1; 0,7; 0,49)"
-        />
-        <ListField
-          path="revenue.phaseStartDays"
-          label="Ngày bắt đầu mỗi pha"
-          hint="Excel: 1; 2; 8"
-        />
-        <ArpuCurveField />
+      <Advanced title="Nâng cao: Doanh thu & retention" tone={3}>
+        <PhaseEditor />
+        <ArpuCurveEditor />
         <NumberField path="retention.d2FromD1" label="D2 = D1 × hệ số" digits={6} />
         <NumberField path="retention.cutoffAge" label="Retention về 0 từ ngày tuổi" />
       </Advanced>
 
-      <Advanced title="Nâng cao: Chi phí và chia sẻ">
+      <Advanced title="Nâng cao: Chi phí và chia sẻ" tone={4}>
         <NumberField path="usdVnd" label="Tỉ giá USD/VND" />
         <NumberField
           path="costs.licenseFeeUsd"
@@ -255,7 +241,7 @@ export function Sidebar({ onPreset }: { onPreset: (id: string) => void }) {
         <NumberField path="costs.devGrossUp" label="Hệ số đối soát dev" digits={4} />
       </Advanced>
 
-      <Advanced title="Nâng cao: Chi phí cố định theo tháng">
+      <Advanced title="Nâng cao: Chi phí cố định theo tháng" tone={4}>
         <MonthlyEditor
           note="T1 đã gồm chi phí các tháng trước OB. Branding, bonus, chi phí khác: tháng ngoài lịch = 0; các khoản còn lại lấy giá trị tháng cuối."
           columns={[
@@ -325,47 +311,6 @@ function SyncReport({ result, onClose }: { result: SyncResult | 'empty'; onClose
         Không gồm đăng ký trước (giống nhau ở mọi chế độ). Ngân sách chỉ có 3 tham số nên NRU từng
         tháng có thể lệch.
       </div>
-    </div>
-  );
-}
-
-/** Dán đường ARPU (mỗi giá trị một dòng, hoặc cách nhau bởi dấu chấm phẩy / tab) — vd copy cột C sheet Doanh thu-LTV. */
-function ArpuCurveField() {
-  const { inputs, set } = useInputs();
-  const curve = inputs.revenue.arpuCurve;
-  const [draft, setDraft] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const shown = curve.map((v) => formatInput(v)).join('\n');
-
-  return (
-    <div className={`field wide${error ? ' invalid' : ''}`}>
-      <label htmlFor="arpu">Đường ARPU theo ngày tuổi ({curve.length} ngày)</label>
-      <textarea
-        id="arpu"
-        rows={5}
-        value={draft ?? shown}
-        onFocus={() => setDraft(shown)}
-        onChange={(e) => setDraft(e.target.value)}
-        onBlur={() => {
-          const parts = (draft ?? '')
-            .split(/[\n;\t]+/)
-            .map((p) => p.trim())
-            .filter(Boolean);
-          const nums = parts.map(parseVnNumber);
-          if (parts.length === 0 || nums.some((n) => n === null)) {
-            setError('Có giá trị không phải số — giữ nguyên đường cũ');
-          } else {
-            setError(null);
-            set('revenue.arpuCurve', nums);
-          }
-          setDraft(null);
-        }}
-      />
-      {error ? (
-        <div className="error">{error}</div>
-      ) : (
-        <div className="hint">Ngày 1 trên cùng. Dán từ Excel được.</div>
-      )}
     </div>
   );
 }
