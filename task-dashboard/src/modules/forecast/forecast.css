@@ -1,19 +1,19 @@
 /* AuGo – dự phóng tài chính. Mọi rule nằm trong .augo để không đè lên CSS của task-dashboard (và ngược lại). */
 .augo {
   color-scheme: light;
-  --bg: #f4f4f1;
+  --bg: #eef0f3;
   --surface: #ffffff;
-  --surface-2: #f8f8f6;
-  --border: #e4e3de;
+  --surface-2: #f5f6f8;
+  --border: #cfd3da;
   --text: #0b0b0b;
-  --text-2: #52514e;
-  --text-3: #85847e;
-  --accent: #2a78d6;
+  --text-2: #33363c;
+  --text-3: #5c616b;
+  --accent: #1f6fd1;
   --accent-ink: #ffffff;
-  --series-1: #2a78d6;
-  --series-2: #eb6834;
-  --series-3: #1baf7a;
-  --series-4: #eda100;
+  --series-1: #1f6fd1;
+  --series-2: #d9531e;
+  --series-3: #0f9a68;
+  --series-4: #c98700;
   --series-7: #4a3aa7;
   --good: #0a7d0a;
   --good-bg: #e8f5e8;
@@ -21,8 +21,8 @@
   --bad-bg: #fbeaea;
   --warn-bg: #fff7e0;
   --warn-border: #f0d68a;
-  --grid: #ecebe7;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  --grid: #e2e5ea;
+  --shadow: 0 1px 3px rgb(16 24 40 / 0.08);
   --radius: 10px;
   font-family:
     Inter,
@@ -40,51 +40,53 @@
 @media (prefers-color-scheme: dark) {
   .augo:not([data-theme='light']) {
     color-scheme: dark;
-    --bg: #121211;
-    --surface: #1a1a19;
-    --surface-2: #222220;
-    --border: #33332f;
+    --bg: #1c1f26;
+    --surface: #262a33;
+    --surface-2: #30353f;
+    --border: #4a505d;
     --text: #ffffff;
-    --text-2: #c3c2b7;
-    --text-3: #8e8d85;
-    --accent: #3987e5;
-    --series-1: #3987e5;
-    --series-2: #d95926;
-    --series-3: #199e70;
-    --series-4: #c98500;
-    --series-7: #9085e9;
-    --good: #4cc44c;
-    --good-bg: #1d2e1d;
-    --bad: #ef7070;
-    --bad-bg: #3a1f1f;
-    --warn-bg: #2e2816;
-    --warn-border: #5c4b1c;
-    --grid: #2b2b28;
+    --text-2: #dde0e6;
+    --text-3: #b0b5bf;
+    --accent: #5aa2ff;
+    --accent-ink: #0b1220;
+    --series-1: #5aa2ff;
+    --series-2: #ff8a5c;
+    --series-3: #3dd69c;
+    --series-4: #fbbf24;
+    --series-7: #ab9fff;
+    --good: #6ee06e;
+    --good-bg: #22402a;
+    --bad: #ff8a8a;
+    --bad-bg: #4a272b;
+    --warn-bg: #3a3220;
+    --warn-border: #7a6427;
+    --grid: #3a3f4a;
   }
 }
 
 .augo[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #121211;
-  --surface: #1a1a19;
-  --surface-2: #222220;
-  --border: #33332f;
+  --bg: #1c1f26;
+  --surface: #262a33;
+  --surface-2: #30353f;
+  --border: #4a505d;
   --text: #ffffff;
-  --text-2: #c3c2b7;
-  --text-3: #8e8d85;
-  --accent: #3987e5;
-  --series-1: #3987e5;
-  --series-2: #d95926;
-  --series-3: #199e70;
-  --series-4: #c98500;
-  --series-7: #9085e9;
-  --good: #4cc44c;
-  --good-bg: #1d2e1d;
-  --bad: #ef7070;
-  --bad-bg: #3a1f1f;
-  --warn-bg: #2e2816;
-  --warn-border: #5c4b1c;
-  --grid: #2b2b28;
+  --text-2: #dde0e6;
+  --text-3: #b0b5bf;
+  --accent: #5aa2ff;
+  --accent-ink: #0b1220;
+  --series-1: #5aa2ff;
+  --series-2: #ff8a5c;
+  --series-3: #3dd69c;
+  --series-4: #fbbf24;
+  --series-7: #ab9fff;
+  --good: #6ee06e;
+  --good-bg: #22402a;
+  --bad: #ff8a8a;
+  --bad-bg: #4a272b;
+  --warn-bg: #3a3220;
+  --warn-border: #7a6427;
+  --grid: #3a3f4a;
 }
 
 .augo * {
@@ -971,12 +973,25 @@
   }
 }
 
-/* ===== Chọn game (nằm ngoài div.augo nên tự đặt màu) ===== */
+/* ===== Chọn game: .forecast-root là div.augo ngoài cùng, mang theme cho cả 3 game ===== */
+.augo.forecast-root {
+  min-height: 100vh;
+}
 .forecast-games {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
-  padding: 12px 16px 0;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.forecast-games .theme-select {
+  margin-left: auto;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
 }
 .forecast-games button {
   display: flex;
@@ -985,9 +1000,9 @@
   gap: 2px;
   min-width: 170px;
   padding: 8px 14px;
-  border: 1px solid var(--border, #e4e3de);
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: var(--surface, #fff);
+  background: var(--surface-2);
   color: inherit;
   font: inherit;
   cursor: pointer;
@@ -995,15 +1010,22 @@
 }
 .forecast-games button span {
   font-size: 11px;
-  opacity: 0.7;
+  color: var(--text-3);
+}
+.forecast-games button:hover {
+  border-color: var(--accent);
 }
 .forecast-games button[aria-pressed='true'] {
-  background: #2a78d6;
-  border-color: #2a78d6;
-  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.forecast-games button[aria-pressed='true'] span {
+  color: inherit;
+  opacity: 0.85;
 }
 .forecast-games button:focus-visible {
-  outline: 2px solid #2a78d6;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 @media print {
@@ -1065,9 +1087,6 @@
 }
 .augo table.data tr.neg-row td {
   color: var(--bad);
-}
-.forecast-games button {
-  color: #1b1f24;
 }
 .augo .kpis.bida-kpis {
   grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));

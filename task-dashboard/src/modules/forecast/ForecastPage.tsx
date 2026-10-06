@@ -24,7 +24,8 @@ import { decodeShareHash, encodeShareHash } from './lib/share';
 import { validate } from './lib/validate';
 
 type Theme = 'auto' | 'light' | 'dark';
-const THEME_KEY = 'augo-dashboard:theme';
+// v2: mặc định chuyển sang Sáng; bản cũ đã lưu sẵn 'auto' cho mọi người nên đổi khoá để áp mặc định mới
+const THEME_KEY = 'augo-dashboard:theme-v2';
 
 /** Bổ sung trường còn thiếu (kịch bản lưu từ phiên bản cũ) bằng giá trị mặc định. */
 function withDefaults<T>(defaults: T, value: unknown): T {
@@ -79,9 +80,24 @@ export function ForecastPage() {
       /* chỉ mất ghi nhớ game đang chọn */
     }
   }, [game]);
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      return (localStorage.getItem(THEME_KEY) as Theme) || 'light';
+    } catch {
+      return 'light';
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      /* trình duyệt chặn lưu: chỉ mất ghi nhớ theme */
+    }
+  }, [theme]);
 
+  // Theme đặt ở đây để áp chung cho thanh chọn game và cả 3 game
   return (
-    <div className="forecast-root">
+    <div className="augo forecast-root" data-theme={theme === 'auto' ? undefined : theme}>
       <nav className="forecast-games no-print" aria-label="Chọn game">
         {GAMES.map((g) => (
           <button key={g.id} aria-pressed={game === g.id} onClick={() => setGame(g.id)}>
@@ -89,14 +105,18 @@ export function ForecastPage() {
             <span>{g.sub}</span>
           </button>
         ))}
+        <select
+          className="theme-select"
+          aria-label="Giao diện"
+          value={theme}
+          onChange={(e) => setTheme(e.target.value as Theme)}
+        >
+          <option value="light">Sáng</option>
+          <option value="dark">Tối</option>
+          <option value="auto">Theo máy</option>
+        </select>
       </nav>
-      {game === 'augo' ? (
-        <AugoForecast />
-      ) : (
-        <div className="augo">
-          <BidaForecast key={game} game={game} />
-        </div>
-      )}
+      {game === 'augo' ? <AugoForecast /> : <BidaForecast key={game} game={game} />}
     </div>
   );
 }
@@ -106,13 +126,6 @@ function AugoForecast() {
   const [inputs, setInputs] = useState<Inputs>(() => normalize(loadDraft()));
   const [scenarios, setScenarios] = useState<SavedScenario[]>(loadScenarios);
   const [toast, setToast] = useState<string | null>(null);
-  const [theme, setTheme] = useState<Theme>(() => {
-    try {
-      return (localStorage.getItem(THEME_KEY) as Theme) || 'auto';
-    } catch {
-      return 'auto';
-    }
-  });
 
   const notify = useCallback((msg: string) => {
     setToast(msg);
@@ -128,14 +141,6 @@ function AugoForecast() {
       }
     });
   }, [notify]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(THEME_KEY, theme);
-    } catch {
-      /* trình duyệt chặn lưu: chỉ mất ghi nhớ theme */
-    }
-  }, [theme]);
 
   useEffect(() => {
     const t = window.setTimeout(() => storeDraft(inputs), 300);
@@ -174,98 +179,86 @@ function AugoForecast() {
 
   return (
     <InputsContext.Provider value={{ inputs, set, issues }}>
-      <div className="augo" data-theme={theme === 'auto' ? undefined : theme}>
-        <div className="augo-app">
-          <Sidebar
-            onPreset={(id) => {
-              const p = presets.find((x) => x.id === id);
-              if (p) {
-                setInputs(structuredClone(p.inputs));
-                notify(`Đã nạp: ${p.inputs.name}`);
-              }
-            }}
-          />
-          <main className="augo-main">
-            <header className="topbar">
-              <h1>
-                AuGo – Dự phóng doanh thu &amp; hoàn vốn
-                <span className="subtitle">
-                  {inputs.name} · {inputs.months} tháng
-                </span>
-              </h1>
-              <div className="topbar no-print">
-                <button className="btn" onClick={share}>
-                  Chia sẻ link
-                </button>
-                <button
-                  className="btn"
-                  onClick={() =>
-                    exportWorkbook(inputs, result).catch(() => notify('Xuất Excel thất bại'))
-                  }
-                >
-                  Xuất Excel
-                </button>
-                <button className="btn" onClick={printPage}>
-                  Xuất PDF
-                </button>
-                <select
-                  aria-label="Giao diện"
-                  value={theme}
-                  onChange={(e) => setTheme(e.target.value as Theme)}
-                >
-                  <option value="auto">Theo máy</option>
-                  <option value="light">Sáng</option>
-                  <option value="dark">Tối</option>
-                </select>
-              </div>
-            </header>
-
-            {issueCount > 0 && (
-              <div
-                className="banner no-print"
-                role="alert"
-                style={{ background: 'var(--bad-bg)', borderColor: 'var(--bad)' }}
+      <div className="augo-app">
+        <Sidebar
+          onPreset={(id) => {
+            const p = presets.find((x) => x.id === id);
+            if (p) {
+              setInputs(structuredClone(p.inputs));
+              notify(`Đã nạp: ${p.inputs.name}`);
+            }
+          }}
+        />
+        <main className="augo-main">
+          <header className="topbar">
+            <h1>
+              AuGo – Dự phóng doanh thu &amp; hoàn vốn
+              <span className="subtitle">
+                {inputs.name} · {inputs.months} tháng
+              </span>
+            </h1>
+            <div className="topbar no-print">
+              <button className="btn" onClick={share}>
+                Chia sẻ link
+              </button>
+              <button
+                className="btn"
+                onClick={() =>
+                  exportWorkbook(inputs, result).catch(() => notify('Xuất Excel thất bại'))
+                }
               >
-                Có {issueCount} tham số chưa hợp lệ (xem chữ đỏ bên trái). Kết quả có thể không
-                đúng.
-              </div>
-            )}
-
-            <KpiGrid s={result.summary} inputs={inputs} />
-            <NoteBanner s={result.summary} sameAsExcel={sameAsExcel} />
-
-            <div className="charts">
-              <RevenueCostChart monthly={result.monthly} />
-              <CumulativeChart
-                monthly={result.monthly}
-                breakEvenMonth={result.summary.breakEvenMonth}
-              />
+                Xuất Excel
+              </button>
+              <button className="btn" onClick={printPage}>
+                Xuất PDF
+              </button>
             </div>
-            <DailyUsersChart daily={result.daily} months={inputs.months} />
-            <Tables result={result} />
-            <Scenarios
-              scenarios={scenarios}
-              current={inputs}
-              result={result}
-              onSave={(name) => {
-                persist([newScenario(name, inputs), ...scenarios]);
-                setInputs((p) => ({ ...p, name }));
-                notify(`Đã lưu: ${name}`);
-              }}
-              onLoad={(s) => {
-                setInputs(normalize(s.inputs));
-                notify(`Đã nạp: ${s.name}`);
-              }}
-              onDelete={(id) => persist(scenarios.filter((s) => s.id !== id))}
+          </header>
+
+          {issueCount > 0 && (
+            <div
+              className="banner no-print"
+              role="alert"
+              style={{ background: 'var(--bad-bg)', borderColor: 'var(--bad)' }}
+            >
+              Có {issueCount} tham số chưa hợp lệ (xem chữ đỏ bên trái). Kết quả có thể không đúng.
+            </div>
+          )}
+
+          <KpiGrid s={result.summary} inputs={inputs} />
+          <NoteBanner s={result.summary} sameAsExcel={sameAsExcel} />
+
+          <div className="charts">
+            <RevenueCostChart monthly={result.monthly} />
+            <CumulativeChart
+              monthly={result.monthly}
+              breakEvenMonth={result.summary.breakEvenMonth}
             />
-          </main>
-        </div>
-        {toast && (
-          <div className="toast" role="status">
-            {toast}
           </div>
-        )}
+          <DailyUsersChart daily={result.daily} months={inputs.months} />
+          <Tables result={result} />
+          <Scenarios
+            scenarios={scenarios}
+            current={inputs}
+            result={result}
+            onSave={(name) => {
+              persist([newScenario(name, inputs), ...scenarios]);
+              setInputs((p) => ({ ...p, name }));
+              notify(`Đã lưu: ${name}`);
+            }}
+            onLoad={(s) => {
+              setInputs(normalize(s.inputs));
+              notify(`Đã nạp: ${s.name}`);
+            }}
+            onDelete={(id) => persist(scenarios.filter((s) => s.id !== id))}
+          />
+        </main>
       </div>
+      {toast && (
+        <div className="toast" role="status">
+          {toast}
+        </div>
+      )}
     </InputsContext.Provider>
   );
 }
