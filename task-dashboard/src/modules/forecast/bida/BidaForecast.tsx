@@ -1,6 +1,7 @@
 import { useDeferredValue, useEffect, useId, useMemo, useState, type ReactNode } from 'react';
 import { CumulativeChart, DailyUsersChart, RevenueCostChart } from '../components/charts/Charts';
-import { Advanced, NumberInput, Section } from '../components/fields';
+import { Advanced, NumberInput, Section, type Tone } from '../components/fields';
+import { Kpi } from '../components/Summary';
 import type { DailyRow, MonthlyRow } from '../engine';
 import { fmtInt, fmtMoney, fmtPct, fmtVnd } from '../lib/format';
 import { computeBida, type BidaInputs, type BidaResult } from './engine';
@@ -9,6 +10,9 @@ import { SCHEMA, type FieldDef } from './schema';
 import { syncBidaModes, type BidaSyncResult } from './sync';
 
 export type BidaGame = 'bida' | 'new';
+
+/** Màu nhấn xoay vòng cho các nhóm tham số. */
+const TONES: Tone[] = [1, 3, 2, 4, 7];
 
 const DEFAULTS: Record<BidaGame, BidaInputs> = { bida: BIDA_DEFAULTS, new: NEW_GAME_DEFAULTS };
 const inputsKey = (g: BidaGame) => `forecast:${g}:inputs`;
@@ -128,17 +132,18 @@ export function BidaForecast({ game }: { game: BidaGame }) {
         </button>
         {sync && <SyncReport result={sync} onClose={() => setSync(null)} />}
 
-        {SCHEMA.map((g) => {
+        {SCHEMA.map((g, gi) => {
+          const tone = TONES[gi % TONES.length];
           const body = (items: FieldDef[]) =>
             items.map((f) => <BidaField key={f.id} f={f} inp={inp} game={game} set={set} />);
           if (g.adv)
             return (
-              <Advanced key={g.g} title={`Nâng cao: ${g.g}`}>
+              <Advanced key={g.g} title={`Nâng cao: ${g.g}`} tone={tone}>
                 {body(g.items)}
               </Advanced>
             );
           return (
-            <Section key={g.g} title={g.g}>
+            <Section key={g.g} title={g.g} tone={tone}>
               {body(g.items)}
             </Section>
           );
@@ -191,29 +196,40 @@ export function BidaForecast({ game }: { game: BidaGame }) {
         <div className="kpis bida-kpis">
           <Kpi
             label="User mới (NRU)"
+            accent="users"
             value={fmtInt(T.nru)}
             sub={`Tổng cả kỳ · cài đặt ${fmtInt(T.installs)}`}
           />
           <Kpi
             label="DAU cao nhất"
+            accent="users"
             value={fmtInt(T.dauPeak)}
             sub={`Bình quân ${fmtInt(T.dauAvg)} người chơi/ngày`}
           />
           <Kpi
             label="Doanh thu"
+            accent="revenue"
             value={fmtMoney(T.revenue)}
             tone="good"
             sub={`IAP ${fmtMoney(T.iap)} · IAA ${fmtMoney(T.iaa)}`}
           />
-          <Kpi label="Tổng chi phí" value={fmtMoney(T.cost)} tone="bad" sub={fmtVnd(T.cost)} />
+          <Kpi
+            label="Tổng chi phí"
+            accent="cost"
+            value={fmtMoney(T.cost)}
+            tone="bad"
+            sub={fmtVnd(T.cost)}
+          />
           <Kpi
             label="Lợi nhuận"
+            accent="revenue"
             value={fmtMoney(T.profit, { sign: true })}
             tone={T.profit >= 0 ? 'good' : 'bad'}
             sub={`Biên ${fmtPct(T.ratio)} doanh thu`}
           />
           <Kpi
             label="Hoàn vốn"
+            accent="payback"
             value={payback ? `Tháng ${payback}` : 'Chưa hoàn vốn'}
             tone={payback ? undefined : 'bad'}
             sub={
@@ -227,18 +243,21 @@ export function BidaForecast({ game }: { game: BidaGame }) {
           <Kpi
             secondary
             label="Tiền ads đã chi"
+            accent="cost"
             value={fmtMoney(T.ads)}
             sub={`Chiếm ${fmtPct(T.ads / Math.max(1, T.revenue), 0)} doanh thu`}
           />
           <Kpi
             secondary
             label="Giá 1 user mới"
+            accent="cost"
             value={fmtVnd(T.cpnM1)}
             sub="Tháng 1 · các tháng sau giảm dần"
           />
           <Kpi
             secondary
             label="Doanh thu 1 user cả vòng đời"
+            accent="ratio"
             value={fmtVnd(T.ltv365)}
             tone={T.ltv365 >= T.cpn ? 'good' : 'bad'}
             sub={`So với giá 1 user: ${(T.ltv365 / Math.max(1, T.cpn)).toFixed(2).replace('.', ',')}×`}
@@ -246,18 +265,21 @@ export function BidaForecast({ game }: { game: BidaGame }) {
           <Kpi
             secondary
             label="Share dev phải trả"
+            accent="cost"
             value={fmtMoney(T.shareDev)}
             sub={`Đã cấn trừ tạm ứng MG ${fmtMoney(T.mg)}`}
           />
           <Kpi
             secondary
             label="Thuế và phí"
+            accent="cost"
             value={fmtMoney(T.vat + T.gateway + T.adsTax)}
             sub={`VAT ${fmtMoney(T.vat)} · cổng TT ${fmtMoney(T.gateway)} · thuế ads ${fmtMoney(T.adsTax)}`}
           />
           <Kpi
             secondary
             label="Chi phí cố định"
+            accent="cost"
             value={fmtMoney(T.fixed + T.preLaunch)}
             sub={`Gồm ${fmtMoney(T.preLaunch)} chi phí trước khi mở game`}
           />
@@ -369,28 +391,6 @@ export function BidaForecast({ game }: { game: BidaGame }) {
           )}
         </section>
       </main>
-    </div>
-  );
-}
-
-function Kpi({
-  label,
-  value,
-  sub,
-  tone,
-  secondary,
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-  tone?: 'good' | 'bad';
-  secondary?: boolean;
-}) {
-  return (
-    <div className={`card kpi${secondary ? ' secondary' : ''}`}>
-      <div className="label">{label}</div>
-      <div className={`value num${tone ? ` ${tone}` : ''}`}>{value}</div>
-      {sub && <div className="sub num">{sub}</div>}
     </div>
   );
 }

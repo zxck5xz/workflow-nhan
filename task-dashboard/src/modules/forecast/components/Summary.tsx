@@ -1,22 +1,38 @@
+import type { CSSProperties } from 'react';
 import type { Inputs, Summary } from '../engine';
 import { excelOriginal, excelReference } from '../engine/presets';
+import type { Tone } from './fields';
 import { fmtInt, fmtMoney, fmtPct, fmtRatio, fmtVnd } from '../lib/format';
 
-function Kpi({
+/** Màu theo nhóm chỉ số (số series trong bảng màu). */
+const KPI_ACCENT = { users: 1, revenue: 3, cost: 2, payback: 7, ratio: 4 } satisfies Record<
+  string,
+  Tone
+>;
+
+/** Thẻ KPI. `accent` tô màu nhóm chỉ số (user, doanh thu, chi phí…); lãi/lỗ tô nền xanh/đỏ. */
+export function Kpi({
   label,
   value,
   sub,
   tone,
+  accent,
   secondary,
 }: {
   label: string;
   value: string;
   sub?: string;
   tone?: 'good' | 'bad';
+  accent?: keyof typeof KPI_ACCENT;
   secondary?: boolean;
 }) {
   return (
-    <div className={`card kpi${secondary ? ' secondary' : ''}`}>
+    <div
+      className={`card kpi${secondary ? ' secondary' : ''}${tone ? ` is-${tone}` : ''}`}
+      style={
+        accent ? ({ '--tone': `var(--series-${KPI_ACCENT[accent]})` } as CSSProperties) : undefined
+      }
+    >
       <div className="label">{label}</div>
       <div className={`value num${tone ? ` ${tone}` : ''}`}>{value}</div>
       {sub && <div className="sub num">{sub}</div>}
@@ -31,24 +47,38 @@ export function KpiGrid({ s, inputs }: { s: Summary; inputs: Inputs }) {
       <div className="kpis">
         <Kpi
           label="User mới (NRU)"
+          accent="users"
           value={fmtInt(s.nru)}
           sub={`Gồm đăng ký trước · ${fmtInt(s.installs)} lượt cài`}
         />
         <Kpi
           label="DAU cao nhất"
+          accent="users"
           value={fmtInt(s.peakDau)}
           sub={`Bình quân ${fmtInt(s.avgDau)} người chơi/ngày`}
         />
-        <Kpi label="Doanh thu" value={fmtMoney(s.revenue)} sub={fmtVnd(s.revenue)} />
-        <Kpi label="Tổng chi phí" value={fmtMoney(s.totalSpent)} sub={fmtVnd(s.totalSpent)} />
+        <Kpi
+          label="Doanh thu"
+          accent="revenue"
+          value={fmtMoney(s.revenue)}
+          sub={fmtVnd(s.revenue)}
+        />
+        <Kpi
+          label="Tổng chi phí"
+          accent="cost"
+          value={fmtMoney(s.totalSpent)}
+          sub={fmtVnd(s.totalSpent)}
+        />
         <Kpi
           label="Lợi nhuận"
+          accent="revenue"
           value={fmtMoney(s.profit, { sign: true })}
           tone={profitTone}
           sub={`Biên ${fmtPct(s.margin)} doanh thu`}
         />
         <Kpi
           label="Hoàn vốn"
+          accent="payback"
           value={s.breakEvenMonth ? `Tháng ${s.breakEvenMonth}` : 'Chưa hoàn vốn'}
           tone={s.breakEvenMonth ? undefined : 'bad'}
           sub={
@@ -62,18 +92,21 @@ export function KpiGrid({ s, inputs }: { s: Summary; inputs: Inputs }) {
         <Kpi
           secondary
           label="Tiền ads đã chi"
+          accent="cost"
           value={fmtMoney(s.mkt)}
           sub={s.revenue > 0 ? `Bằng ${fmtPct(s.mkt / s.revenue, 0)} doanh thu` : fmtVnd(s.mkt)}
         />
         <Kpi
           secondary
           label="Giá 1 lượt cài đặt"
+          accent="cost"
           value={fmtVnd(s.costPerInstall)}
           sub={`CPN bình quân ${fmtVnd(s.avgCpn)}`}
         />
         <Kpi
           secondary
           label="LTV 1 năm / giá 1 user"
+          accent="ratio"
           value={fmtRatio(s.ltvOverCpn)}
           tone={s.ltvOverCpn >= 1 ? 'good' : 'bad'}
           sub={`LTV365 = ${fmtVnd(s.ltv365)}`}
@@ -81,6 +114,7 @@ export function KpiGrid({ s, inputs }: { s: Summary; inputs: Inputs }) {
         <Kpi
           secondary
           label="Share dev phải trả"
+          accent="cost"
           value={fmtMoney(s.shareDevPaid)}
           sub={
             inputs.costs.includeShareDevInCost
@@ -91,24 +125,28 @@ export function KpiGrid({ s, inputs }: { s: Summary; inputs: Inputs }) {
         <Kpi
           secondary
           label="Thuế và phí"
+          accent="cost"
           value={fmtMoney(s.vat + s.paymentFee + s.adsTax)}
           sub={`VAT ${fmtMoney(s.vat)} · cổng TT ${fmtMoney(s.paymentFee)} · thuế ads ${fmtMoney(s.adsTax)}`}
         />
         <Kpi
           secondary
           label="Chi phí cố định"
+          accent="cost"
           value={fmtMoney(s.fixedCosts)}
           sub="Branding, server, nhân sự… (T1 gồm chi phí trước OB)"
         />
         <Kpi
           secondary
           label="Chi phí một lần"
+          accent="cost"
           value={fmtMoney(s.oneTimeCosts)}
           sub="LF + MG + branding + khác"
         />
         <Kpi
           secondary
           label="Lợi nhuận / chi phí"
+          accent="ratio"
           value={fmtPct(s.profitOverSpent)}
           tone={s.profitOverSpent >= 0 ? 'good' : 'bad'}
           sub="Ô B35 trong Excel"
