@@ -11,6 +11,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  type XAxisTickContentProps,
 } from 'recharts';
 import type { DailyRow, MonthlyRow } from '../../engine';
 import { fmtInt, fmtMoney, fmtPct } from '../../lib/format';
@@ -157,7 +158,7 @@ export function CumulativeChart({
               dataKey="month"
               interval="preserveStartEnd"
               {...axisProps(c)}
-              tick={(p: { x: number; y: number; payload: { value: number } }) => {
+              tick={(p: XAxisTickContentProps) => {
                 const be = p.payload.value === breakEvenMonth;
                 return (
                   <text
