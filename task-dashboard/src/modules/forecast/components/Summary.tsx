@@ -156,11 +156,11 @@ export function KpiGrid({ s, inputs }: { s: Summary; inputs: Inputs }) {
   );
 }
 
-/** Ghi chú khác biệt so với file Excel gốc + so sánh với số Excel đã tính sẵn. */
+/** Ghi chú khác biệt so với file Excel gốc + so sánh với số Excel đã tính sẵn. Không in ra PDF. */
 export function NoteBanner({ s, sameAsExcel }: { s: Summary; sameAsExcel: boolean }) {
   const r = excelReference;
   return (
-    <div className="banner">
+    <div className="banner no-print">
       <strong>
         Tool tính lại toàn bộ từ tham số, cùng công thức với sheet Forecast, có 5 điểm khác đã chốt:
       </strong>
