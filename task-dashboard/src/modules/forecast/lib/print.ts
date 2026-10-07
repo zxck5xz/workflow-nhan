@@ -34,8 +34,5 @@ export function printPage(): void {
   );
 }
 
-/**
- * Bề rộng biểu đồ khi in: A4 dọc ≈ 794px trừ lề 12mm hai bên và padding card ≈ 665px.
- * Khi in các biểu đồ xếp mỗi cái một hàng nên cả 2 cỡ đều chiếm hết bề ngang.
- */
-export const PRINT_WIDTH = { full: 660, half: 660 };
+/** Bề rộng biểu đồ khi in: A4 dọc ≈ 794px trừ lề 12mm hai bên và padding card ≈ 665px */
+export const PRINT_WIDTH = 660;

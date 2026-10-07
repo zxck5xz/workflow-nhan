@@ -21,8 +21,8 @@ import { CirRow } from './CirRow';
 import { axisProps, useChartColors, type ChartColors } from './colors';
 import { Legend, TooltipBox } from './theme';
 
-function useChartWidth(size: 'full' | 'half'): number | '100%' {
-  return usePrinting() ? PRINT_WIDTH[size] : '100%';
+function useChartWidth(): number | '100%' {
+  return usePrinting() ? PRINT_WIDTH : '100%';
 }
 
 interface TipProps<T> {
@@ -36,7 +36,7 @@ const BAR_Y_WIDTH = 64;
 
 export function RevenueCostChart({ monthly }: { monthly: MonthlyRow[] }) {
   const c = useChartColors();
-  const width = useChartWidth('half');
+  const width = useChartWidth();
   const tip = ({ active, payload }: TipProps<MonthlyRow>) => {
     const m = active && payload?.[0]?.payload;
     if (!m) return null;
@@ -123,7 +123,7 @@ export function CumulativeChart({
   breakEvenMonth: number | null;
 }) {
   const c = useChartColors();
-  const width = useChartWidth('half');
+  const width = useChartWidth();
   const beRow = breakEvenMonth ? monthly.find((m) => m.month === breakEvenMonth) : undefined;
   const tip = ({ active, payload }: TipProps<MonthlyRow>) => {
     const m = active && payload?.[0]?.payload;
@@ -272,7 +272,7 @@ function BreakEvenBadge({
 /** Người dùng theo ngày. Chọn một tháng: trục X là ngày 1 → 30 của tháng đó. */
 export function DailyUsersChart({ daily, months }: { daily: DailyRow[]; months: number }) {
   const c = useChartColors();
-  const width = useChartWidth('full');
+  const width = useChartWidth();
   const [month, setMonth] = useState<number | 'all'>(1);
   const selected = month === 'all' ? 'all' : Math.min(month, months);
   const data = selected === 'all' ? daily : daily.filter((d) => d.month === selected);
@@ -372,7 +372,7 @@ export function CompareCumulativeChart({
   series: { name: string; monthly: MonthlyRow[] }[];
 }) {
   const c = useChartColors();
-  const width = useChartWidth('full');
+  const width = useChartWidth();
   const colors = [c['--series-1'], c['--series-2'], c['--series-3'], c['--series-4']];
   const maxMonths = Math.max(...series.map((s) => s.monthly.length));
   const data = Array.from({ length: maxMonths }, (_, i) => {

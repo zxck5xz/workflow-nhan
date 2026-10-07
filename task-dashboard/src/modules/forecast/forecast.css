@@ -710,16 +710,7 @@
 }
 
 /* ---------- Charts ---------- */
-.augo .charts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
-  gap: 16px;
-}
-
 @media (max-width: 520px) {
-  .augo .charts {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .augo .field {
     grid-template-columns: 1fr 110px;
   }
@@ -728,7 +719,7 @@
 .augo .chart-box {
   height: 280px;
 }
-/* Biểu đồ có hàng số liệu bên dưới (CIR): biểu đồ co lại để thẻ vẫn cao bằng thẻ bên cạnh */
+/* Biểu đồ có hàng số liệu bên dưới (CIR): biểu đồ co lại để cả khối vẫn cao 280px */
 .augo .chart-box.has-strip {
   display: flex;
   flex-direction: column;
@@ -1071,10 +1062,6 @@
   .augo .pnl-print table.data td {
     padding: 2px 5px;
     font-size: 10px;
-  }
-  /* A4 dọc không đủ rộng cho 2 biểu đồ cạnh nhau: xếp mỗi biểu đồ một hàng */
-  .augo .charts {
-    grid-template-columns: 1fr;
   }
 }
 

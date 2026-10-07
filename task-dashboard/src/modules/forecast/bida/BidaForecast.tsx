@@ -288,10 +288,8 @@ export function BidaForecast({ game }: { game: BidaGame }) {
 
         {game === 'bida' ? <BidaNote r={result} /> : <NewGameNote />}
 
-        <div className="charts">
-          <RevenueCostChart monthly={monthlyRows} />
-          <CumulativeChart monthly={monthlyRows} breakEvenMonth={payback} />
-        </div>
+        <RevenueCostChart monthly={monthlyRows} />
+        <CumulativeChart monthly={monthlyRows} breakEvenMonth={payback} />
         <DailyUsersChart daily={dailyRows} months={T.months} />
 
         <section className="card">

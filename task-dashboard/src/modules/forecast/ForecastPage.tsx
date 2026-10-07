@@ -228,13 +228,11 @@ function AugoForecast() {
           <KpiGrid s={result.summary} inputs={inputs} />
           <NoteBanner s={result.summary} sameAsExcel={sameAsExcel} />
 
-          <div className="charts">
-            <RevenueCostChart monthly={result.monthly} />
-            <CumulativeChart
-              monthly={result.monthly}
-              breakEvenMonth={result.summary.breakEvenMonth}
-            />
-          </div>
+          <RevenueCostChart monthly={result.monthly} />
+          <CumulativeChart
+            monthly={result.monthly}
+            breakEvenMonth={result.summary.breakEvenMonth}
+          />
           <DailyUsersChart daily={result.daily} months={inputs.months} />
           <Tables result={result} />
           <Scenarios
