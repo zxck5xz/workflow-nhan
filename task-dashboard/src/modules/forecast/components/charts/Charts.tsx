@@ -5,6 +5,7 @@ import {
   CartesianGrid,
   Line,
   LineChart,
+  ReferenceDot,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -12,9 +13,11 @@ import {
   YAxis,
 } from 'recharts';
 import type { DailyRow, MonthlyRow } from '../../engine';
-import { fmtInt, fmtMoney } from '../../lib/format';
+import { fmtInt, fmtMoney, fmtPct } from '../../lib/format';
+import { cirOf } from '../../lib/pnl';
 import { PRINT_WIDTH, usePrinting } from '../../lib/print';
-import { axisProps, useChartColors } from './colors';
+import { CirRow } from './CirRow';
+import { axisProps, useChartColors, type ChartColors } from './colors';
 import { Legend, TooltipBox } from './theme';
 
 function useChartWidth(size: 'full' | 'half'): number | '100%' {
@@ -26,12 +29,17 @@ interface TipProps<T> {
   payload?: readonly { payload?: T }[];
 }
 
+/** Lề và bề rộng trục Y của biểu đồ cột: hàng CIR bên dưới căn theo đúng vùng vẽ này */
+const BAR_MARGIN = { top: 10, right: 8, left: 4, bottom: 0 };
+const BAR_Y_WIDTH = 64;
+
 export function RevenueCostChart({ monthly }: { monthly: MonthlyRow[] }) {
   const c = useChartColors();
   const width = useChartWidth('half');
   const tip = ({ active, payload }: TipProps<MonthlyRow>) => {
     const m = active && payload?.[0]?.payload;
     if (!m) return null;
+    const cir = cirOf(m);
     return (
       <TooltipBox
         title={`Tháng ${m.month}`}
@@ -39,6 +47,7 @@ export function RevenueCostChart({ monthly }: { monthly: MonthlyRow[] }) {
           { label: 'Doanh thu', value: fmtMoney(m.revenue), color: c['--series-1'] },
           { label: 'Chi phí', value: fmtMoney(m.totalSpent), color: c['--series-2'] },
           { label: 'Lợi nhuận', value: fmtMoney(m.profit, { sign: true }) },
+          { label: 'CIR', value: cir === null ? '—' : fmtPct(cir) },
         ]}
       />
     );
@@ -48,7 +57,10 @@ export function RevenueCostChart({ monthly }: { monthly: MonthlyRow[] }) {
       <div className="card-head">
         <div>
           <h2>Doanh thu và chi phí theo tháng</h2>
-          <p>Chi phí T1 gồm LF, MG và toàn bộ chi phí trước OB</p>
+          <p>
+            Chi phí T1 gồm LF, MG và toàn bộ chi phí trước OB · CIR = chi phí / doanh thu, trên 100%
+            là tháng lỗ
+          </p>
         </div>
       </div>
       <Legend
@@ -57,44 +69,46 @@ export function RevenueCostChart({ monthly }: { monthly: MonthlyRow[] }) {
           { label: 'Chi phí', color: c['--series-2'] },
         ]}
       />
-      <div className="chart-box">
-        <ResponsiveContainer width={width} height="100%">
-          <BarChart
-            data={monthly}
-            barGap={2}
-            barCategoryGap="22%"
-            margin={{ top: 10, right: 8, left: 4, bottom: 0 }}
-          >
-            <CartesianGrid vertical={false} stroke={c['--grid']} />
-            <XAxis
-              dataKey="month"
-              interval="preserveStartEnd"
-              tickFormatter={(m) => `T${m}`}
-              {...axisProps(c)}
-            />
-            <YAxis
-              tickFormatter={(v) => fmtMoney(v)}
-              width={64}
-              axisLine={false}
-              {...axisProps(c)}
-            />
-            <Tooltip content={tip} cursor={{ fill: c['--grid'], opacity: 0.5 }} />
-            <Bar
-              dataKey="revenue"
-              name="Doanh thu"
-              fill={c['--series-1']}
-              radius={[4, 4, 0, 0]}
-              isAnimationActive={false}
-            />
-            <Bar
-              dataKey="totalSpent"
-              name="Chi phí"
-              fill={c['--series-2']}
-              radius={[4, 4, 0, 0]}
-              isAnimationActive={false}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+      <div className="chart-box has-strip">
+        <div className="chart-plot">
+          <ResponsiveContainer width={width} height="100%">
+            <BarChart data={monthly} barGap={2} barCategoryGap="22%" margin={BAR_MARGIN}>
+              <CartesianGrid vertical={false} stroke={c['--grid']} />
+              <XAxis
+                dataKey="month"
+                interval="preserveStartEnd"
+                tickFormatter={(m) => `T${m}`}
+                {...axisProps(c)}
+              />
+              <YAxis
+                tickFormatter={(v) => fmtMoney(v)}
+                width={BAR_Y_WIDTH}
+                axisLine={false}
+                {...axisProps(c)}
+              />
+              <Tooltip content={tip} cursor={{ fill: c['--grid'], opacity: 0.5 }} />
+              <Bar
+                dataKey="revenue"
+                name="Doanh thu"
+                fill={c['--series-1']}
+                radius={[4, 4, 0, 0]}
+                isAnimationActive={false}
+              />
+              <Bar
+                dataKey="totalSpent"
+                name="Chi phí"
+                fill={c['--series-2']}
+                radius={[4, 4, 0, 0]}
+                isAnimationActive={false}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <CirRow
+          monthly={monthly}
+          width={width}
+          inset={{ left: BAR_MARGIN.left + BAR_Y_WIDTH, right: BAR_MARGIN.right }}
+        />
       </div>
     </section>
   );
@@ -109,12 +123,13 @@ export function CumulativeChart({
 }) {
   const c = useChartColors();
   const width = useChartWidth('half');
+  const beRow = breakEvenMonth ? monthly.find((m) => m.month === breakEvenMonth) : undefined;
   const tip = ({ active, payload }: TipProps<MonthlyRow>) => {
     const m = active && payload?.[0]?.payload;
     if (!m) return null;
     return (
       <TooltipBox
-        title={`Tháng ${m.month}`}
+        title={m.month === breakEvenMonth ? `Tháng ${m.month} · hoàn vốn` : `Tháng ${m.month}`}
         rows={[
           { label: 'Lũy kế', value: fmtMoney(m.cumulative, { sign: true }) },
           { label: 'Lợi nhuận tháng', value: fmtMoney(m.profit, { sign: true }) },
@@ -141,8 +156,23 @@ export function CumulativeChart({
             <XAxis
               dataKey="month"
               interval="preserveStartEnd"
-              tickFormatter={(m) => `T${m}`}
               {...axisProps(c)}
+              tick={(p: { x: number; y: number; payload: { value: number } }) => {
+                const be = p.payload.value === breakEvenMonth;
+                return (
+                  <text
+                    x={p.x}
+                    y={p.y}
+                    dy="0.71em"
+                    textAnchor="middle"
+                    fontSize={be ? 12 : 11}
+                    fontWeight={be ? 700 : undefined}
+                    fill={be ? c['--good'] : c['--text-3']}
+                  >
+                    T{p.payload.value}
+                  </text>
+                );
+              }}
             />
             <YAxis
               tickFormatter={(v) => fmtMoney(v)}
@@ -155,13 +185,28 @@ export function CumulativeChart({
               <ReferenceLine
                 x={breakEvenMonth}
                 stroke={c['--good']}
-                strokeDasharray="4 4"
-                label={{
-                  value: `hoàn vốn T${breakEvenMonth}`,
-                  position: 'insideTopRight',
-                  fill: c['--good'],
-                  fontSize: 11,
-                }}
+                strokeWidth={2}
+                strokeDasharray="6 3"
+                label={(p: { viewBox?: { x?: number; y?: number } }) => (
+                  <BreakEvenBadge
+                    x={p.viewBox?.x ?? 0}
+                    y={p.viewBox?.y ?? 0}
+                    text={`Hoàn vốn T${breakEvenMonth}`}
+                    // Nửa sau trục: thẻ nằm bên trái vạch để không tràn mép phải
+                    side={breakEvenMonth > monthly.length / 2 ? 'left' : 'right'}
+                    c={c}
+                  />
+                )}
+              />
+            )}
+            {beRow && (
+              <ReferenceDot
+                x={beRow.month}
+                y={beRow.cumulative}
+                r={5}
+                fill={c['--good']}
+                stroke={c['--good-bg']}
+                strokeWidth={2}
               />
             )}
             <Tooltip content={tip} cursor={{ stroke: c['--text-3'], strokeDasharray: '3 3' }} />
@@ -177,6 +222,49 @@ export function CumulativeChart({
         </ResponsiveContainer>
       </div>
     </section>
+  );
+}
+
+/** Thẻ «Hoàn vốn Tn» ở đầu vạch hoàn vốn: nền xanh nhạt, viền và chữ xanh (đọc được ở cả 2 theme). */
+function BreakEvenBadge({
+  x,
+  y,
+  text,
+  side,
+  c,
+}: {
+  x: number;
+  y: number;
+  text: string;
+  side: 'left' | 'right';
+  c: ChartColors;
+}) {
+  const w = text.length * 6.6 + 16;
+  const h = 20;
+  const left = side === 'left' ? x - w - 6 : x + 6;
+  return (
+    <g>
+      <rect
+        x={left}
+        y={y + 2}
+        width={w}
+        height={h}
+        rx={h / 2}
+        fill={c['--good-bg']}
+        stroke={c['--good']}
+      />
+      <text
+        x={left + w / 2}
+        y={y + 2 + h / 2}
+        dy="0.35em"
+        textAnchor="middle"
+        fontSize={11.5}
+        fontWeight={700}
+        fill={c['--good']}
+      >
+        {text}
+      </text>
+    </g>
   );
 }
 

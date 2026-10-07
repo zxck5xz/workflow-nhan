@@ -7,6 +7,7 @@ const VARS = [
   '--series-4',
   '--series-7',
   '--good',
+  '--good-bg',
   '--bad',
   '--grid',
   '--text-2',

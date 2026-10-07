@@ -725,6 +725,71 @@
 .augo .chart-box {
   height: 280px;
 }
+/* Biểu đồ có hàng số liệu bên dưới (CIR): biểu đồ co lại để thẻ vẫn cao bằng thẻ bên cạnh */
+.augo .chart-box.has-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.augo .chart-plot {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Hàng CIR dưới trục tháng: mỗi ô rộng bằng một tháng, chữ xoay dọc khi ô quá hẹp */
+.augo .cir-row {
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding-block: 4px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1;
+}
+.augo .cir-label {
+  flex: none;
+  box-sizing: border-box;
+  align-self: center;
+  padding-right: 8px;
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.augo .cir-cells {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+}
+.augo .cir-cell {
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.augo .cir-cell.bad {
+  color: var(--bad);
+  font-weight: 600;
+}
+@container (max-width: 22px) {
+  .augo .cir-cell span {
+    font-size: 10px;
+  }
+}
+@container (max-width: 17px) {
+  .augo .cir-cell span {
+    font-size: 9px;
+  }
+}
+@container (max-width: 14px) {
+  .augo .cir-cell span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}
 
 .augo .legend {
   display: flex;
