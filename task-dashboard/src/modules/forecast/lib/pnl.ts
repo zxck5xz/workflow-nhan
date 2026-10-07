@@ -13,6 +13,11 @@ export function cirOf(m: Pick<MonthlyRow, 'revenue' | 'totalSpent'>): number | n
   return m.revenue > 0 ? m.totalSpent / m.revenue : null;
 }
 
+/** Class màu chữ cho lũy kế: đỏ khi âm, xanh lá khi đã dương */
+export function cumClass(v: number): 'neg' | 'pos' | undefined {
+  return v < 0 ? 'neg' : v > 0 ? 'pos' : undefined;
+}
+
 /** Các dòng P&L chi tiết, theo thứ tự sheet Forecast. */
 export const PNL_LINES: Line<MonthlyRow>[] = [
   { key: 'nru', label: 'NRU', kind: 'int' },
