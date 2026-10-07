@@ -8,6 +8,11 @@ export interface Line<T> {
   kind?: 'money' | 'int';
 }
 
+/** CIR = chi phí / doanh thu của tháng; null khi tháng không có doanh thu */
+export function cirOf(m: Pick<MonthlyRow, 'revenue' | 'totalSpent'>): number | null {
+  return m.revenue > 0 ? m.totalSpent / m.revenue : null;
+}
+
 /** Các dòng P&L chi tiết, theo thứ tự sheet Forecast. */
 export const PNL_LINES: Line<MonthlyRow>[] = [
   { key: 'nru', label: 'NRU', kind: 'int' },
