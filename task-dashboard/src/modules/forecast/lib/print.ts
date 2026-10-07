@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react';
 
 /**
- * Chế độ in: biểu đồ vẽ với bề rộng cố định vừa khổ A4 ngang (ResponsiveContainer không tự đo lại khi in).
+ * Chế độ in: biểu đồ vẽ với bề rộng cố định vừa khổ A4 dọc (ResponsiveContainer không tự đo lại khi in).
  * Bật bằng nút "Xuất PDF" hoặc thêm ?print vào URL (dùng cho Chrome headless --print-to-pdf).
  */
 let printing = new URLSearchParams(window.location.search).has('print');
@@ -34,5 +34,8 @@ export function printPage(): void {
   );
 }
 
-/** Bề rộng biểu đồ khi in: A4 ngang ≈ 1030px trừ lề, nửa trang cho 2 biểu đồ cạnh nhau */
-export const PRINT_WIDTH = { full: 960, half: 450 };
+/**
+ * Bề rộng biểu đồ khi in: A4 dọc ≈ 794px trừ lề 12mm hai bên và padding card ≈ 665px.
+ * Khi in các biểu đồ xếp mỗi cái một hàng nên cả 2 cỡ đều chiếm hết bề ngang.
+ */
+export const PRINT_WIDTH = { full: 660, half: 660 };

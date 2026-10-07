@@ -4,6 +4,7 @@ import { Advanced, NumberInput, Section, type Tone } from '../components/fields'
 import { Kpi } from '../components/Summary';
 import type { DailyRow, MonthlyRow } from '../engine';
 import { fmtInt, fmtMoney, fmtPct, fmtVnd } from '../lib/format';
+import { cumClass } from '../lib/pnl';
 import { computeBida, type BidaInputs, type BidaResult } from './engine';
 import { BIDA_DEFAULTS, BIDA_FILE_REFERENCE, NEW_GAME_DEFAULTS } from './presets';
 import { SCHEMA, type FieldDef } from './schema';
@@ -337,7 +338,7 @@ export function BidaForecast({ game }: { game: BidaGame }) {
                     <td>{fmtMoney(x.revenue)}</td>
                     <td>{fmtMoney(x.cost)}</td>
                     <td className={x.profit < 0 ? 'neg' : undefined}>{fmtMoney(x.profit)}</td>
-                    <td className={x.cum < 0 ? 'neg' : undefined}>{fmtMoney(x.cum)}</td>
+                    <td className={cumClass(x.cum)}>{fmtMoney(x.cum)}</td>
                   </tr>
                 ))}
               </tbody>

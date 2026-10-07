@@ -37,7 +37,8 @@
   -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Theme tối chỉ áp dụng trên màn hình: khi in / xuất PDF luôn dùng bảng màu sáng ở trên */
+@media screen and (prefers-color-scheme: dark) {
   .augo:not([data-theme='light']) {
     color-scheme: dark;
     --bg: #1c1f26;
@@ -64,29 +65,31 @@
   }
 }
 
-.augo[data-theme='dark'] {
-  color-scheme: dark;
-  --bg: #1c1f26;
-  --surface: #262a33;
-  --surface-2: #30353f;
-  --border: #4a505d;
-  --text: #ffffff;
-  --text-2: #dde0e6;
-  --text-3: #b0b5bf;
-  --accent: #5aa2ff;
-  --accent-ink: #0b1220;
-  --series-1: #5aa2ff;
-  --series-2: #ff8a5c;
-  --series-3: #3dd69c;
-  --series-4: #fbbf24;
-  --series-7: #ab9fff;
-  --good: #6ee06e;
-  --good-bg: #22402a;
-  --bad: #ff8a8a;
-  --bad-bg: #4a272b;
-  --warn-bg: #3a3220;
-  --warn-border: #7a6427;
-  --grid: #3a3f4a;
+@media screen {
+  .augo[data-theme='dark'] {
+    color-scheme: dark;
+    --bg: #1c1f26;
+    --surface: #262a33;
+    --surface-2: #30353f;
+    --border: #4a505d;
+    --text: #ffffff;
+    --text-2: #dde0e6;
+    --text-3: #b0b5bf;
+    --accent: #5aa2ff;
+    --accent-ink: #0b1220;
+    --series-1: #5aa2ff;
+    --series-2: #ff8a5c;
+    --series-3: #3dd69c;
+    --series-4: #fbbf24;
+    --series-7: #ab9fff;
+    --good: #6ee06e;
+    --good-bg: #22402a;
+    --bad: #ff8a8a;
+    --bad-bg: #4a272b;
+    --warn-bg: #3a3220;
+    --warn-border: #7a6427;
+    --grid: #3a3f4a;
+  }
 }
 
 .augo * {
@@ -910,7 +913,9 @@
   color: var(--bad);
 }
 
-.augo table.data tr.breakeven td {
+/* Tháng hoàn vốn: dòng (bảng theo tháng) hoặc cột (P&L chi tiết) */
+.augo table.data tr.breakeven td,
+.augo table.data .be-col {
   background: var(--good-bg);
 }
 
@@ -927,6 +932,11 @@
 
 .augo table.data td.neg {
   color: var(--bad);
+}
+
+/* Lũy kế đã dương: chữ xanh, thắng cả màu đỏ của dòng tháng lỗ (tr.neg-row) */
+.augo table.data tbody tr td.pos {
+  color: var(--good);
 }
 
 /* ---------- Scenarios ---------- */
@@ -981,7 +991,7 @@
 
 /* ---------- In / PDF: không header, không footer (theo AGENTS.md) ---------- */
 @page {
-  size: A4 landscape;
+  size: A4 portrait;
   margin: 0;
 }
 
@@ -1033,8 +1043,38 @@
   .augo table.data tr.total td {
     position: static;
   }
+  /* Trình duyệt mặc định bỏ màu nền khi in: giữ nền xanh của tháng hoàn vốn */
+  .augo table.data tr.breakeven td,
+  .augo table.data tr.payback-row td,
+  .augo table.data .be-col {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Chữ bảng nhỏ lại cho vừa bề ngang A4 dọc (bảng theo tháng của Bida có 10 cột) */
+  .augo table.data th,
+  .augo table.data td {
+    padding: 4px 6px;
+    font-size: 11px;
+  }
+  /* P&L chi tiết khi in: mỗi khối 8 tháng, chữ nhỏ hơn cho vừa A4 dọc */
+  .augo .pnl-print {
+    break-inside: avoid;
+  }
+  .augo .pnl-print + .pnl-print {
+    margin-top: 10px;
+  }
+  .augo .pnl-print table.data {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  .augo .pnl-print table.data th,
+  .augo .pnl-print table.data td {
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+  /* A4 dọc không đủ rộng cho 2 biểu đồ cạnh nhau: xếp mỗi biểu đồ một hàng */
   .augo .charts {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 

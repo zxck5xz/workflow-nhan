@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import type { Result } from '../engine';
+import type { MonthlyRow, Result } from '../engine';
 import { fmtInt, fmtMoney } from '../lib/format';
-import { DAILY_LINES, PNL_LINES } from '../lib/pnl';
+import { cumClass, DAILY_LINES, PNL_LINES } from '../lib/pnl';
 
 type Tab = 'month' | 'pnl' | 'day';
 
@@ -66,7 +66,7 @@ function MonthTable({ result }: { result: Result }) {
               <td>{fmtMoney(m.revenue)}</td>
               <td>{fmtMoney(m.totalSpent)}</td>
               <td className={m.profit < 0 ? 'neg' : undefined}>{fmtMoney(m.profit)}</td>
-              <td className={m.cumulative < 0 ? 'neg' : undefined}>{fmtMoney(m.cumulative)}</td>
+              <td className={cumClass(m.cumulative)}>{fmtMoney(m.cumulative)}</td>
             </tr>
           ))}
           <tr className="total">
@@ -77,56 +77,99 @@ function MonthTable({ result }: { result: Result }) {
             <td>{fmtMoney(sumOf('revenue'))}</td>
             <td>{fmtMoney(sumOf('totalSpent'))}</td>
             <td className={sumOf('profit') < 0 ? 'neg' : undefined}>{fmtMoney(sumOf('profit'))}</td>
-            <td>{fmtMoney(monthly[monthly.length - 1]?.cumulative ?? 0)}</td>
+            <td className={cumClass(monthly[monthly.length - 1]?.cumulative ?? 0)}>
+              {fmtMoney(monthly[monthly.length - 1]?.cumulative ?? 0)}
+            </td>
           </tr>
         </tbody>
       </table>
       <p className="print-only" style={{ fontSize: 11 }}>
-        Đỏ: tháng lỗ khi chưa hoàn vốn · xanh: tháng hoàn vốn.
+        Đỏ: tháng lỗ khi chưa hoàn vốn · nền xanh: tháng hoàn vốn · chữ xanh: lũy kế đã dương.
       </p>
     </div>
   );
 }
 
+/** Số tháng mỗi khối khi in: A4 dọc không đủ rộng cho cả bảng P&L nên chia cột tháng thành nhiều bảng */
+const PNL_PRINT_MONTHS = 8;
+
 function PnlTable({ result }: { result: Result }) {
   const { monthly } = result;
+  const chunks: MonthlyRow[][] = [];
+  for (let i = 0; i < monthly.length; i += PNL_PRINT_MONTHS) {
+    chunks.push(monthly.slice(i, i + PNL_PRINT_MONTHS));
+  }
   return (
-    <div className="table-wrap">
-      <table className="data">
-        <thead>
-          <tr>
-            <th>Chỉ tiêu</th>
-            <th>TOTAL</th>
-            {monthly.map((m) => (
-              <th key={m.month}>T{m.month}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {PNL_LINES.map((line) => {
-            const values = monthly.map((m) => m[line.key] as number);
-            const total =
-              line.key === 'cumulative'
-                ? values[values.length - 1]
-                : line.key === 'dauAvg'
-                  ? values.reduce((s, v) => s + v, 0) / values.length
-                  : values.reduce((s, v) => s + v, 0);
-            const fmt = line.kind === 'int' ? fmtInt : (v: number) => fmtMoney(v);
-            return (
-              <tr key={String(line.key)} className={line.strong ? 'strong' : undefined}>
-                <td>{line.label}</td>
-                <td className={total < 0 ? 'neg' : undefined}>{fmt(total)}</td>
-                {values.map((v, i) => (
-                  <td key={i} className={v < 0 ? 'neg' : undefined}>
+    <>
+      <div className="table-wrap no-print">
+        <PnlGrid result={result} months={monthly} withTotal />
+      </div>
+      <div className="print-only">
+        {chunks.map((months, i) => (
+          <div key={months[0].month} className="table-wrap pnl-print">
+            <PnlGrid result={result} months={months} withTotal={i === 0} />
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** Bảng P&L với các cột tháng `months`; cột TOTAL luôn tính trên toàn bộ các tháng. */
+function PnlGrid({
+  result,
+  months,
+  withTotal,
+}: {
+  result: Result;
+  months: MonthlyRow[];
+  withTotal: boolean;
+}) {
+  const { monthly, summary } = result;
+  const be = summary.breakEvenMonth;
+  return (
+    <table className="data">
+      <thead>
+        <tr>
+          <th>Chỉ tiêu</th>
+          {withTotal && <th>TOTAL</th>}
+          {months.map((m) => (
+            <th key={m.month} className={m.month === be ? 'be-col' : undefined}>
+              T{m.month}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {PNL_LINES.map((line) => {
+          const all = monthly.map((m) => m[line.key] as number);
+          const total =
+            line.key === 'cumulative'
+              ? all[all.length - 1]
+              : line.key === 'dauAvg'
+                ? all.reduce((s, v) => s + v, 0) / all.length
+                : all.reduce((s, v) => s + v, 0);
+          const fmt = line.kind === 'int' ? fmtInt : (v: number) => fmtMoney(v);
+          const tone = (v: number) =>
+            line.key === 'cumulative' ? cumClass(v) : v < 0 ? 'neg' : undefined;
+          return (
+            <tr key={String(line.key)} className={line.strong ? 'strong' : undefined}>
+              <td>{line.label}</td>
+              {withTotal && <td className={tone(total)}>{fmt(total)}</td>}
+              {months.map((m) => {
+                const v = m[line.key] as number;
+                const cls = [m.month === be && 'be-col', tone(v)].filter(Boolean);
+                return (
+                  <td key={m.month} className={cls.join(' ') || undefined}>
                     {fmt(v)}
                   </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 }
 
