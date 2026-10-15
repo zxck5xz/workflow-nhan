@@ -288,8 +288,11 @@ export function normalizeRows(
     const hasSchedule = [rawStart, rawEnd, rawCompletion].some((v) => cellText(v) !== '');
 
     if (!name) continue;
-    // Group rows (PREPARATION, Phase 1…) have a name but no team, dates or numeric ID
-    if (!team && !hasSchedule && !/^\d+(\.\d+)*$/.test(code)) {
+    // Group rows: "I. PREPARATION", "V Marketing" (Roman/letter ID, no team) — they
+    // often carry the group's date range and progress, so dates don't rule them out.
+    // Rows with no team, dates or numeric ID are group rows too ("Phase 1").
+    const isSectionCode = /^([IVXLCDM]+|[A-Z])\.?$/i.test(code);
+    if (!team && (isSectionCode || (!hasSchedule && !/^\d+(\.\d+)*$/.test(code)))) {
       phase = name;
       phases.push(name);
       continue;

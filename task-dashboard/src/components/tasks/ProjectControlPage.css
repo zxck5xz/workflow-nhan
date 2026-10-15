@@ -484,3 +484,30 @@
 .pc-header__range {
   white-space: nowrap;
 }
+
+/* ── Completed tasks: green in list, timeline and board ── */
+.task-row--done td,
+.tl-row--completed td {
+  background-color: var(--color-success-muted);
+}
+
+/* sticky cells need an opaque base under the tint */
+.tl-list .tl-row--completed .tl-col-sticky {
+  background:
+    linear-gradient(var(--color-success-muted), var(--color-success-muted)), var(--color-bg-primary);
+}
+
+.tl-row--completed .tl-col-id {
+  box-shadow: inset 3px 0 0 var(--color-success);
+}
+
+.task-row--done .pc-task-title,
+.tl-row--completed .pc-task-title,
+.board-card--done .board-card__title {
+  color: var(--color-success);
+}
+
+.board-card--done {
+  background: var(--color-success-muted);
+  border-color: var(--color-success);
+}

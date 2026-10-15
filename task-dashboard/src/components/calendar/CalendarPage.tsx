@@ -3,6 +3,7 @@ import { useApp } from '../../contexts/AppContext';
 import { Button, TaskFormModal } from '../common';
 import PageHelp from '../common/PageHelp';
 import { formatDate, getMonthCalendarDays, isSameDay, toDateKey } from '../../utils';
+import { isTaskCompleted } from '../../utils/deadline';
 import type { Task } from '../../types';
 import './CalendarPage.css';
 
@@ -54,7 +55,7 @@ export function CalendarPage() {
     map.forEach((list) =>
       list.sort(
         (a, b) =>
-          Number(a.status === 'done') - Number(b.status === 'done') ||
+          Number(isTaskCompleted(a)) - Number(isTaskCompleted(b)) ||
           PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
       ),
     );
@@ -102,7 +103,7 @@ export function CalendarPage() {
   const renderTask = (task: Task, inPopover = false) => (
     <div
       key={task.id}
-      className={`calendar-task priority-${task.priority.toLowerCase()} ${task.status === 'done' ? 'calendar-task--done' : ''}`}
+      className={`calendar-task priority-${task.priority.toLowerCase()} ${isTaskCompleted(task) ? 'calendar-task--done' : ''}`}
       draggable
       title={task.title}
       onDragStart={(e) => {
@@ -123,7 +124,7 @@ export function CalendarPage() {
       }}
     >
       <span className="calendar-task__title">
-        {task.status === 'done' && '✓ '}
+        {isTaskCompleted(task) && '✓ '}
         {task.title}
       </span>
     </div>
@@ -233,7 +234,7 @@ export function CalendarPage() {
           const isCurrentMonth = day.getMonth() === month;
           const isToday = isSameDay(day, new Date());
           const dayTasks = tasksByDate.get(dateStr) || [];
-          const openCount = dayTasks.filter((t) => t.status !== 'done').length;
+          const openCount = dayTasks.filter((t) => !isTaskCompleted(t)).length;
           const load = loadLevel(openCount);
           const overflow = dayTasks.length > MAX_VISIBLE_TASKS;
           const visibleTasks = overflow ? dayTasks.slice(0, MAX_VISIBLE_TASKS - 1) : dayTasks;
