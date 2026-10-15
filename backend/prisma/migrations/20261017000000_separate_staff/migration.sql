@@ -29,8 +29,9 @@ ALTER TABLE "Task" ADD CONSTRAINT "Task_assigneeId_fkey" FOREIGN KEY ("assigneeI
 
 -- Departments belong to staff, not accounts
 ALTER TABLE "Staff" ADD CONSTRAINT "Staff_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Department"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+-- Member."departmentId" is no longer used but stays until the previous Worker
+-- (which still selects it) is gone; drop it in a later migration.
 ALTER TABLE "Member" DROP CONSTRAINT IF EXISTS "Member_departmentId_fkey";
-ALTER TABLE "Member" DROP COLUMN IF EXISTS "departmentId";
 
 -- CreateIndex
 CREATE INDEX "Staff_departmentId_idx" ON "Staff"("departmentId");

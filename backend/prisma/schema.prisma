@@ -67,6 +67,7 @@ model Member {
   initials   String
   joinedAt   DateTime
   password   String   // hashed password
+  departmentId String? // unused since staff moved to Staff; drop in a later migration
 
   scorecards GameScorecard[]
   insights   WeeklyInsight[]
