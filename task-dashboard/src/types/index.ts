@@ -16,6 +16,28 @@ export interface Project {
   status: 'active' | 'archived';
   color: string;
   createdAt: string;
+  /** Có khi dự án được tạo từ file timeline Excel. */
+  timeline?: ProjectTimeline;
+}
+
+export interface ProjectTimeline {
+  sourceFile: string;
+  sheetName: string;
+  importedAt: string;
+  startDate: string; // ISO date (YYYY-MM-DD)
+  endDate: string; // ISO date
+}
+
+/** Thông tin lịch của task import từ timeline; `Task.deadline` giữ ngày kết thúc. */
+export interface TaskTimeline {
+  code: string; // TT/ID gốc trong Excel
+  team: string; // Đảm nhiệm — 'Unassigned' nếu thiếu
+  phase?: string; // dòng nhóm phía trên (VD: PREPARATION)
+  startAfter?: string; // cột "Bắt đầu sau"
+  startDate: string; // ISO date
+  completionDate: string; // ngày hoàn thành dự kiến (ISO date)
+  duration: number; // số ngày, tính cả ngày đầu và cuối
+  progress: number; // 0–100
 }
 
 export interface Member {
@@ -49,6 +71,7 @@ export interface Task {
   eisenhower: EisenhowerClassification;
   tags: string[];
   result?: string;
+  timeline?: TaskTimeline;
 }
 
 export interface GameScorecard {

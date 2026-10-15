@@ -46,6 +46,12 @@ const TaskFormFields = forwardRef<TaskFormFieldsHandle, TaskFormFieldsProps>(
     const [manualEisenhower, setManualEisenhower] = useState(!task?.eisenhower?.autoClassified);
     const [urgent, setUrgent] = useState(task?.eisenhower?.urgent || false);
     const [important, setImportant] = useState(task?.eisenhower?.important || false);
+    // Timeline fields, only for tasks imported from a timeline file
+    const timeline = task?.timeline;
+    const [team, setTeam] = useState(timeline?.team || '');
+    const [startDate, setStartDate] = useState(timeline?.startDate || '');
+    const [completionDate, setCompletionDate] = useState(timeline?.completionDate || '');
+    const [progress, setProgress] = useState(timeline?.progress ?? 0);
 
     const autoEisenhower = classifyEisenhower(priority, deadline);
 
@@ -55,18 +61,45 @@ const TaskFormFields = forwardRef<TaskFormFieldsHandle, TaskFormFieldsProps>(
         ? { urgent, important, autoClassified: false }
         : autoEisenhower;
 
+      // Keep progress and status consistent: 100% ⇔ done
+      let finalStatus = status;
+      let finalProgress = progress;
+      if (timeline) {
+        if (progress >= 100) finalStatus = 'done';
+        else if (status === 'done' && task?.status !== 'done') finalProgress = 100;
+        else if (status === 'done') finalStatus = progress > 0 ? 'in-testing' : 'backlog';
+      }
+      const start = startDate || timeline?.startDate || deadline;
+      const completion = completionDate || deadline;
+
       onSave({
+        ...task,
         id: task?.id || `task-${uuid().slice(0, 8)}`,
         title: title.trim(),
         description: description.trim(),
         projectId,
         assigneeId,
-        status,
+        status: finalStatus,
         priority,
         weight,
         deadline,
         createdAt: task?.createdAt || new Date().toISOString(),
-        completedAt: status === 'done' ? task?.completedAt || new Date().toISOString() : undefined,
+        completedAt:
+          finalStatus === 'done' ? task?.completedAt || new Date().toISOString() : undefined,
+        timeline: timeline && {
+          ...timeline,
+          team: team.trim() || timeline.team,
+          startDate: start,
+          completionDate: completion,
+          // Keep the duration from Excel unless the dates were edited
+          duration:
+            start === timeline.startDate && completion === timeline.completionDate
+              ? timeline.duration
+              : Math.round(
+                  (new Date(completion).getTime() - new Date(start).getTime()) / 86_400_000,
+                ) + 1,
+          progress: finalProgress,
+        },
         eisenhower,
         tags: tags
           .split(',')
@@ -157,9 +190,55 @@ const TaskFormFields = forwardRef<TaskFormFieldsHandle, TaskFormFieldsProps>(
             </select>
           </div>
         </div>
+        {timeline && (
+          <>
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Team phụ trách</label>
+                <input
+                  className="form-input"
+                  value={team}
+                  onChange={(e) => setTeam(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Tiến độ: {progress}%</label>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={5}
+                  value={progress}
+                  onChange={(e) => setProgress(Number(e.target.value))}
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Bắt đầu</label>
+                <input
+                  className="form-input"
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Hoàn thành dự kiến</label>
+                <input
+                  className="form-input"
+                  type="date"
+                  value={completionDate}
+                  onChange={(e) => setCompletionDate(e.target.value)}
+                />
+              </div>
+            </div>
+          </>
+        )}
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Deadline</label>
+            <label className="form-label">{timeline ? 'Kết thúc / Deadline' : 'Deadline'}</label>
             <input
               className="form-input"
               type="date"
