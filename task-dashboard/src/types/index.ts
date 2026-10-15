@@ -48,6 +48,15 @@ export interface Member {
   avatarColor: string;
   initials: string;
   joinedAt: string;
+  departmentId?: string;
+}
+
+/** Bộ phận (team) set up in Cấu hình; matched to Task.timeline.team by name. */
+export interface Department {
+  id: string;
+  name: string;
+  color: string;
+  order: number;
 }
 
 export interface EisenhowerClassification {
@@ -124,6 +133,7 @@ export interface AppData {
   priorities: PriorityConfig[];
   scorecards: GameScorecard[];
   insights: WeeklyInsight[];
+  departments?: Department[]; // missing in data saved before departments existed
   lastUpdated: string;
 }
 

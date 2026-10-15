@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Button, Modal } from '../common';
 import { getStartOfWeek } from '../../utils';
 
-import type { GameScorecard, Member, Project, WeeklyInsight } from '../../types';
+import type { GameScorecard, Project, WeeklyInsight } from '../../types';
 
 import { v4 as uuid } from 'uuid';
 import { apiService } from '../../data/apiService';
@@ -11,7 +12,7 @@ import './InsightsPage.css';
 
 export function InsightsPage() {
   const { state, dispatch } = useApp();
-  const { scorecards, insights, projects, members } = state.data;
+  const { scorecards, insights, projects } = state.data;
 
   const [activeTab, setActiveTab] = useState<'scorecards' | 'summary' | 'ai-eval'>('scorecards');
   const [showScorecardModal, setShowScorecardModal] = useState(false);
@@ -83,7 +84,6 @@ export function InsightsPage() {
         isOpen={showScorecardModal}
         scorecard={editScorecard}
         projects={projects}
-        members={members}
         onClose={() => {
           setShowScorecardModal(false);
           setEditScorecard(null);
@@ -99,7 +99,6 @@ export function InsightsPage() {
       <InsightModal
         isOpen={showInsightModal}
         insight={editInsight}
-        members={members}
         onClose={() => {
           setShowInsightModal(false);
           setEditInsight(null);
@@ -293,25 +292,18 @@ interface ScorecardModalProps {
   isOpen: boolean;
   scorecard: GameScorecard | null;
   projects: Project[];
-  members: Member[];
   onClose: () => void;
   onSave: (sc: GameScorecard) => void;
 }
 
-function ScorecardModal({
-  isOpen,
-  scorecard,
-  projects,
-  members,
-  onClose,
-  onSave,
-}: ScorecardModalProps) {
+function ScorecardModal({ isOpen, scorecard, projects, onClose, onSave }: ScorecardModalProps) {
   const [projectId, setProjectId] = useState(scorecard?.projectId || projects[0]?.id || '');
   const [ratings, setRatings] = useState(
     scorecard?.ratings || { coreLoop: 3, monetization: 3, visualUx: 3, retention: 3, usp: 3 },
   );
   const [summary, setSummary] = useState(scorecard?.summary || '');
-  const authorId = scorecard?.authorId || members[0]?.id || '';
+  const { user } = useAuth();
+  const authorId = scorecard?.authorId || user?.id || '';
 
   const handleSubmit = () => {
     onSave({
@@ -388,12 +380,11 @@ function ScorecardModal({
 interface InsightModalProps {
   isOpen: boolean;
   insight: WeeklyInsight | null;
-  members: Member[];
   onClose: () => void;
   onSave: (ins: WeeklyInsight) => void;
 }
 
-function InsightModal({ isOpen, insight, members, onClose, onSave }: InsightModalProps) {
+function InsightModal({ isOpen, insight, onClose, onSave }: InsightModalProps) {
   const [title, setTitle] = useState(insight?.title || '');
   const [overallStatus, setOverallStatus] = useState<WeeklyInsight['overallStatus']>(
     insight?.overallStatus || 'stable',
@@ -401,7 +392,8 @@ function InsightModal({ isOpen, insight, members, onClose, onSave }: InsightModa
   const [highlights, setHighlights] = useState(insight?.highlights.join('\n') || '');
   const [risks, setRisks] = useState(insight?.risks.join('\n') || '');
   const [actionItems, setActionItems] = useState(insight?.actionItems.join('\n') || '');
-  const authorId = insight?.authorId || members[0]?.id || '';
+  const { user } = useAuth();
+  const authorId = insight?.authorId || user?.id || '';
 
   const handleSubmit = () => {
     onSave({

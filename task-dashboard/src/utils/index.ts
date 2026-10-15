@@ -64,6 +64,13 @@ export function formatRelativeDate(dateStr: string): string {
   return formatDate(dateStr);
 }
 
+// YYYY-MM-DD in local time (toISOString() is UTC and shifts the day back in UTC+7)
+export function toDateKey(date: Date): string {
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${date.getFullYear()}-${m}-${d}`;
+}
+
 export function getToday(): string {
   return new Date().toISOString().split('T')[0];
 }

@@ -39,6 +39,19 @@ export async function updateMemberRole(sql: NeonQuery, id: string, role: string)
   return rows[0] || null;
 }
 
+export async function deleteTask(sql: NeonQuery, id: string) {
+  await sql`DELETE FROM "Task" WHERE id = ${id}`;
+}
+
+// Tasks go with it (ON DELETE CASCADE)
+export async function deleteProject(sql: NeonQuery, id: string) {
+  await sql`DELETE FROM "Project" WHERE id = ${id}`;
+}
+
+export async function deleteStaff(sql: NeonQuery, id: string) {
+  await sql`DELETE FROM "Staff" WHERE id = ${id}`;
+}
+
 export async function deleteMember(sql: NeonQuery, id: string) {
   await sql`DELETE FROM "Member" WHERE id = ${id}`;
 }
@@ -46,17 +59,20 @@ export async function deleteMember(sql: NeonQuery, id: string) {
 // ===== AppData Queries =====
 
 export async function loadAllData(sql: NeonQuery) {
-  const [projects, members, tasks, statuses, priorities, scorecards, insights] = await Promise.all(
-    [
-      sql`SELECT * FROM "Project" ORDER BY "createdAt" ASC`,
-      sql`SELECT id, name, email, role, "avatarColor", initials, "joinedAt" FROM "Member" ORDER BY "joinedAt" ASC`,
-      sql`SELECT * FROM "Task" ORDER BY "createdAt" ASC`,
-      sql`SELECT * FROM "StatusConfig" ORDER BY "order" ASC`,
-      sql`SELECT * FROM "PriorityConfig" ORDER BY "defaultWeight" DESC`,
-      sql`SELECT * FROM "GameScorecard" ORDER BY "week" ASC`,
-      sql`SELECT * FROM "WeeklyInsight" ORDER BY "week" ASC`,
-    ].map((p) => p.then(asRows)),
-  );
+  const [projects, members, tasks, statuses, priorities, scorecards, insights, departments] =
+    await Promise.all(
+      [
+        sql`SELECT * FROM "Project" ORDER BY "createdAt" ASC`,
+        // `members` in AppData are staff (Nhân sự), not login accounts
+        sql`SELECT * FROM "Staff" ORDER BY "joinedAt" ASC`,
+        sql`SELECT * FROM "Task" ORDER BY "createdAt" ASC`,
+        sql`SELECT * FROM "StatusConfig" ORDER BY "order" ASC`,
+        sql`SELECT * FROM "PriorityConfig" ORDER BY "defaultWeight" DESC`,
+        sql`SELECT * FROM "GameScorecard" ORDER BY "week" ASC`,
+        sql`SELECT * FROM "WeeklyInsight" ORDER BY "week" ASC`,
+        sql`SELECT * FROM "Department" ORDER BY "order" ASC, name ASC`,
+      ].map((p) => p.then(asRows)),
+    );
 
   return {
     projects: projects.map((p: any) => ({
@@ -67,22 +83,24 @@ export async function loadAllData(sql: NeonQuery) {
       status: p.status,
       color: p.color,
       createdAt: p.createdAt?.toISOString?.() ?? null,
+      ...(p.timeline ? { timeline: p.timeline } : {}),
     })),
     members: members.map((m: any) => ({
       id: m.id,
       name: m.name,
-      email: m.email,
+      email: m.email ?? '',
       role: m.role,
       avatarColor: m.avatarColor,
       initials: m.initials,
       joinedAt: m.joinedAt?.toISOString?.() ?? null,
+      departmentId: m.departmentId ?? undefined,
     })),
     tasks: tasks.map((t: any) => ({
       id: t.id,
       title: t.title,
       description: t.description,
       projectId: t.projectId,
-      assigneeId: t.assigneeId,
+      assigneeId: t.assigneeId ?? '',
       status: t.status === 'in_testing' ? 'in-testing' : t.status,
       priority: t.priority,
       weight: t.weight,
@@ -95,6 +113,8 @@ export async function loadAllData(sql: NeonQuery) {
         autoClassified: t.eisenhowerAutoClassified,
       },
       tags: t.tags ?? null,
+      ...(t.result ? { result: t.result } : {}),
+      ...(t.timeline ? { timeline: t.timeline } : {}),
     })),
     statuses: statuses.map((s: any) => ({
       id: s.id === 'in_testing' ? 'in-testing' : s.id,
@@ -134,6 +154,12 @@ export async function loadAllData(sql: NeonQuery) {
       authorId: ins.authorId,
       createdAt: ins.createdAt?.toISOString?.() ?? null,
     })),
+    departments: departments.map((d: any) => ({
+      id: d.id,
+      name: d.name,
+      color: d.color,
+      order: d.order,
+    })),
     lastUpdated: new Date().toISOString(),
   };
 }
@@ -142,45 +168,50 @@ function toPrismaStatus(s: string) {
   return s === 'in-testing' ? 'in_testing' : s;
 }
 
-// `canEditMemberIdentity`: whether the caller may change role/email of existing
-// members. Those fields control login and permissions, so only ADMINs may
-// change them here; everyone else's edits to them are ignored.
-export async function saveAllData(
-  sql: NeonQuery,
-  data: any,
-  { canEditMemberIdentity }: { canEditMemberIdentity: boolean },
-) {
+export async function saveAllData(sql: NeonQuery, data: any) {
   const payload = { ...data, lastUpdated: new Date().toISOString() };
 
   // Each table maps an item to a (lazy) upsert query; all queries are sent
   // together in one Neon HTTP transaction below.
   const tables = [
     {
-      name: 'Project',
-      items: payload.projects ?? [],
-      query: (p: any) => {
+      name: 'Department',
+      items: Array.isArray(payload.departments) ? payload.departments : [],
+      query: (d: any) => {
         return sql`
-        INSERT INTO "Project" (id, name, platform, genre, status, color, "createdAt")
-        VALUES (${p.id}, ${p.name}, ${p.platform}, ${p.genre}, ${p.status}, ${p.color}, ${p.createdAt ? new Date(p.createdAt) : new Date()})
-        ON CONFLICT (id) DO UPDATE SET
-          name = EXCLUDED.name, platform = EXCLUDED.platform, genre = EXCLUDED.genre,
-          status = EXCLUDED.status, color = EXCLUDED.color
+        INSERT INTO "Department" (id, name, color, "order")
+        VALUES (${d.id}, ${d.name}, ${d.color}, ${d.order ?? 0})
+        ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, color = EXCLUDED.color, "order" = EXCLUDED."order"
       `;
       },
     },
     {
-      name: 'Member',
+      name: 'Project',
+      items: payload.projects ?? [],
+      query: (p: any) => {
+        return sql`
+        INSERT INTO "Project" (id, name, platform, genre, status, color, "createdAt", timeline)
+        VALUES (${p.id}, ${p.name}, ${p.platform}, ${p.genre}, ${p.status}, ${p.color}, ${p.createdAt ? new Date(p.createdAt) : new Date()},
+          ${p.timeline ? JSON.stringify(p.timeline) : null}::jsonb)
+        ON CONFLICT (id) DO UPDATE SET
+          name = EXCLUDED.name, platform = EXCLUDED.platform, genre = EXCLUDED.genre,
+          status = EXCLUDED.status, color = EXCLUDED.color, timeline = EXCLUDED.timeline
+      `;
+      },
+    },
+    {
+      // AppData.members are staff; login accounts are managed via /api/users
+      name: 'Staff',
       items: payload.members ?? [],
       query: (m: any) => {
-        const email = m.email || `${m.id}@example.com`;
         return sql`
-        INSERT INTO "Member" (id, name, email, role, "avatarColor", initials, "joinedAt", password)
-        VALUES (${m.id}, ${m.name}, ${email}, ${m.role}, ${m.avatarColor}, ${m.initials}, ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, 'default-sync-password')
+        INSERT INTO "Staff" (id, name, email, role, "avatarColor", initials, "joinedAt", "departmentId")
+        VALUES (${m.id}, ${m.name}, ${m.email || null}, ${m.role}, ${m.avatarColor}, ${m.initials},
+          ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, ${m.departmentId || null})
         ON CONFLICT (id) DO UPDATE SET
-          name = EXCLUDED.name,
-          email = CASE WHEN ${canEditMemberIdentity}::boolean THEN EXCLUDED.email ELSE "Member".email END,
-          role = CASE WHEN ${canEditMemberIdentity}::boolean THEN EXCLUDED.role ELSE "Member".role END,
-          "avatarColor" = EXCLUDED."avatarColor", initials = EXCLUDED.initials
+          name = EXCLUDED.name, email = EXCLUDED.email, role = EXCLUDED.role,
+          "avatarColor" = EXCLUDED."avatarColor", initials = EXCLUDED.initials,
+          "departmentId" = EXCLUDED."departmentId"
       `;
       },
     },
@@ -214,17 +245,19 @@ export async function saveAllData(
         const status = toPrismaStatus(t.status);
         return sql`
         INSERT INTO "Task" (id, title, description, "projectId", "assigneeId", status, priority, weight, deadline, "createdAt", "completedAt",
-          "eisenhowerUrgent", "eisenhowerImportant", "eisenhowerAutoClassified", tags, result)
-        VALUES (${t.id}, ${t.title}, ${t.description}, ${t.projectId}, ${t.assigneeId}, ${status}, ${t.priority}, ${t.weight},
+          "eisenhowerUrgent", "eisenhowerImportant", "eisenhowerAutoClassified", tags, result, timeline)
+        VALUES (${t.id}, ${t.title}, ${t.description}, ${t.projectId}, ${t.assigneeId || null}, ${status}, ${t.priority}, ${t.weight},
           ${t.deadline ? new Date(t.deadline) : null}, ${t.createdAt ? new Date(t.createdAt) : new Date()}, ${t.completedAt ? new Date(t.completedAt) : null},
           ${t.eisenhower?.urgent ?? false}, ${t.eisenhower?.important ?? false}, ${t.eisenhower?.autoClassified ?? false},
-          ${t.tags ? JSON.stringify(t.tags) : null}, ${t.result ?? null})
+          ${t.tags ? JSON.stringify(t.tags) : null}, ${t.result ?? null},
+          ${t.timeline ? JSON.stringify(t.timeline) : null}::jsonb)
         ON CONFLICT (id) DO UPDATE SET
           title = EXCLUDED.title, description = EXCLUDED.description, "projectId" = EXCLUDED."projectId",
           "assigneeId" = EXCLUDED."assigneeId", status = EXCLUDED.status, priority = EXCLUDED.priority,
           weight = EXCLUDED.weight, deadline = EXCLUDED.deadline, "completedAt" = EXCLUDED."completedAt",
           "eisenhowerUrgent" = EXCLUDED."eisenhowerUrgent", "eisenhowerImportant" = EXCLUDED."eisenhowerImportant",
-          "eisenhowerAutoClassified" = EXCLUDED."eisenhowerAutoClassified", tags = EXCLUDED.tags, result = EXCLUDED.result
+          "eisenhowerAutoClassified" = EXCLUDED."eisenhowerAutoClassified", tags = EXCLUDED.tags, result = EXCLUDED.result,
+          timeline = EXCLUDED.timeline
       `;
       },
     },
@@ -267,6 +300,12 @@ export async function saveAllData(
   // invocation), and all-or-nothing like the old Prisma $transaction: any
   // failing row rolls back the whole save and surfaces as a 500.
   const queries = tables.flatMap((table) => table.items.map((item: any) => table.query(item)));
+  // Departments are a small config list edited as a whole: drop the ones the
+  // client removed. Older clients don't send the field, so leave them alone.
+  if (Array.isArray(payload.departments)) {
+    const ids = payload.departments.map((d: any) => String(d.id));
+    queries.push(sql`DELETE FROM "Department" WHERE NOT (id = ANY(${ids}::text[]))`);
+  }
   if (queries.length > 0) {
     await sql.transaction(queries);
   }

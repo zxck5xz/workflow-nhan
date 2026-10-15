@@ -10,6 +10,14 @@ interface State {
   error: Error | null;
 }
 
+// React.lazy caches a rejected import, so re-rendering just rethrows it.
+// Chunk-load failures (stale deploy, dev re-optimize) need a full reload.
+function isChunkLoadError(error: Error | null): boolean {
+  return /dynamically imported module|Importing a module script failed|Loading chunk|error loading dynamically/i.test(
+    error?.message ?? '',
+  );
+}
+
 export class ErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false, error: null };
 
@@ -28,7 +36,12 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="error-boundary">
             <h2>Something went wrong</h2>
             <p>{this.state.error?.message}</p>
-            <button onClick={() => this.setState({ hasError: false, error: null })}>
+            <button
+              onClick={() => {
+                if (isChunkLoadError(this.state.error)) window.location.reload();
+                else this.setState({ hasError: false, error: null });
+              }}
+            >
               Try again
             </button>
           </div>

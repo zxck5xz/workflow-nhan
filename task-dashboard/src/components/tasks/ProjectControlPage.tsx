@@ -9,6 +9,7 @@ import {
   countAlerts,
   getAlertLevel,
   type AlertLevel,
+  isTaskCompleted,
 } from '../../utils/deadline';
 import { AlertBadge, AlertSummaryBar, ReminderBell } from './DeadlineAlerts';
 import { TimelineImportModal } from './TimelineImportModal';
@@ -385,7 +386,16 @@ function ListView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task) 
             const member = members.find((m) => m.id === task.assigneeId);
             const status = statuses.find((s) => s.id === task.status);
             return (
-              <tr key={task.id} className={isOverdue(task) ? 'task-row--overdue' : ''}>
+              <tr
+                key={task.id}
+                className={
+                  isTaskCompleted(task)
+                    ? 'task-row--done'
+                    : isOverdue(task)
+                      ? 'task-row--overdue'
+                      : ''
+                }
+              >
                 <td>
                   <span className="pc-task-title" onClick={() => onEditTask(task)}>
                     {task.title}
@@ -447,7 +457,11 @@ function BoardView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task)
               {columnTasks.map((task) => {
                 const member = members.find((m) => m.id === task.assigneeId);
                 return (
-                  <div key={task.id} className="board-card" onClick={() => onEditTask(task)}>
+                  <div
+                    key={task.id}
+                    className={`board-card ${isTaskCompleted(task) ? 'board-card--done' : ''}`}
+                    onClick={() => onEditTask(task)}
+                  >
                     <div className="board-card__title">{task.title}</div>
                     <div className="board-card__footer">
                       <Badge variant={task.priority.toLowerCase()}>{task.priority}</Badge>

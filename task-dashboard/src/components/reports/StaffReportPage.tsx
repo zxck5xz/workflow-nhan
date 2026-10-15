@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, type CSSProperties } from 'react';
 
 import { useApp } from '../../contexts/AppContext';
 import { Avatar, Badge } from '../common';
@@ -10,6 +10,10 @@ import './StaffReportPage.css';
 export function StaffReportPage() {
   const { state } = useApp();
   const { members, tasks, projects } = state.data;
+  const departmentById = useMemo(
+    () => new Map((state.data.departments ?? []).map((d) => [d.id, d])),
+    [state.data.departments],
+  );
 
   // Aggregate metrics per member
   const memberMetrics = useMemo(() => {
@@ -91,6 +95,18 @@ export function StaffReportPage() {
                 <div className="staff-info">
                   <h3 className="staff-name">{member.name}</h3>
                   <span className="staff-role">{member.role}</span>
+                  {departmentById.get(member.departmentId ?? '') && (
+                    <span
+                      className="dept-chip dept-chip--sm"
+                      style={
+                        {
+                          '--dept-color': departmentById.get(member.departmentId!)!.color,
+                        } as CSSProperties
+                      }
+                    >
+                      {departmentById.get(member.departmentId!)!.name}
+                    </span>
+                  )}
                 </div>
               </div>
 

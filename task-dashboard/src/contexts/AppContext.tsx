@@ -6,7 +6,7 @@ import {
   useEffect,
   type ReactNode,
 } from 'react';
-import type { AppData, PageId, Project, Task } from '../types';
+import type { AppData, Department, PageId, Project, Task } from '../types';
 import { dataService } from '../data/dataService';
 import { seedData } from '../data/seedData';
 import { useAuth } from './AuthContext';
@@ -35,6 +35,12 @@ function appReducer(state: AppState, action: AppAction): AppState {
     case 'SET_LOADING':
       return { ...state, loading: action.payload };
 
+    case 'SET_DEPARTMENTS': {
+      const newData = dataService.setDepartments(state.data, action.payload);
+      dataService.save(newData);
+      return { ...state, data: newData };
+    }
+
     case 'IMPORT_PROJECT': {
       const newData = dataService.importProjectWithTasks(state.data, action.payload);
       dataService.save(newData);
@@ -52,6 +58,13 @@ function appReducer(state: AppState, action: AppAction): AppState {
 
       const newData = fn(state.data, action.payload);
       dataService.save(newData);
+      // MEMBER = staff (Nhân sự); login accounts are managed separately
+      const remoteKind = { TASK: 'tasks', PROJECT: 'projects', MEMBER: 'staff' } as const;
+      if (verb === 'DELETE' && entity in remoteKind)
+        dataService.removeRemote(
+          remoteKind[entity as keyof typeof remoteKind],
+          String(action.payload),
+        );
       return { ...state, data: newData };
     }
   }
@@ -64,6 +77,7 @@ type AppAction =
   | { type: 'RESET_DATA' }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'IMPORT_PROJECT'; payload: { project: Project; tasks: Task[] } }
+  | { type: 'SET_DEPARTMENTS'; payload: Department[] }
   | { type: `ADD_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
   | { type: `UPDATE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
   | { type: `DELETE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }

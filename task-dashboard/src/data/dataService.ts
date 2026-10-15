@@ -2,7 +2,15 @@
 // Data Service — localStorage CRUD + JSON export/import + API sync
 // ============================================================
 
-import type { AppData, Project, Member, Task, GameScorecard, WeeklyInsight } from '../types';
+import type {
+  AppData,
+  Department,
+  Project,
+  Member,
+  Task,
+  GameScorecard,
+  WeeklyInsight,
+} from '../types';
 import { seedData } from './seedData';
 import { apiService } from './apiService';
 
@@ -52,6 +60,16 @@ export const dataService = {
       } catch {
         console.warn('Failed to sync data to backend');
       }
+    }
+  },
+
+  // `save()` only upserts on the server, so deletes are sent separately
+  async removeRemote(kind: 'tasks' | 'projects' | 'staff', id: string): Promise<void> {
+    if (!API_BASE || !loadedFromServer) return;
+    try {
+      await apiService.deleteEntity(kind, id);
+    } catch {
+      console.warn(`Failed to delete ${kind} ${id} on backend`);
     }
   },
 
@@ -154,6 +172,21 @@ export const dataService = {
     };
   },
 
+  // Departments are edited as a list; members of a department take its color
+  setDepartments(data: AppData, departments: Department[]): AppData {
+    const colorById = new Map(departments.map((d) => [d.id, d.color]));
+    return {
+      ...data,
+      departments,
+      members: data.members.map((m) => {
+        if (!m.departmentId) return m;
+        const color = colorById.get(m.departmentId);
+        if (!color) return { ...m, departmentId: undefined }; // department removed
+        return color === m.avatarColor ? m : { ...m, avatarColor: color };
+      }),
+    };
+  },
+
   addMember(data: AppData, member: Member): AppData {
     return { ...data, members: [...data.members, member] };
   },
@@ -162,8 +195,14 @@ export const dataService = {
     return { ...data, members: data.members.map((m) => (m.id === member.id ? member : m)) };
   },
 
+  // Unassign their tasks too, like the server's ON DELETE SET NULL; a task
+  // still pointing at the removed staff would fail the next full save
   deleteMember(data: AppData, memberId: string): AppData {
-    return { ...data, members: data.members.filter((m) => m.id !== memberId) };
+    return {
+      ...data,
+      members: data.members.filter((m) => m.id !== memberId),
+      tasks: data.tasks.map((t) => (t.assigneeId === memberId ? { ...t, assigneeId: '' } : t)),
+    };
   },
 
   addTask(data: AppData, task: Task): AppData {

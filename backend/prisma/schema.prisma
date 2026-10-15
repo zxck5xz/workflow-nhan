@@ -51,11 +51,13 @@ model Project {
   status    String   // 'active' | 'archived'
   color     String
   createdAt DateTime
+  timeline  Json?    // metadata of a project imported from an Excel timeline
 
   tasks     Task[]
   scorecards GameScorecard[]
 }
 
+// Login accounts (Tài khoản). Staff shown in the app live in Staff.
 model Member {
   id         String   @id
   name       String
@@ -65,8 +67,8 @@ model Member {
   initials   String
   joinedAt   DateTime
   password   String   // hashed password
+  departmentId String? // unused since staff moved to Staff; drop in a later migration
 
-  tasks      Task[]
   scorecards GameScorecard[]
   insights   WeeklyInsight[]
 }
@@ -79,7 +81,7 @@ model Task {
   description String
 
   projectId   String
-  assigneeId  String
+  assigneeId  String?    // Staff id; null for imported timeline tasks with no owner yet
 
   status      TaskStatus
   priority    Priority
@@ -96,15 +98,46 @@ model Task {
 
   tags        Json? // keep array as JSON
   result      String?
+  timeline    Json?      // code, team, phase, dates and progress from an Excel timeline
 
   project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  assignee    Member     @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+  assignee    Staff?     @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
 
   @@index([projectId])
   @@index([assigneeId])
   @@index([status])
   @@index([priority])
   @@index([deadline])
+}
+
+// ===== Departments (teams) =====
+// Name + color set up in Cấu hình; matched to Task.timeline.team by name.
+
+model Department {
+  id      String   @id
+  name    String
+  color   String
+  order   Int      @default(0)
+
+  staff   Staff[]
+}
+
+// ===== Staff (Nhân sự) =====
+// People tasks are assigned to. Separate from login accounts (Member): role
+// here is a free-text job title, not a permission.
+
+model Staff {
+  id           String   @id
+  name         String
+  email        String?
+  role         String
+  avatarColor  String
+  initials     String
+  joinedAt     DateTime
+  departmentId String?
+
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  tasks        Task[]
 }
 
 // ===== Status/priority configs =====

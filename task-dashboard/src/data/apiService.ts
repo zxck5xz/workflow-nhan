@@ -56,6 +56,10 @@ export const apiService = {
     });
   },
 
+  async deleteEntity(kind: 'tasks' | 'projects' | 'staff', id: string): Promise<void> {
+    await request(`/api/${kind}/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  },
+
   async saveSnapshot(data: AppData): Promise<void> {
     await request('/api/snapshot', {
       method: 'POST',

@@ -11,6 +11,14 @@ export interface Project {
   status: string;
   color: string;
   createdAt: string;
+  timeline?: unknown;
+}
+
+export interface Department {
+  id: string;
+  name: string;
+  color: string;
+  order: number;
 }
 
 export interface Member {
@@ -21,6 +29,7 @@ export interface Member {
   avatarColor: string;
   initials: string;
   joinedAt: string;
+  departmentId?: string;
 }
 
 // A Member row as read from DB (includes the password hash).
@@ -43,6 +52,7 @@ export interface Task {
   eisenhower: { urgent: boolean; important: boolean; autoClassified: boolean };
   tags: unknown;
   result?: string | null;
+  timeline?: unknown;
 }
 
 export interface StatusConfig {
@@ -95,6 +105,7 @@ export interface AppData {
   priorities: PriorityConfig[];
   scorecards: GameScorecard[];
   insights: WeeklyInsight[];
+  departments?: Department[];
   lastUpdated: string;
 }
 
@@ -113,4 +124,3 @@ export interface ResearchReport {
   authorId: string | null;
   createdAt: string;
 }
-

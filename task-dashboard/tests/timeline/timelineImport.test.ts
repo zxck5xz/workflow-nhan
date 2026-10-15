@@ -97,6 +97,31 @@ describe('timeline import — chuẩn hóa', () => {
     expect(res.tasks[0].phase).toBe('PREPARATION');
   });
 
+  it('dòng nhóm có mã La Mã vẫn là phase dù có ngày và tiến độ', () => {
+    const rows = [
+      SAMPLE[2],
+      ['I.', 'PREPARATION', null, 1, '22 ngày', serial('2026-10-01'), serial('2026-10-30'), 0],
+      [1, 'Gửi đề xuất', 'VLive Product', 1, 15, serial('2026-10-02'), serial('2026-10-22'), 0],
+      ['V', 'Marketing', null, 0, '60 ngày', serial('2026-10-01'), serial('2026-12-30'), 0],
+      [
+        null,
+        '2.1 Gửi bản demo',
+        'VLive MKT',
+        null,
+        1,
+        serial('2026-10-01'),
+        serial('2026-10-01'),
+        0,
+      ],
+    ];
+    const r = normalizeRows(rows, 0, autoMapHeaders(rows[0]));
+    expect(r.phases).toEqual(['PREPARATION', 'Marketing']);
+    expect(r.tasks.map((t) => [t.name, t.phase])).toEqual([
+      ['Gửi đề xuất', 'PREPARATION'],
+      ['2.1 Gửi bản demo', 'Marketing'],
+    ]);
+  });
+
   it('chuẩn hóa ngày, tiến độ, thời lượng', () => {
     const [t1, t2, t3] = res.tasks;
     expect(t1).toMatchObject({
