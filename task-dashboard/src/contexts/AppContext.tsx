@@ -58,8 +58,13 @@ function appReducer(state: AppState, action: AppAction): AppState {
 
       const newData = fn(state.data, action.payload);
       dataService.save(newData);
-      if (verb === 'DELETE' && (entity === 'TASK' || entity === 'PROJECT'))
-        dataService.removeRemote(entity === 'TASK' ? 'tasks' : 'projects', String(action.payload));
+      // MEMBER = staff (Nhân sự); login accounts are managed separately
+      const remoteKind = { TASK: 'tasks', PROJECT: 'projects', MEMBER: 'staff' } as const;
+      if (verb === 'DELETE' && entity in remoteKind)
+        dataService.removeRemote(
+          remoteKind[entity as keyof typeof remoteKind],
+          String(action.payload),
+        );
       return { ...state, data: newData };
     }
   }

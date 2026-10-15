@@ -8,7 +8,8 @@ const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string; ro
   { id: 'project-control', label: 'Dự án & Task', icon: '📊', section: 'Quản lý' },
   { id: 'calendar', label: 'Lịch', icon: '📅' },
   { id: 'setup', label: 'Cấu hình', icon: '⚙️', section: 'Hệ thống' },
-  { id: 'user-management', label: 'Tài khoản', icon: '👤', role: 'ADMIN' },
+  // Tài khoản (login accounts) temporarily hidden; page kept in App.tsx
+  // { id: 'user-management', label: 'Tài khoản', icon: '👤', role: 'ADMIN' },
   { id: 'reports', label: 'Báo cáo', icon: '📊', section: 'Phân tích' },
   { id: 'insights', label: 'Insights', icon: '💡' },
   { id: 'code-analysis', label: 'Code Analysis', icon: '🔍' },

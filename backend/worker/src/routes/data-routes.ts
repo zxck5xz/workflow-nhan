@@ -8,6 +8,7 @@ import {
   loadSnapshot,
   deleteTask,
   deleteProject,
+  deleteStaff,
 } from '../db';
 import { jsonResponse, errorResponse, wrapHandler } from '../middleware';
 
@@ -20,9 +21,7 @@ export const getAppDataHandler: RouteHandler = wrapHandler(async (request, env) 
 export const saveAppDataHandler: RouteHandler = wrapHandler(async (request, env, ctx) => {
   const payload = await request.json();
   const sql = getSql(env.DATABASE_URL);
-  const saved = await saveAllData(sql, payload, {
-    canEditMemberIdentity: ctx.user?.role === 'ADMIN',
-  });
+  const saved = await saveAllData(sql, payload);
   return jsonResponse({ success: true, data: saved });
 });
 
@@ -72,3 +71,4 @@ function deleteHandler(remove: typeof deleteTask): RouteHandler {
 
 export const deleteTaskHandler = deleteHandler(deleteTask);
 export const deleteProjectHandler = deleteHandler(deleteProject);
+export const deleteStaffHandler = deleteHandler(deleteStaff);

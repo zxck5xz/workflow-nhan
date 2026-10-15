@@ -56,7 +56,7 @@ export const apiService = {
     });
   },
 
-  async deleteEntity(kind: 'tasks' | 'projects', id: string): Promise<void> {
+  async deleteEntity(kind: 'tasks' | 'projects' | 'staff', id: string): Promise<void> {
     await request(`/api/${kind}/${encodeURIComponent(id)}`, { method: 'DELETE' });
   },
 

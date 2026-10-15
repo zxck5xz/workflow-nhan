@@ -51,3 +51,18 @@ describe('setDepartments', () => {
     ]);
   });
 });
+
+describe('deleteMember', () => {
+  it('xoá nhân sự thì gỡ khỏi các task được giao', () => {
+    const data = {
+      members: [{ id: 'a' }, { id: 'b' }],
+      tasks: [
+        { id: 't1', assigneeId: 'a' },
+        { id: 't2', assigneeId: 'b' },
+      ],
+    } as unknown as AppData;
+    const next = dataService.deleteMember(data, 'a');
+    expect(next.members.map((m) => m.id)).toEqual(['b']);
+    expect(next.tasks.map((t) => t.assigneeId)).toEqual(['', 'b']);
+  });
+});

@@ -64,7 +64,7 @@ export const dataService = {
   },
 
   // `save()` only upserts on the server, so deletes are sent separately
-  async removeRemote(kind: 'tasks' | 'projects', id: string): Promise<void> {
+  async removeRemote(kind: 'tasks' | 'projects' | 'staff', id: string): Promise<void> {
     if (!API_BASE || !loadedFromServer) return;
     try {
       await apiService.deleteEntity(kind, id);
@@ -195,8 +195,14 @@ export const dataService = {
     return { ...data, members: data.members.map((m) => (m.id === member.id ? member : m)) };
   },
 
+  // Unassign their tasks too, like the server's ON DELETE SET NULL; a task
+  // still pointing at the removed staff would fail the next full save
   deleteMember(data: AppData, memberId: string): AppData {
-    return { ...data, members: data.members.filter((m) => m.id !== memberId) };
+    return {
+      ...data,
+      members: data.members.filter((m) => m.id !== memberId),
+      tasks: data.tasks.map((t) => (t.assigneeId === memberId ? { ...t, assigneeId: '' } : t)),
+    };
   },
 
   addTask(data: AppData, task: Task): AppData {

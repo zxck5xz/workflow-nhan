@@ -48,6 +48,10 @@ export async function deleteProject(sql: NeonQuery, id: string) {
   await sql`DELETE FROM "Project" WHERE id = ${id}`;
 }
 
+export async function deleteStaff(sql: NeonQuery, id: string) {
+  await sql`DELETE FROM "Staff" WHERE id = ${id}`;
+}
+
 export async function deleteMember(sql: NeonQuery, id: string) {
   await sql`DELETE FROM "Member" WHERE id = ${id}`;
 }
@@ -59,7 +63,8 @@ export async function loadAllData(sql: NeonQuery) {
     await Promise.all(
       [
         sql`SELECT * FROM "Project" ORDER BY "createdAt" ASC`,
-        sql`SELECT id, name, email, role, "avatarColor", initials, "joinedAt", "departmentId" FROM "Member" ORDER BY "joinedAt" ASC`,
+        // `members` in AppData are staff (Nhân sự), not login accounts
+        sql`SELECT * FROM "Staff" ORDER BY "joinedAt" ASC`,
         sql`SELECT * FROM "Task" ORDER BY "createdAt" ASC`,
         sql`SELECT * FROM "StatusConfig" ORDER BY "order" ASC`,
         sql`SELECT * FROM "PriorityConfig" ORDER BY "defaultWeight" DESC`,
@@ -83,7 +88,7 @@ export async function loadAllData(sql: NeonQuery) {
     members: members.map((m: any) => ({
       id: m.id,
       name: m.name,
-      email: m.email,
+      email: m.email ?? '',
       role: m.role,
       avatarColor: m.avatarColor,
       initials: m.initials,
@@ -163,14 +168,7 @@ function toPrismaStatus(s: string) {
   return s === 'in-testing' ? 'in_testing' : s;
 }
 
-// `canEditMemberIdentity`: whether the caller may change role/email of existing
-// members. Those fields control login and permissions, so only ADMINs may
-// change them here; everyone else's edits to them are ignored.
-export async function saveAllData(
-  sql: NeonQuery,
-  data: any,
-  { canEditMemberIdentity }: { canEditMemberIdentity: boolean },
-) {
+export async function saveAllData(sql: NeonQuery, data: any) {
   const payload = { ...data, lastUpdated: new Date().toISOString() };
 
   // Each table maps an item to a (lazy) upsert query; all queries are sent
@@ -202,18 +200,16 @@ export async function saveAllData(
       },
     },
     {
-      name: 'Member',
+      // AppData.members are staff; login accounts are managed via /api/users
+      name: 'Staff',
       items: payload.members ?? [],
       query: (m: any) => {
-        const email = m.email || `${m.id}@example.com`;
         return sql`
-        INSERT INTO "Member" (id, name, email, role, "avatarColor", initials, "joinedAt", password, "departmentId")
-        VALUES (${m.id}, ${m.name}, ${email}, ${m.role}, ${m.avatarColor}, ${m.initials}, ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, 'default-sync-password',
-          ${m.departmentId || null})
+        INSERT INTO "Staff" (id, name, email, role, "avatarColor", initials, "joinedAt", "departmentId")
+        VALUES (${m.id}, ${m.name}, ${m.email || null}, ${m.role}, ${m.avatarColor}, ${m.initials},
+          ${m.joinedAt ? new Date(m.joinedAt) : new Date()}, ${m.departmentId || null})
         ON CONFLICT (id) DO UPDATE SET
-          name = EXCLUDED.name,
-          email = CASE WHEN ${canEditMemberIdentity}::boolean THEN EXCLUDED.email ELSE "Member".email END,
-          role = CASE WHEN ${canEditMemberIdentity}::boolean THEN EXCLUDED.role ELSE "Member".role END,
+          name = EXCLUDED.name, email = EXCLUDED.email, role = EXCLUDED.role,
           "avatarColor" = EXCLUDED."avatarColor", initials = EXCLUDED.initials,
           "departmentId" = EXCLUDED."departmentId"
       `;

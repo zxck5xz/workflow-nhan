@@ -14,6 +14,7 @@ import {
   getSnapshotHandler,
   deleteTaskHandler,
   deleteProjectHandler,
+  deleteStaffHandler,
 } from './routes/data-routes';
 // Research routes
 import {
@@ -53,6 +54,7 @@ function buildRoutes(): RouteEntry[] {
     ['POST', '/api/app-data', saveAppDataHandler],
     ['DELETE', '/api/tasks/:id', deleteTaskHandler],
     ['DELETE', '/api/projects/:id', deleteProjectHandler],
+    ['DELETE', '/api/staff/:id', deleteStaffHandler],
     ['POST', '/api/snapshot', createSnapshotHandler],
     ['GET', '/api/snapshots', listSnapshotsHandler],
     ['GET', '/api/snapshots/:date', getSnapshotHandler],
