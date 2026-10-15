@@ -2,7 +2,15 @@
 // Data Service — localStorage CRUD + JSON export/import + API sync
 // ============================================================
 
-import type { AppData, Project, Member, Task, GameScorecard, WeeklyInsight } from '../types';
+import type {
+  AppData,
+  Department,
+  Project,
+  Member,
+  Task,
+  GameScorecard,
+  WeeklyInsight,
+} from '../types';
 import { seedData } from './seedData';
 import { apiService } from './apiService';
 
@@ -52,6 +60,16 @@ export const dataService = {
       } catch {
         console.warn('Failed to sync data to backend');
       }
+    }
+  },
+
+  // `save()` only upserts on the server, so deletes are sent separately
+  async removeRemote(kind: 'tasks' | 'projects', id: string): Promise<void> {
+    if (!API_BASE || !loadedFromServer) return;
+    try {
+      await apiService.deleteEntity(kind, id);
+    } catch {
+      console.warn(`Failed to delete ${kind} ${id} on backend`);
     }
   },
 
@@ -151,6 +169,21 @@ export const dataService = {
       ...data,
       projects: [...data.projects, payload.project],
       tasks: [...data.tasks, ...payload.tasks],
+    };
+  },
+
+  // Departments are edited as a list; members of a department take its color
+  setDepartments(data: AppData, departments: Department[]): AppData {
+    const colorById = new Map(departments.map((d) => [d.id, d.color]));
+    return {
+      ...data,
+      departments,
+      members: data.members.map((m) => {
+        if (!m.departmentId) return m;
+        const color = colorById.get(m.departmentId);
+        if (!color) return { ...m, departmentId: undefined }; // department removed
+        return color === m.avatarColor ? m : { ...m, avatarColor: color };
+      }),
     };
   },
 

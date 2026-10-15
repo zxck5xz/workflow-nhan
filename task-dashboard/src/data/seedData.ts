@@ -384,6 +384,7 @@ export const seedData: AppData = {
       tags: ['scorecard'],
     },
   ],
+  departments: [],
   statuses: [
     { id: 'backlog', label: 'Backlog', color: '#5c6280', order: 0 },
     { id: 'in-testing', label: 'In Testing', color: '#3b82f6', order: 1 },

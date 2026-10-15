@@ -192,3 +192,8 @@
   font-style: italic;
   padding: var(--space-2) 0;
 }
+
+.staff-info .dept-chip {
+  align-self: flex-start;
+  margin: 4px 0 0;
+}

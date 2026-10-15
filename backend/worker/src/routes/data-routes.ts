@@ -1,5 +1,14 @@
 import type { RouteHandler } from '../types';
-import { getSql, loadAllData, saveAllData, saveSnapshot, listSnapshots, loadSnapshot } from '../db';
+import {
+  getSql,
+  loadAllData,
+  saveAllData,
+  saveSnapshot,
+  listSnapshots,
+  loadSnapshot,
+  deleteTask,
+  deleteProject,
+} from '../db';
 import { jsonResponse, errorResponse, wrapHandler } from '../middleware';
 
 export const getAppDataHandler: RouteHandler = wrapHandler(async (request, env) => {
@@ -45,3 +54,21 @@ export const getSnapshotHandler: RouteHandler = wrapHandler(async (request, env,
 
   return jsonResponse(snapshot);
 });
+
+// /api/app-data only upserts, so deletions need their own calls
+function deleteHandler(remove: typeof deleteTask): RouteHandler {
+  return wrapHandler(async (request, env, ctx, params) => {
+    if (!ctx.user || ctx.user.role === 'VIEWER') {
+      return errorResponse('Forbidden: Insufficient permissions', 403);
+    }
+    const id = params?.id;
+    if (!id) {
+      return errorResponse('Missing id', 400);
+    }
+    await remove(getSql(env.DATABASE_URL), id);
+    return jsonResponse({ success: true });
+  });
+}
+
+export const deleteTaskHandler = deleteHandler(deleteTask);
+export const deleteProjectHandler = deleteHandler(deleteProject);

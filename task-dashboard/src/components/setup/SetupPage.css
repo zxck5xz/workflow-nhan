@@ -114,3 +114,74 @@
 .inline-add-form .form-input {
   flex: 1;
 }
+
+/* ── Departments ── */
+.setup-section__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.setup-section__empty {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.editable-list__item-info .dept-chip + .editable-list__item-meta {
+  margin-top: 4px;
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.color-swatch--active {
+  border-color: var(--color-text-primary);
+  box-shadow: 0 0 0 2px var(--color-bg-primary) inset;
+}
+
+/* custom color: rainbow ring around the native picker */
+.color-swatch--custom {
+  position: relative;
+  background: conic-gradient(#ff4757, #ffb830, #84cc16, #06b6d4, #3b82f6, #8b5cf6, #ff4757);
+}
+
+.color-swatch--custom input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.member-dept-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.member-dept-field .form-select {
+  flex: 1;
+}
+
+.setup-form-hint {
+  margin: 6px 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.setup-form-error {
+  margin: 6px 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-danger);
+}
