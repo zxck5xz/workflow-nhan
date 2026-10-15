@@ -6,7 +6,7 @@ import {
   useEffect,
   type ReactNode,
 } from 'react';
-import type { AppData, PageId } from '../types';
+import type { AppData, PageId, Project, Task } from '../types';
 import { dataService } from '../data/dataService';
 import { seedData } from '../data/seedData';
 import { useAuth } from './AuthContext';
@@ -35,6 +35,12 @@ function appReducer(state: AppState, action: AppAction): AppState {
     case 'SET_LOADING':
       return { ...state, loading: action.payload };
 
+    case 'IMPORT_PROJECT': {
+      const newData = dataService.importProjectWithTasks(state.data, action.payload);
+      dataService.save(newData);
+      return { ...state, data: newData };
+    }
+
     default: {
       const match = action.type.match(
         /^(ADD|UPDATE|DELETE)_(TASK|PROJECT|MEMBER|SCORECARD|INSIGHT)$/,
@@ -57,6 +63,7 @@ type AppAction =
   | { type: 'TOGGLE_SIDEBAR' }
   | { type: 'RESET_DATA' }
   | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'IMPORT_PROJECT'; payload: { project: Project; tasks: Task[] } }
   | { type: `ADD_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
   | { type: `UPDATE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }
   | { type: `DELETE_${'TASK' | 'PROJECT' | 'MEMBER' | 'SCORECARD' | 'INSIGHT'}`; payload: unknown }

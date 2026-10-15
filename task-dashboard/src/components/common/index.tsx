@@ -83,9 +83,10 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   footer?: ReactNode;
+  className?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) {
+export function Modal({ isOpen, onClose, title, children, footer, className = '' }: ModalProps) {
   if (!isOpen) return null;
 
   return createPortal(
@@ -95,7 +96,7 @@ export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) 
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="modal">
+      <div className={`modal ${className}`}>
         <div className="modal__header">
           <h3>{title}</h3>
           <button className="modal__close" onClick={onClose}>

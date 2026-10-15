@@ -33,9 +33,11 @@ export function classifyEisenhower(priority: Priority, deadline: string): Eisenh
 export function getDaysUntilDeadline(deadline: string): number {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-  const dl = new Date(deadline);
+  // "YYYY-MM-DD" is parsed as UTC by Date; read it as a local day instead
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(deadline);
+  const dl = m ? new Date(+m[1], +m[2] - 1, +m[3]) : new Date(deadline);
   dl.setHours(0, 0, 0, 0);
-  return Math.ceil((dl.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  return Math.round((dl.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
 
 export function isOverdue(task: Task): boolean {

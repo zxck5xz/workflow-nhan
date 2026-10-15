@@ -3,6 +3,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  // xlsx is only reached through a dynamic import, so Vite would discover it on
+  // first use and re-optimize deps mid-session, breaking lazily loaded pages
+  optimizeDeps: {
+    include: ['xlsx'],
+  },
   server: {
     proxy: {
       '/api': {

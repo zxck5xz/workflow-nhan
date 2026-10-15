@@ -145,6 +145,15 @@ export const dataService = {
     };
   },
 
+  // Project + all its tasks in one update, so a timeline import saves once
+  importProjectWithTasks(data: AppData, payload: { project: Project; tasks: Task[] }): AppData {
+    return {
+      ...data,
+      projects: [...data.projects, payload.project],
+      tasks: [...data.tasks, ...payload.tasks],
+    };
+  },
+
   addMember(data: AppData, member: Member): AppData {
     return { ...data, members: [...data.members, member] };
   },
