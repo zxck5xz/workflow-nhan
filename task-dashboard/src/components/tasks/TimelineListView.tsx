@@ -19,6 +19,9 @@ const collator = new Intl.Collator('vi', { numeric: true });
 
 const GROUP_KEY = 'timeline-list-group-by-team';
 
+// Progress column temporarily hidden; flip back to true to show it again
+const SHOW_PROGRESS = false;
+
 function readGroupPref(): boolean {
   try {
     return localStorage.getItem(GROUP_KEY) === '1';
@@ -168,7 +171,7 @@ export function TimelineListView({
   const showPhases = sortKey === 'code' && sortDir === 1 && !showProject && !groupByTeam;
   let lastPhase: string | undefined;
   let lastTeam: string | undefined;
-  const colCount = showProject ? 11 : 10;
+  const colCount = (showProject ? 11 : 10) - (SHOW_PROGRESS ? 0 : 1);
   const groupByName = new Map(groups?.map((g) => [teamKey(g.team), g]));
 
   return (
@@ -212,7 +215,7 @@ export function TimelineListView({
             <th>Thời lượng</th>
             <th>Hoàn thành</th>
             {th('Deadline', 'deadline')}
-            {th('Tiến độ', 'progress')}
+            {SHOW_PROGRESS && th('Tiến độ', 'progress')}
             {th('Cảnh báo', 'alert')}
             <th></th>
           </tr>
@@ -249,9 +252,11 @@ export function TimelineListView({
                           ⚠ {group.urgent} cần xử lý
                         </span>
                       )}
-                      <span className="tl-team-row__bar">
-                        <span style={{ width: `${(group.done / group.total) * 100}%` }} />
-                      </span>
+                      {SHOW_PROGRESS && (
+                        <span className="tl-team-row__bar">
+                          <span style={{ width: `${(group.done / group.total) * 100}%` }} />
+                        </span>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -265,7 +270,7 @@ export function TimelineListView({
             const phaseRow =
               showPhases && tl?.phase && tl.phase !== lastPhase ? (
                 <tr className="tl-phase-row">
-                  <td colSpan={10}>{tl.phase}</td>
+                  <td colSpan={colCount}>{tl.phase}</td>
                 </tr>
               ) : null;
             if (showPhases) lastPhase = tl?.phase;
@@ -319,21 +324,23 @@ export function TimelineListView({
                       )}
                     </div>
                   </td>
-                  <td>
-                    <div className="tl-progress" title={`${progress}%`}>
-                      <div className="tl-progress__bar">
-                        <div
-                          className="tl-progress__fill"
-                          style={{
-                            width: `${progress}%`,
-                            background:
-                              progress >= 100 ? 'var(--color-success)' : 'var(--color-info)',
-                          }}
-                        />
+                  {SHOW_PROGRESS && (
+                    <td>
+                      <div className="tl-progress" title={`${progress}%`}>
+                        <div className="tl-progress__bar">
+                          <div
+                            className="tl-progress__fill"
+                            style={{
+                              width: `${progress}%`,
+                              background:
+                                progress >= 100 ? 'var(--color-success)' : 'var(--color-info)',
+                            }}
+                          />
+                        </div>
+                        <span>{progress}%</span>
                       </div>
-                      <span>{progress}%</span>
-                    </div>
-                  </td>
+                    </td>
+                  )}
                   <td>
                     <AlertBadge task={task} />
                   </td>
