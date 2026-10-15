@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildTeamColors, findDepartment, teamKey } from '../../src/utils/teamColor';
-import { dataService } from '../../src/data/dataService';
+import { dataService, withDefaults } from '../../src/data/dataService';
 import type { AppData, Department, Member } from '../../src/types';
 
 const depts: Department[] = [
@@ -64,5 +64,26 @@ describe('deleteMember', () => {
     const next = dataService.deleteMember(data, 'a');
     expect(next.members.map((m) => m.id)).toEqual(['b']);
     expect(next.tasks.map((t) => t.assigneeId)).toEqual(['', 'b']);
+  });
+});
+
+describe('withDefaults', () => {
+  it('server trả về danh sách trạng thái/ưu tiên rỗng thì dùng danh sách mặc định', () => {
+    const data = withDefaults({ statuses: [], priorities: [] } as unknown as AppData);
+    expect(data.statuses.map((s) => s.id)).toEqual([
+      'backlog',
+      'in-testing',
+      'evaluating',
+      'reporting',
+      'done',
+    ]);
+    expect(data.priorities.map((p) => p.id)).toEqual(['P0', 'P1', 'P2']);
+    expect(data.departments).toEqual([]);
+  });
+
+  it('giữ nguyên danh sách server đã có', () => {
+    const statuses = [{ id: 'done', label: 'Xong', color: '#0f0', order: 0 }];
+    const data = withDefaults({ statuses, priorities: [] } as unknown as AppData);
+    expect(data.statuses).toBe(statuses);
   });
 });
