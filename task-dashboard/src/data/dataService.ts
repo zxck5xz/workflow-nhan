@@ -23,12 +23,24 @@ const API_BASE = import.meta.env.VITE_API_URL;
 // stay local.
 let loadedFromServer = false;
 
+// The server's StatusConfig/PriorityConfig tables can be empty (never seeded),
+// which leaves status/priority selects and Kanban columns blank. Fall back to
+// the built-in lists; the next save writes them to the server.
+export function withDefaults(data: AppData): AppData {
+  return {
+    ...data,
+    statuses: data.statuses?.length ? data.statuses : seedData.statuses,
+    priorities: data.priorities?.length ? data.priorities : seedData.priorities,
+    departments: data.departments ?? [],
+  };
+}
+
 export const dataService = {
   async load(): Promise<AppData> {
     // Try backend first if configured
     if (API_BASE) {
       try {
-        const data = await apiService.loadData();
+        const data = withDefaults(await apiService.loadData());
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         loadedFromServer = true;
         return data;
@@ -42,7 +54,7 @@ export const dataService = {
 
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw) as AppData;
+      if (raw) return withDefaults(JSON.parse(raw) as AppData);
     } catch {
       console.warn('Failed to parse stored data, using seed data');
     }
