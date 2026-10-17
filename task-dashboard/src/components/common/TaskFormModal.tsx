@@ -3,7 +3,8 @@ import { useApp } from '../../contexts/AppContext';
 import { Button, Modal } from './index';
 import { v4 as uuid } from 'uuid';
 import { classifyEisenhower, getDaysUntilDeadline, getToday } from '../../utils';
-import type { Task, TaskStatus, Priority } from '../../types';
+import { findDepartment } from '../../utils/teamColor';
+import type { Member, Task, TaskStatus, Priority } from '../../types';
 
 interface TaskFormModalProps {
   isOpen: boolean;
@@ -29,14 +30,14 @@ interface TaskFormFieldsProps {
 const TaskFormFields = forwardRef<TaskFormFieldsHandle, TaskFormFieldsProps>(
   ({ task, defaultProjectId, defaultDeadline, onSave }, ref) => {
     const { state } = useApp();
-    const { projects, members } = state.data;
+    const { projects, members, departments } = state.data;
 
     const [title, setTitle] = useState(task?.title || '');
     const [description, setDescription] = useState(task?.description || '');
     const [projectId, setProjectId] = useState(
       task?.projectId || defaultProjectId || projects[0]?.id || '',
     );
-    const [assigneeId, setAssigneeId] = useState(task?.assigneeId || members[0]?.id || '');
+    const [assigneeId, setAssigneeId] = useState(task ? task.assigneeId : members[0]?.id || '');
     const [priority, setPriority] = useState<Priority>(task?.priority || 'P1');
     const [weight, setWeight] = useState(task?.weight || 3);
     const [deadline, setDeadline] = useState(task?.deadline || defaultDeadline || getToday());
@@ -54,6 +55,16 @@ const TaskFormFields = forwardRef<TaskFormFieldsHandle, TaskFormFieldsProps>(
     const [progress, setProgress] = useState(timeline?.progress ?? 0);
 
     const autoEisenhower = classifyEisenhower(priority, deadline);
+
+    // Nhân sự of the task's bộ phận come first; everyone else stays selectable
+    const department = timeline ? findDepartment(departments, team) : undefined;
+    const deptMembers = department ? members.filter((m) => m.departmentId === department.id) : [];
+    const otherMembers = members.filter((m) => !deptMembers.includes(m));
+    const memberOption = (m: Member) => (
+      <option key={m.id} value={m.id}>
+        {m.name}
+      </option>
+    );
 
     const handleSubmit = () => {
       if (!title.trim()) return;
@@ -148,17 +159,23 @@ const TaskFormFields = forwardRef<TaskFormFieldsHandle, TaskFormFieldsProps>(
             </select>
           </div>
           <div className="form-group">
-            <label className="form-label">Người phụ trách</label>
+            <label className="form-label">{timeline ? 'Nhân sự' : 'Người phụ trách'}</label>
             <select
               className="form-select"
               value={assigneeId}
               onChange={(e) => setAssigneeId(e.target.value)}
             >
-              {members.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.name}
-                </option>
-              ))}
+              {timeline && <option value="">— Chưa phân công —</option>}
+              {deptMembers.length > 0 && (
+                <optgroup label={`Nhân sự ${department?.name}`}>
+                  {deptMembers.map(memberOption)}
+                </optgroup>
+              )}
+              {deptMembers.length > 0 ? (
+                <optgroup label="Bộ phận khác">{otherMembers.map(memberOption)}</optgroup>
+              ) : (
+                members.map(memberOption)
+              )}
             </select>
           </div>
         </div>

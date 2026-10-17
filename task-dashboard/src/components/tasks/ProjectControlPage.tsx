@@ -289,7 +289,6 @@ export function ProjectControlPage() {
             (showTimelineList ? (
               <TimelineListView
                 tasks={filteredTasks}
-                projects={projects}
                 showProject={!selectedProject}
                 onEditTask={setEditTask}
               />

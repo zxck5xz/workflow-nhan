@@ -127,8 +127,14 @@
   color: var(--color-text-muted);
 }
 
-.editable-list__item-info .dept-chip + .editable-list__item-meta {
-  margin-top: 4px;
+.editable-list__item-info--inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.editable-list__item-info--inline .editable-list__item-meta {
+  margin-top: 0;
 }
 
 .color-swatches {

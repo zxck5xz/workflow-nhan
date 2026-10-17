@@ -1,6 +1,6 @@
 import { Fragment, useMemo, useState, type CSSProperties } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { Button, EmptyState } from '../common';
+import { Avatar, Button, EmptyState } from '../common';
 import { AlertBadge } from './DeadlineAlerts';
 import { ACTIVE_ALERTS, ALERT_META, getAlertLevel, isTaskCompleted } from '../../utils/deadline';
 import { formatDate, formatRelativeDate, getDaysUntilDeadline } from '../../utils';
@@ -11,7 +11,7 @@ import {
   UNASSIGNED_TEAM_COLOR,
 } from '../../utils/teamColor';
 import { UNASSIGNED_TEAM } from '../../utils/timelineImport';
-import type { Project, Task } from '../../types';
+import type { Task } from '../../types';
 
 type SortKey = 'code' | 'start' | 'deadline' | 'alert' | 'progress';
 
@@ -39,18 +39,12 @@ interface TeamGroup {
 
 interface TimelineListViewProps {
   tasks: Task[];
-  projects: Project[];
   showProject: boolean;
   onEditTask: (t: Task) => void;
 }
 
 /** Bảng task import từ timeline: ID, đầu việc, team, lịch, tiến độ, cảnh báo. */
-export function TimelineListView({
-  tasks,
-  projects,
-  showProject,
-  onEditTask,
-}: TimelineListViewProps) {
+export function TimelineListView({ tasks, showProject, onEditTask }: TimelineListViewProps) {
   const [sortKey, setSortKey] = useState<SortKey>('code');
   const [sortDir, setSortDir] = useState<1 | -1>(1);
   const { state } = useApp();
@@ -171,7 +165,8 @@ export function TimelineListView({
   const showPhases = sortKey === 'code' && sortDir === 1 && !showProject && !groupByTeam;
   let lastPhase: string | undefined;
   let lastTeam: string | undefined;
-  const colCount = (showProject ? 11 : 10) - (SHOW_PROGRESS ? 0 : 1);
+  const colCount = 9 + (SHOW_PROGRESS ? 1 : 0);
+  const membersById = new Map(state.data.members.map((m) => [m.id, m]));
   const groupByName = new Map(groups?.map((g) => [teamKey(g.team), g]));
 
   return (
@@ -209,11 +204,10 @@ export function TimelineListView({
           <tr>
             {th('ID', 'code', 'tl-col-sticky tl-col-id')}
             <th className="tl-col-sticky tl-col-name">Đầu việc</th>
-            {showProject && <th>Dự án</th>}
             <th>Team</th>
+            <th>Nhân sự</th>
             {th('Bắt đầu', 'start')}
             <th>Thời lượng</th>
-            <th>Hoàn thành</th>
             {th('Deadline', 'deadline')}
             {SHOW_PROGRESS && th('Tiến độ', 'progress')}
             {th('Cảnh báo', 'alert')}
@@ -265,7 +259,7 @@ export function TimelineListView({
             if (group && collapsed.has(key))
               return teamRow && <Fragment key={task.id}>{teamRow}</Fragment>;
             const level = getAlertLevel(task);
-            const project = projects.find((p) => p.id === task.projectId);
+            const member = membersById.get(task.assigneeId);
             const progress = tl?.progress ?? (task.status === 'done' ? 100 : 0);
             const phaseRow =
               showPhases && tl?.phase && tl.phase !== lastPhase ? (
@@ -285,16 +279,6 @@ export function TimelineListView({
                       {task.title}
                     </span>
                   </td>
-                  {showProject && (
-                    <td>
-                      {project && (
-                        <span className="tl-project">
-                          <span className="pc-sidebar__dot" style={{ background: project.color }} />
-                          {project.name}
-                        </span>
-                      )}
-                    </td>
-                  )}
                   <td>
                     {tl ? (
                       <span
@@ -311,9 +295,18 @@ export function TimelineListView({
                       '—'
                     )}
                   </td>
+                  <td>
+                    {member ? (
+                      <span className="assignee-cell">
+                        <Avatar initials={member.initials} color={member.avatarColor} size="sm" />
+                        <span className="assignee-name">{member.name}</span>
+                      </span>
+                    ) : (
+                      '—'
+                    )}
+                  </td>
                   <td>{tl ? formatDate(tl.startDate) : '—'}</td>
                   <td>{tl ? `${tl.duration} ngày` : '—'}</td>
-                  <td>{tl ? formatDate(tl.completionDate) : '—'}</td>
                   <td>
                     <div className="tl-deadline">
                       <span>{formatDate(task.deadline)}</span>

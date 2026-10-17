@@ -208,7 +208,7 @@ function DepartmentsSection() {
         <div className="editable-list">
           {departments.map((dept, i) => (
             <div key={dept.id} className="editable-list__item">
-              <div className="editable-list__item-info">
+              <div className="editable-list__item-info editable-list__item-info--inline">
                 <span className="dept-chip" style={{ '--dept-color': dept.color } as CSSProperties}>
                   {dept.name}
                 </span>
