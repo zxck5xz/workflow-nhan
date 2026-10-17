@@ -2,6 +2,10 @@ export interface Env {
   DATABASE_URL: string;
   JWT_SECRET: string;
   CORS_ORIGINS: string;
+  // Optional: deadline notification channels (see notifications.ts)
+  TELEGRAM_BOT_TOKEN?: string;
+  RESEND_API_KEY?: string;
+  MAIL_FROM?: string;
 }
 
 export interface UserPayload {

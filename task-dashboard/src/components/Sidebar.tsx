@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useApp } from '../contexts/AppContext';
 import { useAuth } from '../contexts/AuthContext';
 import type { PageId } from '../types';
+import { applyTheme, getStoredTheme, type Theme } from '../utils/theme';
 import './Sidebar.css';
 
 const NAV_ITEMS: { id: PageId; label: string; icon: string; section?: string; role?: string }[] = [
@@ -21,6 +22,13 @@ export function Sidebar() {
   const { state, setPage, toggleSidebar } = useApp();
   const { user } = useAuth();
   const collapsed = state.sidebarCollapsed;
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
+
+  const toggleTheme = () => {
+    const next: Theme = theme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    setTheme(next);
+  };
 
   const visibleItems = useMemo(() => {
     const seenSections = new Set<string>();
@@ -57,6 +65,14 @@ export function Sidebar() {
       </nav>
 
       <div className="sidebar__toggle">
+        <button
+          className="sidebar__toggle-btn"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+        >
+          <span>{theme === 'dark' ? '☀️' : '🌙'}</span>
+          {!collapsed && <span>{theme === 'dark' ? 'Chế độ sáng' : 'Chế độ tối'}</span>}
+        </button>
         <button className="sidebar__toggle-btn" onClick={toggleSidebar}>
           {collapsed ? '▶' : '◀'}
         </button>

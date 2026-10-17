@@ -7,8 +7,14 @@ workers_dev = true
 # Secrets (set via `wrangler secret put`):
 #   DATABASE_URL  - Neon PostgreSQL connection string
 #   JWT_SECRET    - JWT signing secret
+#   TELEGRAM_BOT_TOKEN - (optional) bot token from @BotFather, for Telegram reminders
+#   RESEND_API_KEY, MAIL_FROM - (optional) Resend API key and verified sender, for email reminders
 
 # Environment variables (non-secret)
+# Daily deadline reminders: 01:00 UTC = 08:00 in Vietnam
+[triggers]
+crons = ["0 1 * * *"]
+
 [vars]
 # Entries may use `*` within one DNS label; the second entry covers Vercel
 # preview deployments (hash and git-branch URLs) of the dashboard.

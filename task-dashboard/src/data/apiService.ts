@@ -1,6 +1,13 @@
 import type { AppData, ResearchReport } from '../types';
 import { authService } from '../services/authService';
 
+export interface NotificationSettings {
+  email: string; // account email (read-only)
+  telegramEnabled: boolean;
+  telegramChatId: string;
+  emailEnabled: boolean;
+}
+
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
@@ -58,6 +65,26 @@ export const apiService = {
 
   async deleteEntity(kind: 'tasks' | 'projects' | 'staff', id: string): Promise<void> {
     await request(`/api/${kind}/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  },
+
+  async getNotificationSettings(): Promise<NotificationSettings> {
+    return request<NotificationSettings>('/api/notification-settings');
+  },
+
+  async saveNotificationSettings(s: NotificationSettings): Promise<NotificationSettings> {
+    return request<NotificationSettings>('/api/notification-settings', {
+      method: 'POST',
+      body: JSON.stringify(s),
+    });
+  },
+
+  async testNotification(): Promise<
+    { channel: 'telegram' | 'email'; ok: boolean; error?: string }[]
+  > {
+    const res = await request<{
+      results: { channel: 'telegram' | 'email'; ok: boolean; error?: string }[];
+    }>('/api/notification-settings/test', { method: 'POST' });
+    return res.results;
   },
 
   async saveSnapshot(data: AppData): Promise<void> {

@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { Button, Badge, Avatar, EmptyState, TaskFormModal, ProjectModal } from '../common';
+import { Button, Badge, Avatar, TaskFormModal, ProjectModal } from '../common';
 import PageHelp from '../common/PageHelp';
-import { isOverdue, formatRelativeDate, formatDate } from '../../utils';
+import { isOverdue, formatDate } from '../../utils';
 import {
   ACTIVE_ALERTS,
   ALERT_META,
@@ -11,7 +11,7 @@ import {
   type AlertLevel,
   isTaskCompleted,
 } from '../../utils/deadline';
-import { AlertBadge, AlertSummaryBar, ReminderBell } from './DeadlineAlerts';
+import { AlertSummaryBar, ReminderBell } from './DeadlineAlerts';
 import { TimelineImportModal } from './TimelineImportModal';
 import { TimelineListView } from './TimelineListView';
 import type { Task, Project } from '../../types';
@@ -102,11 +102,6 @@ export function ProjectControlPage() {
     () => projects.find((p) => p.id === selectedProjectId),
     [projects, selectedProjectId],
   );
-
-  // Timeline columns (team, start, completion, progress) for imported projects
-  const showTimelineList =
-    !!selectedProject?.timeline ||
-    (!selectedProjectId && filteredTasks.length > 0 && filteredTasks.every((t) => t.timeline));
 
   return (
     <div className="project-control">
@@ -285,17 +280,13 @@ export function ProjectControlPage() {
 
         <section className="pc-content">
           <AlertSummaryBar tasks={scopedTasks} active={alertFilter} onSelect={setAlertFilter} />
-          {viewMode === 'list' &&
-            (showTimelineList ? (
-              <TimelineListView
-                tasks={filteredTasks}
-                projects={projects}
-                showProject={!selectedProject}
-                onEditTask={setEditTask}
-              />
-            ) : (
-              <ListView tasks={filteredTasks} onEditTask={setEditTask} />
-            ))}
+          {viewMode === 'list' && (
+            <TimelineListView
+              tasks={filteredTasks}
+              showProject={!selectedProject}
+              onEditTask={setEditTask}
+            />
+          )}
           {viewMode === 'board' && <BoardView tasks={filteredTasks} onEditTask={setEditTask} />}
           {viewMode === 'overview' && (
             <OverviewView tasks={filteredTasks} project={selectedProject || null} />
@@ -353,91 +344,6 @@ export function ProjectControlPage() {
 }
 
 // ── View Components ──
-
-function ListView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task) => void }) {
-  const { state } = useApp();
-  const { members, statuses } = state.data;
-
-  if (tasks.length === 0)
-    return (
-      <EmptyState
-        icon="📝"
-        title="Chưa có công việc"
-        description="Bắt đầu bằng cách tạo một công việc mới."
-      />
-    );
-
-  return (
-    <div className="pc-view-list">
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th>Tên công việc</th>
-            <th>Người phụ trách</th>
-            <th>Mức độ</th>
-            <th>Hạn chót</th>
-            <th>Cảnh báo</th>
-            <th>Trạng thái</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => {
-            const member = members.find((m) => m.id === task.assigneeId);
-            const status = statuses.find((s) => s.id === task.status);
-            return (
-              <tr
-                key={task.id}
-                className={
-                  isTaskCompleted(task)
-                    ? 'task-row--done'
-                    : isOverdue(task)
-                      ? 'task-row--overdue'
-                      : ''
-                }
-              >
-                <td>
-                  <span className="pc-task-title" onClick={() => onEditTask(task)}>
-                    {task.title}
-                  </span>
-                </td>
-                <td>
-                  {member && (
-                    <div className="assignee-cell">
-                      <Avatar initials={member.initials} color={member.avatarColor} size="sm" />{' '}
-                      <span>{member.name}</span>
-                    </div>
-                  )}
-                </td>
-                <td>
-                  <Badge variant={task.priority.toLowerCase()}>{task.priority}</Badge>
-                </td>
-                <td>
-                  <span className={isOverdue(task) ? 'text-danger' : ''}>
-                    {formatRelativeDate(task.deadline)}
-                  </span>
-                </td>
-                <td>
-                  <AlertBadge task={task} />
-                </td>
-                <td>
-                  <Badge style={{ background: `${status?.color}20`, color: status?.color }}>
-                    {status?.label}
-                  </Badge>
-                </td>
-                <td>
-                  <Button variant="ghost" size="sm" onClick={() => onEditTask(task)}>
-                    ✏️
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function BoardView({ tasks, onEditTask }: { tasks: Task[]; onEditTask: (t: Task) => void }) {
   const { state } = useApp();

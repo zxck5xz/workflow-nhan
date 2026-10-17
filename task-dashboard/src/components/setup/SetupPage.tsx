@@ -1,5 +1,7 @@
 import { useMemo, useState, type CSSProperties } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { NotificationSection } from './NotificationSection';
 import { Button, Avatar, Modal, ProjectModal } from '../common';
 import PageHelp from '../common/PageHelp';
 import { v4 as uuid } from 'uuid';
@@ -26,6 +28,7 @@ const COLORS = [
 ];
 
 export function SetupPage() {
+  const { user } = useAuth();
   return (
     <div className="setup-page">
       <div className="page-header">
@@ -59,6 +62,11 @@ export function SetupPage() {
         <DepartmentsSection />
         <MembersSection />
       </div>
+      {user?.role === 'ADMIN' && (
+        <div style={{ marginTop: 'var(--space-4)', maxWidth: 480 }}>
+          <NotificationSection />
+        </div>
+      )}
     </div>
   );
 }
@@ -208,7 +216,7 @@ function DepartmentsSection() {
         <div className="editable-list">
           {departments.map((dept, i) => (
             <div key={dept.id} className="editable-list__item">
-              <div className="editable-list__item-info">
+              <div className="editable-list__item-info editable-list__item-info--inline">
                 <span className="dept-chip" style={{ '--dept-color': dept.color } as CSSProperties}>
                   {dept.name}
                 </span>
