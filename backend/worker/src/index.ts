@@ -16,6 +16,13 @@ import {
   deleteProjectHandler,
   deleteStaffHandler,
 } from './routes/data-routes';
+// Notification routes
+import {
+  getNotificationSettingsHandler,
+  saveNotificationSettingsHandler,
+  testNotificationHandler,
+} from './routes/notification-routes';
+import { runDeadlineNotices } from './notifications';
 // Research routes
 import {
   sentimentHandler,
@@ -55,6 +62,9 @@ function buildRoutes(): RouteEntry[] {
     ['DELETE', '/api/tasks/:id', deleteTaskHandler],
     ['DELETE', '/api/projects/:id', deleteProjectHandler],
     ['DELETE', '/api/staff/:id', deleteStaffHandler],
+    ['GET', '/api/notification-settings', getNotificationSettingsHandler],
+    ['POST', '/api/notification-settings', saveNotificationSettingsHandler],
+    ['POST', '/api/notification-settings/test', testNotificationHandler],
     ['POST', '/api/snapshot', createSnapshotHandler],
     ['GET', '/api/snapshots', listSnapshotsHandler],
     ['GET', '/api/snapshots/:date', getSnapshotHandler],
@@ -152,6 +162,15 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
 }
 
 export default {
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
+    if (!env.DATABASE_URL) return;
+    ctx.waitUntil(
+      runDeadlineNotices(env)
+        .then((r) => console.log(`Deadline notices: ${r.tasks} due, ${r.delivered} delivered`))
+        .catch((err) => console.error('Deadline notices failed:', err)),
+    );
+  },
+
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     // Validate required secrets on first request
     if (!env.JWT_SECRET) {

@@ -1,6 +1,6 @@
 import { Fragment, useMemo, useState, type CSSProperties } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { Avatar, Button, EmptyState } from '../common';
+import { Avatar, Badge, Button, EmptyState } from '../common';
 import { AlertBadge } from './DeadlineAlerts';
 import { ACTIVE_ALERTS, ALERT_META, getAlertLevel, isTaskCompleted } from '../../utils/deadline';
 import { formatDate, formatRelativeDate, getDaysUntilDeadline } from '../../utils';
@@ -165,7 +165,8 @@ export function TimelineListView({ tasks, showProject, onEditTask }: TimelineLis
   const showPhases = sortKey === 'code' && sortDir === 1 && !showProject && !groupByTeam;
   let lastPhase: string | undefined;
   let lastTeam: string | undefined;
-  const colCount = 9 + (SHOW_PROGRESS ? 1 : 0);
+  const colCount = 11 + (SHOW_PROGRESS ? 1 : 0);
+  const statusById = new Map(state.data.statuses.map((s) => [s.id, s]));
   const membersById = new Map(state.data.members.map((m) => [m.id, m]));
   const groupByName = new Map(groups?.map((g) => [teamKey(g.team), g]));
 
@@ -206,9 +207,11 @@ export function TimelineListView({ tasks, showProject, onEditTask }: TimelineLis
             <th className="tl-col-sticky tl-col-name">Đầu việc</th>
             <th>Team</th>
             <th>Nhân sự</th>
+            <th>Mức độ</th>
             {th('Bắt đầu', 'start')}
             <th>Thời lượng</th>
             {th('Deadline', 'deadline')}
+            <th>Trạng thái</th>
             {SHOW_PROGRESS && th('Tiến độ', 'progress')}
             {th('Cảnh báo', 'alert')}
             <th></th>
@@ -260,6 +263,7 @@ export function TimelineListView({ tasks, showProject, onEditTask }: TimelineLis
               return teamRow && <Fragment key={task.id}>{teamRow}</Fragment>;
             const level = getAlertLevel(task);
             const member = membersById.get(task.assigneeId);
+            const status = statusById.get(task.status);
             const progress = tl?.progress ?? (task.status === 'done' ? 100 : 0);
             const phaseRow =
               showPhases && tl?.phase && tl.phase !== lastPhase ? (
@@ -305,6 +309,9 @@ export function TimelineListView({ tasks, showProject, onEditTask }: TimelineLis
                       '—'
                     )}
                   </td>
+                  <td>
+                    <Badge variant={task.priority.toLowerCase()}>{task.priority}</Badge>
+                  </td>
                   <td>{tl ? formatDate(tl.startDate) : '—'}</td>
                   <td>{tl ? `${tl.duration} ngày` : '—'}</td>
                   <td>
@@ -316,6 +323,11 @@ export function TimelineListView({ tasks, showProject, onEditTask }: TimelineLis
                         </span>
                       )}
                     </div>
+                  </td>
+                  <td>
+                    <Badge style={{ background: `${status?.color}20`, color: status?.color }}>
+                      {status?.label}
+                    </Badge>
                   </td>
                   {SHOW_PROGRESS && (
                     <td>

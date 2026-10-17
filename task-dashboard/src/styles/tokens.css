@@ -123,4 +123,60 @@
   --z-modal: 210;
   --z-dropdown: 150;
   --z-tooltip: 300;
+
+  color-scheme: dark;
+}
+
+/* ── Light theme (set via data-theme on <html>, see utils/theme.ts) ── */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg-primary: #f4f5f9;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #eceef4;
+  --color-bg-elevated: #ffffff;
+  --color-bg-hover: #e6e8f0;
+  --color-bg-active: #dcdfeb;
+
+  --color-surface: #ffffff;
+  --color-surface-hover: #f4f5f9;
+  --color-surface-border: #dcdfe8;
+  --color-surface-border-hover: #c3c8d8;
+
+  --color-text-primary: #1c1f2e;
+  --color-text-secondary: #4d5470;
+  --color-text-muted: #7a809a;
+  --color-text-inverse: #ffffff;
+
+  --color-accent: #e8531e;
+  --color-accent-hover: #cf4513;
+  --color-accent-muted: rgba(232, 83, 30, 0.12);
+  --color-accent-text: #c9440f;
+
+  --color-success: #00875f;
+  --color-success-muted: rgba(0, 135, 95, 0.12);
+  --color-danger: #d92d3f;
+  --color-danger-muted: rgba(217, 45, 63, 0.1);
+  --color-warning: #b87500;
+  --color-warning-muted: rgba(184, 117, 0, 0.12);
+  --color-info: #2563eb;
+  --color-info-muted: rgba(37, 99, 235, 0.1);
+
+  --color-p0: #d92d3f;
+  --color-p0-bg: rgba(217, 45, 63, 0.1);
+  --color-p1: #e8531e;
+  --color-p1-bg: rgba(232, 83, 30, 0.1);
+  --color-p2: #7a809a;
+  --color-p2-bg: rgba(122, 128, 154, 0.12);
+
+  --color-status-backlog: #7a809a;
+  --color-status-in-testing: #2563eb;
+  --color-status-evaluating: #b87500;
+  --color-status-reporting: #9333ea;
+  --color-status-done: #00875f;
+
+  --shadow-sm: 0 1px 2px rgba(20, 24, 50, 0.08);
+  --shadow-md: 0 2px 8px rgba(20, 24, 50, 0.1);
+  --shadow-lg: 0 4px 16px rgba(20, 24, 50, 0.12);
+  --shadow-xl: 0 8px 32px rgba(20, 24, 50, 0.16);
 }
