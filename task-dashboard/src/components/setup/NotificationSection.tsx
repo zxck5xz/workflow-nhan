@@ -59,8 +59,8 @@ export function NotificationSection() {
         ) : (
           <div className="notify-form">
             <p className="notify-form__hint">
-              Gửi cho admin khi task chưa xong còn 3 ngày và còn 1 ngày tới deadline (8h sáng mỗi
-              ngày).
+              Gửi admin bản tin 8h sáng mỗi ngày: task sắp tới deadline (còn ≤ 3 ngày hoặc quá hạn),
+              việc ưu tiên P0 và danh sách việc cần làm.
             </p>
             <label className="notify-form__row">
               <input
